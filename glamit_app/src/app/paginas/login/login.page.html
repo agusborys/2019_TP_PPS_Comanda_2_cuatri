@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar style="--background:#90a4ae">
+    <ion-title style="text-align: center;">Bienvenido a 
+      <a style="font-family:Lucida Handwriting; color: black;">Glamit Restó</a>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="--background:#e1e7ea">
+  <div style="margin-top: 5px">
+    <img style="width: 200px;height:200px;" class="imagen" src="../../../assets/iconos/glamit_negro.png">
+  </div>
+  <div class="titulo">
+    <h1>Ingresar</h1>
+  </div>
+  <ion-item class="inputs">          
+    <ion-label style="color: black" position="floating">Correo</ion-label>
+    <ion-input type="text" name="email"  [(ngModel)]="email" required></ion-input>
+</ion-item>
+  <ion-item class="inputs">          
+      <ion-label style="color: black" position="floating">Contraseña</ion-label>
+      <ion-input type="password" name="password"  [(ngModel)]="password" required></ion-input>
+</ion-item>
+  <ion-button fill="outline" class="ingresar" expand="block" (click)="Login()">
+      <ion-icon name="md-exit"></ion-icon>
+      Ingresar
+  </ion-button>
+  <div class="registro">
+    No estas registrado?<br>
+    <a class="registro-link">Registrate</a>
+  </div>
+  <ion-button fill="outline" class="seleccionar-usuario" expand="block" (click)="abrirAlert()">
+      <ion-icon name="ios-people"></ion-icon>
+      Seleccionar Usuario
+  </ion-button>
+</ion-content>
