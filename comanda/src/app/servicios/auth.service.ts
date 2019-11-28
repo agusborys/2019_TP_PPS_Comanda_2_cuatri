@@ -268,7 +268,7 @@ export class AuthService {
     *permite desloguearse y borra los datos en el localstorage.
   */
   async Logout() {
-    this.cajaSonido.ReproducirGuardar();
+    this.cajaSonido.ReproducirSalir();
     await this.afAuth.auth.signOut().then(() => {
       this._user = null;
       this._tipoUser = '';
