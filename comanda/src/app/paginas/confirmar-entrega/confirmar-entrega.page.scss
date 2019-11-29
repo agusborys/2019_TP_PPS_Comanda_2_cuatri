@@ -1,9 +1,10 @@
 .button1
 {
-    --background: url('/assets/img/btn_empty.png') 0 0/100% 100% no-repeat !important;
+    //--background: url('/assets/img/btn_empty.png') 0 0/100% 100% no-repeat !important;
+    --background: #d0ebd1;
     height: 3rem;
     width: 100%;
-    background-color: transparent;
+    //background-color: transparent;
     padding: 0;
     border: none;
     font-size: 20px;
@@ -16,10 +17,11 @@
 
 .button2
 {
-    --background: url('/assets/img/btn_empty2.png') 0 0/100% 100% no-repeat !important;
+    //--background: url('/assets/img/btn_empty2.png') 0 0/100% 100% no-repeat !important;
     height: 3rem;
     width: 100%;
-    background-color: transparent;
+    //background-color: transparent;
+    --background: #61bd65;
     padding: 0;
     border: none;
     font-size: 20px;

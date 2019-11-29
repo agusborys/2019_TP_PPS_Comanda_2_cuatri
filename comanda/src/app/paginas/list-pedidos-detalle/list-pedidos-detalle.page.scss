@@ -1,9 +1,10 @@
 .button_preparar
 {
-    --background: url('/assets/img/button_XXS_play.png') 0 0/100% 100% no-repeat !important;
+    --background: #605bbb;
+    //--background: url('/assets/img/button_XXS_play.png') 0 0/100% 100% no-repeat !important;
     height: 27px;
     width: 40px;
-    background-color: transparent;
+    //background-color: transparent;
     padding: 0;
     border: none;
     font-size: 20px;
@@ -16,10 +17,11 @@
 
 .button_listo
 {
-    --background: url('/assets/img/button_XXS_tilde.png') 0 0/100% 100% no-repeat !important;
+    --background: #61bd65;
+    //--background: url('/assets/img/button_XXS_tilde.png') 0 0/100% 100% no-repeat !important;
     height: 27px;
     width: 40px;
-    background-color: transparent;
+    //background-color: transparent;
     padding: 0;
     border: none;
     font-size: 20px;

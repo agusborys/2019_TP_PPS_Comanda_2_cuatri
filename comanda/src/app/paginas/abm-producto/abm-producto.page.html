@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="dark">
+  <ion-toolbar color="verdeleon">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="inicio"></ion-back-button>
     </ion-buttons>
@@ -25,31 +25,31 @@
         </div>
       </div>
 
-      <ion-item class="itemc">
+      <ion-item class="inputs">
         <ion-label position="floating">Nombre</ion-label>
         <br>
-        <ion-input class="inputhis" formControlName="nombreCtrl" type="text"></ion-input>
+        <ion-input  formControlName="nombreCtrl" type="text"></ion-input>
       </ion-item>
 
-      <ion-item class="itemc">
+      <ion-item class="inputs">
         <ion-label position="floating">Descripción</ion-label>
         <br>
-        <ion-input class="inputhis" formControlName="descCtrl" type="text"></ion-input>
+        <ion-input  formControlName="descCtrl" type="text"></ion-input>
       </ion-item>
 
-      <ion-item class="itemc">
+      <ion-item class="inputs">
         <ion-label position="floating">Tiempo</ion-label>
         <br>
-        <ion-input  class="inputhis"formControlName="tiempoCtrl" type="number"></ion-input>
+        <ion-input  formControlName="tiempoCtrl" type="number"></ion-input>
       </ion-item>
 
-      <ion-item class="itemc">
+      <ion-item class="inputs">
         <ion-label position="floating">Precio</ion-label>
         <br>
-        <ion-input class="inputhis" formControlName="precioCtrl" type="number"></ion-input>
+        <ion-input  formControlName="precioCtrl" type="number"></ion-input>
       </ion-item>
 
-      <ion-item class="itemc">
+      <ion-item class="inputs">
           <ion-label position="floating">Perfil de Visualización</ion-label>
           <br>
           <ion-select  class="selecter" formControlName="quienPuedeverCtrl">
@@ -61,11 +61,11 @@
       </ion-item >
 
       <div class="align-text-center">
-        <ion-button class="button1" [disabled]="this.fotos.length >= 3"
+        <ion-button class="botones-registro" [disabled]="this.fotos.length >= 3"
           (click)="this.tomarFoto()">
           Subir foto
         </ion-button>
-        <ion-button class="button1" type="submit" expand="full">
+        <ion-button class="botones-registro" type="submit" >
           Agregar
         </ion-button>
       </div>

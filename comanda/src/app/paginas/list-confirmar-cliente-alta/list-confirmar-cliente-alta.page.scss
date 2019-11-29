@@ -1,12 +1,13 @@
 .button_XXS_empty
 {
-    --background: #6DB3F2 url('/assets/img/button_XXS_empty.png') 0 0/100% 100% no-repeat !important;
-    height: 30px;
-    width: 45px;
-    background-color: transparent;
+    --background: #605bbb;
+    //--background: #6DB3F2 url('/assets/img/button_XXS_empty.png') 0 0/100% 100% no-repeat !important;
+    height: 32px;
+    width: 50px;
+    //background-color: transparent;
     padding: 0;
     border: none;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
     color: rgb(0, 0, 0);
     background-size: 100% 100%;
@@ -16,17 +17,19 @@
 
 .button_XXS_empty_gr
 {
-    --background: rgb(9, 255, 0) url('/assets/img/button_XXS_empty.png') 0 0/100% 100% no-repeat !important;
-    height: 30px;
-    width: 45px;
+    --background: #61bd65;
+    //--background: rgb(9, 255, 0) url('/assets/img/button_XXS_empty.png') 0 0/100% 100% no-repeat !important;
+    height: 32px;
+    width: 50px;
     color: rgb(0, 0, 0);
 }
 
 .button_XXS_empty_re
 {
-    --background: rgb(255, 0, 0) url('/assets/img/button_XXS_empty.png') 0 0/100% 100% no-repeat !important;
-    height: 30px;
-    width: 45px;
+    --background: #a04743;
+    //--background: rgb(255, 0, 0) url('/assets/img/button_XXS_empty.png') 0 0/100% 100% no-repeat !important;
+    height: 32px;
+    width: 50px;
     color: rgb(0, 0, 0);
 }
 

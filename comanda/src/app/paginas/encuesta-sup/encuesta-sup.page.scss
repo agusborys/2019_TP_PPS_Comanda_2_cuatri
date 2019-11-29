@@ -1,4 +1,4 @@
-.button1
+/* .button1
 {
     --background: url('/assets/img/btn_empty.png') 0 0/100% 100% no-repeat !important;
     height: 3rem;
@@ -28,8 +28,36 @@
     background-size: 100% 100%;
     background-repeat: no-repeat;
     text-align: center;
+} */
+.button1
+{
+    height: 3rem;
+    width: 100%;
+    //--background: #eaebd0;
+    --background: #d0ebd1;
+    padding: 0;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    background-size: 100% 100%;
+    text-align: center;
 }
 
+.button2
+{
+    height: 3rem;
+    width: 100%;
+    --background: #61bd65;
+    padding: 0;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    text-align: center;
+}
 
 .itemc
 {
