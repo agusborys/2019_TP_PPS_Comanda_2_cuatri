@@ -28,10 +28,17 @@
 ion-content {
   // --background: url('./assets/fondos/fondo.png');
   // --background: linear-gradient(#3f3f3f 60%, #4ce000) !important;
+<<<<<<< HEAD
   --background-repeat: no-repeat !important;
   --background-size: cover !important;
   // --background: url('/assets/img/regback.png') 0 0/100% 100% no-repeat !important;
   --background:#edf7ee;
+=======
+ /*  --background-repeat: no-repeat !important; */
+  --background-size: cover !important;
+  //--background: url('/assets/img/regback.png') 0 0/100% 100% no-repeat !important;
+  --ion-background-color: #edf7ee;
+>>>>>>> leon
 }
 
 //Splash
@@ -261,12 +268,17 @@ ion-content {
 }
 
 .card-background {
+<<<<<<< HEAD
   --background: whitesmoke;
+=======
+  --background: white;
+>>>>>>> leon
 }
 
 .flex-wrap {
   flex-wrap: wrap !important;
 }
+<<<<<<< HEAD
 //alert_Usuarios
 ion-alert .alert-head{
   color: black!important;
@@ -334,4 +346,100 @@ ion-alert.avisoAlert{
 .titulo-header{
   color: black;
   text-align: center;
+=======
+
+.inputs{
+  border-radius: 80px 80px 80px 80px;
+  -moz-border-radius: 80px 80px 80px 80px;
+  -webkit-border-radius: 80px 80px 80px 80px;
+  border: 3px solid #1e4820;//607985
+  --background: transparent !important;  
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  width: 250px;
+  height: 60px;
+  margin-bottom: 15px;
+  color: black;
+  --highlight-height:0;
+}
+.ingresar{
+  color: black;
+  --border-radius: 80px;
+  width: 150px;
+  height: 50px;
+  //--border-style: 3px solid #546e7a;   
+  --background: transparent !important;
+  --background-activated:#339933; 
+  --border-color:#339933;
+  --background-hover:#339933;
+  --background-focused: #339933;
+  display: block; 
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+.seleccionar-usuario{
+  color: black;
+  --border-radius: 80px;
+  width: 230px;
+  height: 40px;
+  //--border-style: 3px solid #546e7a;   
+  --background: transparent !important;
+  --background-activated:#339933; 
+  --border-color:#339933;
+  --background-hover:#339933;
+  --background-focused: #339933;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.botones-registro{
+  color: black;
+  --border-radius: 80px;
+  width: 200px;
+  height: 35px;
+  --border-color: #339933;
+  --border-width: 1px;
+  --border-style:  solid ;   
+  --background: #dbf0dc !important;
+  --background-activated:#339933; 
+  --border-color:#339933;
+  --background-hover:#339933;
+  --background-focused: #339933;
+  display: block; 
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  margin-bottom: 5px;
+  text-transform: unset;;
+  font-size: medium;
+}
+
+.botonesRojo{
+  color: black;
+  --border-radius: 80px;
+  width: 200px;
+  height: 35px;
+  --border-color: #a04743;
+  --border-width: 1px;
+  --border-style:  solid ;   
+  --background: #f5d5d4 !important;
+  --background-activated:#a04743; 
+  --border-color:#a04743;
+  --background-hover:#a04743;
+  --background-focused: #a04743;
+  display: block; 
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  margin-bottom: 5px;
+  text-transform: unset;;
+  font-size: medium;
+>>>>>>> leon
 }

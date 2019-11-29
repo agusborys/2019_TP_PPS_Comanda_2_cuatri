@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="dark">
+  <ion-toolbar color="verdeleon">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="inicio"></ion-back-button>
     </ion-buttons>
@@ -37,11 +37,11 @@
                 <br>
 
                 <ion-button (click)="sumarProducto(producto.key)"
-                  class="button1">
+                  class="botones-registro">
                   <ion-icon name="add-circle" slot="start"></ion-icon>Agregar
                 </ion-button>
                 <ion-button (click)="restarProducto(producto.key)"
-                  [disabled]="producto.cantidad == 0" class="button1">
+                  [disabled]="producto.cantidad == 0" class="botones-registro">
                   <ion-icon name="remove-circle" slot="start"></ion-icon>Restar
                 </ion-button>
               </ion-card-content>
@@ -76,11 +76,11 @@
                   </p>
                 </h3>
                 <ion-button (click)="sumarProducto(producto.key)"
-                class="button1">
+                class="botones-registro">
                   <ion-icon name="add-circle" slot="start"></ion-icon>Agregar
                 </ion-button>
                 <ion-button (click)="restarProducto(producto.key)"
-                  [disabled]="producto.cantidad == 0" class="button1">
+                  [disabled]="producto.cantidad == 0" class="botones-registro">
                   <ion-icon name="remove-circle" slot="start"></ion-icon>Restar
                 </ion-button>
               </ion-card-content>
@@ -115,11 +115,11 @@
                   </p>
                 </h3>
                 <ion-button (click)="sumarProducto(producto.key)"
-                class="button1">
+                class="botones-registro">
                   <ion-icon name="add-circle" slot="start"></ion-icon>Agregar
                 </ion-button>
                 <ion-button (click)="restarProducto(producto.key)"
-                  [disabled]="producto.cantidad == 0" class="button1">
+                  [disabled]="producto.cantidad == 0" class="botones-registro">
                   <ion-icon name="remove-circle" slot="start"></ion-icon>Restar
                 </ion-button>
               </ion-card-content>
@@ -131,7 +131,7 @@
   </div>
 
   <ion-fab *ngIf="!spinner" vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button color="secondary" *ngIf="totalPedido==0">
+    <ion-fab-button color="violetaleon" *ngIf="totalPedido==0">
       <b>TOTAL</b>
     </ion-fab-button>
     <ion-fab-button color="success" *ngIf="totalPedido!=0">

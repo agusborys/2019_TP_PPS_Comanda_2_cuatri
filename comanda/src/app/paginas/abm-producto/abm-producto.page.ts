@@ -81,6 +81,7 @@ export class AbmProductoPage implements OnInit {
 
   private async comenzarSubida() {
     const datos: any = {
+      cantidad: 0,
       nombre: this.formMesas.value.nombreCtrl,
       descripcion: this.formMesas.value.descCtrl,
       tiempo: this.formMesas.value.tiempoCtrl,

@@ -33,5 +33,12 @@ export class CajaSonido
       audio.load();
       audio.play();
     }
+    ReproducirSalir()
+    {
+      let audio = new Audio();
+      audio.src = "/assets/aud/Salir.wav";
+      audio.load();
+      audio.play();
+    }
 
 }
