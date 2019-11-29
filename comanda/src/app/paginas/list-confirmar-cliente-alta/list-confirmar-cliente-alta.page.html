@@ -1,18 +1,18 @@
 <ion-header>
-  <ion-toolbar color="dark">
+  <ion-toolbar color="verdeleon">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="inicio"></ion-back-button>
+      <ion-back-button color="dark" defaultHref="inicio"></ion-back-button>
     </ion-buttons>
-    <ion-title>
-      Confirmación de Clientes
+    <ion-title class="titulo-header">
+      <ion-icon name="checkbox-outline"></ion-icon>Confirmar Clientes
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding" style="--background:#edf7ee">
   <div *ngIf="this.clientes.length> 0" >
     <div *ngFor="let cliente of clientes">
-      <ion-card  style="background-color:rgba(255, 255, 255, 0.8);">
+      <ion-card  style="background-color:whitesmoke; border-radius: 50px;">
         <ion-card-content>
           <div class="width-100 center-vertical center-horizontal extra-bottom">
             <!-- Hacer placeholder para foto -->
@@ -20,39 +20,42 @@
               <img class="profile-picture" [src]="cliente.foto" />
             </div>
             <div *ngIf="cliente.foto == ''">
-              <img class="profile-picture" src="assets/img/anonimo.png" />
+              <img class="profile-picture" src="assets/img/usuario.png" />
             </div>
           </div>
 
           <ion-item class="item2">
-            <ion-label position="floating">Nombre</ion-label>
+            <ion-label class="label-verde" position="floating">Nombre</ion-label>
             <ion-input [value]="cliente.nombre | titlecase" readonly></ion-input>
           </ion-item>
 
           <ion-item class="item2">
-            <ion-label position="floating">Apellido</ion-label>
+            <ion-label class="label-verde" position="floating">Apellido</ion-label>
             <ion-input [value]="cliente.apellido | titlecase" readonly></ion-input>
           </ion-item>
 
           <ion-item class="item2">
-            <ion-label position="floating">DNI</ion-label>
+            <ion-label class="label-verde" position="floating">DNI</ion-label>
             <ion-input [value]="cliente.DNI" readonly></ion-input>
           </ion-item>
 
           <ion-item class="item2">
-            <ion-label position="floating">Correo</ion-label>
+            <ion-label class="label-verde" position="floating">Correo</ion-label>
             <ion-input [value]="cliente.correo" readonly></ion-input>
           </ion-item>
-
+          
           <!-- <ion-item class="item2"> -->
-          <div class="width-100 center-horizontal" style="background: rgba(255, 255, 255, 0.6);">
-            <ion-button class="button_XXS_empty_gr"
+          <div class="width-100 center-horizontal" style="background:whitesmoke;">
+            <br>
+            <ion-button class="boton-confirmar"
               (click)="this.confirmarCliente(cliente, cliente.key)">
               <ion-icon style="color:black" slot="icon-only" name="checkmark"></ion-icon>
+              Confirmar
             </ion-button>
-            <ion-button class="button_XXS_empty_re"
+            <ion-button class="boton-denegar"
               (click)="this.rechazarCliente(cliente, cliente.key)">
               <ion-icon slot="icon-only" name="close"></ion-icon>
+              Denegar
             </ion-button>
           </div>
           <!-- </ion-item> -->
@@ -60,9 +63,10 @@
       </ion-card>
     </div>
   </div>
-  <ion-card *ngIf="this.clientes.length == 0" class="card-background">
-    <ion-card-content>
-      No hay clientes en la lista.
+  <ion-card *ngIf="this.clientes.length == 0" style="background-color:whitesmoke; border-radius: 50px;">
+    <ion-card-content class="texto-card">
+      No hay clientes en la lista.  
+      <ion-icon style="font-size: 50px;" name="alert"></ion-icon><br>
     </ion-card-content>
   </ion-card>
 </ion-content>
