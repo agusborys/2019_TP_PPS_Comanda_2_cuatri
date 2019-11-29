@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="inicio"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Alta de Mesa
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- ABM Mesa -->
+<ion-content class="background-image ion-padding">
+
+  <ion-card class="card-background" style="background-color:rgba(255, 255, 255, 0.8);">
+
+  <form [(formGroup)]="this.formMesas" (submit)="this.agregarMesas()"
+    class="height-100">
+    <!-- Preview de la foto -->
+    <div class="center-vertical center-horizontal transparent-item width-100">
+      <!-- Hacer placeholder para foto de Mesa -->
+      <img class="profile-picture" *ngIf="this.foto === false"
+        src="assets/img/add_user.png">
+      <img class="profile-picture" *ngIf="this.foto !== false"
+        [src]="foto" />
+    </div>
+
+    <ion-item class="itemc">
+        <ion-label position="floating">Nro. Mesa</ion-label>
+        <br>
+        <ion-input class="inputhis" formControlName="nromesaCtrl" type="number"></ion-input>
+    </ion-item>
+
+    <ion-item class="itemc">
+      <ion-label position="floating">Nro. Personas</ion-label>
+      <br>
+      <ion-input class="inputhis" formControlName="cantcomenCtrl" type="number"></ion-input>
+    </ion-item>
+
+    <ion-item class="itemc">
+        <ion-label position="floating">Tipo</ion-label>
+        <br>
+        <ion-select class="selecter" formControlName="tmesaCtrl">
+          <ion-select-option value="vip">VIP</ion-select-option>
+          <ion-select-option value="discapacitados">Discapacitados</ion-select-option>
+          <ion-select-option value="normal">Normal</ion-select-option>
+        </ion-select>
+    </ion-item >
+
+    
+
+    <div class="align-text-center">
+      <ion-button class="button1" [disabled]="this.foto"
+        (click)="this.tomarFoto()">
+        Subir foto
+      </ion-button>
+      <ion-button class="button1" type="submit" expand="full">
+        Agregar
+      </ion-button>
+    </div>
+  </form>
+</ion-card>
+</ion-content>
