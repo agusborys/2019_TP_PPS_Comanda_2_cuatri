@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="inicio"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Confirmar Entrega
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Pedido local -->
+  <!-- <ion-card class="card-background" *ngIf="this.pedidoEnLocal != null"> -->
+  <ion-card style="background-color:rgba(255, 255, 255, 0.8);" *ngIf="this.pedidoEnLocal != null">
+    <ion-card-content>
+      <ion-item class="item2">
+        <ion-label>Cliente</ion-label>
+        <ion-input [value]="this.pedidoEnLocal.cliente" readonly></ion-input>
+      </ion-item>
+      <ion-item class="item2">
+        <ion-label>Fecha</ion-label>
+        <ion-input [value]="this.pedidoEnLocal.fecha | date:'medium'" readonly></ion-input>
+      </ion-item>
+      <ion-item class="item2">
+        <ion-label>Estado</ion-label>
+        <ion-input [value]="this.pedidoEnLocal.estado | titlecase" readonly></ion-input>
+      </ion-item>
+
+      <ion-item class="transparent-item ion-no-padding"
+        *ngFor="let producto of pedidoDetalles">
+        ({{producto.cantidad}}) {{producto.producto}} -
+        {{(producto.cantidad * producto.precio) | currency}}
+        <div slot="end">{{producto.estado | titlecase}}</div>
+      </ion-item>
+
+      <ion-item class="item2">
+        <ion-label>Total</ion-label>
+        <ion-input [value]="this.pedidoEnLocal.preciototal" readonly></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Pedido de Delivery -->
+  <ion-card class="card-background" *ngIf="this.pedidoDelivery != null">
+    <ion-card-content>
+      <!-- Terminar de agregar datos -->
+      <ion-item class="transparent-item ion-no-padding"
+        *ngFor="let producto of pedidoDetalles">
+        ({{ producto.cantidad }}) {{ producto.producto }} -
+        {{(producto.cantidad * producto.precio) | currency}}
+        <div slot="end">{{producto.estado | titlecase}}</div>
+      </ion-item>
+      <ion-item class="transparent-item ion-no-padding">
+        PRECIO FINAL:
+        {{this.manejarPrecioPropina(this.pedidoDelivery.preciototal,
+        this.pedidoDelivery.propina) | currency}}
+      </ion-item>
+      <ion-button class="button1" expand="block" (click)="propina()">
+        Propina
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- En caso de no existir pedidos -->
+  <ion-card class="card-background"
+    *ngIf="this.pedidoDelivery == null && this.pedidoEnLocal == null">
+    <ion-card-content>
+      Aún no existen pedidos a entregar.
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+  <ion-button class="button2" expand="block" (click)="confirmarEntrega()"
+    [disabled]="this.pedidoDelivery == null && this.pedidoEnLocal == null">
+    Confirmar entrega
+  </ion-button>
+</ion-footer>

@@ -1,0 +1,97 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="end">
+      <ion-button color="light" size="small" (click)="cerrar()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card  style="background-color:rgba(255, 255, 255, 0.8);" *ngIf="this.pedidoActual != undefined">
+    <ion-card-content>
+      <ion-item class="item2">
+        <ion-label>Cliente</ion-label>
+        <ion-input [value]="this.pedidoActual.cliente" readonly></ion-input>
+      </ion-item>
+      <ion-item class="item2">
+        <ion-label>Mesa</ion-label>
+        <ion-input [value]="this.pedidoActual.mesa" readonly></ion-input>
+      </ion-item>
+      <ion-item class="item2">
+        <ion-label>Fecha</ion-label>
+        <ion-input [value]="this.pedidoActual.fecha | date:'medium'" readonly></ion-input>
+      </ion-item>
+      <ion-item class="item2">
+        <ion-label>Estado</ion-label>
+        <ion-input [value]="this.pedidoActual.estado | titlecase" readonly></ion-input>
+      </ion-item>
+
+      <table class="table1">
+        <tr *ngFor="let producto of pedidoDetalle">
+          <td>({{ producto.cantidad }}) {{ producto.producto }}</td>
+          <td class="ion-padding">
+            <div *ngIf="this.verCuenta == false">
+              <label class="bolded">
+                {{(producto.cantidad * producto.precio) | currency}}
+              </label>
+            </div>
+            <div *ngIf="this.verCuenta == true">
+              <label class="bolded">
+                {{producto.precio | currency}}
+              </label>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="this.verCuenta == false">
+              <label class="bolded">
+                {{producto.estado | titlecase}}
+              </label>
+            </div>
+            <div *ngIf="this.verCuenta == true">
+              <label class="bolded">
+                {{(producto.cantidad * producto.precio) | currency}}
+              </label>
+            </div>
+          </td>
+        </tr>
+      </table>
+
+      <ion-item *ngIf="this.verCuenta == false" class="item2">
+        <ion-label>Total</ion-label>
+        <ion-input [value]="this.pedidoActual.preciototal | currency" readonly></ion-input>
+      </ion-item>
+
+      <div *ngIf="this.verCuenta == false">
+        <ion-button class="button2" (click)="this.crearCuenta()" expand="block"
+          [disabled]="this.pedidoActual == undefined ||
+          (this.pedidoActual.estado != 'comiendo' &&
+          this.pedidoActual.estado != 'cuenta' &&
+          this.pedidoActual.estado != 'entregado') ||
+          this.cliente == false">
+          Pedir / Ver Cuenta
+        </ion-button>
+      </div>
+
+      <div *ngIf="this.verCuenta == true">
+        <ion-item class="item2">
+          <ion-label>Propina</ion-label>
+          <ion-input [value]="(this.pedidoActual.propina /100) | percent"
+            readonly></ion-input>
+          <ion-button slot="end" color="warning" (click)="cambiarPropina()"
+            [disabled]="this.pedidoActual.estado != 'cuenta' ||
+            this.cliente == false">Escanear</ion-button>
+        </ion-item>
+        <ion-item class="item2">
+          <ion-label>Total + Propina</ion-label>
+          <ion-input readonly
+            [value]="(this.manejarPrecioPropina()) | currency"></ion-input>
+        </ion-item>
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="this.pedidoActual == undefined" class="card-background">
+    <ion-card-content>
+      Usted aún no ha realizado ningún pedido.
+    </ion-card-content>
+  </ion-card>
+</ion-content>

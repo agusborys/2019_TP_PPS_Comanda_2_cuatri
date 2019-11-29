@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="inicio"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Escanear Mesa
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="background-image ion-padding">
+  <div class="center-vertical center-horizontal width-100 height-100"
+    *ngIf="this.mesaAMostrar == null">
+    <div (click)="doScan()" class="flex-v border center-vertical">
+      <img class="qr-img" src="assets/img/QR_code_Wikipedia.svg">
+      <span class="qr-text">Escanear</span>
+    </div>
+  </div>
+  <div class="center-vertical center-horizontal width-100 height-100"
+    *ngIf="this.mesaAMostrar != null">
+    <ion-card class="card-background">
+      <ion-card-content>
+        <ion-item class="ion-no-padding">
+          <ion-label class="ion-text-center" style="font-weight: bold;">Mesa</ion-label>
+          <ion-input style="font-weight: bold;" readonly [value]="this.mesaAMostrar.nromesa"></ion-input>
+        </ion-item>
+
+        <div *ngIf="this.mesaAMostrar.pedidoActual == ''"
+          class="width-100 center-horizontal center-vertical">
+          <ion-button class="button1" routerLink="/generar-pedido">
+            Realizar Pedido
+          </ion-button>
+        </div>
+
+        <div class="width-100 center-horizontal flex-v"
+          *ngIf="this.mesaAMostrar.pedidoActual != ''">
+          <ion-button class="button1" (click)="this.verPedido(this.mesaAMostrar.pedidoActual)">
+            Ver Pedido
+          </ion-button>
+          <ion-button class="button1"
+            (click)="this.verEncuesta(this.mesaAMostrar.pedidoActual)">
+            Realizar Encuesta
+          </ion-button>
+          <ion-button class="button1" routerLink="/juegos">
+            Ir a Juegos
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
