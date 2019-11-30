@@ -80,7 +80,7 @@
           <ion-label>Propina</ion-label>
           <ion-input [value]="(this.pedidoActual.propina /100) | percent"
             readonly></ion-input>
-          <ion-button slot="end" color="warning" (click)="cambiarPropina()"
+          <ion-button slot="end" color="violetaleon" (click)="cambiarPropina()"
             [disabled]="this.pedidoActual.estado != 'cuenta' ||
             this.cliente == false">Escanear</ion-button>
         </ion-item>
