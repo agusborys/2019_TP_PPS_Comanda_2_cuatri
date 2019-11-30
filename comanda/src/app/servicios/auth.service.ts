@@ -11,19 +11,19 @@ import { Cliente, ClienteAConfirmar, ClienteKey } from '../clases/cliente';
 import { Anonimo, AnonimoKey } from '../clases/anonimo';
 import { CajaSonido } from '../clases/cajaSonido';
 import * as firebase from 'firebase/app';
+import { environment } from 'src/environments/environment';
 
-
-const config = {
-  apiKey: "AIzaSyD0yJ_5j-5Rhs0sr7H4nRnn_q9BO2sAjVo",
-  authDomain: "comanda-c5293.firebaseapp.com",
-  databaseURL: "https://comanda-c5293.firebaseio.com",
-  projectId: "comanda-c5293",
-  storageBucket: "comanda-c5293.appspot.com",
-  messagingSenderId: "237790768850",
-  appId: "1:237790768850:web:0c05fc581c65852060470b"
-};
-const secondaryApp = firebase.initializeApp(config, 'Secondary');
-
+// const config = {
+//   apiKey: "AIzaSyD0yJ_5j-5Rhs0sr7H4nRnn_q9BO2sAjVo",
+//   authDomain: "comanda-c5293.firebaseapp.com",
+//   databaseURL: "https://comanda-c5293.firebaseio.com",
+//   projectId: "comanda-c5293",
+//   storageBucket: "comanda-c5293.appspot.com",
+//   messagingSenderId: "237790768850",
+//   appId: "1:237790768850:web:0c05fc581c65852060470b"
+// };
+//const secondaryApp = firebase.initializeApp(config, 'Secondary');
+let secondaryApp: firebase.app.App;
 @Injectable({
   providedIn: 'root'
 })
@@ -38,6 +38,7 @@ export class AuthService {
     public afAuth: AngularFireAuth,
     public router: Router,
     private db: AngularFirestore) {
+    secondaryApp = firebase.initializeApp(environment.firebaseConfig, 'Secondary');
     this.afAuth.authState.subscribe(async (user) => {
       if (user) {
         await this.buscarUsuario();
@@ -166,8 +167,8 @@ export class AuthService {
     @clave : la contraseña empleada para el acceso a firebase.
   */
   RegistrarEmpleado(usuario: Empleado, clave: string) {
-    return new Promise((resolve, reject) => {
-      secondaryApp.auth().createUserWithEmailAndPassword(usuario.correo, clave).then(res => {
+    return secondaryApp.auth().createUserWithEmailAndPassword(usuario.correo, clave)
+      .then(res => {
         this.db.collection('empleados').doc(res.user.uid).set({
           correo: usuario.correo,
           nombre: usuario.nombre,
@@ -176,12 +177,14 @@ export class AuthService {
           CUIL: usuario.CUIL,
           foto: usuario.foto,
           tipo: usuario.tipo
-        }).then(() => {
-          secondaryApp.auth().signOut();
-        });
-        resolve(res);
-      }).catch(err => reject(err));
-    });
+        })
+          .then(() => {
+            secondaryApp.auth().signOut();
+          });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   /*
@@ -191,22 +194,25 @@ export class AuthService {
     @clave : la contraseña empleada para el acceso a firebase.
   */
   RegistrarClienteConfirmado(usuario: Cliente, clave: string) {
-    return new Promise((resolve, reject) => {
-      secondaryApp.auth().createUserWithEmailAndPassword(usuario.correo, clave).then(res => {
+    return secondaryApp.auth().createUserWithEmailAndPassword(usuario.correo, clave)
+      .then(res => {
         this.db.collection('clientes').doc(res.user.uid).set({
           correo: usuario.correo,
           nombre: usuario.nombre,
           apellido: usuario.apellido,
           DNI: usuario.DNI,
           foto: usuario.foto,
-        }).then(() => {
-          secondaryApp.auth().signOut();
-        }).catch(err => {
-          console.log(err);
-        });
-        resolve(res);
-      }).catch(err => { reject(err); });
-    });
+        }).
+          then(() => {
+            secondaryApp.auth().signOut();
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   /*
@@ -235,19 +241,21 @@ export class AuthService {
     @clave : la contraseña empleada para el acceso a firebase.
   */
   RegistrarAnonimo(usuario: Anonimo, clave: string) {
-    return new Promise((resolve, reject) => {
-      secondaryApp.auth().createUserWithEmailAndPassword(usuario.correo, clave).then(res => {
+    return secondaryApp.auth().createUserWithEmailAndPassword(usuario.correo, clave)
+      .then(res => {
         this.db.collection('anonimos').doc(res.user.uid).set({
           correo: usuario.correo,
           nombre: usuario.nombre,
           foto: usuario.foto,
           clave,
-        }).then(() => {
-          secondaryApp.auth().signOut();
-        });
-        resolve(res);
-      }).catch(err => reject(err));
-    });
+        })
+          .then(() => {
+            secondaryApp.auth().signOut();
+          });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   /*

@@ -79,11 +79,13 @@ export class RegistroClientePage implements OnInit {
       validado = false;
       //this.presentAlert('¡Error!', '', 'Debe escribir una clave.');
       this.errorHandler.mostrarErrorSolo("Error!", "La contraseña debe tener 6 caracteres como mínimo");
-    } else if (!this.herramientas.ValidarMail(this.usuario.correo)) {
-      validado = false;
-      //this.presentAlert('¡Error!', 'Error en el registro.', 'No es un correo electronico valido.');
-      this.errorHandler.mostrarErrorSolo("Error!", "Correo electrónico inválido");
-    } else if (!this.herramientas.ValidarNombre(this.usuario.nombre)) {
+    }
+    //  else if (!this.herramientas.ValidarMail(this.usuario.correo)) {
+    //   validado = false;
+    //   //this.presentAlert('¡Error!', 'Error en el registro.', 'No es un correo electronico valido.');
+    //   this.errorHandler.mostrarErrorSolo("Error!", "Correo electrónico inválido");
+    // } 
+    else if (!this.herramientas.ValidarNombre(this.usuario.nombre)) {
       validado = false;
       //this.presentAlert('¡Error!', 'Error en el registro.', 'No es un nombre valido.');
       this.errorHandler.mostrarErrorSolo("Error!", "Nombre inválido");
@@ -144,7 +146,7 @@ export class RegistroClientePage implements OnInit {
   */
   public SinFoto() {
     // tslint:disable-next-line: max-line-length
-    this.usuario.foto = 'https://firebasestorage.googleapis.com/v0/b/comanda-2019-comicon.appspot.com/o/anonimo.png?alt=media&token=72c4068d-0bb0-4d8a-adce-047df2c46e5b';
+    this.usuario.foto = 'https://firebasestorage.googleapis.com/v0/b/comanda-c5293.appspot.com/o/usuario(3).png?alt=media&token=fbbd41a8-46c0-4d4c-9ecc-991d33fb4361';
     this.Registrar();
   }
 
@@ -244,10 +246,15 @@ export class RegistroClientePage implements OnInit {
     *permite escanear el dni para rellenar datos del formulario
   */
   public EscanearDNI() {
-    const options: BarcodeScannerOptions = { prompt: 'Escaneé el DNI', resultDisplayDuration: 0 };
+    const options: BarcodeScannerOptions = { prompt: 'Escanee el código QR del DNI', formats: 'PDF_417',resultDisplayDuration: 0 };
     this.barcodeScanner.scan(options).then((barcodeData: BarcodeScanResult) => {
-      const scan = (barcodeData.text).split('@');
-      this.manejarDNI(scan);
+      if(!barcodeData.cancelled)
+      {
+        const scan = (barcodeData.text).split('@');
+        this.manejarDNI(scan);
+        //this.errorHandler.mostrarError("Scan", scan);
+      }
+      
     }, (err) => {
       //this.presentAlert('¡Error!', 'Error al escanear el DNI.', err);
       this.errorHandler.mostrarErrorSolo("Error!", "Error en el escaneo del DNI");

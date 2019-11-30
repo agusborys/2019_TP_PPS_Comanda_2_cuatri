@@ -434,3 +434,11 @@ ion-alert.avisoAlert{
   text-transform: unset;;
   font-size: medium;
 }
+ion-toast{
+  color: black;
+  --color:black!important;
+  --button-color:black;
+  --height: 40px;
+  font-size: 25px;
+  --background: #339933;
+}
