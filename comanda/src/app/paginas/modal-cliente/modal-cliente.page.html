@@ -1,13 +1,16 @@
 <ion-header>
-  <ion-toolbar color="dark">
+  <ion-toolbar color="verdeleon">
     <ion-buttons slot="end">
-      <ion-button color="light" size="small" (click)="cerrar()">Cerrar</ion-button>
+      <ion-button color="dark" size="small" (click)="cerrar()"><ion-icon name="close"></ion-icon></ion-button>
     </ion-buttons>
+    <ion-title class="titulo-header">
+        Datos de cliente
+      </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card style="background-color:rgba(255, 255, 255, 0.8);" *ngIf="this.cliente != undefined">
+<ion-content class="ion-padding">
+  <ion-card style="background-color:whitesmoke;border-radius: 50px;" *ngIf="this.cliente != undefined">
     <ion-card-content>
       <div class="width-100 center-vertical center-horizontal extra-bottom">
         <!-- Hacer placeholder para foto -->
@@ -15,32 +18,32 @@
           <img class="profile-picture" [src]="cliente.foto" />
         </div>
         <div *ngIf="cliente.foto == ''">
-          <img class="profile-picture" src="assets/img/add_user.png" />
+          <img class="profile-picture" src="assets/icon/usuario.png" />
         </div>
       </div>
 
       <ion-item class="item2">
-        <ion-label position="floating">Nombre</ion-label>
+        <ion-label class="label-verde" position="floating">Nombre</ion-label>
         <ion-input [value]="cliente.nombre | titlecase" readonly></ion-input>
       </ion-item>
 
       <ion-item class="item2" *ngIf="this.registrado == 'cliente'">
-        <ion-label position="floating">Apellido</ion-label>
+        <ion-label  class="label-verde" position="floating">Apellido</ion-label>
         <ion-input [value]="cliente.apellido | titlecase" readonly></ion-input>
       </ion-item>
 
       <ion-item class="item2" *ngIf="this.registrado == 'cliente'">
-        <ion-label position="floating">DNI</ion-label>
+        <ion-label class="label-verde" position="floating">DNI</ion-label>
         <ion-input [value]="cliente.DNI" readonly></ion-input>
       </ion-item>
 
       <ion-item class="item2">
-        <ion-label position="floating">Correo</ion-label>
+        <ion-label  class="label-verde" position="floating">Correo</ion-label>
         <ion-input [value]="cliente.correo" readonly></ion-input>
       </ion-item>
     </ion-card-content>
   </ion-card>
-  <ion-card *ngIf="this.cliente == undefined" class="card-background">
+  <ion-card *ngIf="this.cliente == undefined" style="background-color:whitesmoke;border-radius: 50px;">
     <ion-card-content>
       No hay cliente.
     </ion-card-content>

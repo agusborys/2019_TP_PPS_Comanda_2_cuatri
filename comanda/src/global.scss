@@ -28,17 +28,10 @@
 ion-content {
   // --background: url('./assets/fondos/fondo.png');
   // --background: linear-gradient(#3f3f3f 60%, #4ce000) !important;
-<<<<<<< HEAD
   --background-repeat: no-repeat !important;
   --background-size: cover !important;
   // --background: url('/assets/img/regback.png') 0 0/100% 100% no-repeat !important;
   --background:#edf7ee;
-=======
- /*  --background-repeat: no-repeat !important; */
-  --background-size: cover !important;
-  //--background: url('/assets/img/regback.png') 0 0/100% 100% no-repeat !important;
-  --ion-background-color: #edf7ee;
->>>>>>> leon
 }
 
 //Splash
@@ -217,26 +210,30 @@ ion-content {
 
 // Maneja el texto de la imagen
 .qr-text {
-  font-size: 1.5rem;
+  font-size: 25px;
   font-weight: bold;
   margin-bottom: 1.5rem;
 }
 
 // Le da un border y un estilo al botón
 .border {
-  background-color: white;
+  background-color: whitesmoke;
   padding: 1rem 1.5rem;
-  font-size: 1.5rem;
+  font-size: 25px;
   text-align: center;
+  border-color: #339933;
   cursor: pointer;
-  outline: none;
-  border: none;
-  border-radius: 1rem;
-  box-shadow: 0 1.5rem #999;
+  //outline: #339933;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 50px;
+  box-shadow: 0px 0px 51px -3px rgba(0,0,0,1);
+  -webkit-box-shadow: 0px 0px 51px -3px rgba(0,0,0,1);
+  -moz-box-shadow: 0px 0px 51px -3px rgba(0,0,0,1);
 }
 
 .border:active {
-  box-shadow: 0 0.25px #666;
+  box-shadow: 0 0.25px #339933;
   transform: translateY(4px);
 }
 
@@ -268,17 +265,12 @@ ion-content {
 }
 
 .card-background {
-<<<<<<< HEAD
   --background: whitesmoke;
-=======
-  --background: white;
->>>>>>> leon
 }
 
 .flex-wrap {
   flex-wrap: wrap !important;
 }
-<<<<<<< HEAD
 //alert_Usuarios
 ion-alert .alert-head{
   color: black!important;
@@ -346,7 +338,7 @@ ion-alert.avisoAlert{
 .titulo-header{
   color: black;
   text-align: center;
-=======
+}
 
 .inputs{
   border-radius: 80px 80px 80px 80px;
@@ -441,5 +433,4 @@ ion-alert.avisoAlert{
   margin-bottom: 5px;
   text-transform: unset;;
   font-size: medium;
->>>>>>> leon
 }
