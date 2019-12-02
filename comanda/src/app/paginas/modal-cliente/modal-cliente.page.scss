@@ -9,11 +9,18 @@
 
 .item2
 {
-    --background: rgba(255, 255, 255, 0.650);
-    font-weight: bold;
+    --background: transparent;
+    //font-weight: bold;
     color: rgb(0, 0, 0);
-    width: 100%;
-    text-align: center;
+    width: 80%;
+    text-align: left;
+    --border-width: 0 0 2px 0 ;
+    --border-color: #43a047;
+    margin-left: auto;
+    margin-right: auto;
 }
-
+.label-verde{
+    color:#43a047;
+    font-size: 18px;
+}
 

@@ -1,15 +1,29 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
+@font-face{
+  font-family: "Roboto";
+  src: url("../assets/fonts/Roboto/Roboto-Light.ttf");
+}
+@font-face{
+  font-family: "Lucida Handwriting";
+  src: url("../assets/fonts/LucidaHandwriting/Lucida\ Handwriting\ Italic.ttf");
+}
+@font-face{
+  font-family: "Roboto BlackItalic";
+  src: url("../assets/fonts/Roboto/Roboto-MediumItalic.ttf");
+}
+
 /** Ionic CSS Variables **/
 :root {
+  --ion-font-family: "Roboto";
   /** primary **/
-  --ion-color-primary: #3880ff;
+  --ion-color-primary: #43a047;
   --ion-color-primary-rgb: 56, 128, 255;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #3171e0;
-  --ion-color-primary-tint: #4c8dff;
+  --ion-color-primary-shade: #43a047;
+  --ion-color-primary-tint: #5dbb62;
 
   /** secondary **/
   --ion-color-secondary: #0cd1e8;

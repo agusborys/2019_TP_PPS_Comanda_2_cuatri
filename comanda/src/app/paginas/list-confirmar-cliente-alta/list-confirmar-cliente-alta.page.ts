@@ -73,29 +73,30 @@ export class ListConfirmarClienteAltaPage implements OnInit {
       message: mensaje,
       color,
       showCloseButton: false,
-      position: 'bottom',
+      position: 'top',
       closeButtonText: 'Done',
-      duration: 2000
+      duration: 3000
     });
     toast.present();
   }
 
   private obtenerMensaje(acepta) {
-    let auxReturn = `Estimado/a cliente: <br>
-    Su solicitud ha sido ${(acepta === true ? 'confirmada' : 'rechazada')}.<br>`;
+    let auxReturn = `Hola cliente! <br>
+    Le queríamos informar que su solicitud de registro ha sido 
+    ${(acepta === true ? 'aceptada' : 'denegada')}.<br>`;
     if (acepta) {
-      auxReturn += `Ya puede ingresar y disfrutar de los beneficios.<br>`;
+      auxReturn += `Felicidades! Ya tiene acceso a nuestra app y puede  disfrutar de todos beneficios y comidas.<br>`;
     } else {
       auxReturn += `Lamentamos las molestias ocasionadas.<br>`;
     }
-    auxReturn += `<br>Saludos cordiales.<br>Gerencia de Comiradix.`;
+    auxReturn += `<br>Saludos!<br>Equipo de Glamit Restó.`;
     return auxReturn;
   }
 
   private enviarCorreo(correo: string, acepta: boolean) {
     const email = {
       to: correo,
-      subject: 'Comicon - Inscripción ' + (acepta === true ? 'Confirmada' : 'Rechazada'),
+      subject: 'Glamit - Inscripción ' + (acepta === true ? 'Aceptado' : 'Denegado'),
       body: this.obtenerMensaje(acepta),
       isHtml: true
     };

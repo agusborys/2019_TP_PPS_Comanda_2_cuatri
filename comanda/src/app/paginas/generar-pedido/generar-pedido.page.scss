@@ -6,9 +6,10 @@
 
 .itemc
 {
-    --background: transparent;
-    color: rgb(0, 0, 0);
+    --background: #edf7ee;
+    color: rgb(0, 0, 0)!important;
     width: 100%;
+    --color: rgb(0, 0, 0)!important;
 }
 
 
@@ -31,16 +32,19 @@
 .button2
 {
     height: 3rem;
-    width: 100%;
+    width: 80%;
     --background: #61bd65;
     padding: 0;
     border: none;
+    border-radius: 5px;
     font-size: 20px;
     font-weight: bold;
-    color: rgb(255, 255, 255);
+    color: black;
     background-size: 100% 100%;
     background-repeat: no-repeat;
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .mini_title
@@ -65,4 +69,7 @@
   color: rgb(0, 0, 0);
   font-size: 16px;
 }
-
+.img-productos{
+  width: 300px;
+  height: 225px;
+}

@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { ModalPedidoPage } from '../modal-pedido/modal-pedido.page';
 import { EncuestaClientePage } from '../encuesta-cliente/encuesta-cliente.page';
 import { AuthService } from 'src/app/servicios/auth.service';
+import { ErrorHandlerService } from 'src/app/servicios/error-handler.service';
 
 @Component({
   selector: 'app-qr-mesa',
@@ -35,7 +36,8 @@ export class QrMesaPage implements OnInit {
     private modalCtrl: ModalController,
     public router: Router,
     private alertCtrl: AlertController,
-    private authServ: AuthService
+    private authServ: AuthService,
+    private errorHandler:ErrorHandlerService,
   ) { }
 
   async ngOnInit() {
@@ -116,11 +118,13 @@ export class QrMesaPage implements OnInit {
           this.manejarQr(nroMesa);
         } catch (err) {
           console.log('Error en el try', err);
-          this.presentAlert('¡Error!', 'Error al leer el código.', 'Error desconocido.');
+          //this.presentAlert('¡Error!', 'Error al leer el código.', 'Error desconocido.');
+          this.errorHandler.mostrarErrorSolo("Error!", "Error al leer el código de mesa.");
         }
       }).catch(err => {
         console.log('Error al escanear el qr', err);
-        this.presentAlert('¡Error!', 'Error al leer el código.', 'Error desconocido.');
+        //this.presentAlert('¡Error!', 'Error al leer el código.', 'Error desconocido.');
+        this.errorHandler.mostrarErrorSolo("Error!", "Error al leer el código de mesa.");
         // this.manejarQr(6);
       });
   }
@@ -147,13 +151,15 @@ export class QrMesaPage implements OnInit {
                   this.presentAlert(
                     'Estado de mesa',
                     `Mesa: ${this.mesaAMostrar.nromesa}`,
-                    `La mesa se encuentra reservada`);
+                    `La mesa está reservada`);
+                    this.mesaAMostrar = null;
+                    return;
                 }
               } else {
-                this.presentAlert(
+                this.errorHandler.mostrarErrorSolo(
                   'Estado de mesa',
-                  `Mesa: ${this.mesaAMostrar.nromesa}`,
-                  `La mesa se encuentra reservada pero aún no es horario`);
+                  `Mesa: ${this.mesaAMostrar.nromesa}`+
+                  `<br>La mesa está reservada pero no en este horario`);
               }
             } else {
               // alert('La mesa NO ESTÁ reservada'); // La mesa no está reservada o está fuera del horario de reserva
@@ -164,19 +170,26 @@ export class QrMesaPage implements OnInit {
                 if ((puestoLista as ListaEsperaClientesKey).estado === 'esperandoMesa') {
                   this.presentAlertCliente();
                 } else if ((puestoLista as ListaEsperaClientesKey).estado === 'confirmacionMozo') {
-                  this.presentAlert('¡Error!', `Usted sigue en lista de espera.`, `Debe esperar a que el mozo lo confirme`);
+                  this.errorHandler.mostrarErrorSolo('Error!', `Usted sigue en lista de espera.<br>` + 
+                  `Debe esperar a que el mozo lo confirme`);
+                  this.mesaAMostrar = null;
+                  return;
                 }
               } else {
                 // Si el cliente no esta en lista de espera
                 if (this.estaEnMesa()) {
                   // alert('puestoMesa es un MesaKey, el cliente ya ocupa mesa'); // Valido que el cliente NO esté usando otra mesa
-                  this.presentAlert('¡Error!', 'Mesa ocupada', 'Usted ya se encuentra ocupando una mesa');
+                  this.errorHandler.mostrarErrorSolo('Error!', 'Mesa ocupada <br>'+ 'Usted ya se encuentra ocupando una mesa');
+                  this.mesaAMostrar = null;
+                  return;
                 } else {
                   // alert('puestoMesa es un false, el cliente no ocupa una mesa ni está en la lista'); // No está en lista ni en mesa
-                  this.presentAlert(
+                  this.errorHandler.mostrarErrorSolo(
                     '¡Error!',
-                    'No se encuentra en lista de espera.',
+                    'No se encuentra en lista de espera.<br>'+
                     'Debe escanear el QR de ingreso al local.');
+                    this.mesaAMostrar = null;
+                    return;
                 }
               }
             }
@@ -188,32 +201,37 @@ export class QrMesaPage implements OnInit {
                 // Si ya hizo un pedido
                 this.presentAlertConPedido();
               } else { // Si aun no hizo un pedido
-                this.presentAlert(
+                this.errorHandler.mostrarErrorSolo(
                   `Mesa: ${this.mesaAMostrar.nromesa}`,
-                  'Mesa sin pedido',
+                  'Mesa sin pedido<br>'+
                   'Todavía no ha realizado ningún pedido'
                 );
               }
             } else {
               // alert('La mesa está ocupada y no es el cliente quien escanea');  // Si el que escanea no es quien ocupa la mesa
-              this.presentAlert(
+              this.errorHandler.mostrarErrorSolo(
                 'Estado de mesa',
-                `Mesa: ${this.mesaAMostrar.nromesa}`,
-                `La mesa se encuentra ${this.mesaAMostrar.estado}`);
+                `Mesa: ${this.mesaAMostrar.nromesa}`+
+                `<br>La mesa se encuentra ${this.mesaAMostrar.estado}`);
+                this.mesaAMostrar = null;
+                return;
             }
           }
         } else {
           // alert('El que escanea no es un cliente');
-          this.presentAlert(
+          this.errorHandler.mostrarErrorSolo(
             'Estado de mesa',
-            `Mesa: ${this.mesaAMostrar.nromesa}`,
-            `La mesa se encuentra ${this.mesaAMostrar.estado}`);
+            `Mesa: ${this.mesaAMostrar.nromesa}`+
+            `<br>La mesa se encuentra ${this.mesaAMostrar.estado}`);
+            this.mesaAMostrar = null;
         }
       } else {
-        this.presentAlert('¡Error!', 'Error en la Mesa.', 'El número de la Mesa no es correcto.');
+        this.errorHandler.mostrarErrorSolo('¡Error!', 'Error en la Mesa.'+ '<br>El número de la Mesa no es correcto.');
+        this.mesaAMostrar = null;
       }
     } else {
-      this.presentAlert('¡Error!', 'Error en la Mesa.', 'El número de la Mesa no es correcto.');
+      this.errorHandler.mostrarErrorSolo('¡Error!', 'Error en la Mesa.<br>'+'El número de la Mesa no es correcto.');
+      this.mesaAMostrar = null;
     }
   }
 

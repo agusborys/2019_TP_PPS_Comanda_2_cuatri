@@ -10,6 +10,7 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { CameraOptions } from '@ionic-native/camera';
 import { BarcodeScannerOptions, BarcodeScanResult, BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { AlertController } from '@ionic/angular';
+import { ErrorHandlerService } from 'src/app/servicios/error-handler.service';
 
 @Component({
   selector: 'app-registro-cliente',
@@ -34,7 +35,8 @@ export class RegistroClientePage implements OnInit {
     private auth: AuthService,
     private camera: Camera,
     public barcodeScanner: BarcodeScanner,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private errorHandler:ErrorHandlerService,
   ) {
     this.usuario = new Cliente();
     this.anonimo = new Anonimo();
@@ -67,24 +69,36 @@ export class RegistroClientePage implements OnInit {
 
     if (this.usuario.correo === '') {
       validado = false;
-      this.presentAlert('¡Error!', 'Error en el registro.', 'Debe escribir un correo electrónico.');
+      //this.presentAlert('Error!', '', 'Debe escribir un correo electrónico.');
+      this.errorHandler.mostrarErrorSolo("Error!", "Completar campo de correo electrónico");
     } else if (this.clave === '') {
       validado = false;
-      this.presentAlert('¡Error!', 'Error en el registro.', 'Debe escribir una clave.');
-    } else if (!this.herramientas.ValidarMail(this.usuario.correo)) {
+      //this.presentAlert('¡Error!', '', 'Debe escribir una clave.');
+      this.errorHandler.mostrarErrorSolo("Error!", "Completar campo de contraseña");
+    } else if (this.clave.length < 6) {
       validado = false;
-      this.presentAlert('¡Error!', 'Error en el registro.', 'No es un correo electronico valido.');
-    } else if (!this.herramientas.ValidarNombre(this.usuario.nombre)) {
+      //this.presentAlert('¡Error!', '', 'Debe escribir una clave.');
+      this.errorHandler.mostrarErrorSolo("Error!", "La contraseña debe tener 6 caracteres como mínimo");
+    }
+    //  else if (!this.herramientas.ValidarMail(this.usuario.correo)) {
+    //   validado = false;
+    //   //this.presentAlert('¡Error!', 'Error en el registro.', 'No es un correo electronico valido.');
+    //   this.errorHandler.mostrarErrorSolo("Error!", "Correo electrónico inválido");
+    // } 
+    else if (!this.herramientas.ValidarNombre(this.usuario.nombre)) {
       validado = false;
-      this.presentAlert('¡Error!', 'Error en el registro.', 'No es un nombre valido.');
+      //this.presentAlert('¡Error!', 'Error en el registro.', 'No es un nombre valido.');
+      this.errorHandler.mostrarErrorSolo("Error!", "Nombre inválido");
     }
     if (this.esCliente === true) {
       if (!this.herramientas.ValidarNombre(this.usuario.apellido)) {
         validado = false;
-        this.presentAlert('¡Error!', 'Error en el registro.', 'No es un apellido valido.');
+        //this.presentAlert('¡Error!', 'Error en el registro.', 'No es un apellido valido.');
+        this.errorHandler.mostrarErrorSolo("Error!", "Apellido inválido");
       } else if (!this.herramientas.ValidarDNI(this.usuario.DNI)) {
         validado = false;
-        this.presentAlert('¡Error!', 'Error en el registro.', 'No es un DNI valido.');
+        //this.presentAlert('¡Error!', 'Error en el registro.', 'No es un DNI valido.');
+        this.errorHandler.mostrarErrorSolo("Error!", "DNI inválido");
       }
     }
     if (validado) {
@@ -120,7 +134,8 @@ export class RegistroClientePage implements OnInit {
       });
 
     } catch (error) {
-      this.presentAlert('¡Error!', 'Error en el registro.', 'Error al subir la foto, se cancelará el proceso.');
+      //this.presentAlert('¡Error!', 'Error en el registro.', 'Error al subir la foto, se cancelará el proceso.');
+      this.errorHandler.mostrarErrorSolo("Error!", "Error al subir la foto");
       console.log('Error:' + error);
     }
   }
@@ -131,7 +146,7 @@ export class RegistroClientePage implements OnInit {
   */
   public SinFoto() {
     // tslint:disable-next-line: max-line-length
-    this.usuario.foto = 'https://firebasestorage.googleapis.com/v0/b/comanda-2019-comicon.appspot.com/o/anonimo.png?alt=media&token=72c4068d-0bb0-4d8a-adce-047df2c46e5b';
+    this.usuario.foto = 'https://firebasestorage.googleapis.com/v0/b/comanda-c5293.appspot.com/o/usuario(3).png?alt=media&token=fbbd41a8-46c0-4d4c-9ecc-991d33fb4361';
     this.Registrar();
   }
 
@@ -160,9 +175,11 @@ export class RegistroClientePage implements OnInit {
       this.ocultarSeccion0 = false;
       this.ocultarSeccion1 = true;
       this.ocultarSeccion2 = true;
-      this.presentAlert('Exito!', null, '¡Usted ha sido registrado!');
+      //this.presentAlert('Exito!', null, '¡Usted ha sido registrado!');
+      this.errorHandler.mostrarErrorSolo("Felicidades!", "Sus datos han sido cargados, ahora debe esperar la confirmación del dueño");
     }).catch(err => {
-      this.presentAlert('¡Error!', 'Error en el registro.', 'Error en base de datos.');
+      //this.presentAlert('¡Error!', 'Error en el registro.', 'Error en base de datos.');
+      this.errorHandler.mostrarErrorSolo("Error!", "Error al registrar");
       console.log(err);
     });
   }
@@ -178,9 +195,11 @@ export class RegistroClientePage implements OnInit {
       this.ocultarSeccion0 = false;
       this.ocultarSeccion1 = true;
       this.ocultarSeccion2 = true;
-      this.presentAlert('Exito!', null, '¡Usted ha sido registrado!');
+      //this.presentAlert('Exito!', null, '¡Usted ha sido registrado!');
+      this.errorHandler.mostrarErrorSolo("Felicidades!", "Ha sido registrado");
     }).catch(err => {
-      this.presentAlert('¡Error!', 'Error en el registro.', 'Error en base de datos.');
+      //this.presentAlert('¡Error!', 'Error en el registro.', 'Error en base de datos.');
+      this.errorHandler.mostrarErrorSolo("Error!", "Error al registrar");
       console.log(err);
     });
   }
@@ -227,12 +246,18 @@ export class RegistroClientePage implements OnInit {
     *permite escanear el dni para rellenar datos del formulario
   */
   public EscanearDNI() {
-    const options: BarcodeScannerOptions = { prompt: 'Escaneé el DNI', resultDisplayDuration: 0 };
+    const options: BarcodeScannerOptions = { prompt: 'Escanee el código QR del DNI', formats: 'PDF_417',resultDisplayDuration: 0 };
     this.barcodeScanner.scan(options).then((barcodeData: BarcodeScanResult) => {
-      const scan = (barcodeData.text).split('@');
-      this.manejarDNI(scan);
+      if(!barcodeData.cancelled)
+      {
+        const scan = (barcodeData.text).split('@');
+        this.manejarDNI(scan);
+        //this.errorHandler.mostrarError("Scan", scan);
+      }
+      
     }, (err) => {
-      this.presentAlert('¡Error!', 'Error al escanear el DNI.', err);
+      //this.presentAlert('¡Error!', 'Error al escanear el DNI.', err);
+      this.errorHandler.mostrarErrorSolo("Error!", "Error en el escaneo del DNI");
     });
   }
 

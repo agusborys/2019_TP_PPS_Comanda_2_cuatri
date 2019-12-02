@@ -1,9 +1,19 @@
+
+<div id="custom-overlay" [style.display]="splash ? 'flex': 'none'">
+    <div class="flb">
+      <div class="Aligner-item Aligner-item--top"></div>
+      <img src="../assets/glamit/splash_glamit.png">
+      <div class="Aligner-item Aligner-item--bottom"></div>
+    </div>
+  </div>
+  
+
 <ion-app>
-  <div *ngIf="showSplash" class="splash">
+  <!-- <div *ngIf="showSplash" class="splash">
     <div class="spinner">
       <img src="../assets/icon/duende2.png">
     </div>
-  </div>
+  </div> -->
 
   <ion-router-outlet></ion-router-outlet>
 </ion-app>

@@ -1,56 +1,73 @@
 <ion-header>
-  <ion-toolbar color="dark">
+  <ion-toolbar color="verdeleon">
     <ion-buttons slot="start">
-      <ion-button color="light" size="small" (click)="cerrar()">Cerrar</ion-button>
+      <ion-button color="dark" size="small" (click)="cerrar()">
+          <ion-icon name="close"></ion-icon>
+      </ion-button>
     </ion-buttons>
-    <ion-title>
-      Usuario
+    <ion-title class="titulo-header">
+      Datos de usuario
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card style="background-color:rgba(255, 255, 255, 0.8);">
-    <ion-card-content>
-      <div class="width-100 center-vertical center-horizontal extra-bottom">
+<ion-content class="ion-padding" style="--background:#edf7ee">
+  <ion-card style="background-color:whitesmoke; border-radius: 50px;">
+    <ion-card-content >
+      <div class="width-100  center-horizontal extra-bottom">
         <div *ngIf="this.user.foto != ''">
           <img class="profile-picture" [src]="this.user.foto" />
         </div>
         <div *ngIf="this.user.foto == ''">
-          <img class="profile-picture" src="assets/img/add_user.png" />
+          <div *ngIf="this.authService.tipoUser == 'dueño' || this.authService.tipoUser == 'supervisor'">
+            <img  class="profile-picture" src="assets/icon/dueño.png" />
+          </div>
+          <div *ngIf="this.authService.tipoUser == 'cocinero' || this.authService.tipoUser == 'candybar'">
+            <img class="profile-picture" src="assets/icon/cocinero.png" />
+          </div>
+          <div *ngIf="this.authService.tipoUser == 'bartender'" >
+            <img class="profile-picture" src="assets/icon/barman.png" />
+          </div>
+          <div *ngIf="this.authService.tipoUser == 'cliente'">
+            <img  class="profile-picture" src="assets/icon/usuario.png" />
+          </div>
+          <div *ngIf="this.authService.tipoUser == 'anonimo'" >
+            <img class="profile-picture" src="assets/icon/incognito.png" />
+          </div>  
         </div>
       </div>
 
       <ion-item class="item2">
-        <ion-label position="floating">Nombre</ion-label>
+        <ion-label class="label-verde" position="floating">Nombre</ion-label>
         <ion-input [value]="this.user.nombre | titlecase" readonly></ion-input>
       </ion-item>
 
       <ion-item class="item2" *ngIf="this.type != 'anonimo'">
-        <ion-label position="floating">Apellido</ion-label>
+        <ion-label class="label-verde"  position="floating">Apellido</ion-label>
         <ion-input [value]="this.user.apellido | titlecase" readonly></ion-input>
       </ion-item>
 
       <ion-item class="item2" *ngIf="this.type != 'anonimo'">
-        <ion-label position="floating">DNI</ion-label>
+        <ion-label class="label-verde"  position="floating">DNI</ion-label>
         <ion-input [value]="this.user.DNI" readonly></ion-input>
       </ion-item>
 
       <ion-item class="item2"
         *ngIf="this.type != 'anonimo' && this.type != 'cliente'">
-        <ion-label position="floating">CUIL</ion-label>
+        <ion-label class="label-verde"  position="floating">CUIL</ion-label>
         <ion-input [value]="this.user.CUIL" readonly></ion-input>
       </ion-item>
 
       <ion-item class="item2">
-        <ion-label position="floating">Puesto</ion-label>
+        <ion-label class="label-verde"  position="floating">Puesto</ion-label>
         <ion-input [value]="this.type" readonly></ion-input>
       </ion-item>
 
       <ion-item class="item2">
-        <ion-label position="floating">Correo</ion-label>
+        <ion-label class="label-verde"  position="floating">Correo</ion-label>
         <ion-input [value]="this.user.correo" readonly></ion-input>
       </ion-item>
+      <br>
     </ion-card-content>
   </ion-card>
 </ion-content>

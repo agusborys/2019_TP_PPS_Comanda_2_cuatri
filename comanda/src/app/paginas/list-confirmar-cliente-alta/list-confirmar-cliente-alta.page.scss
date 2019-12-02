@@ -1,49 +1,65 @@
-.button_XXS_empty
-{
-    --background: #605bbb;
-    //--background: #6DB3F2 url('/assets/img/button_XXS_empty.png') 0 0/100% 100% no-repeat !important;
-    height: 32px;
-    width: 50px;
-    //background-color: transparent;
-    padding: 0;
-    border: none;
-    font-size: 16px;
-    font-weight: bold;
-    color: rgb(0, 0, 0);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    text-align: center;
-}
-
-.button_XXS_empty_gr
-{
-    --background: #61bd65;
-    //--background: rgb(9, 255, 0) url('/assets/img/button_XXS_empty.png') 0 0/100% 100% no-repeat !important;
-    height: 32px;
-    width: 50px;
-    color: rgb(0, 0, 0);
-}
-
-.button_XXS_empty_re
-{
-    --background: #a04743;
-    //--background: rgb(255, 0, 0) url('/assets/img/button_XXS_empty.png') 0 0/100% 100% no-repeat !important;
-    height: 32px;
-    width: 50px;
-    color: rgb(0, 0, 0);
-}
-
-.centerPart
-{
-    text-align: center;
-}
-
 .item2
 {
-    --background: rgba(255, 255, 255, 0.750);
-    font-weight: bold;
+    --background: transparent;
+    //font-weight: bold;
     color: rgb(0, 0, 0);
-    width: 100%;
+    width: 80%;
+    text-align: left;
+    --border-width: 0 0 2px 0 ;
+    --border-color: #43a047;
+    margin-left: auto;
+    margin-right: auto;
 }
-
-
+.label-verde{
+    color:#43a047;
+    font-size: 18px;
+}
+.boton-confirmar{
+    color: black;
+    --border-radius: 80px;
+    width: 130px;
+    height: 40px;
+    --border-color: #339933;
+    --border-width: 1px;
+    --border-style:  solid ;   
+    --background: #dbf0dc !important;
+    --background-activated:#339933; 
+    --border-color:#339933;
+    --background-hover:#339933;
+    --background-focused: #339933;
+    display: block; 
+    margin-left: auto;
+    
+    justify-content: center;
+    margin-bottom: 5px;
+    text-transform: unset;
+    margin-top: 15px;
+    font-size: 15px;
+  }
+  .boton-denegar{
+    color: black;
+    --border-radius: 80px;
+    width: 120px;
+    height: 40px;
+    --border-color: #990000;
+    --border-width: 1px;
+    --border-style:  solid ;   
+    --background: #ffe6e6 !important;
+    --background-activated:#990000; 
+    --border-color:#990000;
+    --background-hover:#990000;
+    --background-focused: #990000;
+    display: block; 
+    
+    margin-right: auto;
+    justify-content: center;
+    margin-bottom: 5px;
+    margin-top: 15px;
+    text-transform: unset;
+    font-size: 15px;
+  }
+.texto-card{
+    text-align: center;
+    color: black;
+    font-size: 25px;
+}

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { timer } from 'rxjs/internal/observable/timer';
 
 //import { timer } from 'rxjs/observable/timer';
 
@@ -12,7 +13,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent implements OnInit {
-  showSplash = true;
+  splash = true;
 
   constructor(
     public platform: Platform,
@@ -25,17 +26,14 @@ export class AppComponent implements OnInit {
   }
 
   public initializeApp() {
+    // this.platform.ready().then(() => {
+    //   this.statusBar.styleDefault();
+    //   this.splashScreen.hide();
+    // });
     this.platform.ready().then(() => {
-      this.statusBar.styleBlackOpaque();
-      setTimeout(() => {
-        // console.log('Desactivo la Splash Screen estatica');
-        this.splashScreen.hide();
-      }, 3000);
-
-      setTimeout(() => {
-        // console.log('Desactivo la Splash Screen animada');
-        this.showSplash = false;
-      }, 8000);
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
+      timer(4000).subscribe(() => this.splash = false);
     });
   }
 }

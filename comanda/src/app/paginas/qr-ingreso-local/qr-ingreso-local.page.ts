@@ -92,7 +92,7 @@ export class QrIngresoLocalPage implements OnInit {
   public async presentToast(message: string, color: string) {
     this.toastCtrl.create({
       message,
-      color,
+      
       showCloseButton: false,
       position: 'bottom',
       closeButtonText: 'Done',

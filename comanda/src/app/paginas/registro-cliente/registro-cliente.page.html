@@ -1,86 +1,75 @@
 <ion-header>
-    <ion-toolbar color="dark">
+    <ion-toolbar style="--background:#43a047">
         <ion-buttons slot="start">
-        <ion-back-button defaultHref="login"></ion-back-button>
+        <ion-back-button style="color: black" defaultHref="login"></ion-back-button>
         </ion-buttons>
-        <ion-title>
-            Registro de Clientes
+        <ion-title style="color: black;text-align: center">
+            Registro para Clientes
         </ion-title>
     </ion-toolbar>
 </ion-header>
 
 
-<ion-content class="ion-padding">
-    <div [hidden]="ocultarSeccion0">
-        <ion-button class="button1" (click)="ElegirCliente('cliente')"expand="block">
-            Registrarme como cliente
+<ion-content class="ion-padding" style="--background:#edf7ee">
+    <div [hidden]="ocultarSeccion0" style="margin-top: 20px;">
+        <ion-button expand="block" class="botones" (click)="ElegirCliente('cliente')">
+            <img class="icon-img" src="../../../assets/icon/usuario.png">Quiero ser cliente!
         </ion-button>
-        <ion-button class="button1" (click)="ElegirCliente('anonimo')"expand="block">
-            Registrar como anonimo
+        <ion-button expand="block" class="botones" (click)="ElegirCliente('anonimo')"expand="block">
+            <img class="icon-img" src="../../../assets/icon/incognito.png">Prefiero no dar mi identidad
         </ion-button>
     </div>
 
     <div [hidden]="ocultarSeccion1" class="ion-no-padding">
-        <ion-card class="card-background" style="background-color:rgba(255, 255, 255, 0.8);">
-            <ion-card-content>
-                <div class="width-100 center-horizontal center-vertical">
-                    <img class="profile-picture" src="assets/img/add_user.png">
+                <div [hidden]="esCliente" class="width-100 center-horizontal center-vertical">
+                    <img class="profile-img" src="assets/icon/incognito.png">
                 </div>
-
-                <ion-item class="itemc">
-                    <ion-label position="floating">Correo</ion-label>
-                    <br>
-                    <ion-input class="inputhis" type="text"
-                        [(ngModel)]="usuario.correo"
-                        placeholder="algo@algo.com"></ion-input>
+                <div [hidden]="!esCliente" class="width-100 center-horizontal center-vertical">
+                        <img class="profile-img" src="assets/icon/usuario.png">
+                </div>
+                
+                <ion-item class="inputs">          
+                    <ion-label style="color: black" position="floating">Correo</ion-label>
+                    <ion-input type="text" name="correo"  [(ngModel)]="usuario.correo" 
+                    placeholder="ejemplo@mail.com" required></ion-input>
                 </ion-item>
-
-                <ion-item class="itemc">
-                    <ion-label position="floating">Clave</ion-label>
-                    <br>
-                    <ion-input class="inputhis" type="password"
-                        [(ngModel)]="clave"
-                        placeholder="Mínimo de 6 caracteres"></ion-input>
+                <ion-item class="inputs">          
+                    <ion-label style="color: black" position="floating">Contraseña</ion-label>
+                    <ion-input type="password" name="clave"  [(ngModel)]="clave" 
+                    placeholder="6 caracteres mínimo" required></ion-input>
                 </ion-item>
-
-                <ion-item class="itemc">
-                    <ion-label position="floating">Nombre</ion-label>
-                    <br>
-                    <ion-input class="inputhis" type="text" [(ngModel)]="usuario.nombre"></ion-input>
+                <ion-item class="inputs">          
+                    <ion-label style="color: black" position="floating">Nombre</ion-label>
+                    <ion-input type="text" name="nombre"  [(ngModel)]="usuario.nombre" required></ion-input>
                 </ion-item>
-
-                <ion-item class="itemc" [hidden]="!esCliente">
-                    <ion-label position="floating">Apellido</ion-label>
-                    <br>
-                    <ion-input class="inputhis" type="text" [(ngModel)]="usuario.apellido"></ion-input>
+                <ion-item class="inputs" [hidden]="!esCliente">          
+                    <ion-label style="color: black" position="floating">Apellido</ion-label>
+                    <ion-input type="text" name="apellido"  [(ngModel)]="usuario.apellido" required></ion-input>
                 </ion-item>
-
-                <ion-item class="itemc" [hidden]="!esCliente">
-                    <ion-label position="floating">DNI</ion-label>
-                    <br>
-                    <ion-input class="inputhis" type="number" [(ngModel)]="usuario.DNI"></ion-input>
+                <ion-item class="inputs" [hidden]="!esCliente">          
+                    <ion-label style="color: black" position="floating">DNI</ion-label>
+                    <ion-input type="number" name="apellido"  [(ngModel)]="usuario.DNI" required></ion-input>
                 </ion-item>
 
                 <div [hidden]="!esCliente"
                     class="width-100 center-horizontal center-vertical">
-                    <ion-button class="button1" (click)="EscanearDNI()">Escanear DNI</ion-button>
+                    <ion-button class="botones-registro" (click)="EscanearDNI()">
+                        <ion-icon name="qr-scanner"></ion-icon>Escanear DNI</ion-button>
                 </div>
                 <div class="width-100 center-horizontal center-vertical">
-                    <ion-button class="button1" (click)="ValidarRegistro()">Registrar</ion-button>
+                    <ion-button class="botones-registro" (click)="ValidarRegistro()">
+                        <ion-icon name="checkmark-circle-outline"></ion-icon>Registrar</ion-button>
                 </div>
-            </ion-card-content>
-        </ion-card>
     </div>
 
     <div [hidden]="ocultarSeccion2" class="width-100 center-horizontal">
-        <ion-button class="button1" (click)="SacarFoto()">Sacar foto</ion-button>
-        <ion-button class="button1" (click)="SinFoto()">Sin foto</ion-button>
+        <ion-button class="botones-registro" (click)="SacarFoto()">Sacar foto</ion-button>
+        <ion-button class="botones-registro" (click)="SinFoto()">Sin foto</ion-button>
     </div>
 
     <div [hidden]="ocultarSeccion1" class="width-100 center-horizontal">
-        <ion-button class="button1" (click)="RellenarDatos()">Rellenar</ion-button>
-    </div>
-    <div [hidden]="ocultarSeccion1" class="width-100 center-horizontal center-vertical">
-        <ion-button class="button1" (click)="Volver()">Volver</ion-button>
+        <ion-button style="width: 120px;" class="botones-registro" (click)="Volver()">
+            <ion-icon name="backspace"></ion-icon>Volver</ion-button>
+        <ion-button style="width: 170px;" class="botones-registro" (click)="RellenarDatos()">Completar campos</ion-button>
     </div>
 </ion-content>

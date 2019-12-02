@@ -1,28 +1,31 @@
 <ion-header>
-  <ion-toolbar color="dark">
+  <ion-toolbar color="verdeleon">
     <ion-buttons slot="end">
-      <ion-button color="light" size="small" (click)="cerrar()">Cerrar</ion-button>
+      <ion-button color="dark" size="small" (click)="cerrar()"><ion-icon name="close"></ion-icon></ion-button>
     </ion-buttons>
+    <ion-title class="titulo-header">
+        <ion-icon name="funnel"></ion-icon>Detalles Pedido
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-card  style="background-color:rgba(255, 255, 255, 0.8);" *ngIf="this.pedidoActual != undefined">
+    <ion-card  style="background-color:whitesmoke;border-radius: 20px;" *ngIf="this.pedidoActual != undefined">
     <ion-card-content>
       <ion-item class="item2">
-        <ion-label>Cliente</ion-label>
+        <ion-label class="label-verde">Cliente</ion-label>
         <ion-input [value]="this.pedidoActual.cliente" readonly></ion-input>
       </ion-item>
       <ion-item class="item2">
-        <ion-label>Mesa</ion-label>
+        <ion-label class="label-verde">Mesa</ion-label>
         <ion-input [value]="this.pedidoActual.mesa" readonly></ion-input>
       </ion-item>
       <ion-item class="item2">
-        <ion-label>Fecha</ion-label>
+        <ion-label class="label-verde">Fecha</ion-label>
         <ion-input [value]="this.pedidoActual.fecha | date:'medium'" readonly></ion-input>
       </ion-item>
       <ion-item class="item2">
-        <ion-label>Estado</ion-label>
+        <ion-label class="label-verde">Estado</ion-label>
         <ion-input [value]="this.pedidoActual.estado | titlecase" readonly></ion-input>
       </ion-item>
 
@@ -31,24 +34,24 @@
           <td>({{ producto.cantidad }}) {{ producto.producto }}</td>
           <td class="ion-padding">
             <div *ngIf="this.verCuenta == false">
-              <label class="bolded">
+              <label >
                 {{(producto.cantidad * producto.precio) | currency}}
               </label>
             </div>
             <div *ngIf="this.verCuenta == true">
-              <label class="bolded">
+              <label >
                 {{producto.precio | currency}}
               </label>
             </div>
           </td>
           <td>
             <div *ngIf="this.verCuenta == false">
-              <label class="bolded">
+              <label >
                 {{producto.estado | titlecase}}
               </label>
             </div>
             <div *ngIf="this.verCuenta == true">
-              <label class="bolded">
+              <label >
                 {{(producto.cantidad * producto.precio) | currency}}
               </label>
             </div>
@@ -57,7 +60,7 @@
       </table>
 
       <ion-item *ngIf="this.verCuenta == false" class="item2">
-        <ion-label>Total</ion-label>
+        <ion-label class="label-verde">Total</ion-label>
         <ion-input [value]="this.pedidoActual.preciototal | currency" readonly></ion-input>
       </ion-item>
 
@@ -68,7 +71,7 @@
           this.pedidoActual.estado != 'cuenta' &&
           this.pedidoActual.estado != 'entregado') ||
           this.cliente == false">
-          Pedir / Ver Cuenta
+          <ion-icon name="checkmark-circle-outline"></ion-icon>Pedir / Ver Cuenta
         </ion-button>
       </div>
 
@@ -77,7 +80,7 @@
           <ion-label>Propina</ion-label>
           <ion-input [value]="(this.pedidoActual.propina /100) | percent"
             readonly></ion-input>
-          <ion-button slot="end" color="warning" (click)="cambiarPropina()"
+          <ion-button slot="end" color="violetaleon" (click)="cambiarPropina()"
             [disabled]="this.pedidoActual.estado != 'cuenta' ||
             this.cliente == false">Escanear</ion-button>
         </ion-item>
@@ -89,7 +92,7 @@
       </div>
     </ion-card-content>
   </ion-card>
-  <ion-card *ngIf="this.pedidoActual == undefined" class="card-background">
+  <ion-card *ngIf="this.pedidoActual == undefined" style="background-color:whitesmoke;border-radius: 20px;">
     <ion-card-content>
       Usted aún no ha realizado ningún pedido.
     </ion-card-content>

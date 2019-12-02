@@ -1,18 +1,26 @@
-.button2
-{
-    --background: url('/assets/img/btn_empty2.png') 0 0/100% 100% no-repeat !important;
-    height: 3rem;
+
+.button2{
+    color: black;
+    --border-radius: 80px;
     width: 100%;
-    background-color: transparent;
-    padding: 0;
-    border: none;
-    font-size: 20px;
-    font-weight: bold;
-    color: rgb(255, 255, 255);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    text-align: center;
-}
+    height: 50px;
+    --border-color: #339933;
+    --border-width: 1px;
+    --border-style:  solid ;   
+    --background: #dbf0dc !important;
+    --background-activated:#339933; 
+    --border-color:#339933;
+    --background-hover:#339933;
+    --background-focused: #339933;
+    display: block; 
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    margin-bottom: 5px;
+    text-transform: unset;
+    margin-top: 15px;
+    font-size: 15px;
+  }
 
 .itemc
 {
@@ -25,11 +33,19 @@
 
 .item2
 {
-    --background: rgba(255, 255, 255, 0.650);
-    font-weight: bold;
+    --background: transparent;
+    //font-weight: bold;
     color: rgb(0, 0, 0);
-    width: 100%;
-    text-align: center;
+    width: 80%;
+    text-align: left;
+    --border-width: 0 0 2px 0 ;
+    --border-color: #43a047;
+    margin-left: auto;
+    margin-right: auto;
+}
+.label-verde{
+    color:#43a047;
+    font-size: 18px;
 }
 
 .bolded
@@ -39,15 +55,17 @@
 
 .table1
 {
-    border: 2px solid rgb(49, 49, 49);
+    margin-top: 5px;
+    border: 2px solid #1e4820;
     width: 100%;
+    margin-bottom: 5px;
 
 }
 
 td
 {
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 2px solid rgb(49, 49, 49);
+    background-color: #dbf0dc;
+    border: 2px solid #1e4820;
     font-weight: bold;
     color: black;
 }

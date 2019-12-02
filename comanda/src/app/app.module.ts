@@ -20,8 +20,9 @@ import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireStorageModule } from 'angularfire2/storage';
+import { AngularFireStorageModule } from '@angular/fire/storage';//angularfire2/storage
 import { environment } from 'src/environments/environment';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 // Paginas
 import { InicioPageModule } from './paginas/inicio/inicio.module';
