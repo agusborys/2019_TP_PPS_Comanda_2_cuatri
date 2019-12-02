@@ -32,15 +32,17 @@
           (click)="this.cambiarEstado(d, 'aceptado')">
           <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
         </ion-button> -->
-          <ion-button class="button_preparar"
+          <ion-button class="botones-registro"
             [disabled]="d.estado != 'aceptado'"
             (click)="this.cambiarEstado(d, 'preparacion')">
             <!-- <ion-icon slot="start" name="play">Preparar</ion-icon> -->
+            Preparar
           </ion-button>
-          <ion-button class="button_listo"
+          <ion-button class="botones-registro"
             [disabled]="d.estado != 'preparacion'"
             (click)="this.presentAlertConfirmarEntrega(d, 'listoEntrega')">
             <!-- <ion-icon slot="start" name="checkmark">Entregar</ion-icon> -->
+            Entregar
           </ion-button>
         </div>
       </ion-item>
