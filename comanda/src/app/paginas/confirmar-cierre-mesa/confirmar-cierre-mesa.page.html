@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar color="verdeleon">
+    <ion-buttons slot="start">
+      <ion-back-button color="dark" defaultHref="inicio"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="titulo-header">
+      <ion-icon name="close-circle-outline"></ion-icon>Cierre de Mesas
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Pedidos -->
+  <ion-card *ngIf="this.pedidos.length> 0" style="background-color:whitesmoke; border-radius: 20px;">
+    <ion-card-content>
+      <div *ngFor="let pedido of this.pedidos">
+        <div class="width-100 align-text-center big-letter" style="color: rgb(0, 0, 0);font-size: 16px;font-weight: bold;">
+          Mesa {{pedido.mesa}}
+        </div>
+        <div class="width-100 align-text-center big-letter" style="color: rgb(0, 0, 0);font-size: 16px;font-weight: bold;">
+          Correo {{pedido.cliente}}
+        </div>
+
+        <div class="width-100 center-horizontal center-vertical">
+          <ion-button class="botones-registro"
+            (click)="this.verPedido(pedido.key)">
+            Ver
+          </ion-button>
+        </div>
+
+        <div class="width-100 center-horizontal center-vertical">
+          <ion-button class="botones-registro"
+          (click)="cerrarPedido(pedido)">Cerrar Mesa</ion-button>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- En caso de no existir pedidos -->
+  <ion-card style="background-color:whitesmoke; border-radius: 20px;"
+    *ngIf="this.pedidos.length == 0">
+    <ion-card-content class="texto-card">
+      No hay mesas para cerrar.<br>
+      <ion-icon style="font-size: 50px;" name="alert"></ion-icon>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

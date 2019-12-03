@@ -1,0 +1,438 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import "~@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+ion-content {
+  // --background: url('./assets/fondos/fondo.png');
+  // --background: linear-gradient(#3f3f3f 60%, #4ce000) !important;
+  --background-repeat: no-repeat !important;
+  --background-size: cover !important;
+  // --background: url('/assets/img/regback.png') 0 0/100% 100% no-repeat !important;
+  --background:#edf7ee;
+}
+
+.spinner-landscape {
+  width: 100vw;
+  height: 100vw;
+}
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  //background-color: #333;
+
+  margin: 100px auto;
+  -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
+  animation: sk-rotateplane 1.2s infinite ease-in-out;
+}
+
+// Fuerza a los elementos a acomodarse de forma vertical (v) u horizontal (h)
+.flex {
+  &-v {
+    display: flex;
+    flex-direction: column;
+  }
+  &-h {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+// Hacer que los ion-item de los formularios tengan fondo transparente
+.transparent-item {
+  --background: transparent !important;
+}
+
+// Ajusta el alto de un elemento
+.height {
+  &-10 {
+    height: 10%;
+  }
+  &-20 {
+    height: 20%;
+  }
+  &-30 {
+    height: 30%;
+  }
+  &-40 {
+    height: 40%;
+  }
+  &-50 {
+    height: 50%;
+  }
+  &-60 {
+    height: 60%;
+  }
+  &-70 {
+    height: 70%;
+  }
+  &-80 {
+    height: 80%;
+  }
+  &-90 {
+    height: 90%;
+  }
+  &-100 {
+    height: 100%;
+  }
+}
+
+// Ajusta el ancho de un elemento
+.width {
+  &-10 {
+    width: 10%;
+  }
+  &-20 {
+    width: 20%;
+  }
+  &-30 {
+    width: 30%;
+  }
+  &-40 {
+    width: 40%;
+  }
+  &-50 {
+    width: 50%;
+  }
+  &-60 {
+    width: 60%;
+  }
+  &-70 {
+    width: 70%;
+  }
+  &-80 {
+    width: 80%;
+  }
+  &-90 {
+    width: 90%;
+  }
+  &-100 {
+    width: 100%;
+  }
+}
+
+// Centra lo objetos acomodandolos equitativamente
+.align-between {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+// Centra los objetos dentro de este elemento de forma horizontal
+.center-horizontal {
+  display: flex;
+  justify-content: center;
+}
+
+// Centra los objetos dentro de este elemento de forma vertical
+.center-vertical {
+  display: flex;
+  align-items: center;
+}
+
+// Agrega un margen superior extra arriba de elemento
+.extra-top {
+  margin-top: 0.5rem;
+}
+
+// Agrega un margen inferior extra arriba de elemento
+.extra-bottom {
+  margin-bottom: 0.5rem;
+}
+
+// Agrega un borde negro alrededor del elemento (solo para testeo)
+.black-border {
+  border: 1px black solid;
+}
+
+// Crea el marco para las fotos de perfil en el alta de mesas y producto (puede reusarse)
+.profile-picture {
+  height: 7rem;
+  max-height: 7rem !important;
+  min-height: 7rem;
+  width: 7rem;
+  max-width: 7rem !important;
+  min-width: 7rem;
+  object-fit: cover;
+  border-radius: 100% !important;
+}
+
+// Ajusta el texto dentro de un elemento
+.align-text-center {
+  text-align: center;
+}
+
+.big-letter {
+  font-size: 1.5rem;
+}
+
+// Para el botón de los qr
+// Maneja el css de la imagen
+.qr-img {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+// Maneja el texto de la imagen
+.qr-text {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+// Le da un border y un estilo al botón
+.border {
+  background-color: whitesmoke;
+  padding: 1rem 1.5rem;
+  font-size: 25px;
+  text-align: center;
+  border-color: #339933;
+  cursor: pointer;
+  //outline: #339933;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 50px;
+  box-shadow: 0px 0px 51px -3px rgba(0,0,0,1);
+  -webkit-box-shadow: 0px 0px 51px -3px rgba(0,0,0,1);
+  -moz-box-shadow: 0px 0px 51px -3px rgba(0,0,0,1);
+}
+
+.border:active {
+  box-shadow: 0 0.25px #339933;
+  transform: translateY(4px);
+}
+
+@-webkit-keyframes sk-rotateplane {
+  0% {
+    -webkit-transform: perspective(120px);
+  }
+  50% {
+    -webkit-transform: perspective(120px) rotateY(180deg);
+  }
+  100% {
+    -webkit-transform: perspective(120px) rotateY(180deg) rotateX(180deg);
+  }
+}
+
+@keyframes sk-rotateplane {
+  0% {
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+  }
+  100% {
+    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+    -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+  }
+}
+
+.card-background {
+  --background: whitesmoke;
+}
+
+.flex-wrap {
+  flex-wrap: wrap !important;
+}
+
+.texto-card{
+  text-align: center;
+  color: black;
+  font-size: 25px;
+}
+//alert_Usuarios
+ion-alert .alert-head{
+  color: black!important;
+  background-color: #43a047;
+  text-align: center;
+}
+ion-alert.alert-radio-inner{
+  background-color: #43a047;
+}
+ion-alert.alert-message{
+  color:black;
+  text-align: center;
+  margin-top: 5px;
+}
+ion-alert.seleccionarAlert{
+  --background:#edf7ee !important;
+  text-align: left;
+  font-weight: bold;
+  color: black;
+  //   .alert-head
+  //   {
+  //     color: white!important;
+  //     background-color: #b71c1c;
+  //   }
+  .alert-button-group{
+    color: black!important;
+    background-color: #43a047;
+    justify-content: center;
+    padding: 6px 6px 6px 18px;
+    
+  }
+  .alert-button{
+    background-color: #edf7ee;
+    padding: 15px;
+    color: black;
+  }
+}
+//Alert Avisos
+ion-alert.avisoAlert{
+  // --background:#edf7ee !important;
+  // text-align: center;
+  // color: black !important;
+  .alert-button-group{
+    color: black!important;
+    background-color: #edf7ee;
+    justify-content: center;
+    padding: 6px 6px 6px 18px;
+    
+  }
+  .alert-button{
+    background-color: #edf7ee;
+    padding: 15px;
+    color: black;
+  }
+  .alert-message{
+    color: black !important;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    font-size: 20px;
+    align-items: center;
+    background-color: #edf7ee;
+  }
+}
+.titulo-header{
+  color: black;
+  text-align: center;
+}
+
+.inputs{
+  border-radius: 80px 80px 80px 80px;
+  -moz-border-radius: 80px 80px 80px 80px;
+  -webkit-border-radius: 80px 80px 80px 80px;
+  border: 3px solid #1e4820;//607985
+  --background: transparent !important;  
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  width: 250px;
+  height: 60px;
+  margin-bottom: 15px;
+  color: black;
+  --highlight-height:0;
+}
+.ingresar{
+  color: black;
+  --border-radius: 80px;
+  width: 150px;
+  height: 50px;
+  //--border-style: 3px solid #546e7a;   
+  --background: transparent !important;
+  --background-activated:#339933; 
+  --border-color:#339933;
+  --background-hover:#339933;
+  --background-focused: #339933;
+  display: block; 
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+.seleccionar-usuario{
+  color: black;
+  --border-radius: 80px;
+  width: 230px;
+  height: 40px;
+  //--border-style: 3px solid #546e7a;   
+  --background: transparent !important;
+  --background-activated:#339933; 
+  --border-color:#339933;
+  --background-hover:#339933;
+  --background-focused: #339933;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.botones-registro{
+  color: black;
+  --border-radius: 80px;
+  width: 200px;
+  height: 35px;
+  --border-color: #339933;
+  --border-width: 1px;
+  --border-style:  solid ;   
+  --background: #dbf0dc !important;
+  --background-activated:#339933; 
+  --border-color:#339933;
+  --background-hover:#339933;
+  --background-focused: #339933;
+  display: block; 
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  margin-bottom: 5px;
+  text-transform: unset;;
+  font-size: medium;
+}
+
+.botonesRojo{
+  color: black;
+  --border-radius: 80px;
+  width: 200px;
+  height: 35px;
+  --border-color: #a04743;
+  --border-width: 1px;
+  --border-style:  solid ;   
+  --background: #f5d5d4 !important;
+  --background-activated:#a04743; 
+  --border-color:#a04743;
+  --background-hover:#a04743;
+  --background-focused: #a04743;
+  display: block; 
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  margin-bottom: 5px;
+  text-transform: unset;;
+  font-size: medium;
+}
+ion-toast{
+  color: black;
+  --color:black!important;
+  --button-color:black;
+  --height: 40px;
+  font-size: 25px;
+  --background: #339933;
+}
