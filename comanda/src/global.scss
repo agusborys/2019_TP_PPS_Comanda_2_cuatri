@@ -34,18 +34,6 @@ ion-content {
   --background:#edf7ee;
 }
 
-//Splash
-.splash {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(#3f3f3f 60%, #4ce000);
-}
-
 .spinner-landscape {
   width: 100vw;
   height: 100vw;
@@ -270,6 +258,12 @@ ion-content {
 
 .flex-wrap {
   flex-wrap: wrap !important;
+}
+
+.texto-card{
+  text-align: center;
+  color: black;
+  font-size: 25px;
 }
 //alert_Usuarios
 ion-alert .alert-head{

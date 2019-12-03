@@ -30,6 +30,7 @@ export class QrIngresoLocalPage implements OnInit {
     private router: Router,
     private authServ: AuthService,
     private toastCtrl: ToastController,
+
   ) { }
 
   private esCliente(): boolean {
@@ -43,7 +44,7 @@ export class QrIngresoLocalPage implements OnInit {
       this.mesas = d;
 
       if (this.esCliente() && this.estaEnMesa()) {
-        this.presentToast('Ya tiene una mesa asignada', 'success');
+        this.presentToast('Ya tiene una mesa asignada', 'verdeleon');
         this.router.navigate(['inicio']);
       }
     });
@@ -53,7 +54,7 @@ export class QrIngresoLocalPage implements OnInit {
 
       // console.log('Ya tengo las listas');
       if (this.esCliente() && this.estaEnLista()) {
-        this.presentToast('Ya se encuentra en la lista', 'success');
+        this.presentToast('Ha sido agregado a la lista de espera', 'verdeleon');
         this.router.navigate(['inicio']);
       }
     });
@@ -109,7 +110,7 @@ export class QrIngresoLocalPage implements OnInit {
         if (data.text === 'IngresoLocal') {
           this.manejarQR();
         } else {
-          this.presentAlert('QR Erroneo', 'El QR no pertenece al de ingreso al local.', 'Por favor, apunte al código de Ingreso al Local');
+          this.presentAlert('QR Erroneo', null, 'El QR no pertenece al de ingreso al local.<br>Por favor, escanee el código de Ingreso al Local');
         }
       }).catch(async (err) => {
         console.log('Error al escanear el qr', err);
@@ -130,7 +131,7 @@ export class QrIngresoLocalPage implements OnInit {
     } else {
       // Si no encuentro cliente anonimo, significa que soy un empleado y supervisor
       console.log('No hay cliente, es un empleado o un desconocido.');
-      this.presentAlert('¡Error!', 'No hay cliente', 'Usted no es un cliente, no puede colocarse en la lista.');
+      this.presentAlert('¡Error!', null, 'Usted no es un cliente, no puede colocarse en la lista.');
     }
   }
 
@@ -185,7 +186,7 @@ export class QrIngresoLocalPage implements OnInit {
           this.router.navigate(['/list-confirmar-cliente-mesa']); // Aún sin implementar
         })
           .catch(err => {
-            this.presentAlert('¡Error!', 'No se ha podido agregar a la lista.', 'Error en la base de datos.');
+            this.presentAlert('¡Error!', null, 'Error en la base de datos. No se ha podido agregar a la lista.');
           });
       }
     }

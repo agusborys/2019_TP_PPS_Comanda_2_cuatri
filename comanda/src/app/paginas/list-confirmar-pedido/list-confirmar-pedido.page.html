@@ -1,16 +1,16 @@
 <ion-header>
   <ion-toolbar color="verdeleon">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="inicio"></ion-back-button>
+      <ion-back-button color="dark" defaultHref="inicio"></ion-back-button>
     </ion-buttons>
-    <ion-title>
-      Confirmar pedido
+    <ion-title class="titulo-header">
+      <ion-icon name="checkbox-outline"></ion-icon>Confirmar pedido
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-card *ngIf="this.pedidos.length> 0" style="background-color:rgba(255, 255, 255, 0.8);text-align: center;">
+  <ion-card *ngIf="this.pedidos.length> 0" style="background-color:whitesmoke;text-align: center; border-radius: 20px;">
     <ion-card-content>
       <div class="ion-no-padding transparent-item flex-v" *ngFor="let pedido of
         pedidos">
@@ -40,9 +40,10 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card *ngIf="this.pedidos.length == 0" class="card-background">
-    <ion-card-content>
-      No hay pedidos para confirmar.
+  <ion-card *ngIf="this.pedidos.length == 0" style="background-color:whitesmoke; border-radius: 20px;">
+    <ion-card-content class="texto-card">
+      No hay pedidos para confirmar.<br>
+      <ion-icon style="font-size: 50px;" name="alert"></ion-icon>
     </ion-card-content>
   </ion-card>
 </ion-content>

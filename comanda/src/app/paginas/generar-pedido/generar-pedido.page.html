@@ -130,19 +130,23 @@
     </div>
   </div>
 
-  <ion-fab *ngIf="!spinner" vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button color="violetaleon" *ngIf="totalPedido==0">
+  <!-- <ion-fab *ngIf="!spinner" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button  color="violetaleon" *ngIf="totalPedido==0">
       <b>TOTAL</b>
     </ion-fab-button>
-    <ion-fab-button color="success" *ngIf="totalPedido!=0">
+    <ion-fab-button class="fab-button" color="verdeleon" *ngIf="totalPedido!=0">
       {{totalPedido | currency}}
     </ion-fab-button>
-  </ion-fab>
+  </ion-fab> -->
 </ion-content>
 
-<ion-footer class="itemc">
-  <ion-button class="button2" expand="block" (click)="confirmarPedido()"
+<ion-footer *ngIf="!spinner">
+  <ion-toolbar class="itemc">
+  <ion-button class="button2"  (click)="confirmarPedido()"
     [disabled]="this.mesaDelPedido == null ||
-    this.mesaDelPedido.pedidoActual != ''">Realizar Pedido
+    this.mesaDelPedido.pedidoActual != ''">
+    Monto: {{totalPedido | currency}} |
+    Realizar Pedido
   </ion-button>
+</ion-toolbar>
 </ion-footer>

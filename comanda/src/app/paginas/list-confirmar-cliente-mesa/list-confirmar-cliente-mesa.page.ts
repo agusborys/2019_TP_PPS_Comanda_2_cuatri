@@ -82,7 +82,7 @@ export class ListConfirmarClienteMesaPage implements OnInit {
     const data: any = this.obtenerData(c);
     this.actualizarDoc('listaEsperaClientes', key, data)
       .then(() => {
-        this.presentToast('Cliente confirmado.', 'success');
+        this.presentToast('Cliente confirmado.', 'verdeleon');
       }).catch((err) => {
         console.log('error en firebase', err);
         this.presentToast('Error al cambiar la base de datos.', 'danger');
@@ -98,7 +98,7 @@ export class ListConfirmarClienteMesaPage implements OnInit {
     const key: string = c.key;
     this.removerDoc('listaEsperaClientes', key)
       .then(() => {
-        this.presentToast('Cliente rechazado.', 'success');
+        this.presentToast('Cliente rechazado.', 'verdeleon');
       }).catch((err) => {
         console.log('error en firebase', err);
         this.presentToast('Error al cambiar la base de datos.', 'danger');

@@ -1,17 +1,17 @@
 <ion-header>
   <ion-toolbar color="verdeleon">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="inicio"></ion-back-button>
+      <ion-back-button color="dark" defaultHref="inicio"></ion-back-button>
     </ion-buttons>
-    <ion-title>
-      Entregar Pedidos <!-- Mozo -->
+    <ion-title class="titulo-header">
+      <ion-icon name="checkbox-outline"></ion-icon>Entregar Pedidos <!-- Mozo -->
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <!-- Pedidos -->
-  <ion-card style="background-color:rgba(255, 255, 255, 0.8);text-align: center;" *ngIf="this.pedidos.length> 0">
+  <ion-card style="background-color:whitesmoke;text-align: center;" *ngIf="this.pedidos.length> 0">
     <ion-card-content>
       <div class="ion-no-padding transparent-item flex-v" *ngFor="let pedido of
         pedidos">
@@ -37,10 +37,11 @@
   </ion-card>
 
   <!-- En caso de no existir pedidos -->
-  <ion-card class="card-background"
+  <ion-card style="background-color:whitesmoke;text-align: center; border-radius: 20px;"
     *ngIf="this.pedidos.length == 0">
-    <ion-card-content>
-      Aún no existen pedidos a entregar.
+    <ion-card-content class="texto-card">
+      No hay pedidos a entregar.<br>
+      <ion-icon style="font-size: 50px;" name="alert"></ion-icon>
     </ion-card-content>
   </ion-card>
 </ion-content>

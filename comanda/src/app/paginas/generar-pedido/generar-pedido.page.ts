@@ -241,6 +241,7 @@ export class GenerarPedidoPage implements OnInit {
     this.alertCtrl.create({
       header: 'Confirmación de Pedido',
       subHeader: '¿Desea confirmar su pedido?',
+      cssClass: 'avisoAlert',
       message: this.obtenerPedidoMensaje(),
       buttons: [
         {
