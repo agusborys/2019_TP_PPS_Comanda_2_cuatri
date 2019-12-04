@@ -8,6 +8,7 @@ import { ClienteKey, ClienteAConfirmarKey } from 'src/app/clases/cliente';
 import { AlertController } from '@ionic/angular';
 import { ErrorHandlerService } from 'src/app/servicios/error-handler.service';
 
+import { FCM } from '@ionic-native/fcm/ngx';
 
 @Component({
   selector: 'app-login',

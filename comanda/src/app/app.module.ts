@@ -42,6 +42,10 @@ import { FirebaseService } from './servicios/firebase.service';
 
 import { HttpModule } from '@angular/http';
 
+// FCM, lo usan push notifications
+import { FCM } from '@ionic-native/fcm/ngx';
+
+
 @NgModule({
   declarations: [AppComponent
   ],
@@ -73,7 +77,7 @@ import { HttpModule } from '@angular/http';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    /* { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, */
     HttpModule,
     // Servicios
     AuthService,
@@ -82,6 +86,8 @@ import { HttpModule } from '@angular/http';
     Camera,
     BarcodeScanner,
     EmailComposer,
+    FCM,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent]
 })
