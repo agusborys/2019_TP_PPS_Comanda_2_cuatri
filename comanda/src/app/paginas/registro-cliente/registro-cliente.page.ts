@@ -11,6 +11,7 @@ import { CameraOptions } from '@ionic-native/camera';
 import { BarcodeScannerOptions, BarcodeScanResult, BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { AlertController } from '@ionic/angular';
 import { ErrorHandlerService } from 'src/app/servicios/error-handler.service';
+import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
 
 @Component({
   selector: 'app-registro-cliente',
@@ -21,6 +22,7 @@ export class RegistroClientePage implements OnInit {
   private firebase = firebase;
   private usuario: Cliente;
   private anonimo: Anonimo;
+  private spinner:any=null;
 
   private clave: string;
   private herramientas: Herramientas = new Herramientas();
@@ -37,6 +39,7 @@ export class RegistroClientePage implements OnInit {
     public barcodeScanner: BarcodeScanner,
     private alertCtrl: AlertController,
     private errorHandler:ErrorHandlerService,
+    private spinnerHand:SpinnerHandlerService
   ) {
     this.usuario = new Cliente();
     this.anonimo = new Anonimo();
@@ -122,8 +125,10 @@ export class RegistroClientePage implements OnInit {
         encodingType: this.camera.EncodingType.JPEG,
         mediaType: this.camera.MediaType.PICTURE
       };
-
+      
       let result = await this.camera.getPicture(options);
+      this.spinner = await this.spinnerHand.GetAllPageSpinner();
+      this.spinner.present();
       let image = `data:image/jpeg;base64,${result}`;
       let pictures = firebase.storage().ref(`fotos/${imageName}`);
       pictures.putString(image, "data_url").then(() => {
@@ -144,8 +149,10 @@ export class RegistroClientePage implements OnInit {
     *otorga una foto predefinida, evitando sacar una foto, es utilizada para propocitos de
     prueba o si no tenes ganas de sacar fotos.
   */
-  public SinFoto() {
+  public async SinFoto() {
     // tslint:disable-next-line: max-line-length
+    this.spinner = await this.spinnerHand.GetAllPageSpinner();
+    this.spinner.present();
     this.usuario.foto = 'https://firebasestorage.googleapis.com/v0/b/comanda-c5293.appspot.com/o/usuario(3).png?alt=media&token=fbbd41a8-46c0-4d4c-9ecc-991d33fb4361';
     this.Registrar();
   }
@@ -175,10 +182,12 @@ export class RegistroClientePage implements OnInit {
       this.ocultarSeccion0 = false;
       this.ocultarSeccion1 = true;
       this.ocultarSeccion2 = true;
+      this.spinner.dismiss();
       //this.presentAlert('Exito!', null, '¡Usted ha sido registrado!');
       this.errorHandler.mostrarErrorSolo("Felicidades!", "Sus datos han sido cargados, ahora debe esperar la confirmación del dueño");
     }).catch(err => {
       //this.presentAlert('¡Error!', 'Error en el registro.', 'Error en base de datos.');
+      this.spinner.dismiss();
       this.errorHandler.mostrarErrorSolo("Error!", "Error al registrar");
       console.log(err);
     });
@@ -196,9 +205,11 @@ export class RegistroClientePage implements OnInit {
       this.ocultarSeccion1 = true;
       this.ocultarSeccion2 = true;
       //this.presentAlert('Exito!', null, '¡Usted ha sido registrado!');
+      this.spinner.dismiss();
       this.errorHandler.mostrarErrorSolo("Felicidades!", "Ha sido registrado");
     }).catch(err => {
       //this.presentAlert('¡Error!', 'Error en el registro.', 'Error en base de datos.');
+      this.spinner.dismiss();
       this.errorHandler.mostrarErrorSolo("Error!", "Error al registrar");
       console.log(err);
     });

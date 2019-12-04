@@ -7,6 +7,7 @@ import { AngularFirestore, QuerySnapshot } from '@angular/fire/firestore';
 import { ClienteKey, ClienteAConfirmarKey } from 'src/app/clases/cliente';
 import { AlertController } from '@ionic/angular';
 import { ErrorHandlerService } from 'src/app/servicios/error-handler.service';
+import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
 
 
 @Component({
@@ -20,12 +21,14 @@ export class LoginPage implements OnInit {
   cajaSonido: CajaSonido = new CajaSonido();
   testRadioResult;
   usuarioSeleccionado: string;
+  private spinner:any=null;
   constructor(
     private authService: AuthService,
     public router: Router,
     private firestore: AngularFirestore,
     private alertCtrl: AlertController,
-    private errorHandler:ErrorHandlerService,) {
+    private errorHandler:ErrorHandlerService,
+    private spinnerHand:SpinnerHandlerService) {
   }
 
   ngOnInit() {
@@ -60,6 +63,10 @@ export class LoginPage implements OnInit {
   async onSumitLogin() {
     if(this.ValidForm())
     {
+      // Obtener Spiner
+       this.spinner = await this.spinnerHand.GetAllPageSpinner();
+       // Mostrar Spiner
+       this.spinner.present();
       const user = await this.traerUsuarioAConfirmar(this.correo);
       if (user != false) {
         //this.presentAlert('¡Error!', 'Error en el inicio de sesión.', 'Usted no ha sido confrmado.');
@@ -72,9 +79,11 @@ export class LoginPage implements OnInit {
           this.cajaSonido.ReproducirGuardar();
           this.correo = '';
           this.clave = '';
+          this.spinner.dismiss();
         })
           .catch(err => {
             //this.presentAlert('¡Error!', '', 'Los datos son incorrectos o no existen.');
+            this.spinner.dismiss();
             this.errorHandler.mostrarError(err,"Error al iniciar sesión");
           });
       }

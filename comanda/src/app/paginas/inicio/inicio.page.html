@@ -18,11 +18,11 @@
 </ion-header>
 
 <ion-content class="ion-padding" style="--background:#edf7ee">
-  <div *ngIf="this.authService.tipoUser == ''"
+  <!-- <div *ngIf="this.authService.tipoUser == ''"
     class="width-100 center-horizontal center-vertical flex-v spinner-text">
     Espere...
     <ion-spinner color="dark"></ion-spinner>
-  </div>
+  </div> -->
 
   <!-- Para el dueño / supervisor -->
   <div *ngIf="this.authService.tipoUser == 'supervisor' ||
