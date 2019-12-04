@@ -40,6 +40,7 @@ import { ConfiguracionPageModule } from './paginas/configuracion/configuracion.m
 import { AuthService } from './servicios/auth.service';
 import { FirebaseService } from './servicios/firebase.service';
 
+import {HttpClientModule} from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 
 // FCM, lo usan push notifications
@@ -73,12 +74,18 @@ import { FCM } from '@ionic-native/fcm/ngx';
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireAuthModule,
+    HttpClientModule,
+    HttpModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
     /* { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, */
-    HttpModule,
+    
+    //http descomentar si no funciona
+/*     HttpModule,
+    HttpClientModule, */
+    
     // Servicios
     AuthService,
     FirebaseService,

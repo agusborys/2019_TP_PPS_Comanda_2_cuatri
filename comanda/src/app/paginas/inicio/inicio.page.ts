@@ -34,10 +34,11 @@ export class InicioPage implements OnInit {
     this.subscribirse();
 
   }
-/*    async ngOnInit() { 
-     await this.authService.buscarUsuario();
-     this.subscribirse();
-  } */
+  
+  ngOnInit() {
+    /*      await this.authService.buscarUsuario();
+         this.subscribirse(); */
+  }
 
   public subscribirse(){
     /* Esta funcion toma el tipo de usuario y con un switch dicta a que push notification se va a subscribir */

@@ -106,7 +106,7 @@ export class QrIngresoLocalPage implements OnInit {
     this.traerListaEspera().subscribe((d: ListaEsperaClientesKey[]) => {
       // console.log('Tengo la lista de espera', d);
       this.listaEspera = d;
-      this.envioPost();
+      
       // console.log('Ya tengo las listas');
       if (this.esCliente() && this.estaEnLista()) {
         this.presentToast('Ya se encuentra en la lista', 'success');
@@ -236,6 +236,7 @@ export class QrIngresoLocalPage implements OnInit {
           estado: 'confirmacionMozo',
           fecha: d.getTime(),
         };
+        
 
         this.enviarDatos(datos).then(docRef => {
           this.router.navigate(['/list-confirmar-cliente-mesa']); // Aún sin implementar
@@ -243,6 +244,7 @@ export class QrIngresoLocalPage implements OnInit {
           .catch(err => {
             this.presentAlert('¡Error!', 'No se ha podido agregar a la lista.', 'Error en la base de datos.');
           });
+        this.envioPost();
       }
     }
   }
