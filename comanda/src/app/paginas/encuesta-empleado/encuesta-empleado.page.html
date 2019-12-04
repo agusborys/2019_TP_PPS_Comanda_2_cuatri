@@ -1,41 +1,42 @@
 <ion-header>
   <ion-toolbar color="verdeleon">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="inicio"></ion-back-button>
+    <ion-buttons  slot="start">
+      <ion-back-button color="dark" defaultHref="inicio"></ion-back-button>
     </ion-buttons>
-    <ion-title>
-      Encuesta <!-- Empleado -->
+    <ion-title class="titulo-header">
+        <ion-icon name="clipboard"></ion-icon>Encuesta <!-- Empleado -->
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button color="light" size="small" (click)="this.enviarEncuesta()">Enviar</ion-button>
+      <ion-button color="dark" size="small" (click)="this.enviarEncuesta()" style="text-transform: unset;">
+          Enviar<ion-icon name="send"></ion-icon></ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="background-image ion-padding">
+<ion-content class=" ion-padding">
 
-  <ion-card class="card-background" style="background-color:rgba(255, 255, 255, 0.8);">
+  <ion-card class="card-background" style="background-color:whitesmoke; border-radius: 20px;">
 
     <form [(formGroup)]="this.formEncuesta">
       <!-- Preview de las fotos -->
       <div class="width-100 center-vertical center-horizontal extra-bottom">
         <!-- Hacer placeholder para foto de encuesta -->
-        <img class="profile-picture" *ngIf="this.fotos.length == 0"
-          src="assets/img/add_user.png">
+        <img class="encuesta-picture" *ngIf="this.fotos.length == 0"
+          src="assets/icon/encuesta.png">
         <div *ngFor="let foto of this.fotos">
           <img class="profile-picture" [src]="foto" />
         </div>
       </div>
       <div class="align-text-center">
-        <ion-button class="botones-registro" [disabled]="this.fotos.length >= 1"
+        <ion-button class="botones" [disabled]="this.fotos.length >= 1"
           (click)="this.tomarFoto()">
-          Subir foto
+          <ion-icon name="camera"></ion-icon>Tomar fotos
         </ion-button>
       </div>
 
       <ion-item-group>
         <ion-item-divider class="tabla1">
-          <h6 class="tabla1-cont">¿La encuesta fue echa al ingresar o salir del trabajo?</h6>
+          <h6 class="tabla1-cont">¿La encuesta fue realizada al ingreso o salida del trabajo?</h6>
         </ion-item-divider>
         <!-- formControlName="horarioEncuestaCtrl" -->
         <ion-radio-group (ionChange)="mapHorarioRadioToFormValue($event)">
@@ -71,7 +72,7 @@
           <h6 class="tabla1-cont">Orden General</h6>
         </ion-item-divider>
         <ion-item class="itemc">
-          <ion-range color="dark" min="1" max="10" ticks="true" snaps="true"
+          <ion-range color="verdeleon" min="1" max="10" ticks="true" snaps="true"
             formControlName="ordenCtrl">
             <ion-label slot="start">1</ion-label>
             <ion-label slot="end">10</ion-label>
@@ -82,7 +83,7 @@
       <!-- Checkbox para elegir lo más destacado -->
       <ion-item-group>
         <ion-item-divider class="tabla1">
-          <h6 class="tabla1-cont">¿Qué le pareció lo más destacado?</h6>
+          <h6 class="tabla1-cont">¿Qué es lo que más le gustó del trabajo?</h6>
         </ion-item-divider>
         <ion-item class="itemc">
           <ion-label>Puesto de Trabajo</ion-label>
@@ -105,7 +106,7 @@
       <!-- Radio para elegir la satisfacción del empleado -->
       <ion-item-group>
         <ion-item-divider class="tabla1">
-          <h6 class="tabla1-cont">¿Está satisfecho con el lugar de trabajo?</h6>
+          <h6 class="tabla1-cont">¿Se encuentra satisfecho con su lugar de trabajo?</h6>
         </ion-item-divider>
         <!-- formControlName="satisfaccionCtrl" -->
         <ion-radio-group (ionChange)="mapRadioToFormValue($event)">
@@ -130,5 +131,9 @@
         </ion-item>
       </ion-item-group>
     </form>
+    <ion-button class="botones"
+      (click)="this.enviarEncuesta()" style="width: 60%;height: 40px;">
+      Enviar<ion-icon color="dark" name="send"></ion-icon>
+    </ion-button>
   </ion-card>
 </ion-content>

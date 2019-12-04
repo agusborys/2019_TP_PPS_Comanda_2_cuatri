@@ -112,9 +112,9 @@ export class RegistroClientePage implements OnInit {
   */
   async SacarFoto() {
     this.cajaSonido.ReproducirSelecionar();
-    const imageName = this.usuario.correo + (this.herramientas.GenRanNum(1111111, 9999999).toString());
+    let imageName = this.usuario.correo + (this.herramientas.GenRanNum(1111111, 9999999).toString());
     try {
-      const options: CameraOptions = {
+      let options: CameraOptions = {
         quality: 50,
         targetHeight: 600,
         targetWidth: 600,
@@ -123,11 +123,11 @@ export class RegistroClientePage implements OnInit {
         mediaType: this.camera.MediaType.PICTURE
       };
 
-      const result = await this.camera.getPicture(options);
-      const image = `data:image/jpeg;base64,${result}`;
-      const pictures = firebase.storage().ref(`fotos/${imageName}`);
-      pictures.putString(image, 'data_url').then((a) => {
-        a.ref.getDownloadURL().then((url) => {
+      let result = await this.camera.getPicture(options);
+      let image = `data:image/jpeg;base64,${result}`;
+      let pictures = firebase.storage().ref(`fotos/${imageName}`);
+      pictures.putString(image, "data_url").then(() => {
+        pictures.getDownloadURL().then((url) => {
           this.usuario.foto = (url as string);
           this.Registrar();
         });
@@ -137,7 +137,7 @@ export class RegistroClientePage implements OnInit {
       //this.presentAlert('¡Error!', 'Error en el registro.', 'Error al subir la foto, se cancelará el proceso.');
       this.errorHandler.mostrarErrorSolo("Error!", "Error al subir la foto");
       console.log('Error:' + error);
-    }
+    } 
   }
 
   /*
@@ -154,7 +154,7 @@ export class RegistroClientePage implements OnInit {
     *basado en las elecciones del usuario se guarda un cliente o un anonimos
   */
   Registrar() {
-    if (this.esCliente === true) {
+    if (this.esCliente == true) {
       this.RegistrarCliente();
     } else {
       this.anonimo.correo = this.usuario.correo; // Cambiar esto para agregar un numero aleatorio

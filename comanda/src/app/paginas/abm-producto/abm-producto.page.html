@@ -21,7 +21,7 @@
         <img class="imagen-alta" *ngIf="this.fotos.length == 0" style="margin-bottom: 10px;"
           src="assets/icon/menu.png">
         <div *ngFor="let foto of this.fotos">
-          <img class="profile-picture" [src]="foto" />
+          <img class="imagen-alta" [src]="foto" />
         </div>
       </div>
 
