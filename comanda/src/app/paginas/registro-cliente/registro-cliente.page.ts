@@ -126,8 +126,8 @@ export class RegistroClientePage implements OnInit {
       const result = await this.camera.getPicture(options);
       const image = `data:image/jpeg;base64,${result}`;
       const pictures = firebase.storage().ref(`fotos/${imageName}`);
-      pictures.putString(image, 'data_url').then(() => {
-        pictures.getDownloadURL().then((url) => {
+      pictures.putString(image, 'data_url').then((a) => {
+        a.ref.getDownloadURL().then((url) => {
           this.usuario.foto = (url as string);
           this.Registrar();
         });

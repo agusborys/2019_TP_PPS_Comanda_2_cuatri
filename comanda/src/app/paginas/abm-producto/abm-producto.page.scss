@@ -68,3 +68,19 @@
     color: black;
     --highlight-height:0;
   }
+
+  .imagen-alta {
+    height: 9rem;
+    max-height: 9rem !important;
+    min-height: 9rem;
+    width: 9rem;
+    max-width: 9rem !important;
+    min-width: 9rem;
+    object-fit: cover;
+    border-radius: 20% !important;
+    //border-color: #339933;
+    //border-width: 1px;
+    //border-style: solid;
+    padding: 5px;
+    background-color: whitesmoke;
+  }

@@ -1,10 +1,10 @@
 <ion-header>
   <ion-toolbar color="verdeleon">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="inicio"></ion-back-button>
+      <ion-back-button color="dark" defaultHref="inicio"></ion-back-button>
     </ion-buttons>
-    <ion-title>
-      Confirmar Entrega
+    <ion-title class="titulo-header">
+      <ion-icon name="checkbox-outline"></ion-icon>Confirmar Entrega
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -12,18 +12,18 @@
 <ion-content>
   <!-- Pedido local -->
   <!-- <ion-card class="card-background" *ngIf="this.pedidoEnLocal != null"> -->
-  <ion-card style="background-color:rgba(255, 255, 255, 0.8);" *ngIf="this.pedidoEnLocal != null">
+  <ion-card style="background-color:whitesmoke; border-radius: 20px;" *ngIf="this.pedidoEnLocal != null">
     <ion-card-content>
       <ion-item class="item2">
-        <ion-label>Cliente</ion-label>
+        <ion-label class="label-verde">Cliente</ion-label>
         <ion-input [value]="this.pedidoEnLocal.cliente" readonly></ion-input>
       </ion-item>
       <ion-item class="item2">
-        <ion-label>Fecha</ion-label>
+        <ion-label class="label-verde">Fecha</ion-label>
         <ion-input [value]="this.pedidoEnLocal.fecha | date:'medium'" readonly></ion-input>
       </ion-item>
       <ion-item class="item2">
-        <ion-label>Estado</ion-label>
+        <ion-label class="label-verde">Estado</ion-label>
         <ion-input [value]="this.pedidoEnLocal.estado | titlecase" readonly></ion-input>
       </ion-item>
 
@@ -35,8 +35,8 @@
       </ion-item>
 
       <ion-item class="item2">
-        <ion-label>Total</ion-label>
-        <ion-input [value]="this.pedidoEnLocal.preciototal" readonly></ion-input>
+        <ion-label class="label-verde">Total</ion-label>&nbsp;
+        <ion-input [value]="this.pedidoEnLocal.preciototal" readonly>$</ion-input>
       </ion-item>
     </ion-card-content>
   </ion-card>
@@ -64,17 +64,20 @@
   </ion-card>
 
   <!-- En caso de no existir pedidos -->
-  <ion-card class="card-background"
+  <ion-card style="background-color:whitesmoke; border-radius: 20px;"
     *ngIf="this.pedidoDelivery == null && this.pedidoEnLocal == null">
-    <ion-card-content>
-      Aún no existen pedidos a entregar.
+    <ion-card-content class="texto-card">
+      Aún no existen pedidos a entregar.<br>
+      <ion-icon style="font-size: 50px;" name="alert"></ion-icon>
     </ion-card-content>
   </ion-card>
 </ion-content>
 
 <ion-footer>
-  <ion-button class="botones-registro"  (click)="confirmarEntrega()"
-    [disabled]="this.pedidoDelivery == null && this.pedidoEnLocal == null">
-    Confirmar entrega
-  </ion-button>
+  <ion-toolbar style="--background:#edf7ee">
+      <ion-button style="width:100%" class="botones-registro"  (click)="confirmarEntrega()"
+      [disabled]="this.pedidoDelivery == null && this.pedidoEnLocal == null">
+      Confirmar entrega
+    </ion-button>
+  </ion-toolbar>
 </ion-footer>
