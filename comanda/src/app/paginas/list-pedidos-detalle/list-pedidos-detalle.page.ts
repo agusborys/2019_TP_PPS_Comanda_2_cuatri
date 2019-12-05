@@ -43,6 +43,7 @@ export class ListPedidosDetallePage implements OnInit {
             pe.estado !== 'finalizado');
 
           return auxReturn;
+          
         });
 
         // console.log('Pedidos', this.pedidos);

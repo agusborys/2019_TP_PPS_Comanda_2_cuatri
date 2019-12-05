@@ -58,15 +58,15 @@ export class InicioPage implements OnInit {
         break;
       case 'cocinero':
         console.log(tipo+" cocinero subscrito a Pedidos");
-        this.fcm.subscribeToTopic('pedidosCocinero');
+        this.fcm.subscribeToTopic('notificacionesPedidos');
         break;
       case 'candybar':
         console.log(tipo+" subscrito a Pedidos");
-        this.fcm.subscribeToTopic('pedidosCandybar');
+        this.fcm.subscribeToTopic('notificacionesPedidos');
         break;
       case 'bartender':
         console.log(tipo+" subscrito a Pedidos");
-        this.fcm.subscribeToTopic('pedidosBartender');
+        this.fcm.subscribeToTopic('notificacionesPedidos');
         break;      
       default:
         break;

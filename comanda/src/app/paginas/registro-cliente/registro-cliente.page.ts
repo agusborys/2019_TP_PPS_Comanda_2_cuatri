@@ -217,6 +217,7 @@ export class RegistroClientePage implements OnInit {
       this.anonimo.nombre = this.usuario.nombre;
       this.RegistrarAnonimo();
     }
+    this.envioPost();
   }
 
   /*
