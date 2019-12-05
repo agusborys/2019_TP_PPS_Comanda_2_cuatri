@@ -18,9 +18,7 @@
 </ion-header>
 
 <ion-content class="ion-padding" style="--background:#edf7ee">
-  <ion-button class="botones" routerLink="/juego-postre" size="large">
-    <ion-icon name="qr-scanner"></ion-icon>Juego
-  </ion-button>
+
   <div *ngIf="this.authService.tipoUser == ''"
     class="width-100 center-horizontal center-vertical flex-v spinner-text">
     Espere...
@@ -130,6 +128,14 @@
     </ion-button>
     <ion-button class="botones" routerLink="/confirmar-entrega" size="large">
       <ion-icon name="checkbox-outline"></ion-icon>Confirmar Entrega
+    </ion-button>
+    <ion-button class="botones" routerLink="/juego-postre" size="large">
+      <ion-icon name="infinite"></ion-icon>
+      Juego Simon
+    </ion-button>
+    <ion-button class="botones" routerLink="/juego-descuento" size="large">
+      <ion-icon name="subway"></ion-icon>
+      Juego Ahorcado
     </ion-button>
   </div>
 </ion-content>

@@ -109,6 +109,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   { path: 'juego-postre', loadChildren: './paginas/juego-postre/juego-postre.module#JuegoPostrePageModule' },
+  { path: 'juego-descuento', loadChildren: './paginas/juego-descuento/juego-descuento.module#JuegoDescuentoPageModule' },
 
 ];
 
