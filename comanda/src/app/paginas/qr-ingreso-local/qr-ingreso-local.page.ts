@@ -40,8 +40,6 @@ export class QrIngresoLocalPage implements OnInit {
 
   //#region metodos de FCM
   envioPost() {
-    // console.log("estoy en envioPost. Pedido: ", pedido);
-    // console.log("estoy en envioPost. Pedido cliente: ", pedido.cliente);
     /* let usuarioLogueado = JSON.parse(sessionStorage.getItem("usuario")); */
 
     let usuarioLogueado = this.authServ.user;
@@ -55,21 +53,23 @@ export class QrIngresoLocalPage implements OnInit {
     let options = new RequestOptions({ headers: header, method: 'post'});
     let data =  {
       "notification": {
-        "title": tituloNotif   ,
-        "body": bodyNotif ,
+        "title": tituloNotif,
+        "body": bodyNotif,
         "sound": "default",
         "click_action": "FCM_PLUGIN_ACTIVITY",
         "icon": "fcm_push_icon"
       },
       "data": {
         "landing_page": "inicio",
+        "titulo":tituloNotif,
+        "cuerpo":bodyNotif,
       },
         "to": "/topics/notificacionMesa",
         "priority": "high",
         "restricted_package_name": ""
     };
 
-    console.log("Data: ", data);
+    //console.log("Data: ", data);
    
     return this.http.post(this.apiFCM, data, options).pipe(map(res => res.json())).subscribe(result => {
       console.log(result);
@@ -106,7 +106,7 @@ export class QrIngresoLocalPage implements OnInit {
     this.traerListaEspera().subscribe((d: ListaEsperaClientesKey[]) => {
       // console.log('Tengo la lista de espera', d);
       this.listaEspera = d;
-      
+      /* this.envioPost(); */
       // console.log('Ya tengo las listas');
       if (this.esCliente() && this.estaEnLista()) {
         this.presentToast('Ya se encuentra en la lista', 'success');
