@@ -49,10 +49,11 @@ export class AppComponent implements OnInit {
       console.log(data);
       if (data.wasTapped) {
         console.log('Received in background');
-        this.router.navigateByUrl('/login');
+        //this.router.navigateByUrl('/list-confirmar-cliente-mesa');
+        this.router.navigate(['/list-confirmar-cliente-mesa']);
       } else {
         console.log('Received in foreground');
-        this.router.navigateByUrl('/login');
+        //this.router.navigateByUrl('/login');
       }
     });
   }

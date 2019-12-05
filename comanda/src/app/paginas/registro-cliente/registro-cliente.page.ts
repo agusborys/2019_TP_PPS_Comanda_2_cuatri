@@ -12,12 +12,17 @@ import { BarcodeScannerOptions, BarcodeScanResult, BarcodeScanner } from '@ionic
 import { AlertController } from '@ionic/angular';
 import { ErrorHandlerService } from 'src/app/servicios/error-handler.service';
 
+import { Http, Headers, Response, RequestOptions  } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-registro-cliente',
   templateUrl: './registro-cliente.page.html',
   styleUrls: ['./registro-cliente.page.scss'],
 })
 export class RegistroClientePage implements OnInit {
+
+  apiFCM = 'https://fcm.googleapis.com/fcm/send';
   private firebase = firebase;
   private usuario: Cliente;
   private anonimo: Anonimo;
@@ -32,6 +37,8 @@ export class RegistroClientePage implements OnInit {
   private esCliente = true;
 
   constructor(
+    public http: Http,
+    public httpClient: HttpClient,
     private auth: AuthService,
     private camera: Camera,
     public barcodeScanner: BarcodeScanner,
@@ -51,6 +58,54 @@ export class RegistroClientePage implements OnInit {
     this.anonimo = new Anonimo();
     this.clave = '';
   }
+
+  //#region metodos de FCM
+  envioPost() {
+
+    //let usuarioLogueado = this.auth.user;
+
+    let tituloNotif = "Se registro un nuevo cliente";
+
+
+    let bodyNotif = "El cliente " + this.usuario.correo + " esta esperando confirmacion." ; 
+
+    let header = this.initHeaders();
+    let options = new RequestOptions({ headers: header, method: 'post'});
+    let data =  {
+      "notification": {
+        "title": tituloNotif   ,
+        "body": bodyNotif ,
+        "sound": "default",
+        "click_action": "FCM_PLUGIN_ACTIVITY",
+        "icon": "fcm_push_icon"
+      },
+      "data": {
+        "landing_page": "inicio",
+      },
+        "to": "/topics/notificacionReservas",
+        "priority": "high",
+        "restricted_package_name": ""
+    };
+
+    console.log("Data: ", data);
+   
+    return this.http.post(this.apiFCM, data, options).pipe(map(res => res.json())).subscribe(result => {
+      console.log(result);
+    });
+
+               
+  }
+
+  
+ private initHeaders(): Headers {
+  let apiKey = 'key=AAAAN11vLtI:APA91bEwhXPo2yboIARzbRHmaQ72PwOfCvmkZsizri-KjBkpxb0cwKR9_y2oj2UkRG2IUm06u16HzJYYwatkqNSeeBjWOFhsq7iA4isVRY8E2_Y3NOvA0w5sBZw--8cMH2d1NDjdSllQ' ;
+  var headers = new Headers();
+  headers.append('Authorization', apiKey);
+  headers.append('Content-Type', 'application/json');
+  return headers;
+}
+  //#endregion
+
 
   public presentAlert(header: string, subHeader: string, message: string) {
     this.alertCtrl.create({
