@@ -10,7 +10,7 @@
 <br>
 <br>
 
-<h2 align="center">Integrantes/h2>
+<h2 align="center">Integrantes</h2>
  <h4 align="center">Agustin Borys</h4>
  <h4 align="center">Leon Ifran</h4>
  <h4 align="center">Santiago de la Fuente:</h4>
