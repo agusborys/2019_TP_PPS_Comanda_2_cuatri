@@ -214,14 +214,17 @@ export class ListPedidosDetallePage implements OnInit {
 
         if (pedido.cantDet === i) {
           data.estado = estado;
+          this.envioPost(pedido);//aca envio el push
         }
 
         // console.log(data);
-        await this.actualizarDoc('pedidos', pedido.key, data).then((res) => {
+/* Ponerlo despues de data) abajo        
+ .then((res) => {
           console.log("se envia el push");
             this.envioPost(pedido);//aca envio el push
         
-        }).catch(err => {
+        }) */
+        await this.actualizarDoc('pedidos', pedido.key, data).catch(err => {
           console.log('Error en actualizar Pedido', err);
         });
       }
