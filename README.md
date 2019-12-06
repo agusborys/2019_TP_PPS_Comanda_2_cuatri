@@ -2,7 +2,7 @@
 2019 - 2 cuatrimestre - PPS -- La Comanda
   Grupo Glamit
 </h1>
-<img src="https://i.imgur.com/q2rtU34.png"/>
+<img src="https://i.imgur.com/q2rtU34.png" width="500" height="500"/>
 
 ## Metodologia de trabajo
 Antes de comenzar a trabajar nos dividimos las tareas iniciales
