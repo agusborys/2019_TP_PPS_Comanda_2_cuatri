@@ -11,9 +11,9 @@
 
 Antes de comenzar a trabajar 
 Acordamos comunicarnos mediante un grupo de whatsaṕp, creamos una nueva cuenta en firebase, acordamos el tema visual de la aplicacion y nos dividimos las tareas iniciales. Subsequentemente
-
+<h2 align="center">
 ### Tareas iniciales (Semana 27/10)
-
+</h2>
 **Agustin Borys:** Diseño del icono, splash 
 
 **Ifran Leon:** Creacion de la base de datos y los servicios que van a interactuar con ella
@@ -29,7 +29,7 @@ Acordamos comunicarnos mediante un grupo de whatsaṕp, creamos una nueva cuenta
 
 **Santiago de la Fuente:**  confirmacion de clientes, alta de empleados
 
-
+<br>
 ### QRs y Pedidos (Semana 17/11)
 
 **Agustin borys:** Qr de la mesa, QR propina
@@ -38,7 +38,7 @@ Acordamos comunicarnos mediante un grupo de whatsaṕp, creamos una nueva cuenta
 
 **Santiago de la Fuente:**  Tomar pedido
 
-
+<br>
 ### Encuestas (Semana 24/11)
 
 **Agustin borys:** Encuestas empleado
@@ -46,7 +46,7 @@ Acordamos comunicarnos mediante un grupo de whatsaṕp, creamos una nueva cuenta
 **Leon Ifran:** Encuestas cliente
 
 **Santiago de la Fuente:**  -
-
+<br>
 
 ### Primeros pasos (Semana 29/11)
 
@@ -56,8 +56,9 @@ Acordamos comunicarnos mediante un grupo de whatsaṕp, creamos una nueva cuenta
 
 **Santiago de la Fuente:**  ahorcado, bug fixes varios
 
-Para registrarse: https://forms.gle/n5rUakcPKSywgFGU8
+
 <br>
 <br>
 <h3>Diagrama código Qr (mesa)</h3>
 <img src="https://github.com/maxineiner/2019_TP_PPS_Comanda_2_cuatri/blob/master/Diagrama_QR_MESA.jpg"/>
+<br>
