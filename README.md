@@ -4,12 +4,6 @@
 </h1>
 <img src="https://i.imgur.com/q2rtU34.png"/>
 
-Para registrarse: https://forms.gle/n5rUakcPKSywgFGU8
-<br>
-<br>
-<h3>Diagrama código Qr (mesa)</h3>
-<img src="https://github.com/maxineiner/2019_TP_PPS_Comanda_2_cuatri/blob/master/Diagrama_QR_MESA.jpg"/>
-
 ## Metodologia de trabajo
 Antes de comenzar a trabajar nos dividimos las tareas iniciales
 
@@ -27,3 +21,11 @@ Antes de comenzar a trabajar nos dividimos las tareas iniciales
 **Leon ifran**: entrada al local
 
 **Santiago de la Fuente:**  confirmacion de clientes
+
+
+
+Para registrarse: https://forms.gle/n5rUakcPKSywgFGU8
+<br>
+<br>
+<h3>Diagrama código Qr (mesa)</h3>
+<img src="https://github.com/maxineiner/2019_TP_PPS_Comanda_2_cuatri/blob/master/Diagrama_QR_MESA.jpg"/>
