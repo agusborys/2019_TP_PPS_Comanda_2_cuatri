@@ -15,14 +15,13 @@ Acordamos comunicarnos mediante un grupo de whatsaṕp, creamos una nueva cuenta
 <h3 align="center">
  Tareas iniciales (Semana 27/10)
 </h3>
-
 **Agustin Borys:** Diseño del icono, splash 
 
 **Ifran Leon:** Creacion de la base de datos y los servicios que van a interactuar con ella
 
 **Santiago de la Fuente:** Organizacion y division de las paginas
-
-
+<br>
+<br>
 <h3 align="center"> Login y altas (Semana 3/11)</h3>
 
 **Agustin Borys:** Login y alta de dueños/supervisores
