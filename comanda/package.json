@@ -98,15 +98,9 @@
         "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
       },
       "cordova-plugin-ionic-keyboard": {},
-      "cordova-plugin-camera": {
-        "ANDROID_SUPPORT_V4_VERSION": "27.+"
-      },
-      "phonegap-plugin-barcodescanner": {
-        "ANDROID_SUPPORT_V4_VERSION": "27.+"
-      },
-      "cordova-plugin-email-composer": {
-        "ANDROID_SUPPORT_V4_VERSION": "27.+"
-      },
+      "cordova-plugin-camera": {},
+      "phonegap-plugin-barcodescanner": {},
+      "cordova-plugin-email-composer": {},
       "cordova-plugin-androidx": {},
       "cordova-plugin-androidx-adapter": {},
       "cordova-plugin-fcm-with-dependecy-updated": {

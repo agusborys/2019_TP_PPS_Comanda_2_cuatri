@@ -7,6 +7,7 @@ import { MesaKey } from 'src/app/clases/mesa';
 import { PedidoDetalleKey } from 'src/app/clases/pedidoDetalle';
 import { ModalPedidoPage } from '../modal-pedido/modal-pedido.page';
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
+import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
 
 @Component({
   selector: 'app-list-confirmar-pedido',
@@ -16,17 +17,22 @@ import { Http, Headers, Response, RequestOptions  } from '@angular/http';
 export class ListConfirmarPedidoPage implements OnInit {
   private pedidos: PedidoKey[];
   apiFCM = 'https://fcm.googleapis.com/fcm/send';
+  private spinner:any = null;
   constructor(
     private firestore: AngularFirestore,
     private toastCtrl: ToastController,
     private modalCtrl: ModalController,
-    public http: Http, ) {
+    public http: Http, 
+    private spinnerHand : SpinnerHandlerService) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.pedidos = new Array<PedidoKey>();
+    this.spinner = await this.spinnerHand.GetAllPageSpinner();
+    this.spinner.present();
     this.traerPedidosAConfirmar().subscribe(d => {
       this.pedidos = d.sort(this.compararFecha);
+      this.spinner.dismiss();
     });
   }
 

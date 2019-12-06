@@ -7,6 +7,7 @@ import { ProductoKey } from 'src/app/clases/producto';
 import { AngularFirestore, QuerySnapshot, DocumentSnapshot, DocumentReference } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/servicios/auth.service';
+import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
 
 
 @Component({
@@ -23,18 +24,20 @@ export class GenerarPedidoPage implements OnInit {
   private productosBartender: ProductoKey[];
   private productosCandybar: ProductoKey[];
   private totalPedido = 0;
-
+  private spinner = null;
   constructor(
     public modalCtrl: ModalController,
     public toastController: ToastController,
     public alertCtrl: AlertController,
     private firestore: AngularFirestore,
     private router: Router,
-    private authServ: AuthService
+    private authServ: AuthService,
+    private spinnerHand:SpinnerHandlerService
   ) { }
 
   // Trae los productos
   public async traerProductos() {
+    
     return this.firestore.collection('productos').get().toPromise().then((d: QuerySnapshot<any>) => {
       if (!d.empty) {
         const prodReturn = new Array<ProductoKey>();
@@ -51,7 +54,9 @@ export class GenerarPedidoPage implements OnInit {
   }
 
   // Filtra los productos según su categoria
-  public inicializarProductos() {
+  public async inicializarProductos() {
+    this.spinner = await this.spinnerHand.GetAllPageSpinner();
+    this.spinner.present();
     this.traerProductos().then((data: Array<ProductoKey>) => {
       // console.log(data);
       this.productosBartender = data.filter((f: ProductoKey) => {
@@ -65,6 +70,7 @@ export class GenerarPedidoPage implements OnInit {
       });
 
       this.productos = data;
+      this.spinner.dismiss();
       // console.log(this.productosCocina);
     });
   }

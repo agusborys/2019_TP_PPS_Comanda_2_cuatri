@@ -29,7 +29,7 @@ export class QrMesaPage implements OnInit {
   private reservas: ReservaKey[];
   private reservaAMostrar: ReservaKey;
   private listaEspera: ListaEsperaClientesKey[];
-
+  private mostrarBtnEncuesta : boolean = true;
   constructor(
     private firestore: AngularFirestore,
     private scanner: BarcodeScanner,
@@ -58,7 +58,6 @@ export class QrMesaPage implements OnInit {
         }
       }
     });
-
     this.traerReservas().subscribe((d: ReservaKey[]) => {
       // console.log('Tengo las mesas', d);
       this.reservas = d;
@@ -68,8 +67,23 @@ export class QrMesaPage implements OnInit {
       // console.log('Tengo la lista de espera', d);
       this.listaEspera = d;
     });
+    this.traerEncuestas().subscribe((d:any)=>{
+      for(let element of d)
+      {
+        if(element.pedido == this.mesaAMostrar.pedidoActual)
+        {
+          console.log(element.pedido);
+          this.mostrarBtnEncuesta = false;
+          break;
+        }
+        else{
+          this.mostrarBtnEncuesta = true;
+        }
+      }
+    });
+    console.log(this.mostrarBtnEncuesta);
   }
-
+  
   public traerListaEspera() {
     return this.firestore.collection('listaEsperaClientes').snapshotChanges().pipe(map((f) => {
       return f.map((a) => {
@@ -79,7 +93,6 @@ export class QrMesaPage implements OnInit {
       });
     }));
   }
-
   public traerMesas() {
     return this.firestore.collection('mesas').snapshotChanges()
       .pipe(map((f) => {
@@ -97,6 +110,15 @@ export class QrMesaPage implements OnInit {
         return f.map((a) => {
           const data = a.payload.doc.data() as ReservaKey;
           data.key = a.payload.doc.id;
+          return data;
+        });
+      }));
+  }
+  public traerEncuestas() {
+    return this.firestore.collection('encuestas-cliente').snapshotChanges()
+      .pipe(map((f) => {
+        return f.map((a) => {
+          const data = a.payload.doc.data() as any;
           return data;
         });
       }));

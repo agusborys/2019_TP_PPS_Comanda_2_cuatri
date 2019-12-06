@@ -8,6 +8,7 @@ import { ListaEsperaClientesKey, } from 'src/app/clases/lista-espera-clientes';
 import { map } from 'rxjs/operators';
 import { ModalClientePage } from '../modal-cliente/modal-cliente.page';
 import { AuthService } from 'src/app/servicios/auth.service';
+import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
 
 @Component({
   selector: 'app-list-confirmar-cliente-mesa',
@@ -17,15 +18,18 @@ import { AuthService } from 'src/app/servicios/auth.service';
 export class ListConfirmarClienteMesaPage implements OnInit {
   private esMozo = false; // : boolean
   private clientes = new Array<ListaEsperaClientesKey>();
-
+  private spinner:any=null;
   constructor(
     private firestore: AngularFirestore,
     private toastCtrl: ToastController,
     private modalCtrl: ModalController,
-    private authServ: AuthService
+    private authServ: AuthService,
+    private spinnerHand : SpinnerHandlerService
   ) { }
 
   async ngOnInit() {
+    this.spinner = await this.spinnerHand.GetAllPageSpinner();
+    this.spinner.present();
     if (this.authServ.tipoUser === 'mozo' ||
       this.authServ.tipoUser === 'dueño' ||
       this.authServ.tipoUser === 'supervisor') {
@@ -37,6 +41,7 @@ export class ListConfirmarClienteMesaPage implements OnInit {
       this.clientes = d.filter(c => c.estado === 'confirmacionMozo');
       this.clientes = this.clientes.sort(this.sortFecha);
     });
+    this.spinner.dismiss();
   }
 
   private sortFecha(a: any, b: any) {

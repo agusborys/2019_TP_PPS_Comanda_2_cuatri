@@ -14,19 +14,19 @@
     <ion-card-content>
       <div class="ion-no-padding transparent-item flex-v" *ngFor="let pedido of
         pedidos">
-        <div class="width-100 align-text-center big-letter"  style="background: rgba(255, 255, 255, 0.75);">
+        <div class="width-100 align-text-center big-letter"  style="background: whitesmoke;">
           <label class="bolded">
             Mesa {{pedido.mesa}}
          </label>
       </div>
-      <div class="width-100 center-horizontal center-vertical" style="background: rgba(255, 255, 255, 0.6);">
+      <div class="width-100 center-horizontal center-vertical" style="background: whitesmoke;">
           <ion-button class="botones-registro"
             (click)="this.verPedido(pedido.key)">
             Ver
           </ion-button>
         </div>
 
-        <div class="width-100 center-horizontal" style="background: rgba(255, 255, 255, 0.6);">
+        <div class="width-100 center-horizontal" style="background: whitesmoke;">
           <ion-button class="botones-registro"
             (click)="aceptarPedido(pedido.key)">
             <ion-icon slot="icon-only" name="checkmark" style="font-weight: bold;"></ion-icon>
