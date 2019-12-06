@@ -35,7 +35,6 @@ Acordamos comunicarnos mediante un grupo de whatsaṕp, creamos una nueva cuenta
 <h3 align="center">QRs y Pedidos (Semana 17/11)
 </h3>
 
-
 **Agustin borys:** Qr de la mesa, QR propina
 
 **Leon Ifran:** Lista de espera, Pedir platos y bebidas
