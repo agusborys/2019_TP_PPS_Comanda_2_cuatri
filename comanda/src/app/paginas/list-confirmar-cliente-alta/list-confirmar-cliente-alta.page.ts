@@ -5,6 +5,7 @@ import { ToastController } from '@ionic/angular';
 import { map } from 'rxjs/operators';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { AuthService } from 'src/app/servicios/auth.service';
+import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
 
 @Component({
   selector: 'app-list-confirmar-cliente-alta',
@@ -13,19 +14,23 @@ import { AuthService } from 'src/app/servicios/auth.service';
 })
 export class ListConfirmarClienteAltaPage implements OnInit {
   private clientes = new Array<ClienteAConfirmarKey>();
-
+  private spinner : any = null;
   constructor(
     private firestore: AngularFirestore,
     private toastCtrl: ToastController,
     private sendEmail: EmailComposer,
     private authServ: AuthService,
+    private spinnerHand : SpinnerHandlerService,
   ) { }
 
-  public ngOnInit() {
+  public async ngOnInit() {
+    this.spinner = await this.spinnerHand.GetAllPageSpinner();
+    this.spinner.present();
     this.traerClientes().subscribe((d: ClienteAConfirmarKey[]) => {
       // console.log('Tengo la lista de clientes', d);
       this.clientes = d;
     });
+    this.spinner.dismiss();
   }
 
   public traerClientes() {
