@@ -17,27 +17,25 @@ export class InicioPage implements OnInit {
     private authService: AuthService,
     public router: Router,
     private modalCtrl: ModalController,
-    private spinnerHand:SpinnerHandlerService) { }
+    private spinnerHand:SpinnerHandlerService) {
+     }
 
   public cerrarSesion() {
     this.authService.Logout();
   }
 
   async ngOnInit() { 
-    
   }
-  async ionViewDidEnter(){
-    if(this.authService.tipoUser =='')
-    {
-      this.spinner = await this.spinnerHand.GetAllPageSpinner();
-    this.spinner.present();
-    }
-    
-    if(this.authService.tipoUser!='')
-    {
-      this.spinner.dismiss();
-    }
-  }
+  // async ionViewDidEnter(){
+  //   if(this.authService.tipoUser =='')
+  //   {
+  //     this.spinner = await this.spinnerHand.GetAllPageSpinner();
+  //     this.spinner.present();
+  //   }
+  //   else{
+  //     this.spinner.dismiss();
+  //   }
+  // }
 
   public configModal() {
     this.modalCtrl.create({

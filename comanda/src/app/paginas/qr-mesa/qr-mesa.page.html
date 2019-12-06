@@ -39,10 +39,13 @@
           <ion-button class="boton-realizar" (click)="this.verPedido(this.mesaAMostrar.pedidoActual)">
             Ver Pedido
           </ion-button>
-          <ion-button class="boton-realizar"
+          <div *ngIf="this.mostrarBtnEncuesta == true">
+            <ion-button class="boton-realizar"
             (click)="this.verEncuesta(this.mesaAMostrar.pedidoActual)">
             Realizar Encuesta
-          </ion-button>
+            </ion-button>
+          </div>
+          
           <!-- <ion-button class="boton-realizar" routerLink="/juegos">
             Ir a Juegos
           </ion-button> -->

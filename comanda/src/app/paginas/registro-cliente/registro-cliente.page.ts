@@ -12,6 +12,7 @@ import { BarcodeScannerOptions, BarcodeScanResult, BarcodeScanner } from '@ionic
 import { AlertController } from '@ionic/angular';
 import { ErrorHandlerService } from 'src/app/servicios/error-handler.service';
 import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
+import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-registro-cliente',
@@ -39,7 +40,8 @@ export class RegistroClientePage implements OnInit {
     public barcodeScanner: BarcodeScanner,
     private alertCtrl: AlertController,
     private errorHandler:ErrorHandlerService,
-    private spinnerHand:SpinnerHandlerService
+    private spinnerHand:SpinnerHandlerService,
+    private storage: AngularFireStorage,
   ) {
     this.usuario = new Cliente();
     this.anonimo = new Anonimo();
@@ -113,37 +115,46 @@ export class RegistroClientePage implements OnInit {
   /*
     *permite sacar una foto y subirla en firebase, asi permite guardar su direcccion
   */
-  async SacarFoto() {
-    this.cajaSonido.ReproducirSelecionar();
-    let imageName = this.usuario.correo + (this.herramientas.GenRanNum(1111111, 9999999).toString());
-    try {
-      let options: CameraOptions = {
-        quality: 50,
-        targetHeight: 600,
-        targetWidth: 600,
-        destinationType: this.camera.DestinationType.DATA_URL,
-        encodingType: this.camera.EncodingType.JPEG,
-        mediaType: this.camera.MediaType.PICTURE
-      };
-      
-      let result = await this.camera.getPicture(options);
-      this.spinner = await this.spinnerHand.GetAllPageSpinner();
-      this.spinner.present();
-      let image = `data:image/jpeg;base64,${result}`;
-      let pictures = firebase.storage().ref(`fotos/${imageName}`);
-      pictures.putString(image, "data_url").then(() => {
-        pictures.getDownloadURL().then((url) => {
-          this.usuario.foto = (url as string);
-          this.Registrar();
-        });
-      });
+ public async SacarFoto() {
+  this.cajaSonido.ReproducirSelecionar();
+  let imageName = this.usuario.correo + (this.herramientas.GenRanNum(1111111, 9999999).toString());
+  const imageRef: AngularFireStorageReference = this.storage.ref(`fotos/${imageName}.jpg`);
+  try {
+    let options: CameraOptions = {
+      quality: 50,
+      targetHeight: 600,
+      targetWidth: 600,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    };
+    let result = await this.camera.getPicture(options);
+    this.spinner = await this.spinnerHand.GetAllPageSpinner();
+    this.spinner.present();
+    let image = `data:image/jpeg;base64,${result}`;
+    await imageRef.putString(image,"data_url").then(async (snapshot)=>{
+      this.usuario.foto = await snapshot.ref.getDownloadURL();
+      this.Registrar();
+      //this.spinner.dismiss();
+    });
+    // let pictures = firebase.storage().ref(`fotos/${imageName}`);
+    // pictures.putString(image, "data_url").then(() => {
+    //   pictures.getDownloadURL().then((url) => {
+    //     this.usuario.foto = (url as string);
+    //     this.Registrar();
+    //     this.spinner.dismiss();
+    //   });
+    // });
 
-    } catch (error) {
-      //this.presentAlert('¡Error!', 'Error en el registro.', 'Error al subir la foto, se cancelará el proceso.');
-      this.errorHandler.mostrarErrorSolo("Error!", "Error al subir la foto");
-      console.log('Error:' + error);
-    } 
+  } catch (error) {
+    console.log(error);
+    //this.spinner.dismiss();
+    this.presentAlert('¡Error!', 'Error en el registro', "Error:" + error.message);
   }
+  this.spinner.dismiss();
+  //este spinner es necesario
+  //this.ActivarSpinner(5000);
+}
 
   /*
     *otorga una foto predefinida, evitando sacar una foto, es utilizada para propocitos de
@@ -161,6 +172,7 @@ export class RegistroClientePage implements OnInit {
     *basado en las elecciones del usuario se guarda un cliente o un anonimos
   */
   Registrar() {
+    
     if (this.esCliente == true) {
       this.RegistrarCliente();
     } else {

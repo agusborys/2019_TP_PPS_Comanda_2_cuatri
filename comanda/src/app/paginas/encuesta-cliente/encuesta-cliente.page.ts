@@ -6,6 +6,7 @@ import { AngularFireStorageReference, AngularFireStorage } from '@angular/fire/s
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
 
 @Component({
   selector: 'app-encuesta-cliente',
@@ -17,6 +18,7 @@ export class EncuestaClientePage implements OnInit {
   @Input('pedido') public pedido: string;
   private formEncuesta: FormGroup;
   private fotos: Array<string>;
+  private spinner : any = null;
 
   constructor(
     private toastController: ToastController,
@@ -26,7 +28,8 @@ export class EncuestaClientePage implements OnInit {
     private storage: AngularFireStorage,
     private firestore: AngularFirestore,
     /* private router: Router, */
-    private modalCtrl: ModalController) { }
+    private modalCtrl: ModalController,
+    private spinnerHand : SpinnerHandlerService) { }
 
   ngOnInit() {
     this.formEncuesta = new FormGroup({
@@ -163,6 +166,8 @@ export class EncuestaClientePage implements OnInit {
   }
 
   private async comenzarSubida() {
+    this.spinner = await this.spinnerHand.GetAllPageSpinner();
+    this.spinner.present();
     const dateA = new Date();
     const datos: any = {
       conformidad: this.formEncuesta.value.conformidadCtrl,
@@ -187,6 +192,7 @@ export class EncuestaClientePage implements OnInit {
           datos.fotos.push(await snapshot.ref.getDownloadURL());
           contador++;
         }).catch(() => {
+          this.spinner.dismiss();
           this.subidaErronea(`Error al subir la foto ${contador}, se canceló el alta.`);
           errores++;
         });
@@ -194,7 +200,9 @@ export class EncuestaClientePage implements OnInit {
 
     if (errores === 0) {
       this.guardardatosDeEncuesta(datos);
+      this.spinner.dismiss();
     }
+    this.spinner.dismiss();
   }
 
   private guardardatosDeEncuesta(datos) {

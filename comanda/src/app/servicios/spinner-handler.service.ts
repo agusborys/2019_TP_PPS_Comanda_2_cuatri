@@ -14,7 +14,7 @@ export class SpinnerHandlerService {
       keyboardClose: true,
       message: '<div class="spinner"><img src="assets/glamit/glamit2_sombrero_negro.png"></div> Cargando...',
       showBackdrop: false,
-      duration:5000,
+      duration:10000,
       cssClass: 'cajaSpinner'
     });
 

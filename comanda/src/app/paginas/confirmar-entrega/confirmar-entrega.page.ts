@@ -12,6 +12,7 @@ import { PedidoDeliveryKey } from 'src/app/clases/pedidoDelivery';
 import { MesaKey } from 'src/app/clases/mesa';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { Router } from '@angular/router';
+import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
 
 @Component({
   selector: 'app-confirmar-entrega',
@@ -22,17 +23,21 @@ export class ConfirmarEntregaPage implements OnInit {
   private pedidoEnLocal: PedidoKey = null;
   private pedidoDetalles: PedidoDetalleKey[] = null;
   private pedidoDelivery: PedidoDeliveryKey = null; // Cambiar a Pedido Delivery cuando se haga la clase
-
+  private spinner : any = null;
   constructor(
     private authServ: AuthService,
     private firestore: AngularFirestore,
     private toastCtrl: ToastController,
     private scanner: BarcodeScanner,
     private alertCtrl: AlertController,
-    private router: Router) { }
+    private router: Router,
+    private spinnerHand : SpinnerHandlerService) { }
 
-  public ngOnInit() {
+  public async ngOnInit() {
+    this.spinner = await this.spinnerHand.GetAllPageSpinner();
+    this.spinner.present();
     this.inicializarPedidos();
+    this.spinner.dismiss();
   }
 
   public inicializarPedidos() {
