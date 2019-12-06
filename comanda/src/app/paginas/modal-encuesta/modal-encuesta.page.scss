@@ -1,3 +1,4 @@
+
 .button1
 {
     --background: url('/assets/img/btn_empty.png') 0 0/100% 100% no-repeat !important;
@@ -14,64 +15,16 @@
     text-align: center;
 }
 
-.button2
-{
-    --background: url('/assets/img/btn_empty2.png') 0 0/100% 100% no-repeat !important;
-    height: 3rem;
-    width: 100%;
-    background-color: transparent;
-    padding: 0;
-    border: none;
-    font-size: 20px;
-    font-weight: bold;
-    color: rgb(255, 255, 255);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    text-align: center;
-}
-
-
-.itemc
-{
-    --background: transparent;
-    color: rgb(0, 0, 0);
-    width: 100%;
-}
-
-.itemc2
-{
-    // --background: transparent;
-    --background: rgba(255, 255, 255, 0.700);
-    color: rgb(0, 0, 0);
-    width: 100%;
-}
-
-
-.selecter
-{
-    width: 100%;
-    text-align: center;
-    font-weight: bold;
-}
-
-.inputhis
-{
-    text-align: center;
-    letter-spacing: 1px;
-    background-color: rgba(0, 0, 0, 0.1);
-    font-weight: bold;
-}
-
-
 .tabla1
 {
-    --background: url('/assets/img/tabla1.png') 0 0/100% 100% no-repeat !important;
+    //--background: url('/assets/img/tabla1.png') 0 0/100% 100% no-repeat !important;
     height: 100%;
     width: 100%;
     background-color: transparent;
     padding: 5px;
     margin: 5px;
-    border: none;
+    border: 0 0 3px 0;
+    border-color: #339933;
     font-size: 20px;
     font-weight: bold;
     color: rgb(0, 0, 0);
@@ -93,6 +46,14 @@
     text-align: center;
 }
 
+.inputhis
+{
+    text-align: center;
+    letter-spacing: 1px;
+    background-color: rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+}
+
 .textArea1
 {
     margin-bottom: 10px;
@@ -100,4 +61,57 @@
     background-color: rgba(0, 0, 0, 0.1);
     font-weight: bold;
     border-radius: 12px;
+}
+
+.itemc
+{
+    --background: transparent;
+    color: rgb(0, 0, 0);
+    width: 100%;
+    //--border-width: 0 0 2px 0 ;
+    //--border-color: #43a047;
+}
+
+.selecter
+{
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+.botones{
+    color: black;
+    --border-radius: 80px;
+    width: 80%;
+    height: 60px;
+    --border-color: #339933;
+    --border-width: 1px;
+    --border-style:  solid ;   
+    --background: #dbf0dc !important;
+    --background-activated:#339933; 
+    --border-color:#339933;
+    --background-hover:#339933;
+    --background-focused: #339933;
+    display: block; 
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    margin-bottom: 20px;
+    text-transform: unset;
+    font-size: large;
+  }
+.itemc2
+{
+    --background: transparent;
+    //font-weight: bold;
+    color: rgb(0, 0, 0);
+    width: 80%;
+    text-align: left;
+    --border-width: 0 0 2px 0 ;
+    --border-color: #43a047;
+    margin-left: auto;
+    margin-right: auto;
+}
+.label-verde{
+    color:#43a047;
+    font-size: 18px;
 }

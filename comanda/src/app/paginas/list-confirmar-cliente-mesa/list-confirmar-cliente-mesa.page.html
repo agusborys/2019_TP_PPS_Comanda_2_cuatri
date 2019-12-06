@@ -11,7 +11,7 @@
 
 <ion-content *ngIf="this.esMozo">
   <div *ngIf="this.clientes.length> 0">
-    <ion-card  style="background-color:whitesmoke; border-radius: 50px;">
+    <ion-card  style="background-color:whitesmoke; border-radius: 20px;">
       <ion-card-content>
         <div *ngFor="let cliente of clientes">
 
@@ -45,17 +45,17 @@
       </ion-card-content>
     </ion-card>
   </div>
-  <ion-card *ngIf="this.clientes.length == 0" style="background-color:whitesmoke; border-radius: 50px;">
+  <ion-card *ngIf="this.clientes.length == 0" style="background-color:whitesmoke; border-radius: 20px">
     <ion-card-content class="texto-card">
-      No hay clientes en la lista.
-      <ion-icon style="font-size: 50px;" name="alert"></ion-icon><br>
+      No hay clientes en la lista.<br>
+      <ion-icon style="font-size: 50px;" name="alert"></ion-icon>
     </ion-card-content>
   </ion-card>
 </ion-content>
 <ion-content *ngIf="!this.esMozo">
   <div *ngIf="this.clientes.length> 0">  
         <div *ngFor="let cliente of clientes">
-        <ion-card style="background-color:whitesmoke; border-radius: 50px; width: 80%;margin-left: auto;margin-right: auto;">
+        <ion-card style="background-color:whitesmoke; border-radius: 20px;">
           <ion-card-content>
           <ion-item class="item2">
             <ion-label class="label-verde" position="floating">Correo</ion-label>
@@ -69,10 +69,10 @@
         </ion-card>
         </div>  
   </div>
-  <ion-card *ngIf="this.clientes.length == 0" style="background-color:whitesmoke; border-radius: 50px;">
+  <ion-card *ngIf="this.clientes.length == 0" style="background-color:whitesmoke; border-radius: 20px;">
     <ion-card-content class="texto-card">
-      No hay clientes en la lista.
-      <ion-icon style="font-size: 50px;" name="alert"></ion-icon><br>
+      No hay clientes en la lista.<br>
+      <ion-icon style="font-size: 50px;" name="alert"></ion-icon>
     </ion-card-content>
   </ion-card>
 </ion-content>

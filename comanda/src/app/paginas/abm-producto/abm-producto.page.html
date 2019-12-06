@@ -1,10 +1,10 @@
 <ion-header>
   <ion-toolbar color="verdeleon">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="inicio"></ion-back-button>
+      <ion-back-button color="dark" defaultHref="inicio"></ion-back-button>
     </ion-buttons>
-    <ion-title>
-      Alta de Producto
+    <ion-title class="titulo-header">
+        <ion-icon name="create"></ion-icon>Alta de Producto
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -18,10 +18,10 @@
       <!-- Preview de las fotos -->
       <div class="center-vertical center-horizontal transparent-item width-100">
         <!-- Hacer placeholder para foto de producto -->
-        <img class="profile-picture" *ngIf="this.fotos.length == 0"
-          src="assets/img/add_user.png">
+        <img class="imagen-alta" *ngIf="this.fotos.length == 0" style="margin-bottom: 10px;"
+          src="assets/icon/menu.png">
         <div *ngFor="let foto of this.fotos">
-          <img class="profile-picture" [src]="foto" />
+          <img class="imagen-alta" [src]="foto" />
         </div>
       </div>
 

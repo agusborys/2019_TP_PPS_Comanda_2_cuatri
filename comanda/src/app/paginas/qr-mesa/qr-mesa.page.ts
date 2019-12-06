@@ -160,6 +160,7 @@ export class QrMesaPage implements OnInit {
                   'Estado de mesa',
                   `Mesa: ${this.mesaAMostrar.nromesa}`+
                   `<br>La mesa está reservada pero no en este horario`);
+                  this.mesaAMostrar = null;
               }
             } else {
               // alert('La mesa NO ESTÁ reservada'); // La mesa no está reservada o está fuera del horario de reserva
@@ -259,6 +260,7 @@ export class QrMesaPage implements OnInit {
         {
           text: 'No',
           handler: () => {
+            this.mesaAMostrar = null;
             return true;
           }
         }
@@ -283,6 +285,7 @@ export class QrMesaPage implements OnInit {
         {
           text: 'No',
           handler: () => {
+            this.mesaAMostrar = null;
             return true;
           }
         }

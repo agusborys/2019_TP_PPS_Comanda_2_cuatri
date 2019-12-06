@@ -61,11 +61,11 @@
     <div *ngIf="this.authService.tipoUser == 'bartender'">
     <img class="profile-img" src="assets/icon/barman.png">
     </div>
-    <ion-button class="botones" routerLink="/abm-producto" size="large">
-      <ion-icon name="create"></ion-icon>Registrar Producto
-    </ion-button>
     <ion-button class="botones" routerLink="/list-pedidos-detalle" size="large">
       <ion-icon name="bookmarks"></ion-icon>Pedidos Pendientes
+    </ion-button>
+    <ion-button class="botones" routerLink="/abm-producto" size="large">
+      <ion-icon name="create"></ion-icon>Registrar Producto
     </ion-button>
     <ion-button class="botones" routerLink="/encuesta-empleado" size="large">
       <ion-icon name="clipboard"></ion-icon>Encuesta
@@ -76,18 +76,6 @@
   <div class="width-100 center-horizontal flex-wrap"
     *ngIf="this.authService.tipoUser == 'mozo'">
     <img class="profile-img" src="assets/icon/mozo.png">
-    <ion-button class="botones" routerLink="/abm-producto" size="large">
-      <ion-icon name="create"></ion-icon>Registrar Producto
-    </ion-button>
-    <ion-button class="botones" routerLink="/abm-mesa" size="large">
-      <ion-icon name="create"></ion-icon>Registrar Mesas
-    </ion-button>
-    <ion-button class="botones" routerLink="/encuesta-empleado" size="large">
-      <ion-icon name="clipboard"></ion-icon>Encuesta
-    </ion-button>
-    <!-- <ion-button routerLink="/qr-ingreso-local" size="large">
-      Ingreso al Local
-    </ion-button> -->
     <ion-button class="botones" routerLink="/list-confirmar-cliente-mesa" size="large">
       <ion-icon name="list-box"></ion-icon>Lista de Espera
     </ion-button>
@@ -103,6 +91,19 @@
     <ion-button class="botones" routerLink="/confirmar-cierre-mesa" size="large">
       <ion-icon name="close-circle-outline"></ion-icon>Cierre de Mesas
     </ion-button>
+    <ion-button class="botones" routerLink="/abm-producto" size="large">
+      <ion-icon name="create"></ion-icon>Registrar Producto
+    </ion-button>
+    <ion-button class="botones" routerLink="/abm-mesa" size="large">
+      <ion-icon name="create"></ion-icon>Registrar Mesas
+    </ion-button>
+    <ion-button class="botones" routerLink="/encuesta-empleado" size="large">
+      <ion-icon name="clipboard"></ion-icon>Encuesta
+    </ion-button>
+    <!-- <ion-button routerLink="/qr-ingreso-local" size="large">
+      Ingreso al Local
+    </ion-button> -->
+    
   </div>
 
   <!-- Para el cliente -->

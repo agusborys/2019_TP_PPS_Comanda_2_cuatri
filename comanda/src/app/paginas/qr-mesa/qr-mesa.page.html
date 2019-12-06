@@ -13,16 +13,16 @@
   <div class="center-vertical center-horizontal width-100 height-100"
     *ngIf="this.mesaAMostrar == null">
     <div (click)="doScan()" class="flex-v border center-vertical">
-      <img class="qr-img" src="assets/img/QR_code_Wikipedia.svg">
+      <img class="qr-img" src="assets/img/QR_code_Wikipedia.svg"> <!---->
       <span class="qr-text">Escanear</span>
     </div>
   </div>
   <div class="center-vertical center-horizontal width-100 height-100"
     *ngIf="this.mesaAMostrar != null">
     <ion-card style="background-color:whitesmoke; border-radius: 50px;" >
-      <ion-card-content>
+      <ion-card-content >
         <ion-item class="ion-no-padding item2">
-          <ion-label class="label-verde" class="ion-text-center" style="font-weight: bold;">Mesa</ion-label>
+          <ion-label class="label-verde" class="ion-text-center" style="font-weight: bold">Mesa</ion-label>
           <ion-input style="font-weight: bold;" readonly [value]="this.mesaAMostrar.nromesa"></ion-input>
         </ion-item>
 

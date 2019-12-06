@@ -1,43 +1,46 @@
 <ion-header>
-  <ion-toolbar color="dark">
+  <ion-toolbar color="verdeleon">
     <ion-buttons slot="end">
-      <ion-button color="light" size="small" (click)="this.enviarEncuesta()">Enviar</ion-button>
+      <ion-button style="text-transform: unset;" color="dark" size="small" (click)="this.enviarEncuesta()">
+        Enviar<ion-icon name="send"></ion-icon></ion-button>
     </ion-buttons>
     <ion-buttons slot="start">
-      <ion-button color="light" size="small" (click)="this.cerrarModal()">Cerrar</ion-button>
+      <ion-button color="dark" size="small" (click)="this.cerrarModal()">
+          <ion-icon name="close"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="background-image ion-padding">
   <!-- <ion-card *ngIf="this.user !== undefined" class="card-background"> -->
-  <ion-card *ngIf="this.user !== undefined" style="background-color:rgba(255, 255, 255, 0.8);">
+  <ion-card *ngIf="this.user !== undefined" style="background-color:whitesmoke; border-radius: 20px;">
     <ion-card-header>
-      <ion-card-title>Detalles del {{this.tipo | titlecase}}</ion-card-title>
+      <ion-card-title>Información del {{this.tipo | titlecase}}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ion-item class="itemc2">
-        <ion-label position="floating">Nombre</ion-label>
+        <ion-label class="label-verde" position="floating">Nombre</ion-label>
         <ion-input [value]="user.nombre | titlecase" readonly></ion-input>
       </ion-item>
 
       <ion-item class="itemc2">
-        <ion-label position="floating">Apellido</ion-label>
+        <ion-label class="label-verde" position="floating">Apellido</ion-label>
         <ion-input [value]="user.apellido | titlecase" readonly></ion-input>
       </ion-item>
 
       <ion-item class="itemc2" *ngIf="this.tipo === 'empleado'">
-        <ion-label position="floating">CUIL</ion-label>
+        <ion-label class="label-verde" position="floating">CUIL</ion-label>
         <ion-input [value]="user.CUIL" readonly></ion-input>
       </ion-item>
 
       <ion-item class="itemc2">
-        <ion-label position="floating">DNI</ion-label>
+        <ion-label class="label-verde" position="floating">DNI</ion-label>
         <ion-input [value]="user.DNI" readonly></ion-input>
       </ion-item>
 
       <ion-item class="itemc2" *ngIf="this.tipo === 'empleado'">
-        <ion-label position="floating">Puesto</ion-label>
+        <ion-label class="label-verde" position="floating">Puesto</ion-label>
         <ion-input [value]="user.tipo | titlecase" readonly></ion-input>
       </ion-item>
     </ion-card-content>
@@ -46,7 +49,7 @@
   <!-- Range para el nivel de puntualidad del empleado -->
   <form [(formGroup)]="this.formEncuesta">
     <!-- <ion-card *ngIf="this.user !== undefined" class="card-background"> -->
-    <ion-card *ngIf="this.user !== undefined" style="background-color:rgba(255, 255, 255, 0.8);">
+    <ion-card *ngIf="this.user !== undefined" style="background-color:whitesmoke; border-radius: 20px;">
       <ion-card-content>
         <ion-item-group *ngIf="this.tipo === 'empleado'">
           <ion-item-divider class="tabla1">
@@ -83,7 +86,7 @@
             <h6 class="tabla1-cont">Valoración</h6>
           </ion-item-divider>
           <ion-item class="itemc">
-            <ion-range color="dark" min="1" max="10" ticks="true" snaps="true"
+            <ion-range color="verdeleon" min="1" max="10" ticks="true" snaps="true"
               formControlName="valoracionCtrl">
               <ion-label slot="start">1</ion-label>
               <ion-label slot="end">10</ion-label>
@@ -138,6 +141,11 @@
           </ion-item>
         </ion-item-group>
       </ion-card-content>
+      <ion-button class="botones"
+      (click)="this.enviarEncuesta()" style="width: 60%;height: 40px;">
+      Enviar<ion-icon color="dark" name="send"></ion-icon>
+    </ion-button>
     </ion-card>
   </form>
+  
 </ion-content>
