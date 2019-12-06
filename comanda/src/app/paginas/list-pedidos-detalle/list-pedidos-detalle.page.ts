@@ -219,7 +219,7 @@ export class ListPedidosDetallePage implements OnInit {
         // console.log(data);
         await this.actualizarDoc('pedidos', pedido.key, data).then((res) => {
           console.log("se envia el push");
-            this.envioPost(pedido);
+            this.envioPost(pedido);//aca envio el push
         
         }).catch(err => {
           console.log('Error en actualizar Pedido', err);
