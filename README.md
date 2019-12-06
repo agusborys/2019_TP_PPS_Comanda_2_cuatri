@@ -21,25 +21,25 @@ Acordamos comunicarnos mediante un grupo de whatsaṕp, creamos una nueva cuenta
 **Santiago de la Fuente:** Organizacion y division de las paginas
 
 
-### Primeros pasos (Semana 3/11)
+### Login y altas (Semana 3/11)
 
 **Agustin Borys:** Login y alta de dueños/supervisores
 
-**Leon Ifran:** Alta de cliente, entrada al local
+**Leon Ifran:** Alta de cliente, QR entrada al local
 
 **Santiago de la Fuente:**  confirmacion de clientes, alta de empleados
 
 
-### Primeros pasos (Semana 17/11)
+### QRs y Pedidos (Semana 17/11)
 
 **Agustin borys:** Qr de la mesa, QR propina
 
-**Leon Ifran:** Pedir platos y bebidas
+**Leon Ifran:** Lista de espera, Pedir platos y bebidas
 
 **Santiago de la Fuente:**  Tomar pedido
 
 
-### Primeros pasos (Semana 24/11)
+### Encuestas (Semana 24/11)
 
 **Agustin borys:** Encuestas empleado
 
@@ -50,11 +50,12 @@ Acordamos comunicarnos mediante un grupo de whatsaṕp, creamos una nueva cuenta
 
 ### Primeros pasos (Semana 29/11)
 
-**Agustin borys:** Encuestas empleado
+**Agustin borys:** Simon dice, bug fixes varios
 
-**Leon Ifran:** Encuestas cliente
+**Leon Ifran:** Push notification, memo test
 
-**Santiago de la Fuente:**  -
+**Santiago de la Fuente:**  ahorcado, bug fixes varios
+
 Para registrarse: https://forms.gle/n5rUakcPKSywgFGU8
 <br>
 <br>
