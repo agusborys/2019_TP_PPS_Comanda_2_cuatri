@@ -1,4 +1,4 @@
-<h1>
+<h1 align="center">
 2019 - 2 cuatrimestre - PPS -- La Comanda
 </h1>
 <h1 align="center">  Grupo Glamit</h1><h4 align="center">
@@ -9,7 +9,18 @@
 
 ## Metodologia de trabajo
 Antes de comenzar a trabajar nos dividimos las tareas iniciales
+<table>
+<thead>
+<th>Tarea</th>
+<th>Descripción</th>
+</thead>
+<tbody>
+<tr>
+<td>Alta del producto</td>
+<td>Desarrollo de un componente para realizar el registro de productos en la base de datos de la comanda</td></tr>
 
+</tbody>
+</table>
 ### Tareas iniciales (Semana 27/10)
 **Agustin Borys:** Splash y diseño
 
