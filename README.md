@@ -9,8 +9,16 @@
 
 ## Metodologia de trabajo
 Antes de comenzar a trabajar nos dividimos las tareas iniciales
+
+### Tareas iniciales (Semana 27/10)
+**Agustin Borys:** Splash y diseño
+
+**Ifran Leon:** Creacion de la base de datos y los servicios que van a interactuar con ella
+
+**Santiago de la Fuente:** Organizacion y division de las paginas
+
 <table>
-<thead>
+<thead>Agustin Borys
 <th>Tarea</th>
 <th>Descripción</th>
 </thead>
@@ -21,15 +29,7 @@ Antes de comenzar a trabajar nos dividimos las tareas iniciales
 
 </tbody>
 </table>
-### Tareas iniciales (Semana 27/10)
-**Agustin Borys:** Splash y diseño
-
-**Ifran Leon:** Creacion de la base de datos y los servicios que van a interactuar con ella
-
-**Santiago de la Fuente:** Organizacion y division de las paginas
-
-
-### Primeros passos (Semana 3/11)
+### Primeros pasos (Semana 3/11)
 **Agustin Borys**: Login y registro de clientes
 
 **Leon ifran**: entrada al local
