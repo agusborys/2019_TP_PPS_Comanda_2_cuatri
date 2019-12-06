@@ -1,0 +1,37 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>juego-tres</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+  <div class="superior">
+    <input type="text" name="" value="{{intentos}}">
+    <div class="contenedor" (click)="verificar('unoUno', 'bluetooth')">
+      <ion-icon *ngIf="unoUno" name="bluetooth"></ion-icon>
+    </div>
+    <div class="contenedor" (click)="verificar('dosUno', 'aperture')">
+      <ion-icon *ngIf="dosUno" name="aperture"></ion-icon>
+    </div>
+    <div class="contenedor" (click)="verificar('tresUno', 'at')">
+      <ion-icon *ngIf="tresUno" name="at"></ion-icon>
+    </div>
+    <div class="contenedor" (click)="verificar('cuatroUno', 'subway')">
+      <ion-icon *ngIf="cuatroUno" name="subway"></ion-icon>
+    </div>
+    <div class="contenedor" (click)="verificar('unoDos', 'bluetooth')">
+      <ion-icon *ngIf="unoDos" name="bluetooth"></ion-icon>
+    </div>
+    <div class="contenedor" (click)="verificar('dosDos', 'aperture')">
+      <ion-icon *ngIf="dosDos" name="aperture"></ion-icon>
+    </div>
+    <div class="contenedor" (click)="verificar('tresDos', 'subway')">
+      <ion-icon *ngIf="tresDos" name="subway"></ion-icon>
+    </div>
+    <div class="contenedor" (click)="verificar('cuatroDos', 'at')">
+      <ion-icon *ngIf="cuatroDos" name="at"></ion-icon>
+    </div>
+  </div>
+
+
+</ion-content>

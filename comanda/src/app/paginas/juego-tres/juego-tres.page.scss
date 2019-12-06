@@ -1,0 +1,27 @@
+
+.superior{
+  margin: 0 auto;
+  width: 100%;
+  height: auto;
+  padding: 4%;
+  // background: red;
+  position: relative;
+}
+.contenedor {
+  background: #c8e6c9;
+  width: 45vw;
+  height: 45vw;
+  border: 1px solid #1b5e20;
+  float: left;
+  position: relative;
+}
+
+ion-icon {
+  font-size: 40px;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
