@@ -45,12 +45,13 @@ Acordamos comunicarnos mediante un grupo de whatsaṕp, creamos una nueva cuenta
  
 <h3 align="center">Encuestas (Semana 24/11)
 </h3>
-<br>
+
 **Agustin borys:** Encuestas empleado
 
 **Leon Ifran:** Encuestas cliente
 
 **Santiago de la Fuente:**  -
+
 <br>
 
 
