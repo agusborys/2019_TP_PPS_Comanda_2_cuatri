@@ -2,7 +2,7 @@
 2019 - 2 cuatrimestre - PPS -- La Comanda
   Grupo Glamit
 </h1>
-
+<img src="https://i.imgur.com/q2rtU34.png"/>
 
 Para registrarse: https://forms.gle/n5rUakcPKSywgFGU8
 <br>
