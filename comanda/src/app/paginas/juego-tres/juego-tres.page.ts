@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-juego-tres',
@@ -24,7 +25,9 @@ export class JuegoTresPage implements OnInit {
   public inicio: any;
   public fin: any;
 
-  constructor() {
+  constructor(
+    private router: Router,
+  ) {
     this.unoUno = true;
     this.dosUno = true;
     this.tresUno = true;
@@ -109,7 +112,7 @@ export class JuegoTresPage implements OnInit {
 
   // Deshabilitar los casilleros
   deshabilitar(opcion) {
-    console.log(opcion);
+
     switch (opcion) {
        case 'unoUno': {
           this.unoUno = false;
@@ -200,7 +203,6 @@ export class JuegoTresPage implements OnInit {
         // console.log(this.casilleros);
         for(var index in this.casilleros)
         {
-            console.log(this.casilleros[index].opcion);
             this.deshabilitar(this.casilleros[index].opcion);
             // console.log(this.casilleros[index].opcion);  // output: Apple Orange Banana
         }
@@ -215,10 +217,18 @@ export class JuegoTresPage implements OnInit {
       }
     }
 
+
     // Limpio los arrays para trabajar
     setTimeout( () => {
       this.limpiarArrays();
     }, 1000)
+
+    if (this.ganados.length > 5 && this.intentos > 2) {
+      alert('Ganaste');
+      setTimeout( () => {
+        this.router.navigateByUrl('inicio');
+      }, 2000)
+    }
   }
 
   limpiarArrays() {
