@@ -1,13 +1,23 @@
 <h1 align="center">
 2019 - 2 cuatrimestre - PPS -- La Comanda
 </h1>
-<h1 align="center">  Grupo Glamit</h1><h4 align="center">
+<h1 align="center">  Grupo Glamit</h1>
   <br>
 <p align="center">
 <img src="https://i.imgur.com/q2rtU34.png" width="500" height="500"/>
 </p>
 
-## Metodologia de trabajo
+<br>
+<br>
+
+<h2 align="center">Integrantes/h2>
+ <h4 align="center">Agustin Borys</h4>
+ <h4 align="center">Leon Ifran</h4>
+ <h4 align="center">Santiago de la Fuente:</h4>
+<br>
+<h3 align="center">
+ Metodologia de trabajo
+</h3>
 
 Antes de comenzar a trabajar 
 Acordamos comunicarnos mediante un grupo de whatsaṕp, creamos una nueva cuenta en firebase, acordamos el tema visual de la aplicacion y nos dividimos las tareas iniciales. Subsequentemente
