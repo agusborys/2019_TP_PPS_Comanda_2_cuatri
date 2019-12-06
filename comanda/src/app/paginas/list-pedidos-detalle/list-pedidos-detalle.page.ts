@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/servicios/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { AlertController } from '@ionic/angular';
+import { Http, Headers, Response, RequestOptions  } from '@angular/http';
 
 @Component({
   selector: 'app-list-pedidos-detalle',
@@ -13,6 +14,9 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./list-pedidos-detalle.page.scss'],
 })
 export class ListPedidosDetallePage implements OnInit {
+
+  apiFCM = 'https://fcm.googleapis.com/fcm/send';
+
   private pedidos: PedidoKey[];
   private productos: ProductoKey[];
   private pedidoDetalle: PedidoDetalleKey[];
@@ -20,7 +24,51 @@ export class ListPedidosDetallePage implements OnInit {
   constructor(
     private authServ: AuthService,
     private firestore: AngularFirestore,
-    private alertCtrl: AlertController) { }
+    private alertCtrl: AlertController,
+    public http: Http,) { }
+
+  //#region metodos de FCM
+  envioPost(pedidoPush) {
+    //let usuarioLogueado = this.authServ.user;
+    let tituloNotif = "Pedido listo";
+
+
+    let bodyNotif = "Pedido para la mesa " + pedidoPush.mesa + " esta listo para ser entregado";
+
+    let header = this.initHeaders();
+    let options = new RequestOptions({ headers: header, method: 'post' });
+    let data = {
+      "notification": {
+        "title": tituloNotif,
+        "body": bodyNotif,
+        "sound": "default",
+        "click_action": "FCM_PLUGIN_ACTIVITY",
+        "icon": "fcm_push_icon"
+      },
+      "data": {
+        "landing_page": "inicio",
+        "price": "5000",
+      },
+      "to": "/topics/notificacionMesa",
+      "priority": "high",
+      "restricted_package_name": ""
+    };
+
+    console.log("Data: ", data);
+
+    return this.http.post(this.apiFCM, data, options).pipe(map(res => res.json())).subscribe(result => {
+      console.log(result);
+    });
+  }
+
+  private initHeaders(): Headers {
+    let apiKey = 'key=AAAAN11vLtI:APA91bEwhXPo2yboIARzbRHmaQ72PwOfCvmkZsizri-KjBkpxb0cwKR9_y2oj2UkRG2IUm06u16HzJYYwatkqNSeeBjWOFhsq7iA4isVRY8E2_Y3NOvA0w5sBZw--8cMH2d1NDjdSllQ';
+    var headers = new Headers();
+    headers.append('Authorization', apiKey);
+    headers.append('Content-Type', 'application/json');
+    return headers;
+  }
+  //#endregion
 
   async ngOnInit() {
     this.pedidos = new Array<PedidoKey>();
@@ -169,7 +217,11 @@ export class ListPedidosDetallePage implements OnInit {
         }
 
         // console.log(data);
-        await this.actualizarDoc('pedidos', pedido.key, data).catch(err => {
+        await this.actualizarDoc('pedidos', pedido.key, data).then((res) => {
+          console.log("se envia el push");
+            this.envioPost(pedido);
+        
+        }).catch(err => {
           console.log('Error en actualizar Pedido', err);
         });
       }
