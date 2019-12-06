@@ -11,9 +11,11 @@
 
 Antes de comenzar a trabajar 
 Acordamos comunicarnos mediante un grupo de whatsaṕp, creamos una nueva cuenta en firebase, acordamos el tema visual de la aplicacion y nos dividimos las tareas iniciales. Subsequentemente
-<h2 align="center">
-### Tareas iniciales (Semana 27/10)
-</h2>
+<br>
+<h3 align="center">
+ Tareas iniciales (Semana 27/10)
+</h3>
+
 **Agustin Borys:** Diseño del icono, splash 
 
 **Ifran Leon:** Creacion de la base de datos y los servicios que van a interactuar con ella
@@ -21,7 +23,7 @@ Acordamos comunicarnos mediante un grupo de whatsaṕp, creamos una nueva cuenta
 **Santiago de la Fuente:** Organizacion y division de las paginas
 
 
-### Login y altas (Semana 3/11)
+<h3 align="center"> Login y altas (Semana 3/11)</h3>
 
 **Agustin Borys:** Login y alta de dueños/supervisores
 
@@ -30,7 +32,9 @@ Acordamos comunicarnos mediante un grupo de whatsaṕp, creamos una nueva cuenta
 **Santiago de la Fuente:**  confirmacion de clientes, alta de empleados
 
 <br>
-### QRs y Pedidos (Semana 17/11)
+<h3 align="center">QRs y Pedidos (Semana 17/11)
+</h3>
+
 
 **Agustin borys:** Qr de la mesa, QR propina
 
@@ -39,8 +43,10 @@ Acordamos comunicarnos mediante un grupo de whatsaṕp, creamos una nueva cuenta
 **Santiago de la Fuente:**  Tomar pedido
 
 <br>
-### Encuestas (Semana 24/11)
-
+ 
+<h3 align="center">Encuestas (Semana 24/11) (
+</h3>
+<br>
 **Agustin borys:** Encuestas empleado
 
 **Leon Ifran:** Encuestas cliente
@@ -48,8 +54,10 @@ Acordamos comunicarnos mediante un grupo de whatsaṕp, creamos una nueva cuenta
 **Santiago de la Fuente:**  -
 <br>
 
-### Primeros pasos (Semana 29/11)
 
+<h3 align="center">rimeros pasos (Semana 29/11)
+</h3>
+<br>
 **Agustin borys:** Simon dice, bug fixes varios
 
 **Leon Ifran:** Push notification, memo test
