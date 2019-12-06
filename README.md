@@ -44,7 +44,7 @@ Acordamos comunicarnos mediante un grupo de whatsaṕp, creamos una nueva cuenta
 
 <br>
  
-<h3 align="center">Encuestas (Semana 24/11) (
+<h3 align="center">Encuestas (Semana 24/11)
 </h3>
 <br>
 **Agustin borys:** Encuestas empleado
@@ -55,7 +55,7 @@ Acordamos comunicarnos mediante un grupo de whatsaṕp, creamos una nueva cuenta
 <br>
 
 
-<h3 align="center">rimeros pasos (Semana 29/11)
+<h3 align="center">Correciones, Push notification y juegos(Semana 29/11)
 </h3>
 <br>
 **Agustin borys:** Simon dice, bug fixes varios
