@@ -1,7 +1,8 @@
 <h1>
 2019 - 2 cuatrimestre - PPS -- La Comanda
-  Grupo Glamit
 </h1>
+<h1 align="center">  Grupo Glamit</h1><h4 align="center">
+  <br>
 <p align="center">
 <img src="https://i.imgur.com/q2rtU34.png" width="500" height="500"/>
 </p>
