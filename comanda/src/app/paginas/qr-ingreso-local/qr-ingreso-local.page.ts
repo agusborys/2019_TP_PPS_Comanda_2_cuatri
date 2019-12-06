@@ -9,6 +9,8 @@ import { map } from 'rxjs/operators';
 import { ListaEsperaClientesKey } from 'src/app/clases/lista-espera-clientes';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/servicios/auth.service';
+import { Http, Headers, Response, RequestOptions  } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-qr-ingreso-local',
@@ -16,6 +18,8 @@ import { AuthService } from 'src/app/servicios/auth.service';
   styleUrls: ['./qr-ingreso-local.page.scss'],
 })
 export class QrIngresoLocalPage implements OnInit {
+  
+  apiFCM = 'https://fcm.googleapis.com/fcm/send';
   private opt: BarcodeScannerOptions = {
     resultDisplayDuration: 0,
   };
@@ -30,8 +34,59 @@ export class QrIngresoLocalPage implements OnInit {
     private router: Router,
     private authServ: AuthService,
     private toastCtrl: ToastController,
-
+    public http: Http,
+    public httpClient: HttpClient,
   ) { }
+
+  //#region metodos de FCM
+  envioPost() {
+    // console.log("estoy en envioPost. Pedido: ", pedido);
+    // console.log("estoy en envioPost. Pedido cliente: ", pedido.cliente);
+    /* let usuarioLogueado = JSON.parse(sessionStorage.getItem("usuario")); */
+
+    let usuarioLogueado = this.authServ.user;
+
+    let tituloNotif = "Aceptar - Cliente en espera";
+
+
+    let bodyNotif = "El cliente " + usuarioLogueado.nombre + " se agregó a la lista de espera. Ingrese para confirmar" ; 
+
+    let header = this.initHeaders();
+    let options = new RequestOptions({ headers: header, method: 'post'});
+    let data =  {
+      "notification": {
+        "title": tituloNotif   ,
+        "body": bodyNotif ,
+        "sound": "default",
+        "click_action": "FCM_PLUGIN_ACTIVITY",
+        "icon": "fcm_push_icon"
+      },
+      "data": {
+        "landing_page": "inicio",
+      },
+        "to": "/topics/notificacionMesa",
+        "priority": "high",
+        "restricted_package_name": ""
+    };
+
+    console.log("Data: ", data);
+   
+    return this.http.post(this.apiFCM, data, options).pipe(map(res => res.json())).subscribe(result => {
+      console.log(result);
+    });
+
+               
+  }
+
+  
+ private initHeaders(): Headers {
+  let apiKey = 'key=AAAAN11vLtI:APA91bEwhXPo2yboIARzbRHmaQ72PwOfCvmkZsizri-KjBkpxb0cwKR9_y2oj2UkRG2IUm06u16HzJYYwatkqNSeeBjWOFhsq7iA4isVRY8E2_Y3NOvA0w5sBZw--8cMH2d1NDjdSllQ' ;
+  var headers = new Headers();
+  headers.append('Authorization', apiKey);
+  headers.append('Content-Type', 'application/json');
+  return headers;
+}
+  //#endregion
 
   private esCliente(): boolean {
     return (this.authServ.tipoUser === 'cliente' || this.authServ.tipoUser === 'anonimo');
@@ -51,7 +106,7 @@ export class QrIngresoLocalPage implements OnInit {
     this.traerListaEspera().subscribe((d: ListaEsperaClientesKey[]) => {
       // console.log('Tengo la lista de espera', d);
       this.listaEspera = d;
-
+      
       // console.log('Ya tengo las listas');
       if (this.esCliente() && this.estaEnLista()) {
         this.presentToast('Ha sido agregado a la lista de espera', 'verdeleon');
@@ -181,6 +236,7 @@ export class QrIngresoLocalPage implements OnInit {
           estado: 'confirmacionMozo',
           fecha: d.getTime(),
         };
+        
 
         this.enviarDatos(datos).then(docRef => {
           this.router.navigate(['/list-confirmar-cliente-mesa']); // Aún sin implementar
@@ -188,6 +244,7 @@ export class QrIngresoLocalPage implements OnInit {
           .catch(err => {
             this.presentAlert('¡Error!', null, 'Error en la base de datos. No se ha podido agregar a la lista.');
           });
+        this.envioPost();
       }
     }
   }

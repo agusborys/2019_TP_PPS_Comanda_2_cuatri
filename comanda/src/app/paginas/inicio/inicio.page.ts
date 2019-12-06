@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../servicios/auth.service';
 import { Router } from '@angular/router';
 import { ConfiguracionPage } from '../configuracion/configuracion.page';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
+import { FCM } from '@ionic-native/fcm/ngx';
 import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
 
 @Component({
@@ -17,26 +18,60 @@ export class InicioPage implements OnInit {
     private authService: AuthService,
     public router: Router,
     private modalCtrl: ModalController,
-    private spinnerHand:SpinnerHandlerService) {
+    private toastCtrl: ToastController,
+    private fcm: FCM,
+    private spinnerHand:SpinnerHandlerService) { 
      }
 
   public cerrarSesion() {
     this.authService.Logout();
+    this.fcm.unsubscribeFromTopic('notificacionReservas');
+    this.fcm.unsubscribeFromTopic('notificacionMesa');
+    this.fcm.unsubscribeFromTopic('notificacionPedido');
   }
 
-  async ngOnInit() { 
+  async ionViewDidEnter() {//esta como asyncronico, no se va a subscribir hasta que no se llame buscarUsuario
+    await this.authService.buscarUsuario();
+    this.subscribirse();
   }
-  // async ionViewDidEnter(){
-  //   if(this.authService.tipoUser =='')
-  //   {
-  //     this.spinner = await this.spinnerHand.GetAllPageSpinner();
-  //     this.spinner.present();
-  //   }
-  //   else{
-  //     this.spinner.dismiss();
-  //   }
-  // }
+  
+  ngOnInit() {
+    /*      await this.authService.buscarUsuario();
+         this.subscribirse(); */
+  }
 
+  public subscribirse(){
+    /* Esta funcion toma el tipo de usuario y con un switch dicta a que push notification se va a subscribir */
+    let tipo = this.authService.tipoUser;
+    switch (tipo) {
+      case 'dueño':
+        console.log("subscrito a reservas");
+        this.fcm.subscribeToTopic('notificacionReservas');
+        break;
+      case 'supervisor':
+        console.log("subscrito a reservas");
+        this.fcm.subscribeToTopic('notificacionReservas');
+        break;
+      case 'mozo':
+        console.log("subscrito a Mesas");
+        this.fcm.subscribeToTopic('notificacionMesa');
+        break;
+      case 'cocinero':
+        console.log(tipo+" cocinero subscrito a Pedidos");
+        this.fcm.subscribeToTopic('notificacionesPedidos');
+        break;
+      case 'candybar':
+        console.log(tipo+" subscrito a Pedidos");
+        this.fcm.subscribeToTopic('notificacionesPedidos');
+        break;
+      case 'bartender':
+        console.log(tipo+" subscrito a Pedidos");
+        this.fcm.subscribeToTopic('notificacionesPedidos');
+        break;      
+      default:
+        break;
+    }
+  }
   public configModal() {
     this.modalCtrl.create({
       component: ConfiguracionPage,

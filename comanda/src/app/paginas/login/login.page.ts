@@ -9,6 +9,7 @@ import { AlertController } from '@ionic/angular';
 import { ErrorHandlerService } from 'src/app/servicios/error-handler.service';
 import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
 
+import { FCM } from '@ionic-native/fcm/ngx';
 
 @Component({
   selector: 'app-login',

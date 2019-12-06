@@ -44,7 +44,10 @@ export class AuthService {
     secondaryApp = firebase.initializeApp(environment.firebaseConfig, 'Secondary');
     this.afAuth.authState.subscribe(async (user) => {
       if (user) {
+        this.spinner = await this.spinnerHand.GetAllPageSpinner();
+        this.spinner.present();
         await this.buscarUsuario();
+        this.spinner.dismiss();
       }
     });
     /* this.afAuth.authState.subscribe(user => {
@@ -118,8 +121,7 @@ export class AuthService {
   public async buscarUsuario() {
     
     this._tipoUser = '';
-    this.spinner = await this.spinnerHand.GetAllPageSpinner();
-    this.spinner.present();
+    
     // Obtengo el cliente activo en la base de clientes registrados
     const auxCliente: void | ClienteKey = await this.traerClienteRegistrado()
       .catch(err => {
@@ -161,7 +163,7 @@ export class AuthService {
     }
 
     // console.log(this.user);
-    this.spinner.dismiss();
+    //this.spinner.dismiss();
     console.log(this.tipoUser);
   }
   //#endregion

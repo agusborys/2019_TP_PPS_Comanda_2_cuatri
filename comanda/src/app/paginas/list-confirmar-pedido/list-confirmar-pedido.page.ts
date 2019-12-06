@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { MesaKey } from 'src/app/clases/mesa';
 import { PedidoDetalleKey } from 'src/app/clases/pedidoDetalle';
 import { ModalPedidoPage } from '../modal-pedido/modal-pedido.page';
+import { Http, Headers, Response, RequestOptions  } from '@angular/http';
 import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
 
 @Component({
@@ -15,12 +16,14 @@ import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service
 })
 export class ListConfirmarPedidoPage implements OnInit {
   private pedidos: PedidoKey[];
+  apiFCM = 'https://fcm.googleapis.com/fcm/send';
   private spinner:any = null;
   constructor(
     private firestore: AngularFirestore,
     private toastCtrl: ToastController,
     private modalCtrl: ModalController,
-    private spinnerHand : SpinnerHandlerService ) {
+    public http: Http, 
+    private spinnerHand : SpinnerHandlerService) {
   }
 
   async ngOnInit() {
@@ -32,6 +35,49 @@ export class ListConfirmarPedidoPage implements OnInit {
       this.spinner.dismiss();
     });
   }
+
+  //#region metodos de FCM
+  envioPost() {
+    let tituloNotif = "Nuevo pedido";
+    let bodyNotif = "Ingrese a la aplicacion para preparar";
+
+    let header = this.initHeaders();
+    let options = new RequestOptions({ headers: header, method: 'post' });
+    let data = {
+      "notification": {
+        "title": tituloNotif,
+        "body": bodyNotif,
+        "sound": "default",
+        "click_action": "FCM_PLUGIN_ACTIVITY",
+        "icon": "fcm_push_icon"
+      },
+      "data": {
+        "landing_page": "inicio",
+        "tipo": "pedido"
+      },
+      "to": "/topics/notificacionesPedidos",
+      "priority": "high",
+      "restricted_package_name": ""
+    };
+
+    console.log("Data: ", data);
+
+    return this.http.post(this.apiFCM, data, options).pipe(map(res => res.json())).subscribe(result => {
+      console.log(result);
+    });
+
+
+  }
+
+
+  private initHeaders(): Headers {
+    let apiKey = 'key=AAAAN11vLtI:APA91bEwhXPo2yboIARzbRHmaQ72PwOfCvmkZsizri-KjBkpxb0cwKR9_y2oj2UkRG2IUm06u16HzJYYwatkqNSeeBjWOFhsq7iA4isVRY8E2_Y3NOvA0w5sBZw--8cMH2d1NDjdSllQ';
+    var headers = new Headers();
+    headers.append('Authorization', apiKey);
+    headers.append('Content-Type', 'application/json');
+    return headers;
+  }
+  //#endregion
 
   private compararFecha(a: PedidoKey, b: PedidoKey) {
     let auxReturn = 0;
@@ -84,6 +130,7 @@ export class ListConfirmarPedidoPage implements OnInit {
     await this.actualizarDetalles(pedido);
 
     this.presentToast('Pedido Aceptado', 'success');
+    this.envioPost()
   }
 
   private removerDoc(db, key) {
