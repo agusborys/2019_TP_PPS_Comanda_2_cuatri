@@ -57,7 +57,7 @@ Acordamos comunicarnos mediante un grupo de whatsaṕp, creamos una nueva cuenta
 
 <h3 align="center">Correciones, Push notification y juegos(Semana 29/11)
 </h3>
-<br>
+
 **Agustin borys:** Simon dice, bug fixes varios
 
 **Leon Ifran:** Push notification, memo test
