@@ -85,26 +85,26 @@ Acordamos comunicarnos mediante un grupo de whatsaṕp, creamos una nueva cuenta
 
 <h3 align="center">Mesa 1</h3>
 <p align="center">
-<img src="https://raw.githubusercontent.com/agusborys/2019_TP_PPS_Comanda_2_cuatri/master/ComandaQR/ingresLocal.png" width="300" height="300"/>
+<img src="https://raw.githubusercontent.com/agusborys/2019_TP_PPS_Comanda_2_cuatri/master/ComandaQR/mesa1.png" width="300" height="300"/>
 </p>
 <h3 align="center">Mesa 2</h3>
 <p align="center">
-<img src="https://raw.githubusercontent.com/agusborys/2019_TP_PPS_Comanda_2_cuatri/master/ComandaQR/ingresLocal.png" width="300" height="300"/>
+<img src="https://raw.githubusercontent.com/agusborys/2019_TP_PPS_Comanda_2_cuatri/master/ComandaQR/mesa2.png" width="300" height="300"/>
 </p>
 
 <h3 align="center">Mesa 3</h3>
 <p align="center">
-<img src="https://raw.githubusercontent.com/agusborys/2019_TP_PPS_Comanda_2_cuatri/master/ComandaQR/ingresLocal.png" width="300" height="300"/>
+<img src="https://raw.githubusercontent.com/agusborys/2019_TP_PPS_Comanda_2_cuatri/master/ComandaQR/mesa3.png" width="300" height="300"/>
 </p>
 
 <h3 align="center">Mesa 4</h3>
 <p align="center">
-<img src="https://raw.githubusercontent.com/agusborys/2019_TP_PPS_Comanda_2_cuatri/master/ComandaQR/ingresLocal.png" width="300" height="300"/>
+<img src="https://raw.githubusercontent.com/agusborys/2019_TP_PPS_Comanda_2_cuatri/master/ComandaQR/mesa4.png" width="300" height="300"/>
 </p>
 
 <h3 align="center">Mesa 5</h3>
 <p align="center">
-<img src="https://raw.githubusercontent.com/agusborys/2019_TP_PPS_Comanda_2_cuatri/master/ComandaQR/ingresLocal.png" width="300" height="300"/>
+<img src="https://raw.githubusercontent.com/agusborys/2019_TP_PPS_Comanda_2_cuatri/master/ComandaQR/mesa5.png" width="300" height="300"/>
 </p>
 
 <br>
