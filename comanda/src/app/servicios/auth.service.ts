@@ -121,42 +121,45 @@ export class AuthService {
   public async buscarUsuario() {
     
     this._tipoUser = '';
-    
     // Obtengo el cliente activo en la base de clientes registrados
     const auxCliente: void | ClienteKey = await this.traerClienteRegistrado()
       .catch(err => {
         console.log(err);
       });
-
     // Si el cliente está registrado, entonces prosigo con la operación
     if (auxCliente !== null) {
       this._tipoUser = 'cliente';
       this._user = auxCliente as ClienteKey;
+      
       // console.log('Hay cliente registrado', auxCliente);
     } else {
       // Si el cliente no está registrado, voy a buscar a la base de datos de clientes anonimos.
       const auxClienteAnon: void | AnonimoKey = await this.traerClienteAnonimo()
         .catch(err => {
+          
           console.log(err);
         });
 
       if (auxClienteAnon !== null) {
         this._tipoUser = 'anonimo';
         this._user = auxClienteAnon as AnonimoKey;
+        
         // console.log('Hay usuario anonimo', auxClienteAnon);
       } else {
         const auxEmpleado: void | EmpleadoKey = await this.traerEmpleado()
           .catch(err => {
+            
             console.log(err);
           });
 
         if (auxEmpleado !== null) {
           this._tipoUser = (auxEmpleado as EmpleadoKey).tipo;
           this._user = auxEmpleado as EmpleadoKey;
-
+          
           // console.log('Hay empleado', auxEmpleado);
         } else {
           console.log('Error, no hay usuario idenfiticable');
+         
           this.Logout();
         }
       }

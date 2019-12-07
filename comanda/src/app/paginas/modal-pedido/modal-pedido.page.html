@@ -58,6 +58,36 @@
           </td>
         </tr>
       </table>
+      Descuentos!
+      <table class="table1">
+        <tr *ngFor="let producto of arrayDecuentos">
+          <td>({{ producto.cantidad }}) {{ producto.producto }}</td>
+          <td class="ion-padding">
+            <div *ngIf="this.verCuenta == false">
+              <label >
+                -{{(producto.cantidad * producto.precio) | currency}}
+              </label>
+            </div>
+            <div *ngIf="this.verCuenta == true">
+              <label >
+                -{{producto.precio | currency}}
+              </label>
+            </div>
+          </td>
+          <!-- <td>
+            <div *ngIf="this.verCuenta == false">
+              <label >
+                {{producto.estado | titlecase}}
+              </label>
+            </div>
+            <div *ngIf="this.verCuenta == true">
+              <label >
+                {{(producto.cantidad * producto.precio) | currency}}
+              </label>
+            </div>
+          </td> -->
+        </tr>
+      </table>
 
       <ion-item *ngIf="this.verCuenta == false" class="item2">
         <ion-label class="label-verde">Total</ion-label>

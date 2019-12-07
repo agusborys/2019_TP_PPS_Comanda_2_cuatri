@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, AlertController } from '@ionic/angular';
 import { AngularFirestore, DocumentSnapshot, QuerySnapshot } from '@angular/fire/firestore';
 import { PedidoKey } from 'src/app/clases/pedido';
-import { PedidoDetalleKey } from 'src/app/clases/pedidoDetalle';
+import { PedidoDetalleKey, PedidoDetalle } from 'src/app/clases/pedidoDetalle';
 import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { ClienteKey } from 'src/app/clases/cliente';
@@ -23,22 +23,31 @@ export class ModalPedidoPage implements OnInit {
   private cliente = false;
   private verCuenta = false;
   private spinner:any=null;
+  private bebidaGratis : PedidoDetalle = new PedidoDetalle();
+  private postreGratis : PedidoDetalle = new PedidoDetalle();
+  private descuento_10 : PedidoDetalle = new PedidoDetalle();
+  private arrayDecuentos : PedidoDetalle[] = new Array<PedidoDetalle>();
+  private tieneBebidaGratis : boolean = false;
+  private tienePostreGratis : boolean = false;
+  private tieneDescuento : boolean = false;
   constructor(
     private firestore: AngularFirestore,
     private modalController: ModalController,
     private authService: AuthService,
     private scanner: BarcodeScanner,
     private alertCtrl: AlertController,
-    private spinnerHand:SpinnerHandlerService) { }
+    private spinnerHand:SpinnerHandlerService) {
+     }
 
-  async ngOnInit() {
-    this.spinner = await this.spinnerHand.GetAllPageSpinner();
-    this.spinner.present();
+    ngOnInit() {
+    
     this.cliente = this.authService.tipoUser === 'cliente' || this.authService.tipoUser === 'anonimo' ? true : false;
     this.traerPedido();
     this.traerPedidoDetalle();
-    this.spinner.dismiss();
+    
+    
   }
+  
 
   public traerPedido() {
     this.firestore.collection('pedidos').doc(this.pedido).get().toPromise().then((d: DocumentSnapshot<any>) => {
@@ -50,6 +59,9 @@ export class ModalPedidoPage implements OnInit {
         } else {
           this.verCuenta = false;
         }
+        this.tieneDescuento = this.pedidoActual.juegoDescuento;
+        this.tienePostreGratis = this.pedidoActual.juegoComida;
+        this.tieneBebidaGratis = this.pedidoActual.juegoBebida;
       }
     });
   }
@@ -67,7 +79,60 @@ export class ModalPedidoPage implements OnInit {
       });
     })).subscribe((da: PedidoDetalleKey[]) => {
       this.pedidoDetalle = da;
+      //console.log(this.tieneBebidaGratis);
+      this.manejarDescuentos();
+      console.log(this.pedidoDetalle);
     });
+    
+    //this.manejarDescuentos();
+  }
+  public manejarDescuentos()
+  {
+    if(this.tieneBebidaGratis == true)
+    {
+      for(let e of this.pedidoDetalle)
+      {
+        if(e.producto == "Café en jarrito" ||e.producto == "Gaseosa" || e.producto == "Agua saborizada"
+        || e.producto == "Pinta cerveza" || e.producto == "Vino tinto"){
+          this.bebidaGratis.precio = e.precio;
+          this.bebidaGratis.producto = e.producto +" Gratis!";
+          this.bebidaGratis.cantidad = 1;
+          this.bebidaGratis.estado = e.estado;
+          this.bebidaGratis.id_pedido = e.id_pedido;
+          this.arrayDecuentos.push(this.bebidaGratis);
+          this.pedidoActual.preciototal = this.pedidoActual.preciototal - this.bebidaGratis.precio;
+          break;
+        }
+      }
+    }
+    if(this.tienePostreGratis == true)
+    {
+      for(let e of this.pedidoDetalle)
+      {
+        if(e.producto == "Sundae" ||e.producto == "panqueques" || e.producto == "Flan")
+        {
+          this.postreGratis.precio = e.precio;
+          this.postreGratis.producto = e.producto +" Gratis!";
+          this.postreGratis.cantidad = 1;
+          this.postreGratis.estado = e.estado;
+          this.postreGratis.id_pedido = e.id_pedido;
+          this.arrayDecuentos.push(this.postreGratis);
+          this.pedidoActual.preciototal = this.pedidoActual.preciototal - this.postreGratis.precio;
+          break;
+        }
+      }  
+    }
+    if(this.tieneDescuento == true)
+    {
+      this.descuento_10.producto = "Descuento 10%";
+      this.descuento_10.cantidad = 1;
+      this.descuento_10.id_pedido = this.pedidoActual.key;
+      this.descuento_10.estado = "listoEntrega";
+      this.descuento_10.precio = this.pedidoActual.preciototal * 0.1;
+      this.arrayDecuentos.push(this.descuento_10);
+      this.pedidoActual.preciototal = this.pedidoActual.preciototal - this.descuento_10.precio;
+    }
+    console.log(this.arrayDecuentos);
   }
 
   public async cerrar() {
