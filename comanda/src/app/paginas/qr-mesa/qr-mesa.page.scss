@@ -1,0 +1,55 @@
+.button1
+{
+    --background: url('/assets/img/btn_empty.png') 0 0/100% 100% no-repeat !important;
+    height: 3rem;
+    width: 100%;
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    text-align: center;
+}
+.boton-realizar{
+    color: black;
+    --border-radius: 80px;
+    width: 80%;
+    height: 50px;
+    --border-color: #339933;
+    --border-width: 1px;
+    --border-style:  solid ;   
+    --background: #dbf0dc !important;
+    --background-activated:#339933; 
+    --border-color:#339933;
+    --background-hover:#339933;
+    --background-focused: #339933;
+    display: block; 
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    margin-bottom: 5px;
+    margin-top: 15px;
+    text-transform: unset;
+    font-size: 15px;
+    padding: 0;
+  }
+.item2
+{
+    --background: transparent;
+    //font-weight: bold;
+    color: rgb(0, 0, 0);
+    width: 80%;
+    text-align: left;
+    --border-width: 0 0 2px 0 ;
+    --border-color: #43a047;
+    margin-left: auto;
+    margin-right: auto;
+}
+.label-verde{
+    color:#43a047;
+    font-size: 18px;
+}

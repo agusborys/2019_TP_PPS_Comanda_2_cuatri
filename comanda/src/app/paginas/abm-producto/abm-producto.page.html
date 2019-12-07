@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar color="verdeleon">
+    <ion-buttons slot="start">
+      <ion-back-button color="dark" defaultHref="inicio"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="titulo-header">
+        <ion-icon name="create"></ion-icon>Alta de Producto
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- ABM Producto -->
+<ion-content class="background-image ion-padding">
+
+  <!-- <ion-card class="card-background" style="background-color:rgba(255, 255, 255, 0.8);"> -->
+    <form [(formGroup)]="this.formMesas" (submit)="this.agregarMesas()"
+      class="height-100">
+      <!-- Preview de las fotos -->
+      <div class="center-vertical center-horizontal transparent-item width-100">
+        <!-- Hacer placeholder para foto de producto -->
+        <img class="imagen-alta" *ngIf="this.fotos.length == 0" style="margin-bottom: 10px;"
+          src="assets/icon/menu.png">
+        <div *ngFor="let foto of this.fotos">
+          <img class="imagen-alta" [src]="foto" />
+        </div>
+      </div>
+
+      <ion-item class="inputs">
+        <ion-label position="floating">Nombre</ion-label>
+        <br>
+        <ion-input  formControlName="nombreCtrl" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item class="inputs">
+        <ion-label position="floating">Descripción</ion-label>
+        <br>
+        <ion-input  formControlName="descCtrl" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item class="inputs">
+        <ion-label position="floating">Tiempo</ion-label>
+        <br>
+        <ion-input  formControlName="tiempoCtrl" type="number"></ion-input>
+      </ion-item>
+
+      <ion-item class="inputs">
+        <ion-label position="floating">Precio</ion-label>
+        <br>
+        <ion-input  formControlName="precioCtrl" type="number"></ion-input>
+      </ion-item>
+
+      <ion-item class="inputs">
+          <ion-label position="floating">Perfil de Visualización</ion-label>
+          <br>
+          <ion-select  class="selecter" formControlName="quienPuedeverCtrl">
+          <!-- <ion-select-option value="mozo">Mozo</ion-select-option> -->
+            <ion-select-option value="bartender">Bartender</ion-select-option>
+            <ion-select-option value="candybar">Candybar</ion-select-option>
+            <ion-select-option value="cocinero">Cocinero</ion-select-option>
+        </ion-select>
+      </ion-item >
+
+      <div class="align-text-center">
+        <ion-button class="botones-registro" [disabled]="this.fotos.length >= 3"
+          (click)="this.tomarFoto()">
+          Subir foto
+        </ion-button>
+        <ion-button class="botones-registro" type="submit" >
+          Agregar
+        </ion-button>
+      </div>
+    </form>
+  <!-- </ion-card> -->
+</ion-content>

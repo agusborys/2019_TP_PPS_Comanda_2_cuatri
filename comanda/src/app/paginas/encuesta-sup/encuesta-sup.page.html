@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar color="verdeleon">
+    <ion-buttons slot="start">
+      <ion-back-button color="dark" defaultHref="inicio"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="titulo-header">
+        <ion-icon name="clipboard"></ion-icon>Encuesta <!-- Supervisor -->
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="background-image ion-padding">
+  <ion-item class="button1">
+    <ion-label>Empleados</ion-label>
+  </ion-item>
+  <div class="width-100" *ngFor="let empleado of this.empleados">
+    <ion-row>
+      <ion-col>
+        <ion-item class="button2"
+          (click)="muestraModal(empleado.key,'empleado')">
+          {{empleado.nombre | titlecase}} {{empleado.apellido | titlecase}}
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <ion-item class="button1">
+    <ion-label>Clientes</ion-label>
+  </ion-item>
+  <div class="width-100" *ngFor="let cliente of this.clientes">
+    <ion-row>
+      <ion-col>
+        <ion-item class="button2"
+          (click)="muestraModal(cliente.key,'cliente')">
+          {{cliente.nombre | titlecase}} {{cliente.apellido | titlecase}}
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>

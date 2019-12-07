@@ -1,0 +1,91 @@
+.item2
+{
+    --background: transparent;
+    //font-weight: bold;
+    color: rgb(0, 0, 0);
+    width: 80%;
+    text-align: left;
+    --border-width: 0 0 2px 0 ;
+    --border-color: #43a047;
+    margin-left: auto;
+    margin-right: auto;
+}
+.label-verde{
+    color:#43a047;
+    font-size: 18px;
+}
+.boton-confirmar{
+    color: black;
+    --border-radius: 80px;
+    width: 130px;
+    height: 40px;
+    --border-color: #339933;
+    --border-width: 1px;
+    --border-style:  solid ;   
+    --background: #dbf0dc !important;
+    --background-activated:#339933; 
+    --border-color:#339933;
+    --background-hover:#339933;
+    --background-focused: #339933;
+    display: block; 
+    margin-left: auto;
+    
+    justify-content: center;
+    margin-bottom: 5px;
+    text-transform: unset;
+    margin-top: 15px;
+    font-size: 15px;
+  }
+  .boton-denegar{
+    color: black;
+    --border-radius: 80px;
+    width: 120px;
+    height: 40px;
+    --border-color: #990000;
+    --border-width: 1px;
+    --border-style:  solid ;   
+    --background: #ffe6e6 !important;
+    --background-activated:#990000; 
+    --border-color:#990000;
+    --background-hover:#990000;
+    --background-focused: #990000;
+    display: block; 
+    
+    margin-right: auto;
+    justify-content: center;
+    margin-bottom: 5px;
+    margin-top: 15px;
+    text-transform: unset;
+    font-size: 15px;
+  }
+  .boton-info{
+    color: black;
+    --border-radius: 80px;
+    width: 100px;
+    height: 40px;
+    --border-color: #605bbb;
+    --border-width: 1px;
+    --border-style:  solid ;   
+    --background: #afaebb !important;
+    --background-activated:#605bbb; 
+    --border-color:#605bbb;
+    --background-hover:#605bbb;
+    --background-focused: #605bbb;
+    display: block; 
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    margin-bottom: 5px;
+    margin-top: 15px;
+    text-transform: unset;
+    font-size: 15px;
+    padding: 0;
+  }
+.texto-card{
+    text-align: center;
+    color: black;
+    font-size: 25px;
+}
+
+

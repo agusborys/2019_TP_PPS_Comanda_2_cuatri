@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar color="verdeleon">
+    <ion-buttons slot="start">
+      <ion-back-button color="dark" defaultHref="inicio"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="titulo-header">
+      <ion-icon name="qr-scanner"></ion-icon> Mesa
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="center-vertical center-horizontal width-100 height-100"
+    *ngIf="this.mesaAMostrar == null">
+    <div (click)="doScan()" class="flex-v border center-vertical">
+      <img class="qr-img" src="assets/img/QR_code_Wikipedia.svg"> <!---->
+      <span class="qr-text">Escanear</span>
+    </div>
+  </div>
+  <div class="center-vertical center-horizontal width-100 height-100"
+    *ngIf="this.mesaAMostrar != null">
+    <ion-card style="background-color:whitesmoke; border-radius: 50px;" >
+      <ion-card-content >
+        <ion-item class="ion-no-padding item2">
+          <ion-label class="label-verde" class="ion-text-center" style="font-weight: bold">Mesa</ion-label>
+          <ion-input style="font-weight: bold;" readonly [value]="this.mesaAMostrar.nromesa"></ion-input>
+        </ion-item>
+
+        <div *ngIf="this.mesaAMostrar.pedidoActual == ''"
+          class="width-100 center-horizontal center-vertical">
+          <ion-button class="boton-realizar" routerLink="/generar-pedido">
+            <ion-icon name="create"></ion-icon>
+            Realizar Pedido
+          </ion-button>
+        </div>
+
+        <div class="width-100 center-horizontal flex-v"
+          *ngIf="this.mesaAMostrar.pedidoActual != ''">
+          <ion-button class="boton-realizar" (click)="this.verPedido(this.mesaAMostrar.pedidoActual)">
+            Ver Pedido
+          </ion-button>
+          <div *ngIf=" this.pedido != null && (this.pedido.estado == 'aceptado' || this.pedido.estado=='entregado')">
+            <ion-button class="boton-realizar"
+            (click)="this.verEncuesta(this.mesaAMostrar.pedidoActual)">
+            Realizar Encuesta
+            </ion-button>
+           
+          <ion-item class="ion-no-padding item2">
+            <ion-label class="label-verde" class="ion-text-center" style="font-weight: bold">Juegos para descuentos</ion-label>
+          </ion-item>
+          <div *ngIf="this.pedido.juegoComida == false">
+            <ion-button class="boton-realizar" routerLink="/juego-postre" size="large">
+            <ion-icon name="logo-game-controller-b"></ion-icon>
+            Postre gratis
+          </ion-button>
+          </div>
+          <div *ngIf="this.pedido.juegoDescuento == false">
+            <ion-button class="boton-realizar" routerLink="/juego-descuento" size="large">
+              <ion-icon name="logo-game-controller-b"></ion-icon>
+              10% de descuento
+            </ion-button>
+          </div>
+          <div *ngIf="this.pedido.juegoBebida == false">
+            <ion-button class="boton-realizar" routerLink="/juego-tres" size="large">
+              <ion-icon name="logo-game-controller-b"></ion-icon>
+              Bebida gratis
+            </ion-button>
+          </div>
+        </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "237790768850",
+    "firebase_url": "https://comanda-c5293.firebaseio.com",
+    "project_id": "comanda-c5293",
+    "storage_bucket": "comanda-c5293.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:237790768850:android:d7f49ffbe40089f560470b",
+        "android_client_info": {
+          "package_name": "io.ionic.comanda2019V2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "237790768850-0qiklm8dca0iikbckvo1ka0m021lldtk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD83yL9dzTMkLQgv_2RNhjt4FcUclYljBc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "237790768850-0qiklm8dca0iikbckvo1ka0m021lldtk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

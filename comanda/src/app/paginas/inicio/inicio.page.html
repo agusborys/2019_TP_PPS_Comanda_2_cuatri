@@ -1,0 +1,149 @@
+<ion-header>
+  <ion-toolbar color="verdeleon" >
+    <ion-buttons slot="start">
+      <ion-button color="dark" size="small" (click)="cerrarSesion()">
+          <img class="icon-img" src="assets/icon/logout.png">
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="titulo-header">
+      {{(this.authService.tipoUser == '' ? "..." : this.authService.tipoUser) |
+      titlecase}}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="dark" size="small" (click)="this.configModal()">
+        <ion-icon name="person" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" style="--background:#edf7ee">
+  <!-- <div *ngIf="this.authService.tipoUser == ''"
+  <ion-button class="botones" routerLink="/juego-postre" size="large">
+    <ion-icon name="qr-scanner"></ion-icon>Juego
+  </ion-button>
+
+  <div *ngIf="this.authService.tipoUser == ''"
+    class="width-100 center-horizontal center-vertical flex-v spinner-text">
+    Espere...
+    <ion-spinner color="dark"></ion-spinner>
+  </div> -->
+
+  <!-- Para el dueño / supervisor -->
+  <div *ngIf="this.authService.tipoUser == 'supervisor' ||
+    this.authService.tipoUser == 'dueño'"
+    class="width-100 center-horizontal flex-wrap">
+    <img class="profile-img" src="assets/icon/dueño.png">
+    <ion-button class="botones" routerLink="/registro-empleado" size="large">
+      <ion-icon name="add-circle"></ion-icon>Registrar Empleado
+    </ion-button>
+    <ion-button class="botones" routerLink="/list-confirmar-cliente-alta" size="large">
+      <ion-icon name="checkbox-outline"></ion-icon> Confirmación de Clientes
+    </ion-button>
+    <ion-button class="botones" routerLink="/list-confirmar-cliente-mesa" size="large">
+      <ion-icon name="list-box"></ion-icon>Lista de Espera
+    </ion-button>
+    <ion-button class="botones" routerLink="/qr-mesa" size="large">
+      <ion-icon name="qr-scanner"></ion-icon>QR de Mesa
+    </ion-button>
+    <ion-button class="botones" routerLink="/confirmar-cierre-mesa" size="large">
+      <ion-icon name="close-circle-outline"></ion-icon>Cierre de Mesas
+    </ion-button>
+    <ion-button class="botones" routerLink="/encuesta-sup" size="large">
+      <ion-icon name="clipboard"></ion-icon>Encuesta
+    </ion-button>
+  </div>
+
+  <!-- Para cocinero, bartender, candybar -->
+  <div class="width-100 center-horizontal flex-wrap"
+    *ngIf="this.authService.tipoUser == 'cocinero' ||
+    this.authService.tipoUser == 'candybar' ||
+    this.authService.tipoUser == 'bartender'">
+    <div *ngIf="this.authService.tipoUser == 'cocinero' ||
+    this.authService.tipoUser == 'candybar'">
+    <img class="profile-img" src="assets/icon/cocinero.png">
+    </div>
+    <div *ngIf="this.authService.tipoUser == 'bartender'">
+    <img class="profile-img" src="assets/icon/barman.png">
+    </div>
+    <ion-button class="botones" routerLink="/list-pedidos-detalle" size="large">
+      <ion-icon name="bookmarks"></ion-icon>Pedidos Pendientes
+    </ion-button>
+    <ion-button class="botones" routerLink="/abm-producto" size="large">
+      <ion-icon name="create"></ion-icon>Registrar Producto
+    </ion-button>
+    <ion-button class="botones" routerLink="/encuesta-empleado" size="large">
+      <ion-icon name="clipboard"></ion-icon>Encuesta
+    </ion-button>
+  </div>
+
+  <!-- Para el mozo -->
+  <div class="width-100 center-horizontal flex-wrap"
+    *ngIf="this.authService.tipoUser == 'mozo'">
+    <img class="profile-img" src="assets/icon/mozo.png">
+    <ion-button class="botones" routerLink="/list-confirmar-cliente-mesa" size="large">
+      <ion-icon name="list-box"></ion-icon>Lista de Espera
+    </ion-button>
+    <ion-button class="botones" routerLink="/qr-mesa" size="large">
+      <ion-icon name="qr-scanner"></ion-icon>QR de Mesa
+    </ion-button>
+    <ion-button class="botones" routerLink="/list-confirmar-pedido" size="large">
+      <ion-icon name="checkbox-outline"></ion-icon>Confirmación de Pedidos
+    </ion-button>
+    <ion-button class="botones" routerLink="/confirmar-entrega-mozo" size="large">
+      <ion-icon name="checkbox-outline"></ion-icon>Confirmar Entrega Mozo
+    </ion-button>
+    <ion-button class="botones" routerLink="/confirmar-cierre-mesa" size="large">
+      <ion-icon name="close-circle-outline"></ion-icon>Cierre de Mesas
+    </ion-button>
+    <ion-button class="botones" routerLink="/abm-producto" size="large">
+      <ion-icon name="create"></ion-icon>Registrar Producto
+    </ion-button>
+    <ion-button class="botones" routerLink="/abm-mesa" size="large">
+      <ion-icon name="create"></ion-icon>Registrar Mesas
+    </ion-button>
+    <ion-button class="botones" routerLink="/encuesta-empleado" size="large">
+      <ion-icon name="clipboard"></ion-icon>Encuesta
+    </ion-button>
+    <!-- <ion-button routerLink="/qr-ingreso-local" size="large">
+      Ingreso al Local
+    </ion-button> -->
+
+  </div>
+
+  <!-- Para el cliente -->
+  <div class="width-100 center-horizontal flex-wrap"
+    *ngIf="this.authService.tipoUser == 'cliente' ||
+    this.authService.tipoUser == 'anonimo'">
+    <div *ngIf="this.authService.tipoUser == 'cliente'">
+    <img class="profile-img" src="assets/icon/usuario.png">
+    </div>
+    <div *ngIf="this.authService.tipoUser == 'anonimo'">
+    <img class="profile-img" src="assets/icon/incognito.png">
+    </div>
+    <ion-button class="botones" routerLink="/qr-ingreso-local" size="large">
+      <ion-icon name="qr-scanner"></ion-icon>Ingreso al Local
+    </ion-button>
+    <ion-button class="botones" routerLink="/qr-mesa" size="large">
+      <ion-icon name="qr-scanner"></ion-icon>QR de Mesa
+    </ion-button>
+    <ion-button class="botones" routerLink="/generar-pedido" size="large">
+      <ion-icon name="create"></ion-icon>Generar Pedido
+    </ion-button>
+    <ion-button class="botones" routerLink="/confirmar-entrega" size="large">
+      <ion-icon name="checkbox-outline"></ion-icon>Confirmar Entrega
+    </ion-button>
+    <!-- <ion-button class="botones" routerLink="/juego-postre" size="large">
+      <ion-icon name="infinite"></ion-icon>
+      Juego Simon
+    </ion-button>
+    <ion-button class="botones" routerLink="/juego-descuento" size="large">
+      <ion-icon name="subway"></ion-icon>
+      Juego Ahorcado
+    </ion-button>
+    <ion-button class="botones" routerLink="/juego-tres" size="large">
+      <ion-icon name="subway"></ion-icon>
+      Juego Tres
+    </ion-button> -->
+  </div>
+</ion-content>

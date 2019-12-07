@@ -1,0 +1,92 @@
+.button_XXS_empty
+{
+    --background: #605bbb;
+    //--background: #6DB3F2 url('/assets/img/button_XXS_empty.png') 0 0/100% 100% no-repeat !important;
+    height: 32px;
+    width: 50px;
+    //background-color: transparent;
+    padding: 0;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    text-align: center;
+
+}
+
+.button_XXS_empty_gr
+{
+    --background: #61bd65;
+    //--background: rgb(9, 255, 0) url('/assets/img/button_XXS_empty.png') 0 0/100% 100% no-repeat !important;
+    height: 32px;
+    width: 50px;
+    color: rgb(0, 0, 0);
+}
+
+.button_XXS_empty_re
+{
+    --background: #a04743;
+    //--background: rgb(255, 0, 0) url('/assets/img/button_XXS_empty.png') 0 0/100% 100% no-repeat !important;
+    height: 32px;
+    width: 50px;
+    color: rgb(0, 0, 0);
+}
+.botonesVioleta{
+    color: black;
+    --border-radius: 80px;
+    width: 200px;
+    height: 35px;
+    --border-color: #a04743;
+    --border-width: 1px;
+    --border-style:  solid ;   
+    --background: #f5d5d4 !important;
+    --background-activated:#a04743; 
+    --border-color:#a04743;
+    --background-hover:#a04743;
+    --background-focused: #a04743;
+    display: block; 
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    margin-bottom: 5px;
+    text-transform: unset;;
+    font-size: medium;
+}
+.botonesRojo{
+    color: black;
+    --border-radius: 80px;
+    width: 200px;
+    height: 35px;
+    --border-color: #a04743;
+    --border-width: 1px;
+    --border-style:  solid ;   
+    --background: #f5d5d4 !important;
+    --background-activated:#a04743; 
+    --border-color:#a04743;
+    --background-hover:#a04743;
+    --background-focused: #a04743;
+    display: block; 
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    margin-bottom: 5px;
+    text-transform: unset;;
+    font-size: medium;
+}
+.item2
+{
+    text-align: center !important;
+    --background: rgba(255, 255, 255, 0.750);
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    width: 100%;
+}
+
+.bolded
+{
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+
+}

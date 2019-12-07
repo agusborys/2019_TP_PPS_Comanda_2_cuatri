@@ -1,0 +1,123 @@
+// .button_preparar
+// {
+//     --background: #605bbb;
+//     //--background: url('/assets/img/button_XXS_play.png') 0 0/100% 100% no-repeat !important;
+//     height: 27px;
+//     width: 40px;
+//     //background-color: transparent;
+//     padding: 0;
+//     border: none;
+//     font-size: 20px;
+//     font-weight: bold;
+//     color: rgb(0, 0, 0);
+//     background-size: 100% 100%;
+//     background-repeat: no-repeat;
+//     text-align: center;
+// }
+
+// .button_listo
+// {
+//     --background: #61bd65;
+//     //--background: url('/assets/img/button_XXS_tilde.png') 0 0/100% 100% no-repeat !important;
+//     height: 27px;
+//     width: 40px;
+//     //background-color: transparent;
+//     padding: 0;
+//     border: none;
+//     font-size: 20px;
+//     font-weight: bold;
+//     color: rgb(0, 0, 0);
+//     background-size: 100% 100%;
+//     background-repeat: no-repeat;
+//     text-align: center;
+// }
+.button_listo{
+    color: black;
+    --border-radius: 80px;
+    width: 130px;
+    height: 40px;
+    --border-color: #339933;
+    --border-width: 1px;
+    --border-style:  solid ;   
+    --background: #dbf0dc !important;
+    --background-activated:#339933; 
+    --border-color:#339933;
+    --background-hover:#339933;
+    --background-focused: #339933;
+    display: block; 
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    margin-bottom: 5px;
+    text-transform: unset;
+    margin-top: 15px;
+    font-size: 15px;
+  }
+.button_preparar{
+    color: black;
+    --border-radius: 80px;
+    width: 120px;
+    height: 40px;
+    --border-color: #605bbb;
+    --border-width: 1px;
+    --border-style:  solid ;   
+    --background: #afaebb !important;
+    --background-activated:#605bbb; 
+    --border-color:#605bbb;
+    --background-hover:#605bbb;
+    --background-focused: #605bbb;
+    display: block; 
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    margin-bottom: 5px;
+    margin-top: 15px;
+    text-transform: unset;
+    font-size: 15px;
+    padding: 0;
+  }
+  .item2
+{
+    --background: transparent;
+    //font-weight: bold;
+    color: rgb(0, 0, 0);
+    width: 80%;
+    text-align: left;
+    --border-width: 0 0 2px 0 ;
+    --border-color: #43a047;
+    margin-left: auto;
+    margin-right: auto;
+}
+.label-verde{
+    color:#43a047;
+    font-size: 18px;
+}
+.itemc
+{
+    --background: transparent;
+    color: rgb(0, 0, 0);
+    width: 100%;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.mark1
+{
+    --background: #f0f0dc;
+}
+
+.cardType_1
+{
+    background-color:#ebf7ec;
+}
+
+.cardType_2
+{
+    background-color:#ddf1de;
+}
+
+.cardType_3
+{
+    background-color:#c2e5c3;
+}
