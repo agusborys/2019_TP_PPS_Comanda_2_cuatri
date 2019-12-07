@@ -68,11 +68,11 @@ Acordamos comunicarnos mediante un grupo de whatsaṕp, creamos una nueva cuenta
 <h3 align="center">Correciones, Push notification y juegos(Semana 29/11)
 </h3>
 
-**Agustin borys:** Simon dice, bug fixes varios
+**Agustin borys:** Simon dice, bugfixes varios
 
-**Leon Ifran:** Push notification, memo test
+**Leon Ifran:** Push notification, memo test, bugfix al alta de mesas y subida de foto
 
-**Santiago de la Fuente:**  ahorcado, bug fixes varios
+**Santiago de la Fuente:**  ahorcado, bugfixes varios
 
 
 <br>
