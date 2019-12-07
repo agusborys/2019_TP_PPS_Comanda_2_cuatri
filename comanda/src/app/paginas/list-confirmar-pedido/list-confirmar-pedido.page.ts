@@ -33,7 +33,7 @@ export class ListConfirmarPedidoPage implements OnInit {
   //#region metodos de FCM
   envioPost() {
     let tituloNotif = "Nuevo pedido";
-    let bodyNotif = "Ingrese a la aplicacion para preparar";
+    let bodyNotif = "Hay un nuevo pedido que requiere preparacion";
 
     let header = this.initHeaders();
     let options = new RequestOptions({ headers: header, method: 'post' });
