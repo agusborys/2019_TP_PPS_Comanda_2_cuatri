@@ -77,6 +77,40 @@ Acordamos comunicarnos mediante un grupo de whatsaṕp, creamos una nueva cuenta
 
 <br>
 <br>
+
+<p align="center">
+<h4>Ingreso al local</h4>
+<img src="https://raw.githubusercontent.com/agusborys/2019_TP_PPS_Comanda_2_cuatri/master/ComandaQR/ingresLocal.png" width="500" height="500"/>
+</p>
+
+<p align="center">
+<img src="https://i.imgur.com/q2rtU34.png" width="500" height="500"/>
+</p>
+
+<p align="center">
+<img src="https://i.imgur.com/q2rtU34.png" width="500" height="500"/>
+</p>
+
+<p align="center">
+<img src="https://i.imgur.com/q2rtU34.png" width="500" height="500"/>
+</p>
+
+<p align="center">
+<img src="https://i.imgur.com/q2rtU34.png" width="500" height="500"/>
+</p>
+
+<p align="center">
+<img src="https://i.imgur.com/q2rtU34.png" width="500" height="500"/>
+</p>
+
+<p align="center">
+<img src="https://i.imgur.com/q2rtU34.png" width="500" height="500"/>
+</p>
+
+
+<br>
+<br>
+
 <h3>Diagrama código Qr (mesa)</h3>
 <img src="https://github.com/maxineiner/2019_TP_PPS_Comanda_2_cuatri/blob/master/Diagrama_QR_MESA.jpg"/>
 <br>
