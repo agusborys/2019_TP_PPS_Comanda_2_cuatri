@@ -43,7 +43,7 @@ export class ModalPedidoPage implements OnInit {
     
     this.cliente = this.authService.tipoUser === 'cliente' || this.authService.tipoUser === 'anonimo' ? true : false;
     this.traerPedido();
-    this.traerPedidoDetalle();
+    //this.traerPedidoDetalle();
     
     
   }
@@ -59,9 +59,11 @@ export class ModalPedidoPage implements OnInit {
         } else {
           this.verCuenta = false;
         }
+        console.log(this.pedidoActual);
         this.tieneDescuento = this.pedidoActual.juegoDescuento;
         this.tienePostreGratis = this.pedidoActual.juegoComida;
         this.tieneBebidaGratis = this.pedidoActual.juegoBebida;
+        this.traerPedidoDetalle();
       }
     });
   }
@@ -83,7 +85,6 @@ export class ModalPedidoPage implements OnInit {
       this.manejarDescuentos();
       console.log(this.pedidoDetalle);
     });
-    
     //this.manejarDescuentos();
   }
   public manejarDescuentos()
