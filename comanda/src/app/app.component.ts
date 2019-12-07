@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, ToastController  } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { timer } from 'rxjs/internal/observable/timer';
@@ -11,6 +11,7 @@ import { timer } from 'rxjs/internal/observable/timer';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { Router } from '@angular/router';
 import { Events } from '@ionic/angular';
+import { present } from '@ionic/core/dist/types/utils/overlays';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +28,8 @@ export class AppComponent implements OnInit {
     public splashScreen: SplashScreen,
     private fcm: FCM,
     public events: Events,
-    private router: Router
+    private router: Router,
+    public toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -53,8 +55,20 @@ export class AppComponent implements OnInit {
         this.router.navigate(['/login']);
       } else {
         console.log('Received in foreground');
-        //this.router.navigateByUrl('/login');
+        let objetoAuxDos = JSON.stringify(data.body);
+        this.presentToast(objetoAuxDos);
       }
     });
+  }
+  async presentToast(mensaje: string) {
+    const toast = await this.toastController.create({
+      message: mensaje,
+      duration: 5000,
+      position: 'top',
+      color: 'warning',
+      translucent: false,
+      cssClass: 'toast-noti',
+    });
+    toast.present();
   }
 }
