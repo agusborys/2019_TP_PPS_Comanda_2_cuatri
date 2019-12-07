@@ -77,36 +77,36 @@ Acordamos comunicarnos mediante un grupo de whatsaṕp, creamos una nueva cuenta
 
 <br>
 <br>
-
+<h1 align="center">  Codigos QR</h1>
 <h4 align="center">Ingreso al local</h4>
 <p align="center">
 <img src="https://raw.githubusercontent.com/agusborys/2019_TP_PPS_Comanda_2_cuatri/master/ComandaQR/ingresLocal.png" width="300" height="300"/>
 </p>
 
+<h4 align="center">Mesa 1</h4>
 <p align="center">
-<img src="https://i.imgur.com/q2rtU34.png" width="500" height="500"/>
+<img src="https://raw.githubusercontent.com/agusborys/2019_TP_PPS_Comanda_2_cuatri/master/ComandaQR/ingresLocal.png" width="300" height="300"/>
 </p>
 
+<h4 align="center">Mesa 2</h4>
 <p align="center">
-<img src="https://i.imgur.com/q2rtU34.png" width="500" height="500"/>
+<img src="https://raw.githubusercontent.com/agusborys/2019_TP_PPS_Comanda_2_cuatri/master/ComandaQR/ingresLocal.png" width="300" height="300"/>
 </p>
 
+<h4 align="center">Mesa 3</h4>
 <p align="center">
-<img src="https://i.imgur.com/q2rtU34.png" width="500" height="500"/>
+<img src="https://raw.githubusercontent.com/agusborys/2019_TP_PPS_Comanda_2_cuatri/master/ComandaQR/ingresLocal.png" width="300" height="300"/>
 </p>
 
+<h4 align="center">Mesa 4</h4>
 <p align="center">
-<img src="https://i.imgur.com/q2rtU34.png" width="500" height="500"/>
+<img src="https://raw.githubusercontent.com/agusborys/2019_TP_PPS_Comanda_2_cuatri/master/ComandaQR/ingresLocal.png" width="300" height="300"/>
 </p>
 
+<h4 align="center">Mesa 5</h4>
 <p align="center">
-<img src="https://i.imgur.com/q2rtU34.png" width="500" height="500"/>
+<img src="https://raw.githubusercontent.com/agusborys/2019_TP_PPS_Comanda_2_cuatri/master/ComandaQR/ingresLocal.png" width="300" height="300"/>
 </p>
-
-<p align="center">
-<img src="https://i.imgur.com/q2rtU34.png" width="500" height="500"/>
-</p>
-
 
 <br>
 <br>
