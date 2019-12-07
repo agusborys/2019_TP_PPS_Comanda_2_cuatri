@@ -77,8 +77,8 @@ Acordamos comunicarnos mediante un grupo de whatsaṕp, creamos una nueva cuenta
 
 <br>
 <br>
-<h1 align="center">  Codigos QR</h1>
-<h4 align="center">Ingreso al local</h4>
+<h1 align="center">Codigos QR</h1>
+<h3 align="center">Ingreso al local</h3>
 <p align="center">
 <img src="https://raw.githubusercontent.com/agusborys/2019_TP_PPS_Comanda_2_cuatri/master/ComandaQR/ingresLocal.png" width="300" height="300"/>
 </p>
