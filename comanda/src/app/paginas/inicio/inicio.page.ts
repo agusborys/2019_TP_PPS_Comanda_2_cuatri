@@ -27,7 +27,7 @@ export class InicioPage implements OnInit {
     this.authService.Logout();
     this.fcm.unsubscribeFromTopic('notificacionReservas');
     this.fcm.unsubscribeFromTopic('notificacionMesa');
-    this.fcm.unsubscribeFromTopic('notificacionPedido');
+    this.fcm.unsubscribeFromTopic('notificacionesPedidos');
   }
 
   async ionViewDidEnter() {//esta como asyncronico, no se va a subscribir hasta que no se llame buscarUsuario
