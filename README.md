@@ -84,12 +84,12 @@ Acordamos comunicarnos mediante un grupo de whatsaṕp, creamos una nueva cuenta
 </p>
 
 <h3 align="left">Mesa 1</h3>
-<p align="center">
+<p align="left">
 <img src="https://raw.githubusercontent.com/agusborys/2019_TP_PPS_Comanda_2_cuatri/master/ComandaQR/ingresLocal.png" width="300" height="300"/>
 </p>
 
 <h3 align="right">Mesa 2</h3>
-<p align="center">
+<p align="right">
 <img src="https://raw.githubusercontent.com/agusborys/2019_TP_PPS_Comanda_2_cuatri/master/ComandaQR/ingresLocal.png" width="300" height="300"/>
 </p>
 
