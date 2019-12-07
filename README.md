@@ -16,11 +16,11 @@
  <h4 align="center">Santiago de la Fuente</h4>
 <br>
 <h3 align="center">
- Metodologia de trabajo
+ Metodología de trabajo
 </h3>
 
 Antes de comenzar a trabajar 
-Acordamos comunicarnos mediante un grupo de whatsaṕp, creamos una nueva cuenta en firebase, acordamos el tema visual de la aplicacion y nos dividimos las tareas iniciales. Subsequentemente
+Acordamos comunicarnos mediante un grupo de WhatsApp, creamos una nueva cuenta en firebase, acordamos el tema visual de la aplicacion y nos dividimos las tareas iniciales. Subsequentemente
 <br>
 <h3 align="center">
  Tareas iniciales (Semana 27/10)
