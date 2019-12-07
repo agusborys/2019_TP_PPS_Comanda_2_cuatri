@@ -235,4 +235,9 @@ export class JuegoTresPage implements OnInit {
     this.intentoActual = [];
     this.casilleros = [];
   }
+
+  volver() {
+    // this.limpiarArrays();
+    this.router.navigateByUrl('inicio');
+  }
 }
