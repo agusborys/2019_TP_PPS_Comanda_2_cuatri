@@ -78,9 +78,9 @@ Acordamos comunicarnos mediante un grupo de whatsaṕp, creamos una nueva cuenta
 <br>
 <br>
 
+<h4 align="center">Ingreso al local</h4>
 <p align="center">
-<h4>Ingreso al local</h4>
-<img src="https://raw.githubusercontent.com/agusborys/2019_TP_PPS_Comanda_2_cuatri/master/ComandaQR/ingresLocal.png" width="500" height="500"/>
+<img src="https://raw.githubusercontent.com/agusborys/2019_TP_PPS_Comanda_2_cuatri/master/ComandaQR/ingresLocal.png" width="300" height="300"/>
 </p>
 
 <p align="center">
