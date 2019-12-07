@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { PedidoKey } from 'src/app/clases/pedido';
+import { map } from 'rxjs/operators';
+import * as firebase from 'firebase/app';
+import { ErrorHandlerService } from 'src/app/servicios/error-handler.service';
 
 @Component({
   selector: 'app-juego-tres',
@@ -7,6 +12,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./juego-tres.page.scss'],
 })
 export class JuegoTresPage implements OnInit {
+
+  public currentUser: firebase.User;
+  uidUsuario: any;
 
   public unoUno: any;
   public dosUno: any;
@@ -24,9 +32,13 @@ export class JuegoTresPage implements OnInit {
   public ganados = new Array();
   public inicio: any;
   public fin: any;
-
+  
+  private pedido : PedidoKey;
+  private pedidos : PedidoKey[];
   constructor(
     private router: Router,
+    private firestore: AngularFirestore,
+    private errorHand:ErrorHandlerService
   ) {
     this.unoUno = true;
     this.dosUno = true;
@@ -39,14 +51,47 @@ export class JuegoTresPage implements OnInit {
     this.inicio = false;
     this.fin = false;
     this.intentos = 4;
+
+    firebase.auth().onAuthStateChanged(user => {
+      this.currentUser = user;
+      this.uidUsuario = user.uid;
+    });
   }
+  
 
   ngOnInit() {
+    this.traerPedidos().subscribe((d: PedidoKey[]) => {
+      this.pedidos = d;
+      console.log(this.currentUser.email, this.pedidos);
+      this.pedido = this.pedidos.find((m) => {
+        if(m.cliente === this.currentUser.email && (m.estado=="aceptado" || m.estado=="entregado"))
+        {
+          return true;
+        }
+          return false;
+      });
+      console.log(this.pedido);
+    });
     setTimeout(() => {
 
       this.ocultarIconos();
 
     }, 3000);
+
+  }
+
+  public traerPedidos() {
+    return this.firestore.collection('pedidos').snapshotChanges()
+      .pipe(map((f) => {
+        return f.map((a) => {
+          const data = a.payload.doc.data() as PedidoKey;
+          data.key = a.payload.doc.id;
+          return data;
+        });
+      }));
+  }
+  private actualizarDoc(db: string, key: string, data: any) {
+    return this.firestore.collection(db).doc(key).update(data);
   }
 
   ocultarIconos() {
@@ -224,7 +269,10 @@ export class JuegoTresPage implements OnInit {
     }, 1000)
 
     if (this.ganados.length > 5 && this.intentos > 2) {
-      alert('Ganaste');
+      //alert('Ganaste');
+      this.errorHand.mostrarErrorSolo("Felicitaciones", "Has ganado una bebida gratis! Se te descontará al final de tu cuenta");
+      this.pedido.juegoBebida = true;
+      this.actualizarDoc("pedidos",this.pedido.key,this.pedido);
       setTimeout( () => {
         this.router.navigateByUrl('inicio');
       }, 2000)
@@ -238,6 +286,6 @@ export class JuegoTresPage implements OnInit {
 
   volver() {
     // this.limpiarArrays();
-    this.router.navigateByUrl('inicio');
+    this.router.navigateByUrl('qr-mesa');
   }
 }

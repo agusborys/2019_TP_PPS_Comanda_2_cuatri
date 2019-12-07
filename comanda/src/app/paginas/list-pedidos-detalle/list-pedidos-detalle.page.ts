@@ -7,6 +7,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { AlertController } from '@ionic/angular';
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
+import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
 
 @Component({
   selector: 'app-list-pedidos-detalle',
@@ -20,12 +21,14 @@ export class ListPedidosDetallePage implements OnInit {
   private pedidos: PedidoKey[];
   private productos: ProductoKey[];
   private pedidoDetalle: PedidoDetalleKey[];
+  private spinner : any = null;
 
   constructor(
     private authServ: AuthService,
     private firestore: AngularFirestore,
     private alertCtrl: AlertController,
-    public http: Http,) { }
+    public http: Http,
+    private spinnerHand : SpinnerHandlerService) { }
 
   //#region metodos de FCM
   envioPost(pedidoPush) {
@@ -71,12 +74,15 @@ export class ListPedidosDetallePage implements OnInit {
   //#endregion
 
   async ngOnInit() {
+    
     this.pedidos = new Array<PedidoKey>();
     this.pedidoDetalle = new Array<PedidoDetalleKey>();
     this.productos = new Array<ProductoKey>();
-
+    this.spinner = await this.spinnerHand.GetAllPageSpinner();
+    this.spinner.present();
     await this.authServ.buscarUsuario();
     this.inicializarPedidos();
+    this.spinner.dismiss();
   }
 
   public async inicializarPedidos() {

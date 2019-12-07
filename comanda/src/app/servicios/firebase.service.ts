@@ -69,5 +69,9 @@ export class FirebaseService {
 
     return selfieRef.putString(pictureAux, 'base64', { contentType: 'image/jpeg' });
   }
+  public buscarPorID(coleccion:string, id:string)
+  {
+    return this._db.collection(coleccion).doc(id).get();
+  }
 }
 

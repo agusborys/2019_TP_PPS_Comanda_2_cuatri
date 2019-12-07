@@ -14,6 +14,8 @@ import { ModalPedidoPage } from '../modal-pedido/modal-pedido.page';
 import { EncuestaClientePage } from '../encuesta-cliente/encuesta-cliente.page';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { ErrorHandlerService } from 'src/app/servicios/error-handler.service';
+import { Pedido, PedidoKey } from 'src/app/clases/pedido';
+import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
 
 @Component({
   selector: 'app-qr-mesa',
@@ -30,6 +32,8 @@ export class QrMesaPage implements OnInit {
   private reservaAMostrar: ReservaKey;
   private listaEspera: ListaEsperaClientesKey[];
   private mostrarBtnEncuesta : boolean = true;
+  private pedido : PedidoKey = null;
+  private spinner : any = null;
   constructor(
     private firestore: AngularFirestore,
     private scanner: BarcodeScanner,
@@ -38,10 +42,15 @@ export class QrMesaPage implements OnInit {
     private alertCtrl: AlertController,
     private authServ: AuthService,
     private errorHandler:ErrorHandlerService,
-  ) { }
+    private spinnerHand : SpinnerHandlerService
+  ) {
+   }
 
   async ngOnInit() {
+    this.spinner = await this.spinnerHand.GetAllPageSpinner();
+    this.spinner.present();
     await this.authServ.buscarUsuario();
+    this.spinner.dismiss();
     this.traerMesas().subscribe((d: MesaKey[]) => {
       // console.log('Tengo las mesas', d);
       this.mesas = d;
@@ -53,6 +62,15 @@ export class QrMesaPage implements OnInit {
           this.mesaAMostrar = this.mesas.find(m => {
             return m.cliente === this.authServ.user.correo;
           });
+          if(this.mesaAMostrar.pedidoActual != "")
+          {
+            this.buscarPedido().subscribe((d)=>{  
+            this.pedido = d.data() as PedidoKey;
+            this.pedido.key = d.id;
+            console.log(this.pedido);
+            });
+          }
+          
         } else {
           console.log('No está en mesa');
         }
@@ -67,23 +85,26 @@ export class QrMesaPage implements OnInit {
       // console.log('Tengo la lista de espera', d);
       this.listaEspera = d;
     });
-    this.traerEncuestas().subscribe((d:any)=>{
-      for(let element of d)
-      {
-        if(element.pedido == this.mesaAMostrar.pedidoActual)
-        {
-          console.log(element.pedido);
-          this.mostrarBtnEncuesta = false;
-          break;
-        }
-        else{
-          this.mostrarBtnEncuesta = true;
-        }
-      }
-    });
-    console.log(this.mostrarBtnEncuesta);
+    
+    // this.traerEncuestas().subscribe((d:any)=>{
+    //   for(let element of d)
+    //   {
+    //     if(element.pedido == this.mesaAMostrar.pedidoActual)
+    //     {
+    //       console.log(element.pedido);
+    //       this.mostrarBtnEncuesta = false;
+    //       break;
+    //     }
+    //     else{
+    //       this.mostrarBtnEncuesta = true;
+    //     }
+    //   }
+    // });
+    // console.log(this.mostrarBtnEncuesta);
   }
-  
+  public buscarPedido(){
+    return this.firestore.collection('pedidos').doc(this.mesaAMostrar.pedidoActual).get();
+  }
   public traerListaEspera() {
     return this.firestore.collection('listaEsperaClientes').snapshotChanges().pipe(map((f) => {
       return f.map((a) => {

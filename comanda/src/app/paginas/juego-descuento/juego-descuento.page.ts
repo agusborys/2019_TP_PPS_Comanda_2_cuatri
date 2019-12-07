@@ -6,6 +6,10 @@ import 'firebase/auth';
 import 'firebase/firestore';
 // import { MesasService } from 'src/app/services/mesas/mesas.service';
 import { Router } from '@angular/router';
+import { PedidoKey } from 'src/app/clases/pedido';
+import { ErrorHandlerService } from 'src/app/servicios/error-handler.service';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators';
 // import { EventService } from '../services/event/event.service';
 @Component({
   selector: 'app-juego-descuento',
@@ -34,10 +38,14 @@ export class JuegoDescuentoPage implements OnInit {
 
     // Creamos un array para guardar las letras que se van seleccionando.
     controlLetras = new Array;
-
+    
+    private pedido : PedidoKey;
+    private pedidos : PedidoKey[];
     constructor(
       public navCtrl: NavController,
       private router: Router,
+      private errorHand : ErrorHandlerService,
+      private firestore: AngularFirestore
       // private mesasService: MesasService
     ) {
 
@@ -189,7 +197,7 @@ export class JuegoDescuentoPage implements OnInit {
         // Mostramos el mensaje como que el juego ha terminado
         //this.mensaje = 'Perdiste!, Inténtalo de nuevo. Has conseguido un total de ' + this.puntos + ' puntos. La palabra secreta es ' + this.nombreSecreto;
         this.mensaje = 'Perdiste!. La próxima será..'
-
+        this.errorHand.mostrarErrorSolo("Perdiste!","La próxima vez será!");
       }
 
       // Ganador
@@ -202,6 +210,9 @@ export class JuegoDescuentoPage implements OnInit {
         // });
         this.mensaje = 'Enhorabuena!, Has acertado la palabra secreta. Has conseguido un 10% de descuento en tu cuenta.';
         this.ganador = 1;
+        this.errorHand.mostrarErrorSolo("Felicitaciones!","Has acertado la palabra secreta. Has conseguido un 10% de descuento en tu cuenta.");
+        this.pedido.juegoDescuento = true;
+        this.actualizarDoc("pedidos",this.pedido.key,this.pedido);
 //        console.log("codigo mesa:" + this.codigo);
         // console.log("codigo" + this.codigoMesa);
 
@@ -231,6 +242,34 @@ export class JuegoDescuentoPage implements OnInit {
   }
 
   ngOnInit() {
+    this.traerPedidos().subscribe((d: PedidoKey[]) => {
+      this.pedidos = d;
+      console.log(this.currentUser.email, this.pedidos);
+      this.pedido = this.pedidos.find((m:PedidoKey) => {
+        if(m.cliente === this.currentUser.email && (m.estado=="aceptado" || m.estado=="entregado"))
+        {
+          return true;
+        }
+        return false; 
+      });
+      console.log(this.pedido);
+    });
   }
-
+  public traerPedidos() {
+    return this.firestore.collection('pedidos').snapshotChanges()
+      .pipe(map((f) => {
+        return f.map((a) => {
+          const data = a.payload.doc.data() as PedidoKey;
+          data.key = a.payload.doc.id;
+          return data;
+        });
+      }));
+  }
+  private actualizarDoc(db: string, key: string, data: any) {
+    return this.firestore.collection(db).doc(key).update(data);
+  }
+  volver() {
+    // this.limpiarArrays();
+    this.router.navigateByUrl('qr-mesa');
+  }
 }

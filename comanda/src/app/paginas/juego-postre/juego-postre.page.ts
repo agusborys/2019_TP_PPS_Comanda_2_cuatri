@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { AngularFirestore, QuerySnapshot, DocumentSnapshot } from '@angular/fire/firestore';
 
 
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import { map } from 'rxjs/operators';
+import { PedidoKey } from 'src/app/clases/pedido';
+import { ErrorHandlerService } from 'src/app/servicios/error-handler.service';
 // import { MesasService } from 'src/app/services/mesas/mesas.service';
 // import { EventService } from '../services/event/event.service';
 @Component({
@@ -22,8 +25,8 @@ export class JuegoPostrePage implements OnInit {
   public currentUser: firebase.User;
   uidUsuario: any;
 
-
-
+  private pedido : PedidoKey;
+  private pedidos : PedidoKey[];
   private startDelay = 1000;
   private lightDuration = 500;
   private lightDelay = 1000;
@@ -50,6 +53,8 @@ export class JuegoPostrePage implements OnInit {
   // Constructor
   constructor(
     private router: Router,
+    private firestore: AngularFirestore,
+    private errorHand : ErrorHandlerService
     // private mesasService: MesasService
   ) {
     // this.mesasService.TraerMesas().subscribe(data => {
@@ -106,8 +111,34 @@ export class JuegoPostrePage implements OnInit {
     this.audio = [a0, a1, a2, a3];
   }
 
-  ngOnInit() { }
-
+  ngOnInit() { 
+    this.traerPedidos().subscribe((d: PedidoKey[]) => {
+      this.pedidos = d;
+      console.log(this.currentUser.email, this.pedidos);
+      this.pedido = this.pedidos.find((m) => {
+        if(m.cliente === this.currentUser.email && (m.estado=="aceptado" || m.estado=="entregado"))
+        {
+          return true;
+        }
+        return false;
+          
+      });
+      console.log(this.pedido);
+    });
+  }
+  public traerPedidos() {
+    return this.firestore.collection('pedidos').snapshotChanges()
+      .pipe(map((f) => {
+        return f.map((a) => {
+          const data = a.payload.doc.data() as PedidoKey;
+          data.key = a.payload.doc.id;
+          return data;
+        });
+      }));
+  }
+  private actualizarDoc(db: string, key: string, data: any) {
+    return this.firestore.collection(db).doc(key).update(data);
+  }
   // Comienzo del Juego - Julián
   onStart() {
     if (this.canStart) {
@@ -213,11 +244,12 @@ export class JuegoPostrePage implements OnInit {
       if (this.game.getHistory().length === 3) {
         setTimeout(() => {
           // GANASTE EL JUEGO - Julián
-          alert('Felicitaciones Ganaste! Tenes un postre gratis!!!');
-
+          //alert('Felicitaciones Ganaste! Tenes un postre gratis!!!');
+          this.errorHand.mostrarErrorSolo("Felicitaciones", "Has ganado un postre gratis! Se te descontará al final de tu cuenta");
           this.msg = 'Excelente. Ganaste!';
           this.isStart = true;
-
+          this.pedido.juegoComida = true;
+          this.actualizarDoc("pedidos",this.pedido.key,this.pedido);
           //////////////////////////////////////////////////////////////////////// hacer el alta
           // this.mesas.forEach(element => {////////////////////SI EL CLIENTE ESTA SENTADO EN ALGUNA MESA
           //   if (element.cliente == this.uidUsuario)
@@ -228,7 +260,7 @@ export class JuegoPostrePage implements OnInit {
           //
           // });
           // this.mesasService.AgregarDescPostre(this.codigoMesa, true);
-          this.router.navigateByUrl('inicio');
+          this.router.navigateByUrl('qr-mesa');
 
         }, delay + 500);
       } else {
@@ -249,6 +281,7 @@ export class JuegoPostrePage implements OnInit {
       if (!this.isStrict) {
         // Normal mode: Replay at current level
         setTimeout(() => {
+          this.errorHand.mostrarErrorSolo("Perdiste!","La próxima vez será!");
           this.msg = 'Error! Perdiste.';
         }, 1500);
 
@@ -259,6 +292,7 @@ export class JuegoPostrePage implements OnInit {
       } else {
         // Strict mode: Restart game
         setTimeout(() => {
+          this.errorHand.mostrarErrorSolo("Perdiste!","La próxima vez será!");
           this.msg = 'Error! Perdiste.';
         }, 1000);
 
@@ -268,11 +302,17 @@ export class JuegoPostrePage implements OnInit {
 
           // PERDISTE
           // ACA SE SALE DEL JUEGO - Julián
-          this.router.navigateByUrl('inicio');
+          this.errorHand.mostrarErrorSolo("Perdiste!","La próxima vez será!");
+          this.router.navigateByUrl('qr-mesa');
         }, 3000);
 
       }
     }
+  }
+
+  volver() {
+    // this.limpiarArrays();
+    this.router.navigateByUrl('qr-mesa');
   }
 
   onStrict() {
