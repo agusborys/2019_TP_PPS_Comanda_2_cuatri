@@ -107,6 +107,31 @@ Acordamos comunicarnos mediante un grupo de whatsaṕp, creamos una nueva cuenta
 <img src="https://raw.githubusercontent.com/agusborys/2019_TP_PPS_Comanda_2_cuatri/master/ComandaQR/mesa5.png" width="300" height="300"/>
 </p>
 
+<h3 align="center">Propina 0</h3>
+<p align="center">
+<img src="https://raw.githubusercontent.com/agusborys/2019_TP_PPS_Comanda_2_cuatri/master/ComandaQR/propina0.png" width="300" height="300"/>
+</p>
+
+<h3 align="center">Propina 5</h3>
+<p align="center">
+<img src="https://raw.githubusercontent.com/agusborys/2019_TP_PPS_Comanda_2_cuatri/master/ComandaQR/propina5.png" width="300" height="300"/>
+</p>
+
+<h3 align="center">Propina 10</h3>
+<p align="center">
+<img src="https://raw.githubusercontent.com/agusborys/2019_TP_PPS_Comanda_2_cuatri/master/ComandaQR/propina10.png" width="300" height="300"/>
+</p>
+
+<h3 align="center">Propina 15</h3>
+<p align="center">
+<img src="https://raw.githubusercontent.com/agusborys/2019_TP_PPS_Comanda_2_cuatri/master/ComandaQR/propina15.png" width="300" height="300"/>
+</p>
+
+<h3 align="center">Propina 20</h3>
+<p align="center">
+<img src="https://raw.githubusercontent.com/agusborys/2019_TP_PPS_Comanda_2_cuatri/master/ComandaQR/propina20.png" width="300" height="300"/>
+</p>
+
 <br>
 <br>
 
