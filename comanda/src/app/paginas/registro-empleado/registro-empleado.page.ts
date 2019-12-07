@@ -11,6 +11,7 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { CameraOptions } from '@ionic-native/camera';
 import { BarcodeScannerOptions, BarcodeScanResult, BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { AlertController } from '@ionic/angular';
+import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
 
 @Component({
   selector: 'app-registro-empleado',
@@ -27,12 +28,13 @@ export class RegistroEmpleadoPage implements OnInit {
   private ocultarSeccion1: boolean = false;
   private ocultarSeccion2: boolean = true;
   private ocultarSpinner: boolean = true;
-
+  private spinner : any = null;
   constructor(private auth: AuthService,
     private router: Router,
     private camera: Camera,
     public barcodeScanner: BarcodeScanner,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private spinnerHand : SpinnerHandlerService
   ) {
     this.usuario = new Empleado();
     this.clave = "";
@@ -66,10 +68,12 @@ export class RegistroEmpleadoPage implements OnInit {
     } else if (this.clave == "") {
       validado = false;
       this.presentAlert('¡Error!', 'Error en el registro', "Debe escribir una clave");
-    } else if (!this.herramientas.ValidarMail(this.usuario.correo)) {
-      validado = false;
-      this.presentAlert('¡Error!', 'Error en el registro', "No es un correo electronico valido");
-    } else if (this.usuario.tipo == "") {
+    } 
+    // else if (!this.herramientas.ValidarMail(this.usuario.correo)) {
+    //   validado = false;
+    //   this.presentAlert('¡Error!', 'Error en el registro', "No es un correo electronico valido");
+    // } 
+    else if (this.usuario.tipo == "") {
       validado = false;
       this.presentAlert('¡Error!', 'Error en el registro', "Debe elegir un tipo");
     } else if (!this.herramientas.ValidarNombre(this.usuario.nombre)) {
@@ -104,32 +108,38 @@ export class RegistroEmpleadoPage implements OnInit {
         encodingType: this.camera.EncodingType.JPEG,
         mediaType: this.camera.MediaType.PICTURE
       };
-
       let result = await this.camera.getPicture(options);
+      this.spinner = await this.spinnerHand.GetAllPageSpinner();
+      this.spinner.present();
       let image = `data:image/jpeg;base64,${result}`;
       let pictures = firebase.storage().ref(`fotos/${imageName}`);
       pictures.putString(image, "data_url").then(() => {
         pictures.getDownloadURL().then((url) => {
           this.usuario.foto = (url as string);
           this.Registrar();
+          this.spinner.dismiss();
         });
       });
 
     } catch (error) {
       console.log(error);
+      this.spinner.dismiss();
       this.presentAlert('¡Error!', 'Error en el registro', "Error:" + error);
     }
     //este spinner es necesario
-    this.ActivarSpinner(5000);
+    //this.ActivarSpinner(5000);
   }
 
   /*
     *otorga una foto predefinida, evitando sacar una foto, es utilizada para propocitos de
     prueba o si no tenes ganas de sacar fotos.
   */
-  public SinFoto() {
+  public async SinFoto() {
+    this.spinner = await this.spinnerHand.GetAllPageSpinner();
+    this.spinner.present();
     this.usuario.foto = "https://firebasestorage.googleapis.com/v0/b/comanda-2019-comicon.appspot.com/o/anonimo.png?alt=media&token=72c4068d-0bb0-4d8a-adce-047df2c46e5b";
     this.Registrar();
+    this.spinner.dismiss();
   }
 
   /*

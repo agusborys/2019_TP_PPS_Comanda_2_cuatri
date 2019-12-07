@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ConfiguracionPage } from '../configuracion/configuracion.page';
 import { ModalController, ToastController } from '@ionic/angular';
 import { FCM } from '@ionic-native/fcm/ngx';
+import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
 
 @Component({
   selector: 'app-inicio',
@@ -12,15 +13,15 @@ import { FCM } from '@ionic-native/fcm/ngx';
 })
 export class InicioPage implements OnInit {
 
-
+  private spinner:any=null;
   constructor(
     private authService: AuthService,
     public router: Router,
     private modalCtrl: ModalController,
     private toastCtrl: ToastController,
-    private fcm: FCM) { 
-      
-    }
+    private fcm: FCM,
+    private spinnerHand:SpinnerHandlerService) { 
+     }
 
   public cerrarSesion() {
     this.authService.Logout();
@@ -32,7 +33,6 @@ export class InicioPage implements OnInit {
   async ionViewDidEnter() {//esta como asyncronico, no se va a subscribir hasta que no se llame buscarUsuario
     await this.authService.buscarUsuario();
     this.subscribirse();
-
   }
   
   ngOnInit() {

@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/servicios/auth.service';
 import { ClienteKey } from 'src/app/clases/cliente';
 import { AnonimoKey } from 'src/app/clases/anonimo';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
 
 @Component({
   selector: 'app-modal-pedido',
@@ -21,18 +22,22 @@ export class ModalPedidoPage implements OnInit {
   private pedidoDetalle: PedidoDetalleKey[] = new Array<PedidoDetalleKey>();
   private cliente = false;
   private verCuenta = false;
-
+  private spinner:any=null;
   constructor(
     private firestore: AngularFirestore,
     private modalController: ModalController,
     private authService: AuthService,
     private scanner: BarcodeScanner,
-    private alertCtrl: AlertController) { }
+    private alertCtrl: AlertController,
+    private spinnerHand:SpinnerHandlerService) { }
 
   async ngOnInit() {
+    this.spinner = await this.spinnerHand.GetAllPageSpinner();
+    this.spinner.present();
     this.cliente = this.authService.tipoUser === 'cliente' || this.authService.tipoUser === 'anonimo' ? true : false;
     this.traerPedido();
     this.traerPedidoDetalle();
+    this.spinner.dismiss();
   }
 
   public traerPedido() {
