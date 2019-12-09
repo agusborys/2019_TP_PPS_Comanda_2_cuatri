@@ -44,6 +44,7 @@ export class RegistroClientePage implements OnInit {
   private arrayClientes : Cliente[];
   private arrayClientesAConfirmar : ClienteAConfirmar[];
   private arrayEmpleados : Empleado[];
+  private arrayAnonimos : Anonimo[];
 
   constructor(
     public http: Http,
@@ -78,8 +79,13 @@ export class RegistroClientePage implements OnInit {
     this.traerEmpleados().subscribe((d:Empleado[])=>{
       this.arrayEmpleados = d;
     });
-
+    this.traerAnonimos().subscribe((d:Anonimo[])=>{
+      this.arrayAnonimos = d;
+    });
   }
+  /*
+    Traigo las colecciones de clientes y empleados desde firebase ya ingresados para verificar su existencia.
+   */
   public traerClientes() {
     return this.firestore.collection('clientes').snapshotChanges()
       .pipe(map((f) => {
@@ -109,6 +115,63 @@ export class RegistroClientePage implements OnInit {
           return data;
         });
       }));
+  }
+  public traerAnonimos(){
+    return this.firestore.collection('anonimos').snapshotChanges()
+      .pipe(map((f) => {
+        return f.map((a) => {
+          const data = a.payload.doc.data() as Anonimo;
+          // data.key = a.payload.doc.id;
+          return data;
+        });
+      }));
+  }
+  /*
+    Compruebo la existencia de del usuario a registrar en las colecciones de clientes, clientesAConfirmar, empleados y anónimos.
+   */
+  public buscarEnClientes(correo:string):boolean{
+    let existe = false;
+    for(let cliente of this.arrayClientes){
+      if(cliente.correo == correo)
+      {
+        existe = true;
+        break;
+      }
+    }
+    return existe
+  }
+  public buscarEnClientesAConfirmar(correo:string):boolean{
+    let existe = false;
+    for(let cliente of this.arrayClientesAConfirmar){
+      if(cliente.correo == correo)
+      {
+        existe = true;
+        break;
+      }
+    }
+    return existe
+  }
+  public buscarEnEmpleados(correo:string):boolean{
+    let existe = false;
+    for(let empleado of this.arrayEmpleados){
+      if(empleado.correo == correo)
+      {
+        existe = true;
+        break;
+      }
+    }
+    return existe
+  }
+  public buscarEnAnonimos(correo:string):boolean{
+    let existe = false;
+    for(let anonimo of this.arrayAnonimos){
+      if(anonimo.correo == correo)
+      {
+        existe = true;
+        break;
+      }
+    }
+    return existe
   }
   //#region metodos de FCM
   envioPost() {
@@ -191,6 +254,22 @@ export class RegistroClientePage implements OnInit {
       //this.presentAlert('¡Error!', 'Error en el registro.', 'No es un correo electronico valido.');
       this.errorHandler.mostrarErrorSolo("¡Error!", "Correo electrónico inválido");
     } 
+    else if(this.buscarEnClientes(this.usuario.correo)){
+      validado = false;
+      this.errorHandler.mostrarErrorSolo("¡Error!","Usted ya está registrado como Cliente");
+    }
+    else if(this.buscarEnClientesAConfirmar(this.usuario.correo)){
+      validado = false;
+      this.errorHandler.mostrarErrorSolo("¡Error!","Usted ya se ha registrado. Debe esperar la confirmación del dueño o supervisor");
+    }
+    else if(this.buscarEnEmpleados(this.usuario.correo)){
+      validado = false;
+      this.errorHandler.mostrarErrorSolo("¡Error!","Usted ya está registrado como Empleado");
+    }
+    else if(this.buscarEnAnonimos(this.usuario.correo)){
+      validado = false;
+      this.errorHandler.mostrarErrorSolo("¡Error!","Usted ya está registrado como cliente Anónimo");
+    }
     else if (this.confirmarClave != this.clave){
       validado = false;
       this.errorHandler.mostrarErrorSolo("¡Error!","Las contraseñas deben coincidir");
