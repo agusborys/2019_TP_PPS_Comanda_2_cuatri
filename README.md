@@ -74,6 +74,11 @@ Acordamos comunicarnos mediante un grupo de WhatsApp, creamos una nueva cuenta e
 
 **Santiago de la Fuente:**  ahorcado, bugfixes varios
 
+<br>
+
+<h2 align="center"> Correciones y mejoras (Semana 07/12)</h2>
+
+
 
 <br>
 <br>
