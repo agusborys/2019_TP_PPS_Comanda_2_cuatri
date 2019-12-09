@@ -42,7 +42,7 @@ export class ErrorHandlerService {
         cssClass: 'avisoAlert',
         header:  title ? title:"Error!",
         message: message ? message + errorMessage : errorMessage,
-        buttons: ['Ok']
+        buttons: ['Confirmar']
     });
      alert.present();
   }
@@ -52,7 +52,7 @@ export class ErrorHandlerService {
         cssClass: 'avisoAlert',
           header:  title ? title:"Error!",
           message: message,
-          buttons: ['Ok']
+          buttons: ['Confirmar']
       });
       alert.present();
   }
@@ -62,7 +62,7 @@ export class ErrorHandlerService {
           header: title ? title : "Error!",
           message: error,
           //cssClass: 'error-alert',
-          buttons: ['Ok']
+          buttons: ['Confirmar']
       });
       await alert.present();
   }

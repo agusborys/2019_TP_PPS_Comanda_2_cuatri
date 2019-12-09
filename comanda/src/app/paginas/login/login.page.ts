@@ -189,15 +189,15 @@ export class LoginPage implements OnInit {
       ],
       buttons:[
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel',
-          cssClass:'alertButton',
+          cssClass:'button-Cancel',
           handler: () => {
             console.log('Confirm Cancel');
           }
         }, {
-          text: 'Ok',
-          cssClass:'alertButton',
+          text: 'Confirmar',
+          cssClass:'button-Ok',
           handler: (data) => {
             console.log('Confirm Ok');
             this.testRadioResult = data;

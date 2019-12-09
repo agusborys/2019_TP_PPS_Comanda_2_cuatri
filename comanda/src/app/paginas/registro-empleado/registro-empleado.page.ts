@@ -12,6 +12,10 @@ import { CameraOptions } from '@ionic-native/camera';
 import { BarcodeScannerOptions, BarcodeScanResult, BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { AlertController } from '@ionic/angular';
 import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Cliente, ClienteAConfirmar } from 'src/app/clases/cliente';
+import { Anonimo } from 'src/app/clases/anonimo';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-registro-empleado',
@@ -29,12 +33,18 @@ export class RegistroEmpleadoPage implements OnInit {
   private ocultarSeccion2: boolean = true;
   private ocultarSpinner: boolean = true;
   private spinner : any = null;
+  private confirmarClave : string;
+  private arrayClientes : Cliente[];
+  private arrayClientesAConfirmar : ClienteAConfirmar[];
+  private arrayEmpleados : Empleado[];
+  private arrayAnonimos : Anonimo[];
   constructor(private auth: AuthService,
     private router: Router,
     private camera: Camera,
     public barcodeScanner: BarcodeScanner,
     private alertCtrl: AlertController,
-    private spinnerHand : SpinnerHandlerService
+    private spinnerHand : SpinnerHandlerService,
+    private firestore: AngularFirestore,
   ) {
     this.usuario = new Empleado();
     this.clave = "";
@@ -45,14 +55,118 @@ export class RegistroEmpleadoPage implements OnInit {
     this.ocultarSeccion2 = true;
     this.usuario = new Empleado();
     this.clave = "";
+    this.traerClientes().subscribe((d:Cliente[])=>{
+      this.arrayClientes = d;
+    });
+    this.traerClientesAConfirmar().subscribe((d:ClienteAConfirmar[])=>{
+      this.arrayClientesAConfirmar = d;
+    });
+    this.traerEmpleados().subscribe((d:Empleado[])=>{
+      this.arrayEmpleados = d;
+    });
+    this.traerAnonimos().subscribe((d:Anonimo[])=>{
+      this.arrayAnonimos = d;
+    });
+  }
+
+  /*
+    Traigo las colecciones de clientes y empleados desde firebase ya ingresados para verificar su existencia.
+   */
+  public traerClientes() {
+    return this.firestore.collection('clientes').snapshotChanges()
+      .pipe(map((f) => {
+        return f.map((a) => {
+          const data = a.payload.doc.data() as Cliente;
+          // data.key = a.payload.doc.id;
+          return data;
+        });
+      }));
+  }
+  public traerClientesAConfirmar() {
+    return this.firestore.collection('clientes-confirmar').snapshotChanges()
+      .pipe(map((f) => {
+        return f.map((a) => {
+          const data = a.payload.doc.data() as ClienteAConfirmar;
+          // data.key = a.payload.doc.id;
+          return data;
+        });
+      }));
+  }
+  public traerEmpleados(){
+    return this.firestore.collection('empleados').snapshotChanges()
+      .pipe(map((f) => {
+        return f.map((a) => {
+          const data = a.payload.doc.data() as Empleado;
+          // data.key = a.payload.doc.id;
+          return data;
+        });
+      }));
+  }
+  public traerAnonimos(){
+    return this.firestore.collection('anonimos').snapshotChanges()
+      .pipe(map((f) => {
+        return f.map((a) => {
+          const data = a.payload.doc.data() as Anonimo;
+          // data.key = a.payload.doc.id;
+          return data;
+        });
+      }));
+  }
+  /*
+    Compruebo la existencia de del usuario a registrar en las colecciones de clientes, clientesAConfirmar, empleados y anónimos.
+   */
+  public buscarEnClientes(correo:string):boolean{
+    let existe = false;
+    for(let cliente of this.arrayClientes){
+      if(cliente.correo == correo)
+      {
+        existe = true;
+        break;
+      }
+    }
+    return existe
+  }
+  public buscarEnClientesAConfirmar(correo:string):boolean{
+    let existe = false;
+    for(let cliente of this.arrayClientesAConfirmar){
+      if(cliente.correo == correo)
+      {
+        existe = true;
+        break;
+      }
+    }
+    return existe
+  }
+  public buscarEnEmpleados(correo:string):boolean{
+    let existe = false;
+    for(let empleado of this.arrayEmpleados){
+      if(empleado.correo == correo)
+      {
+        existe = true;
+        break;
+      }
+    }
+    return existe
+  }
+  public buscarEnAnonimos(correo:string):boolean{
+    let existe = false;
+    for(let anonimo of this.arrayAnonimos){
+      if(anonimo.correo == correo)
+      {
+        existe = true;
+        break;
+      }
+    }
+    return existe
   }
 
   public presentAlert(header: string, subHeader: string, message: string) {
     this.alertCtrl.create({
+      cssClass: "avisoAlert",
       header,
       subHeader,
       message,
-      buttons: ['OK']
+      buttons: ['OK'],
     }).then(a => { a.present(); });
   }
 
@@ -69,10 +183,30 @@ export class RegistroEmpleadoPage implements OnInit {
       validado = false;
       this.presentAlert('¡Error!', 'Error en el registro', "Debe escribir una clave");
     } 
-    // else if (!this.herramientas.ValidarMail(this.usuario.correo)) {
-    //   validado = false;
-    //   this.presentAlert('¡Error!', 'Error en el registro', "No es un correo electronico valido");
-    // } 
+    else if (!this.herramientas.ValidarMail(this.usuario.correo)) {
+      validado = false;
+      this.presentAlert('¡Error!', 'Error en el registro', "No es un correo electronico valido");
+    } 
+    else if(this.buscarEnClientes(this.usuario.correo)){
+      validado = false;
+      this.presentAlert("¡Error!","","Usted ya está registrado como Cliente");
+    }
+    else if(this.buscarEnClientesAConfirmar(this.usuario.correo)){
+      validado = false;
+      this.presentAlert("¡Error!","","Usted ya se ha registrado. Debe esperar la confirmación del dueño o supervisor");
+    }
+    else if(this.buscarEnEmpleados(this.usuario.correo)){
+      validado = false;
+      this.presentAlert("¡Error!","","Usted ya está registrado como Empleado");
+    }
+    else if(this.buscarEnAnonimos(this.usuario.correo)){
+      validado = false;
+      this.presentAlert("¡Error!","","Usted ya está registrado como cliente Anónimo");
+    }
+    else if (this.confirmarClave != this.clave){
+      validado = false;
+      this.presentAlert("¡Error!","","Las contraseñas deben coincidir");
+    }
     else if (this.usuario.tipo == "") {
       validado = false;
       this.presentAlert('¡Error!', 'Error en el registro', "Debe elegir un tipo");
