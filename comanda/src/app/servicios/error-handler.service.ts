@@ -33,7 +33,7 @@ export class ErrorHandlerService {
     }
 ];
 
-  constructor(public alertCtrl: AlertController) { }
+  constructor(public alertCtrl: AlertController,) { }
 
   public async mostrarError(error, title?, message?){
     console.log("ocurrio un error", error);
@@ -42,17 +42,18 @@ export class ErrorHandlerService {
         cssClass: 'avisoAlert',
         header:  title ? title:"Error!",
         message: message ? message + errorMessage : errorMessage,
-        buttons: ['Ok']
+        buttons: ['Aceptar']
     });
      alert.present();
   }
+
   public async mostrarErrorSolo(title, message?){
       console.log("ocurrio un error");
       const alert = await this.alertCtrl.create({
         cssClass: 'avisoAlert',
           header:  title ? title:"Error!",
           message: message,
-          buttons: ['Ok']
+          buttons: ['Aceptar']
       });
       alert.present();
   }
@@ -62,7 +63,7 @@ export class ErrorHandlerService {
           header: title ? title : "Error!",
           message: error,
           //cssClass: 'error-alert',
-          buttons: ['Ok']
+          buttons: ['Aceptar']
       });
       await alert.present();
   }
