@@ -1,0 +1,13 @@
+
+- [ ] Tamaño letras
+- [ ] Espacios en blanco
+- [ ] Acentos
+- [ ] Palabras en inglés
+- [ ] Mejorar botones
+- [ ] Mejorar inputs
+- [ ] Alta de mesa no valida
+- [ ] Foto de usuario, Leon (08/12)
+- [ ] Alerta de pedidos no va
+- [ ] Validar email de nuevo usuario
+- [ ] Alta de producto por perfil
+- [ ] Validar que si existe mail no haga un.
