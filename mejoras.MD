@@ -11,3 +11,4 @@
 - [ ] Validar email de nuevo usuario
 - [ ] Alta de producto por perfil
 - [ ] Validar que si existe mail no haga un.
+- [ ] Que el alta de mesas genere su propio codigo QR
