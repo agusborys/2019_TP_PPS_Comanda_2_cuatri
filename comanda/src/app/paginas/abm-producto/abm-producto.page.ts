@@ -3,7 +3,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { AlertController, ToastController } from '@ionic/angular';
 import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/storage';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, QuerySnapshot } from '@angular/fire/firestore';
+import { AuthService } from '../../servicios/auth.service';
 
 @Component({
   selector: 'app-abm-producto',
@@ -21,6 +22,7 @@ export class AbmProductoPage implements OnInit {
     private toastController: ToastController,
     private storage: AngularFireStorage,
     private firestore: AngularFirestore,
+    private authService: AuthService,
   ) { }
 
   public ngOnInit() {
@@ -32,6 +34,8 @@ export class AbmProductoPage implements OnInit {
       quienPuedeverCtrl: new FormControl('', Validators.required),
     });
     this.fotos = new Array<string>();
+    // console.log(this.authService.tipoUser);
+
   }
 
   public tomarFoto() {
@@ -61,11 +65,11 @@ export class AbmProductoPage implements OnInit {
       return true;
     }
     if (this.formMesas.value.tiempoCtrl === '' || this.formMesas.value.tiempoCtrl < 0) {
-      this.mostrarFaltanDatos('El tiempo de preparación es invalido o incorrecto');
+      this.mostrarFaltanDatos('El tiempo de preparación es inválido o incorrecto');
       return true;
     }
     if (this.formMesas.value.precioCtrl === '' || this.formMesas.value.tiempoCtrl < 0) {
-      this.mostrarFaltanDatos('El precio es invalido o incorrecto');
+      this.mostrarFaltanDatos('El precio es inválido o incorrecto');
     }
     if (this.fotos.length === 0) {
       this.mostrarFaltanDatos('Debe subir una foto');
@@ -79,6 +83,21 @@ export class AbmProductoPage implements OnInit {
     return (foto as string).split(',', 2)[1];
   }
 
+  // Se fija que el firebase no exista un producto con el mismo nombre.
+  private revisarProducto(user, nombre) {
+    // Trae los productos por perfil
+    return this.firestore.collection('productos').ref.where('quienPuedever', '==', user).get()
+      .then((d: QuerySnapshot<any>) => {
+        d.forEach(doc => {
+          // Si el titulo se condice con el que se quiere cargar, devuelve que existe
+          if (doc.data().nombre.includes(nombre) ) {
+            return true;
+          }
+        });
+        return false;
+      });
+  }
+
   private async comenzarSubida() {
     const datos: any = {
       cantidad: 0,
@@ -86,12 +105,23 @@ export class AbmProductoPage implements OnInit {
       descripcion: this.formMesas.value.descCtrl,
       tiempo: this.formMesas.value.tiempoCtrl,
       precio: this.formMesas.value.precioCtrl,
-      quienPuedever: this.formMesas.value.quienPuedeverCtrl,
+      quienPuedever: this.authService.tipoUser,
+      // quienPuedever: this.formMesas.value.quienPuedeverCtrl,
       fotos: new Array<string>(),
     };
     let contador = 0;
     let errores = 0;
 
+    // Revisamos que el titulo del producto no exista
+    let valor = this.revisarProducto(this.authService.tipoUser, this.formMesas.value.nombreCtrl);
+
+    // Existe el titulo, se sale
+    if (valor) {
+      this.mostrarFaltanDatos('Ya existe un producto con ese nombre');
+      return false;
+    }
+
+    // No existe el producto, se carga. 
     for (let foto of this.fotos) {
       const filename: string = datos.nombre + '_' + contador;
       const imageRef: AngularFireStorageReference = this.storage.ref(`productos/${filename}.jpg`);
@@ -123,7 +153,7 @@ export class AbmProductoPage implements OnInit {
 
   private async subidaExitosa(mensaje) {
     const alert = await this.alertCtrl.create({
-      header: 'Alert',
+      header: '',
       subHeader: 'Éxito',
       message: mensaje,
       buttons: ['OK']
@@ -136,7 +166,7 @@ export class AbmProductoPage implements OnInit {
 
   private async subidaErronea(mensaje: string) {
     const alert = await this.alertCtrl.create({
-      header: 'Alert',
+      header: '',
       subHeader: 'Error',
       message: mensaje,
       buttons: ['OK']
@@ -156,7 +186,7 @@ export class AbmProductoPage implements OnInit {
       color: 'danger',
       showCloseButton: false,
       position: 'bottom',
-      closeButtonText: 'Okay',
+      closeButtonText: 'Cerrar',
       duration: 2000
     });
     toast.present();
