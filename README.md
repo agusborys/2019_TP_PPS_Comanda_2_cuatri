@@ -135,11 +135,9 @@ Acordamos comunicarnos mediante un grupo de WhatsApp, creamos una nueva cuenta e
 <br>
 <br>
 <h2 align="center"> Correciones y mejoras (Semana 07/12)</h2>
-<p align="center"> Tamaño letras
 - [x] Finish my changes
 - [ ] Push my commits to GitHub
 - [ ] Open a pull request
-</p>
 <br>
 <h3>Diagrama código Qr (mesa)</h3>
 <img src="https://github.com/maxineiner/2019_TP_PPS_Comanda_2_cuatri/blob/master/Diagrama_QR_MESA.jpg"/>
