@@ -5,10 +5,10 @@
 - [ ] Palabras en inglés
 - [ ] Mejorar botones
 - [ ] Mejorar inputs
-- [ ] Alta de mesa no valida
+- [x] Alta de mesa no valida
 - [x] Foto de usuario, Leon (08/12)
 - [ ] Alerta de pedidos no va
-- [ ] Validar email de nuevo usuario
+- [x] Validar email de nuevo usuario
 - [ ] Alta de producto por perfil
-- [ ] Validar que si existe mail no haga un.
+- [x] Validar que si existe mail no haga un.
 - [ ] Que el alta de mesas genere su propio codigo QR
