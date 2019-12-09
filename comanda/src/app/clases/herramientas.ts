@@ -11,7 +11,7 @@ export class Herramientas
 
     ValidarMail(mail:string):boolean
     {
-        var expRegCorreo=/^\w+[a-zA-Z1-9ÑñÁáÉéÍíÓóÚúÜü\s]+@(\w+\.)+\w{2,4}$/; 
+        var expRegCorreo=/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;///^\w+[a-zA-Z1-9ÑñÁáÉéÍíÓóÚúÜü\s]+@(\w+\.)+\w{2,4}$/; 
         if(expRegCorreo.exec(mail)) return true
         else return false;
     }
