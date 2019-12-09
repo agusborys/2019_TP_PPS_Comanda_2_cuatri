@@ -6,7 +6,7 @@
 - [ ] Mejorar botones
 - [ ] Mejorar inputs
 - [ ] Alta de mesa no valida
-- [ ] Foto de usuario, Leon (08/12)
+- [x] Foto de usuario, Leon (08/12)
 - [ ] Alerta de pedidos no va
 - [ ] Validar email de nuevo usuario
 - [ ] Alta de producto por perfil
