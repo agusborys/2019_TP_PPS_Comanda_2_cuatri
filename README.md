@@ -136,9 +136,9 @@ Acordamos comunicarnos mediante un grupo de WhatsApp, creamos una nueva cuenta e
 <br>
 <h2 align="center"> Correciones y mejoras (Semana 07/12)</h2>
 <p align="center"> Tamaño letras
- [] Espacios en blanco
-- []Acentos
-*Palabras en inglés
+- [] Espacios en blanco
+- [] Acentos
+ [] Palabras en inglés
 *Mejorar botones
 *Mejorar inputs
 *Alta de mesa no valida
