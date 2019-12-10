@@ -102,6 +102,13 @@ export class QrMesaPage implements OnInit {
     // });
     // console.log(this.mostrarBtnEncuesta);
   }
+  ionViewDidLoad()
+  {
+    if(!this.estaEnMesa())
+    {
+      this.router.navigateByUrl('inicio');
+    }
+  }
   public buscarPedido(){
     return this.firestore.collection('pedidos').doc(this.mesaAMostrar.pedidoActual).get();
   }
@@ -318,14 +325,17 @@ export class QrMesaPage implements OnInit {
       header: 'Estado de mesa',
       subHeader: 'Mesa: ' + this.mesaAMostrar.nromesa,
       message: 'La mesa se encuentra libre. ¿Desea ocuparla?',
+      cssClass:'seleccionarAlert',
       buttons: [
         {
+          cssClass:'button-Cancel',
           text: 'Sí',
           handler: () => {
             this.ocuparMesa();
           }
         },
         {
+          cssClass:'button-Ok',
           text: 'No',
           handler: () => {
             this.mesaAMostrar = null;

@@ -11,7 +11,7 @@ import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service
   templateUrl: './inicio.page.html',
   styleUrls: ['./inicio.page.scss'],
 })
-export class InicioPage implements OnInit {
+export class InicioPage {
 
   private spinner:any=null;
   public foto:string;
