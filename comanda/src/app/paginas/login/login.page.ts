@@ -42,7 +42,7 @@ export class LoginPage implements OnInit {
       header,
       subHeader,
       message,
-      buttons: ['OK']
+      buttons: ['Aceptar']
     }).then(a => { a.present(); });
   }
 

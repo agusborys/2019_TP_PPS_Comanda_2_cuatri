@@ -33,7 +33,7 @@ export class ErrorHandlerService {
     }
 ];
 
-  constructor(public alertCtrl: AlertController) { }
+  constructor(public alertCtrl: AlertController,) { }
 
   public async mostrarError(error, title?, message?){
     console.log("ocurrio un error", error);
@@ -46,6 +46,7 @@ export class ErrorHandlerService {
     });
      alert.present();
   }
+
   public async mostrarErrorSolo(title, message?){
       console.log("ocurrio un error");
       const alert = await this.alertCtrl.create({
