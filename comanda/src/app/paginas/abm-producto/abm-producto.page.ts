@@ -5,6 +5,7 @@ import { AlertController, ToastController } from '@ionic/angular';
 import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/storage';
 import { AngularFirestore, QuerySnapshot } from '@angular/fire/firestore';
 import { AuthService } from '../../servicios/auth.service';
+import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
 
 @Component({
   selector: 'app-abm-producto',
@@ -14,7 +15,8 @@ import { AuthService } from '../../servicios/auth.service';
 export class AbmProductoPage implements OnInit {
   private formMesas: FormGroup;
   private fotos: Array<string>;
-  
+  private spinner : any = null;
+
   constructor(
     private camera: Camera,
     private alertCtrl: AlertController,
@@ -23,6 +25,7 @@ export class AbmProductoPage implements OnInit {
     private storage: AngularFireStorage,
     private firestore: AngularFirestore,
     private authService: AuthService,
+    private spinnerHand : SpinnerHandlerService,
   ) { }
 
   public ngOnInit() {
@@ -111,16 +114,18 @@ export class AbmProductoPage implements OnInit {
     };
     let contador = 0;
     let errores = 0;
-
+    this.spinner = await this.spinnerHand.GetAllPageSpinner();
+    this.spinner.present();
     // Revisamos que el titulo del producto no exista
     let valor = this.revisarProducto(this.authService.tipoUser, this.formMesas.value.nombreCtrl);
 
     // Existe el titulo, se sale
     if (valor) {
       this.mostrarFaltanDatos('Ya existe un producto con ese nombre');
+      this.spinner.dismiss();
       return false;
     }
-
+    
     // No existe el producto, se carga. 
     for (let foto of this.fotos) {
       const filename: string = datos.nombre + '_' + contador;
@@ -139,6 +144,7 @@ export class AbmProductoPage implements OnInit {
     if (errores === 0) {
       this.guardardatosDeProducto(datos);
     }
+    this.spinner.dismiss();
   }
 
   private guardardatosDeProducto(datos) {
@@ -156,7 +162,7 @@ export class AbmProductoPage implements OnInit {
       header: '',
       subHeader: 'Éxito',
       message: mensaje,
-      buttons: ['OK']
+      buttons: ['Aceptar']
     });
 
     await alert.present();
@@ -169,7 +175,7 @@ export class AbmProductoPage implements OnInit {
       header: '',
       subHeader: 'Error',
       message: mensaje,
-      buttons: ['OK']
+      buttons: ['Aceptar']
     });
 
     await alert.present();
@@ -187,7 +193,7 @@ export class AbmProductoPage implements OnInit {
       showCloseButton: false,
       position: 'bottom',
       closeButtonText: 'Cerrar',
-      duration: 2000
+      duration: 3000
     });
     toast.present();
   }
