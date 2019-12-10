@@ -438,6 +438,19 @@ ion-alert.avisoAlert{
   font-size: medium;
 }
 
+.toast-noti{
+  --height: 105px;
+  //--min-height: 90px;
+  //--max-height: 110px;
+  --color: var(--ion-color-light);
+  --border-color: #ffffff;
+  --border-style: solid;
+  --border-width: 5px;
+  --border-radius: 10px 40px 40px 10px;
+  --box-shadow:  10px 10px 40px 0px rgba(69,40,69,0.81);
+  --button-color: white;
+  }
+
 ion-toast{
   color: black;
   --color:black;
