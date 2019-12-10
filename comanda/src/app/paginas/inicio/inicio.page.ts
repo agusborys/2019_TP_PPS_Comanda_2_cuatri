@@ -11,7 +11,7 @@ import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service
   templateUrl: './inicio.page.html',
   styleUrls: ['./inicio.page.scss'],
 })
-export class InicioPage /* implements OnInit */ {
+export class InicioPage implements OnInit  {
 
   private spinner:any=null;
   public foto:string;
@@ -34,18 +34,18 @@ export class InicioPage /* implements OnInit */ {
     this.authService.Logout();
   }
 
-   async ionViewDidEnter() {//esta como asyncronico, no se va a subscribir hasta que no se llame buscarUsuario
+/*    async ionViewDidEnter() {//esta como asyncronico, no se va a subscribir hasta que no se llame buscarUsuario
     await this.authService.buscarUsuario();
     this.subscribirse();
     this.foto = this.authService.user.foto;
-  } 
+  }  */
   
-/*   async ngOnInit() {
+  async ngOnInit() {
          await this.authService.buscarUsuario();
          this.subscribirse(); 
          this.foto = this.authService.user.foto; 
          console.log("este es el usuario:" +this.foto);
-  } */
+  }
 
   public subscribirse(){
     /* Esta funcion toma el tipo de usuario y con un switch dicta a que push notification se va a subscribir */
