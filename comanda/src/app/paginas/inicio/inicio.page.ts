@@ -11,7 +11,7 @@ import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service
   templateUrl: './inicio.page.html',
   styleUrls: ['./inicio.page.scss'],
 })
-export class InicioPage implements OnInit {
+export class InicioPage /* implements OnInit */ {
 
   private spinner:any=null;
   public foto:string;
@@ -64,7 +64,7 @@ export class InicioPage implements OnInit {
         this.fcm.subscribeToTopic('notificacionMesa');
         break;
       case 'cocinero':
-        console.log(tipo+" cocinero subscrito a Pedidos");
+        console.log(tipo+" subscrito a Pedidos");
         this.fcm.subscribeToTopic('notificacionesPedidos');
         break;
       case 'candybar':
