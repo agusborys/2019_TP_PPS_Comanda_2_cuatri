@@ -13,7 +13,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class AbmProductoPage implements OnInit {
   private formMesas: FormGroup;
   private fotos: Array<string>;
-
+  
   constructor(
     private camera: Camera,
     private alertCtrl: AlertController,
