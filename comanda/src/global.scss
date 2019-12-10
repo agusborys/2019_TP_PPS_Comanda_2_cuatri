@@ -439,10 +439,11 @@ ion-alert.avisoAlert{
 }
 
 .toast-noti{
-  --height: 105px;
+  --height: 110px;
   //--min-height: 90px;
   //--max-height: 110px;
-  --color: var(--ion-color-light);
+  color: white !important;
+  --color: white !important;
   --border-color: #ffffff;
   --border-style: solid;
   --border-width: 5px;
