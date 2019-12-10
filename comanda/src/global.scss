@@ -437,9 +437,10 @@ ion-alert.avisoAlert{
   text-transform: unset;;
   font-size: medium;
 }
+
 ion-toast{
   color: black;
-  --color:black!important;
+  --color:black;
   --button-color:black;
   --height: 40px;
   font-size: 20px;
@@ -450,10 +451,7 @@ ion-toast{
   font-size: 18px;
 }
 
-.toast-noti{
-  --height: 90px;
-  --background: #4743a0,
-  }
+
 //Para el spinner
 .spinner {
   position: relative;
