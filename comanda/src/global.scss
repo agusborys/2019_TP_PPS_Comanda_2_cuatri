@@ -256,6 +256,7 @@ ion-content {
   font-size: 25px;
 }
 //alert_Usuarios
+
 ion-alert .alert-head{
   color: black!important;
   background-color: #43a047;
@@ -274,11 +275,45 @@ ion-alert.seleccionarAlert{
   text-align: left;
   font-weight: bold;
   color: black;
+  --width: 120%;
+  //--height:90%;
   //   .alert-head
   //   {
   //     color: white!important;
   //     background-color: #b71c1c;
   //   }
+  .alert-button-group{
+    color: black!important;
+    background-color: #43a047;
+    //justify-content: center;
+    //padding: 6px 6px 6px 18px;
+    
+  }
+  .alert-button{
+    background-color: #edf7ee;
+    //padding: 15px;
+    color: black;
+    margin-right: 3px;
+  }
+  .button-Ok{
+    background-color: #edf7ee;
+    padding: 15px;
+    color: black;
+    margin-left: auto;
+  }
+  .button-Cancel{
+    background-color: #edf7ee;
+    padding: 15px;
+    color: black;
+    //margin-right: auto;
+  }
+}
+
+//Alert Avisos
+ion-alert.avisoAlert{
+  // --background:#edf7ee !important;
+  // text-align: center;
+  // color: black !important;
   .alert-button-group{
     color: black!important;
     background-color: #43a047;
@@ -290,24 +325,8 @@ ion-alert.seleccionarAlert{
     background-color: #edf7ee;
     padding: 15px;
     color: black;
-  }
-}
-//Alert Avisos
-ion-alert.avisoAlert{
-  // --background:#edf7ee !important;
-  // text-align: center;
-  // color: black !important;
-  .alert-button-group{
-    color: black!important;
-    background-color: #edf7ee;
-    justify-content: center;
-    padding: 6px 6px 6px 18px;
-    
-  }
-  .alert-button{
-    background-color: #edf7ee;
-    padding: 15px;
-    color: black;
+    margin: auto;
+
   }
   .alert-message{
     color: black !important;

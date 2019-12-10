@@ -39,6 +39,11 @@
                     placeholder="6 caracteres mínimo" required></ion-input>
                 </ion-item>
                 <ion-item class="inputs">          
+                    <ion-label style="color: black" position="floating">Confirmar Contraseña</ion-label>
+                    <ion-input type="password" name="confirmarClave"  [(ngModel)]="confirmarClave" 
+                    placeholder="repita contraseña" required></ion-input>
+                </ion-item>
+                <ion-item class="inputs">          
                     <ion-label style="color: black" position="floating">Nombre</ion-label>
                     <ion-input type="text" name="nombre"  [(ngModel)]="usuario.nombre" required></ion-input>
                 </ion-item>
