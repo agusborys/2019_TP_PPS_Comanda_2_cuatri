@@ -125,26 +125,27 @@ export class AbmProductoPage implements OnInit {
       this.spinner.dismiss();
       return false;
     }
-    
-    // No existe el producto, se carga. 
-    for (let foto of this.fotos) {
-      const filename: string = datos.nombre + '_' + contador;
-      const imageRef: AngularFireStorageReference = this.storage.ref(`productos/${filename}.jpg`);
-      foto = this.obtenerFotoOriginal(foto);
-      await imageRef.putString(foto, 'base64', { contentType: 'image/jpeg' })
-        .then(async (snapshot) => {
-          datos.fotos.push(await snapshot.ref.getDownloadURL());
-          contador++;
-        }).catch(() => {
-          this.subidaErronea(`Error al subir la foto ${contador}, se canceló el alta.`);
-          errores++;
-        });
-    }
+    else {
+      // No existe el producto, se carga. 
+      for (let foto of this.fotos) {
+        const filename: string = datos.nombre + '_' + contador;
+        const imageRef: AngularFireStorageReference = this.storage.ref(`productos/${filename}.jpg`);
+        foto = this.obtenerFotoOriginal(foto);
+        await imageRef.putString(foto, 'base64', { contentType: 'image/jpeg' })
+          .then(async (snapshot) => {
+            datos.fotos.push(await snapshot.ref.getDownloadURL());
+            contador++;
+          }).catch(() => {
+            this.subidaErronea(`Error al subir la foto ${contador}, se canceló el alta.`);
+            errores++;
+          });
+      }
 
-    if (errores === 0) {
-      this.guardardatosDeProducto(datos);
+      if (errores === 0) {
+        this.guardardatosDeProducto(datos);
+      }
+      this.spinner.dismiss();
     }
-    this.spinner.dismiss();
   }
 
   private guardardatosDeProducto(datos) {
