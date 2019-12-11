@@ -28,6 +28,8 @@ export class AbmProductoPage implements OnInit {
     private spinnerHand : SpinnerHandlerService,
   ) { }
 
+    existe: boolean;//aca se va a guardar el booleano que indica si un producto ya existe en la base
+
   public ngOnInit() {
     this.formMesas = new FormGroup({
       nombreCtrl: new FormControl('', Validators.required),
@@ -87,26 +89,26 @@ export class AbmProductoPage implements OnInit {
   }
 
   // Se fija que el firebase no exista un producto con el mismo nombre.
-  private revisarProducto(user, nombre) {
-    // Trae los productos por perfil
-    let auxRetorno = false;
-     this.firestore.collection('productos').ref.where('quienPuedever', '==', user).get()
+   private async revisarProducto(user, nombre) {
+
+    // Trae los productos por perfil      
+    this.existe = false;// por defecto voy a asignarle false
+      await this.firestore.collection('productos').ref.where('quienPuedever', '==', user).get()
       .then((d: QuerySnapshot<any>) => {
         d.forEach(doc => {
           // Si el titulo se condice con el que se quiere cargar, devuelve que existe
           if (doc.data().nombre.includes(nombre) ) {
-            //return true;
-            auxRetorno = true;
-            return auxRetorno;
+
+            this.existe = true;//si entra al if le asigno true, indicando que el producto ya existe
           }
         });
-        //return false;
       });
-      return auxRetorno;
+      //console.log("Aux retorno es: " + this.existe);
+      
   }
 
   private async comenzarSubida() {
-    let valor: Boolean;
+    /* let valor: Boolean; */
     const datos: any = {
       cantidad: 0,
       nombre: this.formMesas.value.nombreCtrl,
@@ -121,13 +123,14 @@ export class AbmProductoPage implements OnInit {
     let errores = 0;
     this.spinner = await this.spinnerHand.GetAllPageSpinner();
     this.spinner.present();
-    // Revisamos que el titulo del producto no exista
-    valor = this.revisarProducto(this.authService.tipoUser, this.formMesas.value.nombreCtrl);
-
+    // Revisamos que el nombre del producto no exista, espero que la funcion se ejecute para seguir
+    await this.revisarProducto(this.authService.tipoUser, this.formMesas.value.nombreCtrl);
+    
     // Existe el titulo, se sale
-    if (valor) {
+    if (this.existe === true) {
       this.mostrarFaltanDatos('Ya existe un producto con ese nombre');
       this.spinner.dismiss();
+      //console.log("el producto ya existe su valor es: " + this.existe);
       return false;
     }
     else {
