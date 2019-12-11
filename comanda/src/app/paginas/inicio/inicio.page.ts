@@ -11,7 +11,7 @@ import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service
   templateUrl: './inicio.page.html',
   styleUrls: ['./inicio.page.scss'],
 })
-export class InicioPage implements OnInit {
+export class InicioPage implements OnInit  {
 
   private spinner:any=null;
   public foto:string;
@@ -27,11 +27,11 @@ export class InicioPage implements OnInit {
      }
 
   public cerrarSesion() {
-    this.authService.Logout();
     this.fcm.unsubscribeFromTopic('notificacionReservas');
     this.fcm.unsubscribeFromTopic('notificacionMesa');
     this.fcm.unsubscribeFromTopic('notificacionesPedidos');
     this.foto = "";
+    this.authService.Logout();
   }
 
    async ionViewDidEnter() {//esta como asyncronico, no se va a subscribir hasta que no se llame buscarUsuario
@@ -52,22 +52,26 @@ export class InicioPage implements OnInit {
 
   public subscribirse(){
     /* Esta funcion toma el tipo de usuario y con un switch dicta a que push notification se va a subscribir */
+    this.fcm.unsubscribeFromTopic('notificacionReservas');
+    this.fcm.unsubscribeFromTopic('notificacionMesa');
+    this.fcm.unsubscribeFromTopic('notificacionesPedidos');
+
     let tipo = this.authService.tipoUser;
     switch (tipo) {
       case 'dueño':
-        console.log("subscrito a reservas");
+        console.log(tipo+" subscrito a reservas");
         this.fcm.subscribeToTopic('notificacionReservas');
         break;
       case 'supervisor':
-        console.log("subscrito a reservas");
+        console.log(tipo+" subscrito a reservas");
         this.fcm.subscribeToTopic('notificacionReservas');
         break;
       case 'mozo':
-        console.log("subscrito a Mesas");
+        console.log(tipo+" subscrito a Mesas");
         this.fcm.subscribeToTopic('notificacionMesa');
         break;
       case 'cocinero':
-        console.log(tipo+" cocinero subscrito a Pedidos");
+        console.log(tipo+" subscrito a Pedidos");
         this.fcm.subscribeToTopic('notificacionesPedidos');
         break;
       case 'candybar':

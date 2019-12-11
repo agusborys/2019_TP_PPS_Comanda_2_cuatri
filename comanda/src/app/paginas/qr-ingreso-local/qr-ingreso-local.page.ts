@@ -46,16 +46,16 @@ export class QrIngresoLocalPage implements OnInit {
 
     let usuarioLogueado = this.authServ.user;
 
-    let tituloNotif = "Aceptar - Cliente en espera";
+    let tituloNotif = "Cliente en espera";
 
 
-    let bodyNotif = "El cliente " + usuarioLogueado.nombre + " se agregó a la lista de espera. Ingrese para confirmar" ; 
+    let bodyNotif = "El cliente " + usuarioLogueado.nombre + " se agregó a la lista de espera."; 
 
     let header = this.initHeaders();
     let options = new RequestOptions({ headers: header, method: 'post'});
     let data =  {
       "notification": {
-        "title": tituloNotif   ,
+        "title": tituloNotif,
         "body": bodyNotif ,
         "sound": "default",
         "click_action": "FCM_PLUGIN_ACTIVITY",

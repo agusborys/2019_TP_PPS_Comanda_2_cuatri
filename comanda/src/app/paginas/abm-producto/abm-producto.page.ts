@@ -29,6 +29,8 @@ export class AbmProductoPage implements OnInit {
     private spinnerHand : SpinnerHandlerService,
   ) { }
 
+    existe: boolean;//aca se va a guardar el booleano que indica si un producto ya existe en la base
+
   public ngOnInit() {
     this.formMesas = new FormGroup({
       nombreCtrl: new FormControl('', Validators.required),
@@ -95,22 +97,27 @@ export class AbmProductoPage implements OnInit {
   }
 
   // Se fija que el firebase no exista un producto con el mismo nombre.
-  private revisarProducto(user, nombre) {
-    // Trae los productos por perfil
-    return this.firestore.collection('productos').ref.where('quienPuedever', '==', user).get()
+   private async revisarProducto(user, nombre) {
+
+    // Trae los productos por perfil      
+    this.existe = false;// por defecto voy a asignarle false
+      await this.firestore.collection('productos').ref.where('quienPuedever', '==', user).get()
       .then((d: QuerySnapshot<any>) => {
         d.forEach(doc => {
           let p = doc.data() as Producto;
           // Si el titulo se condice con el que se quiere cargar, devuelve que existe
-          if (p.nombre == nombre) {
-            return true;
+          if (doc.data().nombre.includes(nombre) ) {
+
+            this.existe = true;//si entra al if le asigno true, indicando que el producto ya existe
           }
         });
-        return false;
       });
+      //console.log("Aux retorno es: " + this.existe);
+      
   }
 
   private async comenzarSubida() {
+    /* let valor: Boolean; */
     const datos: any = {
       cantidad: 0,
       nombre: this.formMesas.value.nombreCtrl,
@@ -125,35 +132,37 @@ export class AbmProductoPage implements OnInit {
     let errores = 0;
     this.spinner = await this.spinnerHand.GetAllPageSpinner();
     this.spinner.present();
-    // Revisamos que el titulo del producto no exista
-    // let valor = this.revisarProducto(this.authService.tipoUser, this.formMesas.value.nombreCtrl);
-
-    // Existe el titulo, se sale
-    // if (valor) {
-    //   this.mostrarFaltanDatos('Ya existe un producto con ese nombre');
-    //   this.spinner.dismiss();
-    //   return false;
-    // }
+    // Revisamos que el nombre del producto no exista, espero que la funcion se ejecute para seguir
+    await this.revisarProducto(this.authService.tipoUser, this.formMesas.value.nombreCtrl);
     
-    // No existe el producto, se carga. 
-    for (let foto of this.fotos) {
-      const filename: string = datos.nombre + '_' + contador;
-      const imageRef: AngularFireStorageReference = this.storage.ref(`productos/${filename}.jpg`);
-      foto = this.obtenerFotoOriginal(foto);
-      await imageRef.putString(foto, 'base64', { contentType: 'image/jpeg' })
-        .then(async (snapshot) => {
-          datos.fotos.push(await snapshot.ref.getDownloadURL());
-          contador++;
-        }).catch(() => {
-          this.subidaErronea(`Error al subir la foto ${contador}, se canceló el alta.`);
-          errores++;
-        });
+    // Existe el titulo, se sale
+    if (this.existe === true) {
+      this.mostrarFaltanDatos('Ya existe un producto con ese nombre');
+      this.spinner.dismiss();
+      //console.log("el producto ya existe su valor es: " + this.existe);
+      return false;
     }
+    else {
+      // No existe el producto, se carga. 
+      for (let foto of this.fotos) {
+        const filename: string = datos.nombre + '_' + contador;
+        const imageRef: AngularFireStorageReference = this.storage.ref(`productos/${filename}.jpg`);
+        foto = this.obtenerFotoOriginal(foto);
+        await imageRef.putString(foto, 'base64', { contentType: 'image/jpeg' })
+          .then(async (snapshot) => {
+            datos.fotos.push(await snapshot.ref.getDownloadURL());
+            contador++;
+          }).catch(() => {
+            this.subidaErronea(`Error al subir la foto ${contador}, se canceló el alta.`);
+            errores++;
+          });
+      }
 
-    if (errores === 0) {
-      this.guardardatosDeProducto(datos);
+      if (errores === 0) {
+        this.guardardatosDeProducto(datos);
+      }
+      this.spinner.dismiss();
     }
-    this.spinner.dismiss();
   }
 
   private guardardatosDeProducto(datos) {

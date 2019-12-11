@@ -55,19 +55,31 @@ export class AppComponent implements OnInit {
         this.router.navigate(['/login']);
       } else {
         console.log('Received in foreground');
+        //let objetoAuxUno = JSON.stringify(data.title);
         let objetoAuxDos = JSON.stringify(data.body);
-        this.presentToast(objetoAuxDos);
+        this.presentToast( objetoAuxDos);
       }
     });
   }
   async presentToast(mensaje: string) {
     const toast = await this.toastController.create({
+      //header: cabeza,
       message: mensaje,
-      duration: 5000,
+      //duration: 5000,
       position: 'top',
-      color: 'warning',
+      color: 'violetaleon',
       translucent: false,
       cssClass: 'toast-noti',
+      buttons: [
+        {
+          text: 'Cerrar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+            toast.dismiss();
+          }
+        }
+      ]
     });
     toast.present();
   }

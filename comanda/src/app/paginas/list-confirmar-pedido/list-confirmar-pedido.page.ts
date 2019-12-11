@@ -37,7 +37,7 @@ export class ListConfirmarPedidoPage implements OnInit {
   }
 
   //#region metodos de FCM
-  envioPost() {
+  envioPostPreparacion() {
     let tituloNotif = "Nuevo pedido";
     let bodyNotif = "Hay un nuevo pedido que requiere preparacion";
 
@@ -129,8 +129,9 @@ export class ListConfirmarPedidoPage implements OnInit {
     });
     await this.actualizarDetalles(pedido);
 
+    this.envioPostPreparacion()
     this.presentToast('Pedido Aceptado', 'success');
-    this.envioPost()
+    
   }
 
   private removerDoc(db, key) {

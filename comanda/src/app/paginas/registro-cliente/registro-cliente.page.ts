@@ -178,7 +178,7 @@ export class RegistroClientePage implements OnInit {
 
     //let usuarioLogueado = this.auth.user;
 
-    let tituloNotif = "Se registro un nuevo cliente";
+    let tituloNotif = "Nuevo cliente";
 
 
     let bodyNotif = "El cliente " + this.usuario.correo + " esta esperando confirmacion." ; 
