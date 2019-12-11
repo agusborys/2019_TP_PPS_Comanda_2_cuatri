@@ -5,11 +5,14 @@
 - [ ] Palabras en inglés
 - [ ] Mejorar botones
 - [ ] Mejorar inputs
-- [x] Alta de mesa no valida
+- [x] Alta de mesa no valida - Borys
 - [x] Foto de usuario, Leon (08/12)
-- [ ] Alerta de pedidos no va
-- [x] Validar email de nuevo usuario
+- [x] Alerta de pedidos no va -> Cambiado por ventana modal - Borys
+- [x] Validar email de nuevo usuario - Borys
 - [x] Alta de producto por perfil
-- [x] Alta de productos no acepte duplicados
-- [x] Validar que si existe mail no haga un.
+- [x] Alta de productos no acepte duplicados - Santi/Leon
+- [x] Validar que si existe mail no haga un. - Borys
 - [ ] Que el alta de mesas genere su propio codigo QR
+- [ ] Cambiar forma de mostrar la preparación de platos (Agregar detalles de mesa, tiempo, etc.)
+- [ ] Corregir descuentos en juegos (solo al 1er intento se descuenta, después ya no)
+- [ ] Que el mozo no pueda cerrar la mesa si no le subieron la propina
