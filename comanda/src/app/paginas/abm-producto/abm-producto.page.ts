@@ -89,19 +89,24 @@ export class AbmProductoPage implements OnInit {
   // Se fija que el firebase no exista un producto con el mismo nombre.
   private revisarProducto(user, nombre) {
     // Trae los productos por perfil
-    return this.firestore.collection('productos').ref.where('quienPuedever', '==', user).get()
+    let auxRetorno = false;
+     this.firestore.collection('productos').ref.where('quienPuedever', '==', user).get()
       .then((d: QuerySnapshot<any>) => {
         d.forEach(doc => {
           // Si el titulo se condice con el que se quiere cargar, devuelve que existe
           if (doc.data().nombre.includes(nombre) ) {
-            return true;
+            //return true;
+            auxRetorno = true;
+            return auxRetorno;
           }
         });
-        return false;
+        //return false;
       });
+      return auxRetorno;
   }
 
   private async comenzarSubida() {
+    let valor: Boolean;
     const datos: any = {
       cantidad: 0,
       nombre: this.formMesas.value.nombreCtrl,
@@ -117,7 +122,7 @@ export class AbmProductoPage implements OnInit {
     this.spinner = await this.spinnerHand.GetAllPageSpinner();
     this.spinner.present();
     // Revisamos que el titulo del producto no exista
-    let valor = this.revisarProducto(this.authService.tipoUser, this.formMesas.value.nombreCtrl);
+    valor = this.revisarProducto(this.authService.tipoUser, this.formMesas.value.nombreCtrl);
 
     // Existe el titulo, se sale
     if (valor) {
