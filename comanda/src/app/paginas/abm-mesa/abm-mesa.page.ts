@@ -55,21 +55,24 @@ export class AbmMesaPage implements OnInit {
 
   }
 
-  public tomarFoto() {
+  public async tomarFoto() {
     const options: CameraOptions = {
-      quality: 100,
+      quality: 50,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       correctOrientation: true,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
-    };
+      sourceType: this.camera.PictureSourceType.CAMERA
 
+    };
+    this.spinner = await this.spinnerHand.GetAllPageSpinner();
+    this.spinner.present();
     this.camera.getPicture(options).then((imageData) => {
       this.foto = 'data:image/jpeg;base64,' + imageData;
     }, (err) => {
       this.subidaErronea(err);
     });
+    this.spinner.dismiss();
   }
 
   private compararExistencia(): boolean {
@@ -139,11 +142,14 @@ export class AbmMesaPage implements OnInit {
       .then(async (snapshot) => {
         datos.foto = await snapshot.ref.getDownloadURL();
         this.guardardatosDeProducto(datos);
+        this.spinner.dismiss();
       })
       .catch(() => {
+        this.spinner.dismiss();
         this.subidaErronea('Error al subir la foto, se canceló el alta.');
+        
       });
-      this.spinner.dismiss();
+      //this.spinner.dismiss();
   }
 
   private guardardatosDeProducto(datos) {
@@ -160,7 +166,7 @@ export class AbmMesaPage implements OnInit {
     const alert = await this.alertCtrl.create({
       header: 'Éxito',
       message: mensaje,
-      buttons: ['Confirmar'],
+      buttons: ['Aceptar'],
       cssClass:'avisoAlert'
     });
 
@@ -173,7 +179,7 @@ export class AbmMesaPage implements OnInit {
     const alert = await this.alertCtrl.create({
       header: 'Error',
       message: mensaje,
-      buttons: ['Confirmar'],
+      buttons: ['Aceptar'],
       cssClass:'avisoAlert'
     });
 
@@ -191,7 +197,7 @@ export class AbmMesaPage implements OnInit {
       color: 'danger',
       showCloseButton: false,
       position: 'bottom',
-      closeButtonText: 'Confirmar',
+      closeButtonText: 'Aceptar',
       duration: 3000
     });
     toast.present();

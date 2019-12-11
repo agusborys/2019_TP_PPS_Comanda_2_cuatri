@@ -6,6 +6,7 @@ import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/s
 import { AngularFirestore, QuerySnapshot } from '@angular/fire/firestore';
 import { AuthService } from '../../servicios/auth.service';
 import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
+import { Producto } from 'src/app/clases/producto';
 
 @Component({
   selector: 'app-abm-producto',
@@ -41,21 +42,23 @@ export class AbmProductoPage implements OnInit {
 
   }
 
-  public tomarFoto() {
+  public async tomarFoto() {
     const options: CameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       correctOrientation: true,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+      sourceType: this.camera.PictureSourceType.CAMERA
     };
-
+    this.spinner = await this.spinnerHand.GetAllPageSpinner();
+    this.spinner.present();
     this.camera.getPicture(options).then((imageData) => {
       this.fotos.unshift('data:image/jpeg;base64,' + imageData);
     }, (err) => {
       this.subidaErronea(err);
     });
+    this.spinner.dismiss();
   }
 
   public agregarMesas() {
@@ -78,6 +81,11 @@ export class AbmProductoPage implements OnInit {
       this.mostrarFaltanDatos('Debe subir una foto');
       return true;
     }
+    if(this.revisarProducto(this.authService.tipoUser, this.formMesas.value.nombreCtrl))
+    {
+      this.mostrarFaltanDatos('Ya existe un producto con ese nombre');
+      return true;
+    }
 
     this.comenzarSubida();
   }
@@ -92,8 +100,9 @@ export class AbmProductoPage implements OnInit {
     return this.firestore.collection('productos').ref.where('quienPuedever', '==', user).get()
       .then((d: QuerySnapshot<any>) => {
         d.forEach(doc => {
+          let p = doc.data() as Producto;
           // Si el titulo se condice con el que se quiere cargar, devuelve que existe
-          if (doc.data().nombre.includes(nombre) ) {
+          if (p.nombre == nombre) {
             return true;
           }
         });
@@ -117,14 +126,14 @@ export class AbmProductoPage implements OnInit {
     this.spinner = await this.spinnerHand.GetAllPageSpinner();
     this.spinner.present();
     // Revisamos que el titulo del producto no exista
-    let valor = this.revisarProducto(this.authService.tipoUser, this.formMesas.value.nombreCtrl);
+    // let valor = this.revisarProducto(this.authService.tipoUser, this.formMesas.value.nombreCtrl);
 
     // Existe el titulo, se sale
-    if (valor) {
-      this.mostrarFaltanDatos('Ya existe un producto con ese nombre');
-      this.spinner.dismiss();
-      return false;
-    }
+    // if (valor) {
+    //   this.mostrarFaltanDatos('Ya existe un producto con ese nombre');
+    //   this.spinner.dismiss();
+    //   return false;
+    // }
     
     // No existe el producto, se carga. 
     for (let foto of this.fotos) {

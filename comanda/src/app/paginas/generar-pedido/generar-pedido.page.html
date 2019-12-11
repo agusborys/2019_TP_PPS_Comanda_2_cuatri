@@ -62,7 +62,7 @@
       </ion-item>
       <ion-slides>
         <ion-slide *ngFor="let producto of productosBartender">
-          <ion-card class="card-background">
+          <ion-card style="background-color:whitesmoke; border-radius: 20px;">
             <ion-card-header>
               <ion-card-title>
                 <b>{{ producto.nombre }}</b><br>
@@ -74,12 +74,17 @@
                 </h1>
               </ion-card-subtitle>
               <ion-card-content>
-                <img class="img-productos" [src]="producto.fotos[0]">
-                <h3>
-                  <p>
-                    Cantidad en Pedido: {{producto.cantidad}}
-                  </p>
-                </h3>
+                  <ion-slides scrollbar="true" pager="true">
+                      <ion-slide *ngFor="let foto of producto.fotos">
+                        <div>
+                          <img class="img-productos" [src]="foto">
+                        </div>
+                      </ion-slide>
+                    </ion-slides>
+                  <ion-label class="label1">
+                      Cantidad en Pedido: {{producto.cantidad}}
+                  </ion-label>
+                  <br>
                 <ion-button (click)="sumarProducto(producto.key)"
                 class="botones-registro">
                   <ion-icon name="add-circle" slot="start"></ion-icon>Agregar
@@ -101,7 +106,7 @@
       </ion-item>
       <ion-slides>
         <ion-slide *ngFor="let producto of productosCandybar">
-          <ion-card class="card-background">
+          <ion-card style="background-color:whitesmoke; border-radius: 20px;">
             <ion-card-header>
               <ion-card-title>
                 <b>{{ producto.nombre }}</b><br>
@@ -113,12 +118,17 @@
                 </h1>
               </ion-card-subtitle>
               <ion-card-content>
-                <img class="img-productos" [src]="producto.fotos[0]">
-                <h3>
-                  <p>
-                    Cantidad en Pedido: {{producto.cantidad}}
-                  </p>
-                </h3>
+                  <ion-slides scrollbar="true" pager="true">
+                      <ion-slide *ngFor="let foto of producto.fotos">
+                        <div>
+                          <img class="img-productos" [src]="foto">
+                        </div>
+                      </ion-slide>
+                    </ion-slides>
+                  <ion-label class="label1">
+                      Cantidad en Pedido: {{producto.cantidad}}
+                  </ion-label>
+                  <br>
                 <ion-button (click)="sumarProducto(producto.key)"
                 class="botones-registro">
                   <ion-icon name="add-circle" slot="start"></ion-icon>Agregar
@@ -147,7 +157,7 @@
 
 <ion-footer >
   <ion-toolbar style="--background:#edf7ee">
-  <ion-button class="button2"  (click)="confirmarPedido()"
+  <ion-button class="button2"  (click)="abrirModaConfirmacion()"
     [disabled]="this.mesaDelPedido == null ||
     this.mesaDelPedido.pedidoActual != ''">
     Monto: {{totalPedido | currency}} |

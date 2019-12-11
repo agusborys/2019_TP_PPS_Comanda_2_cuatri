@@ -36,6 +36,8 @@ import { ModalPedidoPageModule } from './paginas/modal-pedido/modal-pedido.modul
 import { ModalClientePageModule } from './paginas/modal-cliente/modal-cliente.module';
 import { EncuestaClientePageModule } from './paginas/encuesta-cliente/encuesta-cliente.module';
 import { ConfiguracionPageModule } from './paginas/configuracion/configuracion.module';
+import { ModalRealizarPedidoPageModule } from './paginas/modal-realizar-pedido/modal-realizar-pedido.module';
+
 // Servicios
 import { AuthService } from './servicios/auth.service';
 import { FirebaseService } from './servicios/firebase.service';
@@ -68,7 +70,7 @@ import { FCM } from '@ionic-native/fcm/ngx';
     ModalPedidoPageModule,
     ModalClientePageModule,
     ConfiguracionPageModule,
-
+    ModalRealizarPedidoPageModule,
     // AngularFire
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
