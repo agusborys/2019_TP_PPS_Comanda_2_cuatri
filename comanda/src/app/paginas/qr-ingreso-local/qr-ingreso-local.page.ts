@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
+import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
 
 @Component({
   selector: 'app-qr-ingreso-local',
@@ -26,7 +27,7 @@ export class QrIngresoLocalPage implements OnInit {
 
   private mesas = new Array<MesaKey>();
   private listaEspera = new Array<ListaEsperaClientesKey>();
-
+  private spinner : any = null;
   constructor(
     private scanner: BarcodeScanner,
     private alertCtrl: AlertController,
@@ -36,6 +37,7 @@ export class QrIngresoLocalPage implements OnInit {
     private toastCtrl: ToastController,
     public http: Http,
     public httpClient: HttpClient,
+    public spinnerHand : SpinnerHandlerService,
   ) { }
 
   //#region metodos de FCM
@@ -92,6 +94,8 @@ export class QrIngresoLocalPage implements OnInit {
     return (this.authServ.tipoUser === 'cliente' || this.authServ.tipoUser === 'anonimo');
   }
   async ngOnInit() {
+    this.spinner = await this.spinnerHand.GetAllPageSpinner();
+    this.spinner.present();
     await this.authServ.buscarUsuario();
 
     this.traerMesas().subscribe((d: MesaKey[]) => {
@@ -113,6 +117,7 @@ export class QrIngresoLocalPage implements OnInit {
         this.router.navigate(['inicio']);
       }
     });
+    this.spinner.dismiss();
   }
 
   public estaEnMesa(): boolean {
