@@ -41,7 +41,7 @@ export class EncuestaClientePage implements OnInit {
       personalCtrl: new FormControl(false),
       recomendariaCtrl: new FormControl('', Validators.required),
       limpiezaCtrl: new FormControl('limpio', Validators.required),
-      comentarioCtrl: new FormControl('', Validators.required),
+      comentarioCtrl: new FormControl('', /* Validators.required */),
     });
 
     this.fotos = new Array<string>();

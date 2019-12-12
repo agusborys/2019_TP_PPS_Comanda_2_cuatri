@@ -489,9 +489,9 @@ ion-alert.avisoAlert{
 
 ion-toast{
   color: black;
-  --color:black;
+  --color:black!important;
   --button-color:black;
-  --height: 40px;
+  --height: 80px;
   font-size: 20px;
   --background: #339933;
 }

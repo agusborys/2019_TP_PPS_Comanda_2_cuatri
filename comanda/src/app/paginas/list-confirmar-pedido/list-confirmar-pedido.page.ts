@@ -53,7 +53,7 @@ export class ListConfirmarPedidoPage implements OnInit {
       },
       "data": {
         "landing_page": "inicio",
-        "tipo": "pedido"
+        "tipo": "pedido",
       },
       "to": "/topics/notificacionesPedidos",
       "priority": "high",
