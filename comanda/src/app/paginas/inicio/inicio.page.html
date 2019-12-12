@@ -1,15 +1,16 @@
 <ion-header>
   <ion-toolbar color="verdeleon" >
-    <ion-buttons slot="start">
+    <ion-buttons slot="end">
       <ion-button color="dark" size="small" (click)="cerrarSesion()">
-          <img class="icon-img" src="assets/icon/logout.png">
+          <!-- <img class="icon-img" src="assets/icon/logout.png"> -->
+          <ion-icon name="log-out" ></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title class="titulo-header">
       {{(this.authService.tipoUser == '' ? "..." : this.authService.tipoUser) |
       titlecase}}
     </ion-title>
-    <ion-buttons slot="end">
+    <ion-buttons slot="start">
       <ion-button color="dark" size="small" (click)="this.configModal()">
         <ion-icon name="person" slot="icon-only"></ion-icon>
       </ion-button>
@@ -17,7 +18,10 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding" style="--background:#edf7ee">
+<ion-content class="ion-padding" >
+  <div class="width-100 center-horizontal flex-wrap" *ngIf="this.foto != ''">
+    <img class="profile-picture margin-top-7" [src]="this.foto">
+  </div>
 <!--   <div *ngIf="this.authService.tipoUser == ''"
   <ion-button class="botones" routerLink="/juego-postre" size="large">
     <ion-icon name="qr-scanner"></ion-icon>Juego
@@ -28,7 +32,7 @@
     Espere...
     <ion-spinner color="dark"></ion-spinner>
   </div>  -->
-  
+
 <!--  Imagen general solo accede si el usuario tiene foto, esta linea de codigo esta en cada if
   <div *ngIf="this.foto != ''" class="width-100 center-horizontal flex-wrap">
     <img class="profile-picture" [src]="this.foto" />
@@ -41,9 +45,9 @@
     <div *ngIf="this.foto == ''">
       <img class="profile-img" src="assets/icon/dueño.png">
     </div>
-    <div *ngIf="this.foto != ''">
-      <img class="profile-picture" [src]="this.foto">
-    </div>
+    <!-- <div *ngIf="this.foto != ''">
+      <img class="profile-picture margin-top-7" [src]="this.foto">
+    </div> -->
     <ion-button class="botones" routerLink="/registro-empleado" size="large">
       <ion-icon name="add-circle"></ion-icon>Registrar Empleado
     </ion-button>
@@ -78,9 +82,9 @@
       <div *ngIf="this.foto == ''">
         <img class="profile-img" src="assets/icon/cocinero.png">
       </div>
-      <div *ngIf="this.foto != ''">
+      <!-- <div *ngIf="this.foto != ''">
         <img class="profile-picture" [src]="this.foto">
-      </div>
+      </div> -->
     </div>
     <div *ngIf="this.authService.tipoUser == 'bartender'">
     <!-- <img class="profile-img" src="assets/icon/barman.png"> -->
@@ -108,9 +112,9 @@
     <div *ngIf="this.foto == ''">
       <img class="profile-img" src="assets/icon/mozo.png">
     </div>
-    <div *ngIf="this.foto != ''">
+    <!-- <div *ngIf="this.foto != ''">
       <img class="profile-picture" [src]="this.foto">
-    </div>
+    </div> -->
     <ion-button class="botones" routerLink="/list-confirmar-cliente-mesa" size="large">
       <ion-icon name="list-box"></ion-icon>Lista de Espera
     </ion-button>
@@ -150,18 +154,18 @@
     <div *ngIf="this.foto == ''">
       <img class="profile-img" src="assets/icon/usuario.png">
     </div>
-    <div *ngIf="this.foto != ''">
+    <!-- <div *ngIf="this.foto != ''">
       <img class="profile-picture" [src]="this.foto">
-    </div>
+    </div> -->
     </div>
     <div *ngIf="this.authService.tipoUser == 'anonimo'">
     <!-- <img class="profile-img" src="assets/icon/incognito.png"> -->
     <div *ngIf="this.foto == ''">
       <img class="profile-img" src="assets/icon/incognito.png">
     </div>
-    <div *ngIf="this.foto != ''">
+    <!-- <div *ngIf="this.foto != ''">
       <img class="profile-picture" [src]="this.foto">
-    </div>
+    </div> -->
     </div>
     <ion-button class="botones" routerLink="/qr-ingreso-local" size="large">
       <ion-icon name="qr-scanner"></ion-icon>Ingreso al Local

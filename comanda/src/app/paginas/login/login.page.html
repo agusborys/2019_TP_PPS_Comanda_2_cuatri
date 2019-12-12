@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar style="--background:#43a047">
-    <ion-title style="text-align: center; color: black;">Bienvenido
-      <!-- <a style="font-family:Lucida Handwriting; color: black;">Glamit Restó</a> -->
+    <ion-title >
+      Bienvenido
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -12,21 +12,23 @@
   <div class="titulo">
     <h1>Ingresar</h1>
   </div>
-  <ion-item class="inputs">          
-    <ion-label style="color: black" position="floating">Correo</ion-label>
+  <ion-item class="inputs">
+    <ion-label position="floating">Correo</ion-label>
     <ion-input type="text" name="correo"  [(ngModel)]="correo" required></ion-input>
 </ion-item>
-  <ion-item class="inputs">          
-      <ion-label style="color: black" position="floating">Contraseña</ion-label>
+  <ion-item class="inputs">
+      <ion-label position="floating">Contraseña</ion-label>
       <ion-input type="password" name="password"  [(ngModel)]="clave" required></ion-input>
 </ion-item>
-  <ion-button fill="outline" class="ingresar" expand="block" (click)="onSumitLogin()">
-      <ion-icon name="md-exit"></ion-icon>
-      Ingresar
+  <ion-button fill="outline" class="botones" expand="block" (click)="onSumitLogin()">
+      <ion-icon name="md-exit"></ion-icon>  [Ingresar]
   </ion-button>
   <div class="registro">
-    No estas registrado?<br>
-    <a class="registro-link" routerLink="/registro-cliente">Registrate</a>
+    <!-- No estas registrado?<br>
+    <a class="registro-link" routerLink="/registro-cliente">Registrate</a> -->
+    <ion-button fill="outline" class="botones" expand="block" routerLink="/registro-cliente">
+          <ion-icon name="finger-print"></ion-icon> [Registrarme]
+    </ion-button>
   </div>
   <ion-button fill="outline" class="seleccionar-usuario" expand="block" (click)="abrirAlert()">
       <ion-icon name="ios-people"></ion-icon>

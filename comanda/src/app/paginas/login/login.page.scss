@@ -12,22 +12,6 @@
     font-weight: bold;
 }
 
-.button1
-{
-    --background: url('/assets/img/btn_emptyS.png') 0 0/100% 100% no-repeat !important;
-    height: 3rem;
-    width: 50%;
-    background-color: transparent;
-    padding: 0;
-    border: none;
-    font-size: 15px;
-    font-weight: bold;
-    color: rgb(0, 0, 0);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    text-align: center;
-    // font-family: "Impact";
-}
 .imagen{
     display: block;
     margin-left: auto;
@@ -40,13 +24,13 @@
 .titulo{
     color: black;
     text-align: center;
-} 
+}
 .registro{
     text-align: center;
 }
 .registro-link{
     font-family: 'Roboto BlackItalic';
-    font-size: 25px;
+    font-size: 2em;
     color:#43a047;//607985
 }
 .inputs{
@@ -54,42 +38,43 @@
     -moz-border-radius: 80px 80px 80px 80px;
     -webkit-border-radius: 80px 80px 80px 80px;
     border: 3px solid #1e4820;//607985
-    --background: transparent !important;  
+    --background: transparent !important;
     display: block;
     margin-left: auto;
     margin-right: auto;
-    justify-content: center;
-    width: 250px;
+    // justify-content: center;
+    width: 300px;
     height: 60px;
-    margin-bottom: 15px;
-    color: black;
+    margin-bottom: 10px;
+    // color: black;
     --highlight-height:0;
 }
-.ingresar{
-    color: black;
-    --border-radius: 80px;
-    width: 150px;
-    height: 50px;
-    //--border-style: 3px solid #546e7a;   
-    --background: transparent !important;
-    --background-activated:#339933; 
-    --border-color:#339933;
-    --background-hover:#339933;
-    --background-focused: #339933;
-    display: block; 
-    margin-left: auto;
-    margin-right: auto;
-    justify-content: center;
-    margin-bottom: 15px;
-}
+
+// .ingresar{
+//     color: black;
+//     --border-radius: 80px;
+//     width: 150px;
+//     height: 50px;
+//     //--border-style: 3px solid #546e7a;
+//     --background: transparent !important;
+//     --background-activated:#339933;
+//     --border-color:#339933;
+//     --background-hover:#339933;
+//     --background-focused: #339933;
+//     display: block;
+//     margin-left: auto;
+//     margin-right: auto;
+//     justify-content: center;
+//     margin-bottom: 15px;
+// }
 .seleccionar-usuario{
     color: black;
     --border-radius: 80px;
     width: 230px;
     height: 40px;
-    //--border-style: 3px solid #546e7a;   
+    //--border-style: 3px solid #546e7a;
     --background: transparent !important;
-    --background-activated:#339933; 
+    --background-activated:#339933;
     --border-color:#339933;
     --background-hover:#339933;
     --background-focused: #339933;

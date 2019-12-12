@@ -1,13 +1,14 @@
 <ion-header>
-        <ion-toolbar color="verdeleon">
-            <ion-buttons slot="start">
-            <ion-back-button color="dark" defaultHref="inicio"></ion-back-button>
-            </ion-buttons>
-            <ion-title class="titulo-header">
-                    <ion-icon name="add-circle"></ion-icon>Registro de Empleado
-            </ion-title>
-        </ion-toolbar>
-    </ion-header>
+  <ion-toolbar color="verdeleon">
+      <ion-buttons slot="start">
+        <ion-back-button color="dark" defaultHref="inicio"></ion-back-button>
+      </ion-buttons>
+      <ion-title class="titulo-header">
+        <!-- <ion-icon name="add-circle"></ion-icon> -->
+        Registro de Empleado
+      </ion-title>
+  </ion-toolbar>
+</ion-header>
 
 
 <ion-content class="background-image" no-scroll padding>
@@ -20,9 +21,9 @@
                 <tr>
                     <img src="assets/img/preloader.gif">
                 </tr>
-                
+
             </table>
-                
+
         </div>
 
     <div [hidden]="ocultarSeccion1">
@@ -83,17 +84,16 @@
         <ion-button  (click)="EscanearDNI()" class="botones-registro">
             <ion-icon name="qr-scanner"></ion-icon>Escanear DNI
         </ion-button>
-    
+
         <ion-button  class="botones-registro" (click)="ValidarRegistro()">
             <ion-icon name="checkmark-circle-outline"></ion-icon>Registrar
         </ion-button>
         <div class="width-100 center-horizontal">
-                <ion-item style="--background:tranparent; --inner-border-width: 0px;" (click)="BorrarDatos()">
-                        <ion-button routerLink="/inicio"  class="botones-registro">
-                            <ion-icon name="backspace"></ion-icon>Volver</ion-button>
-                    </ion-item>
-                <ion-button  (click)="RellenarDatos()"  class="botones-registro">Completar campos</ion-button>
-                
+            <!-- <ion-item style="--background:tranparent; --inner-border-width: 0px;" (click)="BorrarDatos()">
+                    <ion-button routerLink="/inicio"  class="botones-registro">
+                        <ion-icon name="backspace"></ion-icon>Volver</ion-button>
+                </ion-item> -->
+            <ion-button  (click)="RellenarDatos()"  class="botones-registro">Completar campos</ion-button>
         </div>
     </div>
     <div [hidden]="ocultarSeccion2">
@@ -104,5 +104,5 @@
         <ion-button  class="botones-registro" (click)="SinFoto()" style="width: 100%; height: 60px;">
             Sin foto</ion-button>
     </div>
-    
+
   </ion-content>
