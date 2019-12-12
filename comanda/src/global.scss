@@ -156,7 +156,10 @@ ion-title {
   display: flex;
   justify-content: space-evenly;
 }
-
+.align-espaciado {
+  display: flex;
+  justify-content: space-evenly;
+}
 // Centra los objetos dentro de este elemento de forma horizontal
 .center-horizontal {
   display: flex;
@@ -186,14 +189,15 @@ ion-title {
 
 // Crea el marco para las fotos de perfil en el alta de mesas y producto (puede reusarse)
 .profile-picture {
-  height: 7rem;
-  max-height: 7rem !important;
-  min-height: 7rem;
-  width: 7rem;
-  max-width: 7rem !important;
-  min-width: 7rem;
+  height: 9rem;
+  max-height: 9rem !important;
+  min-height: 9rem;
+  width: 9rem;
+  max-width: 9rem !important;
+  min-width: 9rem;
   object-fit: cover;
   border-radius: 100% !important;
+  margin-bottom: 5px;
 }
 
 // Ajusta el texto dentro de un elemento
@@ -394,9 +398,13 @@ ion-alert.avisoAlert{
   height: 70px;
   margin-bottom: 15px;
   color: black;
-  --highlight-height:0;
+  --highlight-height:0px;
+  --border-width:0px;
+  --padding-bottom:1px;
 }
-
+ion-input{
+  --padding-bottom:1px;
+}
 .ingresar{
   color: black;
   --border-radius: 80px;

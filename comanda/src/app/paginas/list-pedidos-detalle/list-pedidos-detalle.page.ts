@@ -97,10 +97,9 @@ export class ListPedidosDetallePage implements OnInit {
     console.log("Pedidos", this.pedidos);
     console.log("productos",this.productos);
   }
-
   public async inicializarPedidos() {
     try {
-      await this.traerPedidos().subscribe((p: PedidoKey[]) => {
+       await this.traerPedidos().subscribe((p: PedidoKey[]) => {
         this.pedidos = p.filter((pe: PedidoKey) => {
           // console.log(pe.estado);
           const auxReturn = (pe.estado !== 'creado' &&
@@ -112,7 +111,7 @@ export class ListPedidosDetallePage implements OnInit {
           return auxReturn;
           
         });
-
+        this.pedidos = this.pedidos.sort(this.ordenarPedidoFecha);
         // console.log('Pedidos', this.pedidos);
       });
 
@@ -129,9 +128,26 @@ export class ListPedidosDetallePage implements OnInit {
         pd = pd.filter((d: PedidoDetalleKey) => {
           return this.verificarVisibilidad(d);
         });
-        this.pedidoDetalle = pd.sort(this.ordenarPorPedido);
+        //this.pedidoDetalle = pd;
+        this.pedidoDetalle = pd.sort((a,b)=>{
+          let pedidoA = this.pedidos.find(pa=>{
+            return pa.key==a.id_pedido;
+          });
+          let pedidoB = this.pedidos.find(pb=>{
+            return pb.key==b.id_pedido;
+          });
+          if(pedidoA.fecha > pedidoB.fecha){
+            return 1;
+          }
+          if(pedidoA.fecha < pedidoB.fecha){
+            return -1;
+          }   
+          return 0;
+
+        });
         // console.log('Detalles', this.pedidoDetalle);
       });
+      
     } catch (err) {
       console.log('err', err);
       this.pedidos = new Array<PedidoKey>();
@@ -139,7 +155,16 @@ export class ListPedidosDetallePage implements OnInit {
       this.productos = new Array<ProductoKey>();
     }
   }
-
+  private ordenarPedidoFecha(a:PedidoKey, b:PedidoKey)
+  {
+    if(a.fecha < b.fecha){
+        return 1;
+      }
+      if(a.fecha > b.fecha){
+        return -1;
+      }   
+      return 0;
+  }
   private ordenarPorPedido(a: PedidoDetalleKey, b: PedidoDetalleKey) {
     // console.log(a.id_pedido.localeCompare(b.id_pedido));
     return (a.id_pedido.localeCompare(b.id_pedido));

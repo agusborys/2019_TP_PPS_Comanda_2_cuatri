@@ -26,7 +26,7 @@
       </ion-item>
       <ion-item class="item2">
         <ion-label class="label-verde">Hora</ion-label>
-        <ion-input [value]="this.pedidoActual.fecha | date:'HH:mm'" readonly></ion-input>
+        <ion-input [value]="this.pedidoActual.fecha + 'hs' | date:'HH:mm'" readonly></ion-input>
       </ion-item>
       <ion-item class="item2">
         <ion-label class="label-verde">Estado</ion-label>
