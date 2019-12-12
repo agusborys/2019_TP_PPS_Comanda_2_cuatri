@@ -19,14 +19,14 @@
             Mesa {{pedido.mesa}}
          </label><br>
          <div>
-          <label style="font-size:20px; color:black; border-bottom:1px solid #61bd65;">
+          <label class="label-entrega">
               Cliente : {{pedido.cliente}}
             </label><br>
-            <label style="font-size:20px; color: black; border-bottom:1px solid #61bd65;">
+            <label class="label-entrega">
               Fecha : {{pedido.fecha | date:'dd/MM/yyyy'}}
             </label><br>
-            <label style="font-size:20px; color: black; border-bottom:1px solid #61bd65;">
-                Hora : {{pedido.fecha | date:'hh:mm'}}
+            <label class="label-entrega">
+                Hora : {{pedido.fecha | date:'HH:mm'}}
             </label>
          </div>
       </div>
