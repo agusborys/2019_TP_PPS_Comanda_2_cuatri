@@ -4,7 +4,7 @@
       <ion-back-button color="dark" defaultHref="inicio"></ion-back-button>
     </ion-buttons>
     <ion-title class="titulo-header">
-      <ion-icon name="qr-scanner"></ion-icon> Mesa
+      Mesa
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -40,7 +40,7 @@
             Ver Pedido
           </ion-button>
           <div *ngIf=" this.pedido != null && (this.pedido.estado == 'aceptado' || this.pedido.estado=='entregado')">
-            <ion-button class="boton-realizar"
+            <ion-button *ngIf="mostrarBtnEncuesta" class="boton-realizar"
             (click)="this.verEncuesta(this.mesaAMostrar.pedidoActual)">
             Realizar Encuesta
             </ion-button>

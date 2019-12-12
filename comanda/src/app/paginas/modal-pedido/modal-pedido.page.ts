@@ -91,50 +91,54 @@ export class ModalPedidoPage implements OnInit {
   }
   public manejarDescuentos()
   {
-    if(this.tieneBebidaGratis == true)
+    if(this.arrayDecuentos.length==0)
     {
-      for(let e of this.pedidoDetalle)
+      if(this.tieneBebidaGratis == true)
       {
-        if(e.producto == "Café en jarrito" ||e.producto == "Gaseosa" || e.producto == "Agua saborizada"
-        || e.producto == "Pinta cerveza" || e.producto == "Vino tinto"){
-          this.bebidaGratis.precio = e.precio;
-          this.bebidaGratis.producto = e.producto +" Gratis!";
-          this.bebidaGratis.cantidad = 1;
-          this.bebidaGratis.estado = e.estado;
-          this.bebidaGratis.id_pedido = e.id_pedido;
-          this.arrayDecuentos.push(this.bebidaGratis);
-          this.pedidoActual.preciototal = this.pedidoActual.preciototal - this.bebidaGratis.precio;
-          break;
+        for(let e of this.pedidoDetalle)
+        {
+          if(e.producto == "Café en jarrito" ||e.producto == "Gaseosa" || e.producto == "Agua saborizada"
+          || e.producto == "Pinta cerveza" || e.producto == "Vino tinto"){
+            this.bebidaGratis.precio = e.precio;
+            this.bebidaGratis.producto = e.producto +" Gratis!";
+            this.bebidaGratis.cantidad = 1;
+            this.bebidaGratis.estado = e.estado;
+            this.bebidaGratis.id_pedido = e.id_pedido;
+            this.arrayDecuentos.push(this.bebidaGratis);
+            this.pedidoActual.preciototal = this.pedidoActual.preciototal - this.bebidaGratis.precio;
+            break;
+          }
         }
       }
-    }
-    if(this.tienePostreGratis == true)
-    {
-      for(let e of this.pedidoDetalle)
+      if(this.tienePostreGratis == true)
       {
-        if(e.producto == "Sundae" ||e.producto == "panqueques" || e.producto == "Flan")
+        for(let e of this.pedidoDetalle)
         {
-          this.postreGratis.precio = e.precio;
-          this.postreGratis.producto = e.producto +" Gratis!";
-          this.postreGratis.cantidad = 1;
-          this.postreGratis.estado = e.estado;
-          this.postreGratis.id_pedido = e.id_pedido;
-          this.arrayDecuentos.push(this.postreGratis);
-          this.pedidoActual.preciototal = this.pedidoActual.preciototal - this.postreGratis.precio;
-          break;
-        }
-      }  
+          if(e.producto == "Sundae" ||e.producto == "panqueques" || e.producto == "Flan")
+          {
+            this.postreGratis.precio = e.precio;
+            this.postreGratis.producto = e.producto +" Gratis!";
+            this.postreGratis.cantidad = 1;
+            this.postreGratis.estado = e.estado;
+            this.postreGratis.id_pedido = e.id_pedido;
+            this.arrayDecuentos.push(this.postreGratis);
+            this.pedidoActual.preciototal = this.pedidoActual.preciototal - this.postreGratis.precio;
+            break;
+          }
+        }  
+      }
+      if(this.tieneDescuento == true)
+      {
+        this.descuento_10.producto = "Descuento 10%";
+        this.descuento_10.cantidad = 1;
+        this.descuento_10.id_pedido = this.pedidoActual.key;
+        this.descuento_10.estado = "listoEntrega";
+        this.descuento_10.precio = this.pedidoActual.preciototal * 0.1;
+        this.arrayDecuentos.push(this.descuento_10);
+        this.pedidoActual.preciototal = this.pedidoActual.preciototal - this.descuento_10.precio;
+      }
     }
-    if(this.tieneDescuento == true)
-    {
-      this.descuento_10.producto = "Descuento 10%";
-      this.descuento_10.cantidad = 1;
-      this.descuento_10.id_pedido = this.pedidoActual.key;
-      this.descuento_10.estado = "listoEntrega";
-      this.descuento_10.precio = this.pedidoActual.preciototal * 0.1;
-      this.arrayDecuentos.push(this.descuento_10);
-      this.pedidoActual.preciototal = this.pedidoActual.preciototal - this.descuento_10.precio;
-    }
+    
     console.log(this.arrayDecuentos);
   }
 

@@ -129,10 +129,10 @@ export class EncuestaClientePage implements OnInit {
   }
 
   public enviarEncuesta() {
-    if (this.formEncuesta.value.comentarioCtrl === '') {
-      this.mostrarFaltanDatos('El comentario es requerido.');
-      return true;
-    }
+    // if (this.formEncuesta.value.comentarioCtrl === '') {
+    //   this.mostrarFaltanDatos('El comentario es requerido.');
+    //   return true;
+    // }
     if (this.formEncuesta.value.recomendariaCtrl === '') {
       this.mostrarFaltanDatos('El determinar la recomendación.');
       return true;
