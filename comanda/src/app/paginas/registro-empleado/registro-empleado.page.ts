@@ -240,7 +240,9 @@ export class RegistroEmpleadoPage implements OnInit {
         targetWidth: 600,
         destinationType: this.camera.DestinationType.DATA_URL,
         encodingType: this.camera.EncodingType.JPEG,
-        mediaType: this.camera.MediaType.PICTURE
+        mediaType: this.camera.MediaType.PICTURE,
+        correctOrientation:true,
+        
       };
       let result = await this.camera.getPicture(options);
       this.spinner = await this.spinnerHand.GetAllPageSpinner();

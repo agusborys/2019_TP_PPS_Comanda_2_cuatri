@@ -17,23 +17,34 @@
         <div class="width-100 align-text-center big-letter"  style="background: whitesmoke;">
           <label class="bolded">
             Mesa {{pedido.mesa}}
-         </label>
+         </label><br>
+         <div>
+          <label style="font-size:20px; color:black; border-bottom:1px solid #61bd65;">
+              Cliente : {{pedido.cliente}}
+            </label><br>
+            <label style="font-size:20px; color: black; border-bottom:1px solid #61bd65;">
+              Fecha : {{pedido.fecha | date:'dd/MM/yyyy'}}
+            </label><br>
+            <label style="font-size:20px; color: black; border-bottom:1px solid #61bd65;">
+                Hora : {{pedido.fecha | date:'hh:mm'}}
+            </label>
+         </div>
       </div>
       <div class="width-100 center-horizontal center-vertical" style="background: whitesmoke;">
           <ion-button class="botones-registro"
             (click)="this.verPedido(pedido.key)">
-            Ver
+            Ver pedido completo
           </ion-button>
         </div>
 
         <div class="width-100 center-horizontal" style="background: whitesmoke;">
           <ion-button class="botones-registro"
             (click)="aceptarPedido(pedido.key)">
-            <ion-icon slot="icon-only" name="checkmark" style="font-weight: bold;"></ion-icon>
+            <ion-icon slot="icon-only" name="checkmark" style="font-weight: bold;"></ion-icon>Confirmar
           </ion-button>
           <ion-button class="botonesRojo"
             (click)="rechazarPedido(pedido.key, pedido.mesa)">
-            <ion-icon slot="icon-only" name="close"></ion-icon>
+            <ion-icon slot="icon-only" name="close"></ion-icon>Denegar
           </ion-button>
         </div>
       </div>

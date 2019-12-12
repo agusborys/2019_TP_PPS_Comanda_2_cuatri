@@ -39,10 +39,12 @@ export class ModalPedidoPage implements OnInit {
     private spinnerHand:SpinnerHandlerService) {
      }
 
-    ngOnInit() {
-    
+    async ngOnInit() {
+    this.spinner = await this.spinnerHand.GetAllPageSpinner();
+    this.spinner.present();
     this.cliente = this.authService.tipoUser === 'cliente' || this.authService.tipoUser === 'anonimo' ? true : false;
     this.traerPedido();
+    this.spinner.dismiss();
     //this.traerPedidoDetalle();
     
     

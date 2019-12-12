@@ -63,9 +63,13 @@
             </table>
             <br>
           </div>
+          <!-- <div class="containerTotal"> -->
+            <ion-item class="item2">
+              <ion-label class="label-verde" style="text-align: left;">TOTAL</ion-label>
+              <ion-input class="totalPedido" [value]="pedido.preciototal | currency"> </ion-input>
+            </ion-item>
+          <!-- </div> -->
           
-          <ion-label class="label-verde" style="justify-content: start;" >TOTAL</ion-label>
-          <div class="totalPedido">{{pedido.preciototal | currency}} </div>
         </ion-card-content>
       </ion-card>
 </ion-content>

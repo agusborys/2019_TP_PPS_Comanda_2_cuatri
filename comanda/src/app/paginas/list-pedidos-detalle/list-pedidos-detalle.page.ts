@@ -84,6 +84,19 @@ export class ListPedidosDetallePage implements OnInit {
     this.inicializarPedidos();
     this.spinner.dismiss();
   }
+  async ionViewDidEnter(){
+    this.pedidos = new Array<PedidoKey>();
+    this.pedidoDetalle = new Array<PedidoDetalleKey>();
+    this.productos = new Array<ProductoKey>();
+    // this.spinner = await this.spinnerHand.GetAllPageSpinner();
+    // this.spinner.present();
+    await this.authServ.buscarUsuario();
+    this.inicializarPedidos();
+    this.spinner.dismiss();
+    console.log("Pedido detalle:",this.pedidoDetalle);
+    console.log("Pedidos", this.pedidos);
+    console.log("productos",this.productos);
+  }
 
   public async inicializarPedidos() {
     try {
@@ -239,21 +252,22 @@ export class ListPedidosDetallePage implements OnInit {
 
   public async presentAlertConfirmarEntrega(d: PedidoDetalleKey, estado: string) {
     this.alertCtrl.create({
+      cssClass:'seleccionarAlert',
       header: 'Confirmar Detalle',
       message: '¿Desea confirmar como finalizado este pedido?',
       buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            return true;
+          }
+        },
         {
           text: 'Sí',
           handler: () => {
             this.cambiarEstado(d, estado);
           }
         },
-        {
-          text: 'No',
-          handler: () => {
-            return true;
-          }
-        }
       ]
     }).then(alert => {
       alert.present();

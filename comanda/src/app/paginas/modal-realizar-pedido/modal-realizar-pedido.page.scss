@@ -10,14 +10,7 @@
     margin-left: auto;
     margin-right: auto;
 }
-.label-verde{
-    color:#43a047;
-    font-size: 26px;
-    text-align: center;
-    font-weight: bold;
-    justify-content: center;
-    display: flex;
-}
+
 .tabla
 {
     margin-top: 5px;
@@ -36,12 +29,26 @@ td{
 th{
     border-bottom: 1px solid #43a047;
 }
-.totalPedido{
+.label-verde{
+    color:#43a047;
+    font-size: 26px;
+    text-align: center;
+    font-weight: bold;
+    //justify-content: center;
+    //display: flex;
+}
+.conteinerTotal{
+    width: 100%;
     display: flex;
-    justify-content: end;
+    //justify-content: end;
+}
+.totalPedido{
+    //display: flex;
+    //justify-content: end;
     font-size: 26px;
     font-weight: bold;
     color:black;
+    text-align: right;
     
 }
 .button2

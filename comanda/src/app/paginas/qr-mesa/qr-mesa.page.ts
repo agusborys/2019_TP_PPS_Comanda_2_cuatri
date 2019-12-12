@@ -86,21 +86,21 @@ export class QrMesaPage implements OnInit {
       this.listaEspera = d;
     });
     
-    // this.traerEncuestas().subscribe((d:any)=>{
-    //   for(let element of d)
-    //   {
-    //     if(element.pedido == this.mesaAMostrar.pedidoActual)
-    //     {
-    //       console.log(element.pedido);
-    //       this.mostrarBtnEncuesta = false;
-    //       break;
-    //     }
-    //     else{
-    //       this.mostrarBtnEncuesta = true;
-    //     }
-    //   }
-    // });
-    // console.log(this.mostrarBtnEncuesta);
+    this.traerEncuestas().subscribe((d:any)=>{
+      for(let element of d)
+      {
+        if(element.pedido == this.mesaAMostrar.pedidoActual)
+        {
+          console.log(element.pedido);
+          this.mostrarBtnEncuesta = false;
+          break;
+        }
+        else{
+          this.mostrarBtnEncuesta = true;
+        }
+      }
+    });
+    console.log(this.mostrarBtnEncuesta);
   }
   ionViewDidLoad()
   {
@@ -297,23 +297,24 @@ export class QrMesaPage implements OnInit {
 
   public async presentAlertClienteConReserva() {
     this.alertCtrl.create({
+      cssClass:'seleccionarAlert',
       header: 'Estado de mesa',
       subHeader: `Mesa: ${this.mesaAMostrar.nromesa}`,
       message: '¡Bienvenido! Su reserva fue confirmada. ¿Desea ocuparla la mesa?',
       buttons: [
-        {
-          text: 'Sí',
-          handler: () => {
-            this.ocuparMesaReservada();
-          }
-        },
         {
           text: 'No',
           handler: () => {
             this.mesaAMostrar = null;
             return true;
           }
-        }
+        },
+        {
+          text: 'Sí',
+          handler: () => {
+            this.ocuparMesaReservada();
+          }
+        },
       ]
     }).then(alert => {
       alert.present();
@@ -328,20 +329,21 @@ export class QrMesaPage implements OnInit {
       cssClass:'seleccionarAlert',
       buttons: [
         {
-          cssClass:'button-Cancel',
-          text: 'Sí',
-          handler: () => {
-            this.ocuparMesa();
-          }
-        },
-        {
           cssClass:'button-Ok',
           text: 'No',
           handler: () => {
             this.mesaAMostrar = null;
             return true;
           }
-        }
+        },
+        {
+          cssClass:'button-Cancel',
+          text: 'Sí',
+          handler: () => {
+            this.ocuparMesa();
+          }
+        },
+        
       ]
     }).then(alert => {
       alert.present();
