@@ -37,7 +37,9 @@ ion-content {
 
 ion-title {
   text-align: center;
+  color:black;
 }
+
 .spinner-landscape {
   width: 100vw;
   height: 100vw;
@@ -388,12 +390,13 @@ ion-alert.avisoAlert{
   margin-left: auto;
   margin-right: auto;
   justify-content: center;
-  width: 250px;
-  height: 60px;
+  width: 85%;
+  height: 70px;
   margin-bottom: 15px;
   color: black;
   --highlight-height:0;
 }
+
 .ingresar{
   color: black;
   --border-radius: 80px;
@@ -414,8 +417,8 @@ ion-alert.avisoAlert{
 .seleccionar-usuario{
   color: black;
   --border-radius: 80px;
-  width: 230px;
-  height: 40px;
+  width: 250px;
+  height: 60px;
   //--border-style: 3px solid #546e7a;
   --background: transparent !important;
   --background-activated:#339933;
@@ -433,7 +436,7 @@ ion-alert.avisoAlert{
   color: black;
   --border-radius: 80px;
   width: 200px;
-  height: 35px;
+  height: 50px;
   --border-color: #339933;
   --border-width: 1px;
   --border-style:  solid ;
@@ -455,7 +458,7 @@ ion-alert.avisoAlert{
   color: black;
   --border-radius: 80px;
   width: 200px;
-  height: 35px;
+  height: 50px;
   --border-color: #a04743;
   --border-width: 1px;
   --border-style:  solid ;
@@ -594,7 +597,7 @@ ion-toast{
   justify-content: center;
   margin-bottom: 5px;
   text-transform: unset;
-  font-size: large;
+  font-size: x-large;
 }
 
 ion-input {
