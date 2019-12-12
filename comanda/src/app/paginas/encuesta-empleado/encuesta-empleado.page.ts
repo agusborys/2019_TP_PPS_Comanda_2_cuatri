@@ -35,7 +35,7 @@ export class EncuestaEmpleadoPage implements OnInit {
       companerismoCtrl: new FormControl(false),
       horariosFlexiblesCtrl: new FormControl(false),
       satisfaccionCtrl: new FormControl('', Validators.required),
-      comentarioCtrl: new FormControl('', Validators.required),
+      comentarioCtrl: new FormControl('', /* Validators.required */),
     });
 
     this.fotos = new Array<string>();
