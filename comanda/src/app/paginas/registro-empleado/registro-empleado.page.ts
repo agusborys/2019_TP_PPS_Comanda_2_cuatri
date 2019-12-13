@@ -166,7 +166,7 @@ export class RegistroEmpleadoPage implements OnInit {
       header,
       subHeader,
       message,
-      buttons: ['OK'],
+      buttons: ['Aceptar'],
     }).then(a => { a.present(); });
   }
 
@@ -209,16 +209,16 @@ export class RegistroEmpleadoPage implements OnInit {
     }
     else if (this.usuario.tipo == "") {
       validado = false;
-      this.presentAlert('¡Error!', 'Error en el registro', "Debe elegir un tipo");
+      this.presentAlert('¡Error!', 'Error en el registro', "Debe elegir un perfil de empleado");
     } else if (!this.herramientas.ValidarNombre(this.usuario.nombre)) {
       validado = false;
-      this.presentAlert('¡Error!', 'Error en el registro', "No es un nombre valido");
+      this.presentAlert('¡Error!', 'Error en el registro', "No es un nombre válido");
     } else if (!this.herramientas.ValidarNombre(this.usuario.apellido)) {
       validado = false;
-      this.presentAlert('¡Error!', 'Error en el registro', "No es un apellido valido");
+      this.presentAlert('¡Error!', 'Error en el registro', "No es un apellido válido");
     } else if (!this.herramientas.ValidarDNI(this.usuario.DNI)) {
       validado = false;
-      this.presentAlert('¡Error!', 'Error en el registro', "No es un DNI valido");
+      this.presentAlert('¡Error!', 'Error en el registro', "No es un DNI válido");
     }
     if (validado) {
       this.ocultarSeccion1 = true;
@@ -260,7 +260,7 @@ export class RegistroEmpleadoPage implements OnInit {
     } catch (error) {
       console.log(error);
       this.spinner.dismiss();
-      this.presentAlert('¡Error!', 'Error en el registro', "Error:" + error);
+      this.presentAlert('¡Error!', 'Error en el registro', "Ocurrió un error al realizar el alta");
     }
     //este spinner es necesario
     //this.ActivarSpinner(5000);
@@ -287,9 +287,9 @@ export class RegistroEmpleadoPage implements OnInit {
       this.clave = "";
       this.ocultarSeccion1 = false;
       this.ocultarSeccion2 = true;
-      this.presentAlert('¡Exito!', null, "El usuario ha sido registrado!");
+      this.presentAlert('¡Éxito!', null, "El usuario ha sido registrado!");
     }).catch(err => {
-      this.presentAlert('¡Error!', 'Error en el registro', err);
+      this.presentAlert('¡Error!', null, 'Error en el registro');
     });
 
   }
@@ -350,7 +350,7 @@ export class RegistroEmpleadoPage implements OnInit {
       const scan = (barcodeData.text).split('@');
       this.manejarDNI(scan);
     }, (err) => {
-      this.presentAlert('¡Error!', 'Error en el registro', err);
+      this.presentAlert('¡Error!', null, 'Error en el registro');
     });
   }
 

@@ -169,12 +169,12 @@ export class QrMesaPage implements OnInit {
         } catch (err) {
           console.log('Error en el try', err);
           //this.presentAlert('¡Error!', 'Error al leer el código.', 'Error desconocido.');
-          this.errorHandler.mostrarErrorSolo("Error!", "Error al leer el código de mesa.");
+          this.errorHandler.mostrarErrorSolo("¡Error!", "Error al leer el código de mesa.");
         }
       }).catch(err => {
         console.log('Error al escanear el qr', err);
         //this.presentAlert('¡Error!', 'Error al leer el código.', 'Error desconocido.');
-        this.errorHandler.mostrarErrorSolo("Error!", "Error al leer el código de mesa.");
+        this.errorHandler.mostrarErrorSolo("¡Error!", "Error al leer el código de mesa.");
         // this.manejarQr(6);
       });
   }

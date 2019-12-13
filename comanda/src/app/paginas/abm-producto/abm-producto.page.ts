@@ -46,7 +46,7 @@ export class AbmProductoPage implements OnInit {
 
   public async tomarFoto() {
     const options: CameraOptions = {
-      quality: 100,
+      quality: 50,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
@@ -58,7 +58,7 @@ export class AbmProductoPage implements OnInit {
     this.camera.getPicture(options).then((imageData) => {
       this.fotos.unshift('data:image/jpeg;base64,' + imageData);
     }, (err) => {
-      this.subidaErronea("Se cerró la cámara");
+      this.subidaErronea("Ocurrió un error interno o se ha cerrado la cámara");
     });
     this.spinner.dismiss();
   }
@@ -81,11 +81,6 @@ export class AbmProductoPage implements OnInit {
     }
     if (this.fotos.length === 0) {
       this.mostrarFaltanDatos('Debe subir una foto');
-      return true;
-    }
-    if(this.revisarProducto(this.authService.tipoUser, this.formMesas.value.nombreCtrl))
-    {
-      this.mostrarFaltanDatos('Ya existe un producto con ese nombre');
       return true;
     }
 
@@ -180,7 +175,8 @@ export class AbmProductoPage implements OnInit {
       header: '',
       subHeader: 'Éxito',
       message: mensaje,
-      buttons: ['Aceptar']
+      buttons: ['Aceptar'],
+      cssClass:'avisoAlert'
     });
 
     await alert.present();
@@ -193,7 +189,8 @@ export class AbmProductoPage implements OnInit {
       header: '',
       subHeader: 'Error',
       message: mensaje,
-      buttons: ['Aceptar']
+      buttons: ['Aceptar'],
+      cssClass:'avisoAlert'
     });
 
     await alert.present();

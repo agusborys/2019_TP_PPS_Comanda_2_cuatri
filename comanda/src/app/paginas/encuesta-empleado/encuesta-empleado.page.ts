@@ -87,7 +87,8 @@ export class EncuestaEmpleadoPage implements OnInit {
       header: 'Exito',
       subHeader: 'Se han cargado los datos',
       message: mensaje,
-      buttons: ['Aceptar']
+      buttons: ['Aceptar'],
+      cssClass:'avisoAlert'
     });
 
     await alert.present();
@@ -115,7 +116,8 @@ export class EncuestaEmpleadoPage implements OnInit {
       header: 'Error',
       subHeader: 'Ocurrió un error',
       message: mensaje,
-      buttons: ['Aceptar']
+      buttons: ['Aceptar'],
+      cssClass:'avisoAlert'
     });
 
     await alert.present();

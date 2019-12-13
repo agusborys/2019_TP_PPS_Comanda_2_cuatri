@@ -165,7 +165,8 @@ export class ConfirmarEntregaPage implements OnInit {
     await this.alertCtrl.create({
       header,
       message,
-      buttons: ['OK']
+      buttons: ['Aceptar'],
+      cssClass:'avisoAlert'
     }).then(alert => {
       alert.present();
     });
@@ -176,17 +177,21 @@ export class ConfirmarEntregaPage implements OnInit {
       header: `Propina seleccionada: ${propina}%`,
       subHeader: '¿Confirmar propina?',
       message: `Su precio total pasará de ser $${anterior} a ser $${total}`,
+      cssClass:'seleccionarAlert',
       buttons: [
         {
+          cssClass:'button-Cancel',
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => { }
+        },
+        {
+          cssClass:'button-Ok',
           text: 'Confirmar',
           handler: () => {
             this.actualizarPropina(propina);
           }
-        }, {
-          text: 'Cancelar',
-          role: 'cancel',
-          handler: () => { }
-        }
+        }, 
       ]
     }).then(alert => {
       alert.present();
@@ -263,7 +268,7 @@ export class ConfirmarEntregaPage implements OnInit {
       color,
       showCloseButton: false,
       position: 'bottom',
-      closeButtonText: 'Done',
+      closeButtonText: 'Aceptar',
       duration: 2000
     });
     toast.present();

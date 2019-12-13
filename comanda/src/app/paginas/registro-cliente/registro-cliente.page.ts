@@ -223,10 +223,11 @@ export class RegistroClientePage implements OnInit {
 
   public presentAlert(header: string, subHeader: string, message: string) {
     this.alertCtrl.create({
+      cssClass:'avisoAlert',
       header,
       subHeader,
       message,
-      buttons: ['OK']
+      buttons: ['Aceptar']
     }).then(a => { a.present(); });
   }
 
@@ -239,7 +240,7 @@ export class RegistroClientePage implements OnInit {
     if (this.usuario.correo === '') {
       validado = false;
       //this.presentAlert('Error!', '', 'Debe escribir un correo electrónico.');
-      this.errorHandler.mostrarErrorSolo("Error!", "Completar campo de correo electrónico");
+      this.errorHandler.mostrarErrorSolo("¡Error!", "Completar campo de correo electrónico");
     } else if (this.clave === '') {
       validado = false;
       //this.presentAlert('¡Error!', '', 'Debe escribir una clave.');
@@ -335,7 +336,7 @@ export class RegistroClientePage implements OnInit {
   } catch (error) {
     console.log(error);
     //this.spinner.dismiss();
-    this.presentAlert('¡Error!', 'Error en el registro', "Error:" + error.message);
+    this.presentAlert('¡Error!', 'Error en el registro', "Error al realizar el alta de Cliente");
   }
   this.spinner.dismiss();
   //este spinner es necesario

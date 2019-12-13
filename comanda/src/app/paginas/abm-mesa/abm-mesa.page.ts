@@ -70,7 +70,7 @@ export class AbmMesaPage implements OnInit {
     this.camera.getPicture(options).then((imageData) => {
       this.foto = 'data:image/jpeg;base64,' + imageData;
     }, (err) => {
-      this.subidaErronea("Se cerró la cámara");
+      this.subidaErronea("Ocurrió un error interno o se ha cerrado la cámara");
     });
     this.spinner.dismiss();
   }

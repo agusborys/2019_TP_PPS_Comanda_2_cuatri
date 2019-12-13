@@ -101,7 +101,7 @@ export class ModalRealizarPedidoPage implements OnInit {
   }
 
   public verPedido(pedido: string) {
-    //this.router.navigate(['inicio']);
+    this.router.navigate(['inicio']);
 
     // alert('La página de pedido no está implementada');
     this.modalCtrl.create({
@@ -127,7 +127,7 @@ export class ModalRealizarPedidoPage implements OnInit {
       color: 'success',
       showCloseButton: false,
       position: 'bottom',
-      closeButtonText: 'Done',
+      closeButtonText: 'Aceptar',
       duration: 2000
     });
     toast.present();

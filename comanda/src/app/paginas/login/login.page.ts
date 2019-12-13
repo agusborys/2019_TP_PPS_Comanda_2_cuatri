@@ -71,7 +71,7 @@ export class LoginPage implements OnInit {
       const user = await this.traerUsuarioAConfirmar(this.correo);
       if (user != false) {
         //this.presentAlert('¡Error!', 'Error en el inicio de sesión.', 'Usted no ha sido confrmado.');
-        this.errorHandler.mostrarErrorSolo("Error!", "Usuario no confirmado");
+        this.errorHandler.mostrarErrorSolo("¡Error!", "Usuario no confirmado");
         this.correo = '';
         this.clave = '';
       } else {
@@ -100,7 +100,7 @@ export class LoginPage implements OnInit {
       auxReturn = true;
     } else {
       // Mostrar Toast con mensaje
-      this.errorHandler.mostrarErrorSolo("Error!","Debe completar todos los campos");
+      this.errorHandler.mostrarErrorSolo("¡Error!","Debe completar todos los campos");
     }
     return auxReturn;
   }

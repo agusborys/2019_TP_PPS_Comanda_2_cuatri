@@ -156,7 +156,7 @@ export class QrIngresoLocalPage implements OnInit {
       
       showCloseButton: false,
       position: 'bottom',
-      closeButtonText: 'Done',
+      closeButtonText: 'Aceptar',
       duration: 2000
     }).then(toast => {
       toast.present();
@@ -200,7 +200,8 @@ export class QrIngresoLocalPage implements OnInit {
       header,
       subHeader,
       message,
-      buttons: ['OK']
+      buttons: ['Aceptar'],
+      cssClass:'avisoAlert'
     }).then(a => { a.present(); });
   }
 

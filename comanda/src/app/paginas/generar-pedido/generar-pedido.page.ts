@@ -202,7 +202,7 @@ export class GenerarPedidoPage implements OnInit {
       color: 'success',
       showCloseButton: false,
       position: 'bottom',
-      closeButtonText: 'Done',
+      closeButtonText: 'Aceptar',
       duration: 2000
     });
     toast.present();
@@ -212,7 +212,7 @@ export class GenerarPedidoPage implements OnInit {
     const alert = await this.alertCtrl.create({
       subHeader: 'Cliente sin mesa',
       message: 'Usted no está asignado a ninguna mesa.',
-      buttons: ['OK']
+      buttons: ['Aceptar']
     });
     await alert.present();
   }

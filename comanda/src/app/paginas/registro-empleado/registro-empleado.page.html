@@ -84,13 +84,22 @@
         </ion-button>
         
     </div>
-    <div [hidden]="ocultarSeccion2">
+    <div [hidden]="ocultarSeccion2" class="width-100 height-100 margin-top-9">
+        <ion-button expand="block" class="botones-grandes" (click)="SacarFoto()" >
+            Tomar foto
+        </ion-button>
+        <ion-button expand="block" class="botones-grandes" (click)="SinFoto()" >
+            Sin foto
+        </ion-button>
+    </div>
+
+    <!-- <div [hidden]="ocultarSeccion2">
         <ion-button  class="botones-registro" (click)="SacarFoto()" style="width: 100%; height: 60px;">
             Tomar foto</ion-button>
     </div>
     <div [hidden]="ocultarSeccion2">
         <ion-button  class="botones-registro" (click)="SinFoto()" style="width: 100%; height: 60px;">
             Sin foto</ion-button>
-    </div>
+    </div> -->
 
   </ion-content>
