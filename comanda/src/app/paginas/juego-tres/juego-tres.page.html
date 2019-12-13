@@ -5,15 +5,19 @@
         <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
+    <ion-item class="item2">
+      <ion-label class="label-verde">Intentos:</ion-label>
+      <ion-input readonly [value]="intentos"></ion-input>
+    </ion-item>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div class="superior">
-    <ion-item class="item2">
+    <!-- <ion-item class="item2">
       <ion-label class="label-verde">Intentos:</ion-label>
       <ion-input readonly [value]="intentos"></ion-input>
-    </ion-item>
+    </ion-item> -->
     <!-- <label>Intentos:</label>
     <input type="text" name="" value="{{intentos}}"> -->
     <div class="contenedor" (click)="verificar('unoUno', 'bluetooth')">
