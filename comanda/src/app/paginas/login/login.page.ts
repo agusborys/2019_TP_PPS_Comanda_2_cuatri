@@ -8,7 +8,7 @@ import { ClienteKey, ClienteAConfirmarKey } from 'src/app/clases/cliente';
 import { AlertController } from '@ionic/angular';
 import { ErrorHandlerService } from 'src/app/servicios/error-handler.service';
 import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
-
+import { SonidosService } from '../../service/sonidos.service';
 import { FCM } from '@ionic-native/fcm/ngx';
 
 @Component({
@@ -28,9 +28,10 @@ export class LoginPage implements OnInit {
     public router: Router,
     private firestore: AngularFirestore,
     private alertCtrl: AlertController,
-    private errorHandler:ErrorHandlerService,
-    private spinnerHand:SpinnerHandlerService) {
-  }
+    private errorHandler: ErrorHandlerService,
+    private spinnerHand: SpinnerHandlerService,
+    private sonidos: SonidosService,
+  ) { }
 
   ngOnInit() {
     this.correo = '';
@@ -77,7 +78,11 @@ export class LoginPage implements OnInit {
       } else {
         this.authService.Login(this.correo, this.clave).then(async (res) => {
           this.router.navigate(['/inicio']);
-          this.cajaSonido.ReproducirGuardar();
+          if (this.sonidos.getActivo()) {
+            this.cajaSonido.ReproducirGuardar();
+          }
+          // this.cajaSonido.ReproducirGuardar();
+
           this.correo = '';
           this.clave = '';
           this.spinner.dismiss();
@@ -89,7 +94,7 @@ export class LoginPage implements OnInit {
           });
       }
     }
-    
+
   }
   /*
     Valido campos vacíos del form

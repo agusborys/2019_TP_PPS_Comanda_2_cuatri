@@ -69,6 +69,12 @@
     <ion-button class="botones" routerLink="/encuesta-sup" size="large">
       <ion-icon name="clipboard"></ion-icon>Encuesta
     </ion-button>
+    <ion-list class="width-100 center-horizontal flex-wrap">
+      <ion-item>
+        <ion-label>Desactivar Sonidos</ion-label>
+        <ion-toggle [(ngModel)]="estaActivo" (ionChange)="controlSonidos($event)"></ion-toggle>
+      </ion-item>
+    </ion-list>
   </div>
 
   <!-- Para cocinero, bartender, candybar -->
@@ -192,4 +198,6 @@
       Juego Tres
     </ion-button> -->
   </div>
+  <!-- Toggles in a List -->
+
 </ion-content>

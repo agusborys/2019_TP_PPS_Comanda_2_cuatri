@@ -16,6 +16,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Cliente, ClienteAConfirmar } from 'src/app/clases/cliente';
 import { Anonimo } from 'src/app/clases/anonimo';
 import { map } from 'rxjs/operators';
+import { SonidosService } from '../../service/sonidos.service';
 
 @Component({
   selector: 'app-registro-empleado',
@@ -45,6 +46,7 @@ export class RegistroEmpleadoPage implements OnInit {
     private alertCtrl: AlertController,
     private spinnerHand : SpinnerHandlerService,
     private firestore: AngularFirestore,
+    private sonidos: SonidosService,
   ) {
     this.usuario = new Empleado();
     this.clave = "";
@@ -182,11 +184,11 @@ export class RegistroEmpleadoPage implements OnInit {
     } else if (this.clave == "") {
       validado = false;
       this.presentAlert('¡Error!', 'Error en el registro', "Debe escribir una clave");
-    } 
+    }
     else if (!this.herramientas.ValidarMail(this.usuario.correo)) {
       validado = false;
       this.presentAlert('¡Error!', 'Error en el registro', "No es un correo electronico valido");
-    } 
+    }
     else if(this.buscarEnClientes(this.usuario.correo)){
       validado = false;
       this.presentAlert("¡Error!","","Usted ya está registrado como Cliente");
@@ -230,7 +232,10 @@ export class RegistroEmpleadoPage implements OnInit {
     *permite sacar una foto y subirla en firebase, asi permite guardar su direcccion
   */
   async SacarFoto() {
-    this.cajaSonido.ReproducirSelecionar();
+    if (this.sonidos.getActivo()) {
+      this.cajaSonido.ReproducirSelecionar();
+    }
+    // this.cajaSonido.ReproducirSelecionar();
     let imageName = this.usuario.correo + (this.herramientas.GenRanNum(1111111, 9999999).toString());
     try {
 
@@ -242,7 +247,7 @@ export class RegistroEmpleadoPage implements OnInit {
         encodingType: this.camera.EncodingType.JPEG,
         mediaType: this.camera.MediaType.PICTURE,
         correctOrientation:true,
-        
+
       };
       let result = await this.camera.getPicture(options);
       this.spinner = await this.spinnerHand.GetAllPageSpinner();
@@ -355,4 +360,3 @@ export class RegistroEmpleadoPage implements OnInit {
   }
 
 }
-

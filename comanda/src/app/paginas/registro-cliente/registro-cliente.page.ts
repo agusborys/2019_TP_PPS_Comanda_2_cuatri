@@ -19,6 +19,8 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Empleado } from 'src/app/clases/empleado';
 import { AngularFirestore } from '@angular/fire/firestore';
+
+import { SonidosService } from '../../service/sonidos.service';
 @Component({
   selector: 'app-registro-cliente',
   templateUrl: './registro-cliente.page.html',
@@ -57,6 +59,7 @@ export class RegistroClientePage implements OnInit {
     private spinnerHand:SpinnerHandlerService,
     private storage: AngularFireStorage,
     private firestore: AngularFirestore,
+    private sonidos: SonidosService,
   ) {
     this.usuario = new Cliente();
     this.anonimo = new Anonimo();
@@ -181,7 +184,7 @@ export class RegistroClientePage implements OnInit {
     let tituloNotif = "Nuevo cliente";
 
 
-    let bodyNotif = "El cliente " + this.usuario.correo + " esta esperando confirmacion." ; 
+    let bodyNotif = "El cliente " + this.usuario.correo + " esta esperando confirmacion." ;
 
     let header = this.initHeaders();
     let options = new RequestOptions({ headers: header, method: 'post'});
@@ -201,16 +204,14 @@ export class RegistroClientePage implements OnInit {
         "restricted_package_name": ""
     };
 
-    console.log("Data: ", data);
-   
+    // console.log("Data: ", data);
+
     return this.http.post(this.apiFCM, data, options).pipe(map(res => res.json())).subscribe(result => {
       console.log(result);
     });
-
-               
   }
 
-  
+
  private initHeaders(): Headers {
   let apiKey = 'key=AAAAN11vLtI:APA91bEwhXPo2yboIARzbRHmaQ72PwOfCvmkZsizri-KjBkpxb0cwKR9_y2oj2UkRG2IUm06u16HzJYYwatkqNSeeBjWOFhsq7iA4isVRY8E2_Y3NOvA0w5sBZw--8cMH2d1NDjdSllQ' ;
   var headers = new Headers();
@@ -253,7 +254,7 @@ export class RegistroClientePage implements OnInit {
       validado = false;
       //this.presentAlert('¡Error!', 'Error en el registro.', 'No es un correo electronico valido.');
       this.errorHandler.mostrarErrorSolo("¡Error!", "Correo electrónico inválido");
-    } 
+    }
     else if(this.buscarEnClientes(this.usuario.correo)){
       validado = false;
       this.errorHandler.mostrarErrorSolo("¡Error!","Usted ya está registrado como Cliente");
@@ -300,9 +301,14 @@ export class RegistroClientePage implements OnInit {
     *permite sacar una foto y subirla en firebase, asi permite guardar su direcccion
   */
  public async SacarFoto() {
-  this.cajaSonido.ReproducirSelecionar();
+   if (this.sonidos.getActivo()) {
+     this.cajaSonido.ReproducirSelecionar();
+   }
+  // this.cajaSonido.ReproducirSelecionar();
+
   let imageName = this.usuario.correo + (this.herramientas.GenRanNum(1111111, 9999999).toString());
   const imageRef: AngularFireStorageReference = this.storage.ref(`fotos/${imageName}.jpg`);
+
   try {
     let options: CameraOptions = {
       quality: 50,
@@ -312,7 +318,7 @@ export class RegistroClientePage implements OnInit {
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       correctOrientation: true,
-      
+
     };
     let result = await this.camera.getPicture(options);
     this.spinner = await this.spinnerHand.GetAllPageSpinner();
@@ -358,7 +364,7 @@ export class RegistroClientePage implements OnInit {
     *basado en las elecciones del usuario se guarda un cliente o un anonimos
   */
   Registrar() {
-    
+
     if (this.esCliente == true) {
       this.RegistrarCliente();
     } else {
@@ -464,7 +470,7 @@ export class RegistroClientePage implements OnInit {
         this.manejarDNI(scan);
         //this.errorHandler.mostrarError("Scan", scan);
       }
-      
+
     }, (err) => {
       //this.presentAlert('¡Error!', 'Error al escanear el DNI.', err);
       this.errorHandler.mostrarErrorSolo("¡Error!", "Error en el escaneo del DNI");

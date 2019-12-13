@@ -5,6 +5,8 @@ import { User } from 'firebase';
 
 import { AngularFirestore, QuerySnapshot, DocumentSnapshot } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
+import { SonidosService } from '../service/sonidos.service';
+
 // clases
 import { Empleado, EmpleadoKey } from '../clases/empleado';
 import { Cliente, ClienteAConfirmar, ClienteKey } from '../clases/cliente';
@@ -23,7 +25,7 @@ import { SpinnerHandlerService } from './spinner-handler.service';
 //   messagingSenderId: "237790768850",
 //   appId: "1:237790768850:web:0c05fc581c65852060470b"
 // };
-//const secondaryApp = firebase.initializeApp(config, 'Secondary');
+// const secondaryApp = firebase.initializeApp(config, 'Secondary');
 let secondaryApp: firebase.app.App;
 @Injectable({
   providedIn: 'root'
@@ -34,13 +36,17 @@ export class AuthService {
   // tslint:disable: variable-name
   private _user: ClienteKey | AnonimoKey | EmpleadoKey = null;
   private _tipoUser = '';
-  private spinner:any=null;
+  private spinner: any = null;
+  private estaActivo: any;
 
   constructor(
     public afAuth: AngularFireAuth,
     public router: Router,
     private db: AngularFirestore,
-    private spinnerHand:SpinnerHandlerService) {
+    private spinnerHand: SpinnerHandlerService,
+    private sonidos: SonidosService,
+  ) {
+    // this.estaActivo = this.sonidos.getActivo();
     secondaryApp = firebase.initializeApp(environment.firebaseConfig, 'Secondary');
     this.afAuth.authState.subscribe(async (user) => {
       if (user) {
@@ -119,7 +125,7 @@ export class AuthService {
   }
 
   public async buscarUsuario() {
-    
+
     this._tipoUser = '';
     // Obtengo el cliente activo en la base de clientes registrados
     const auxCliente: void | ClienteKey = await this.traerClienteRegistrado()
@@ -130,36 +136,36 @@ export class AuthService {
     if (auxCliente !== null) {
       this._tipoUser = 'cliente';
       this._user = auxCliente as ClienteKey;
-      
+
       // console.log('Hay cliente registrado', auxCliente);
     } else {
       // Si el cliente no está registrado, voy a buscar a la base de datos de clientes anonimos.
       const auxClienteAnon: void | AnonimoKey = await this.traerClienteAnonimo()
         .catch(err => {
-          
+
           console.log(err);
         });
 
       if (auxClienteAnon !== null) {
         this._tipoUser = 'anonimo';
         this._user = auxClienteAnon as AnonimoKey;
-        
+
         // console.log('Hay usuario anonimo', auxClienteAnon);
       } else {
         const auxEmpleado: void | EmpleadoKey = await this.traerEmpleado()
           .catch(err => {
-            
+
             console.log(err);
           });
 
         if (auxEmpleado !== null) {
           this._tipoUser = (auxEmpleado as EmpleadoKey).tipo;
           this._user = auxEmpleado as EmpleadoKey;
-          
+
           // console.log('Hay empleado', auxEmpleado);
         } else {
           console.log('Error, no hay usuario idenfiticable');
-         
+
           this.Logout();
         }
       }
@@ -288,7 +294,10 @@ export class AuthService {
     *permite desloguearse y borra los datos en el localstorage.
   */
   async Logout() {
-    this.cajaSonido.ReproducirSalir();
+    if (this.sonidos.getActivo()) {
+      this.cajaSonido.ReproducirSalir();
+    }
+
     await this.afAuth.auth.signOut().then(() => {
       this._user = null;
       this._tipoUser = '';

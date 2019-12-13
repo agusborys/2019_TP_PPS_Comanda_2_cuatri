@@ -14,6 +14,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
+import { IonicStorageModule } from '@ionic/storage';
 
 // Modulos de Firebase
 // import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
@@ -55,6 +56,7 @@ import { FCM } from '@ionic-native/fcm/ngx';
   entryComponents: [],
   imports: [BrowserModule,
     IonicModule.forRoot(),
+    IonicStorageModule.forRoot(),
     AppRoutingModule,
     FormsModule,
     // Paginas
@@ -83,11 +85,11 @@ import { FCM } from '@ionic-native/fcm/ngx';
     StatusBar,
     SplashScreen,
     /* { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, */
-    
+
     //http descomentar si no funciona
 /*     HttpModule,
     HttpClientModule, */
-    
+
     // Servicios
     AuthService,
     FirebaseService,

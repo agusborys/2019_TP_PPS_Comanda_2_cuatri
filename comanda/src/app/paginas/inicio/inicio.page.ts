@@ -5,6 +5,7 @@ import { ConfiguracionPage } from '../configuracion/configuracion.page';
 import { ModalController, ToastController } from '@ionic/angular';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
+import { SonidosService } from '../../service/sonidos.service';
 
 @Component({
   selector: 'app-inicio',
@@ -13,17 +14,20 @@ import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service
 })
 export class InicioPage implements OnInit  {
 
-  private spinner:any=null;
-  public foto:string;
+  private spinner: any = null;
+  public foto: string;
+  public estaActivo: any;
   constructor(
     private authService: AuthService,
     public router: Router,
     private modalCtrl: ModalController,
     private toastCtrl: ToastController,
     private fcm: FCM,
-    private spinnerHand:SpinnerHandlerService) { 
+    private spinnerHand:SpinnerHandlerService,
+    private sonidos: SonidosService,
+  ) {
       this.foto = "";
-      
+
      }
 
   public cerrarSesion() {
@@ -41,14 +45,15 @@ export class InicioPage implements OnInit  {
     this.subscribirse();
     this.foto = this.authService.user.foto;
     this.spinner.dismiss();
-  } 
-  
+  }
+
    async ngOnInit() {
       await this.authService.buscarUsuario();
-      this.subscribirse(); 
-      this.foto = this.authService.user.foto; 
-      console.log("este es el usuario:" +this.foto);
-  } 
+      this.subscribirse();
+      this.foto = this.authService.user.foto;
+      // console.log("este es el usuario:" +this.foto);
+      this.estaActivo = this.sonidos.getActivo();
+  }
 
   public subscribirse(){
     /* Esta funcion toma el tipo de usuario y con un switch dicta a que push notification se va a subscribir */
@@ -81,7 +86,7 @@ export class InicioPage implements OnInit  {
       case 'bartender':
         console.log(tipo+" subscrito a Pedidos");
         this.fcm.subscribeToTopic('notificacionesPedidos');
-        break;      
+        break;
       default:
         break;
     }
@@ -96,5 +101,9 @@ export class InicioPage implements OnInit  {
     }).then(modal => {
       modal.present();
     });
+  }
+
+  controlSonidos(evento) {
+    this.sonidos.desactivarSonidos(evento.detail.checked);
   }
 }
