@@ -7,6 +7,7 @@ import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/s
 import { MesaKey } from 'src/app/clases/mesa';
 import { map } from 'rxjs/operators';
 import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
+//import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 @Component({
   selector: 'app-abm-mesa',
@@ -18,10 +19,12 @@ export class AbmMesaPage implements OnInit {
   private foto: string | boolean = false;
   private mesas: MesaKey[];
   private spinner: any = null;
+  //public qrGenerado: any = null;
+  
   constructor(
     private camera: Camera,
     private alertCtrl: AlertController,
-    /*  private scanner: BarcodeScanner, */
+    /* private scanner: BarcodeScanner, */
     private toastController: ToastController,
     private storage: AngularFireStorage,
     private firestore: AngularFirestore,
@@ -139,11 +142,13 @@ export class AbmMesaPage implements OnInit {
       .then(async (snapshot) => {
         datos.foto = await snapshot.ref.getDownloadURL();
         this.guardardatosDeProducto(datos);
+        /* this.generarQRmesa(this.formMesas.value.nromesaCtrl); */
       })
       .catch(() => {
         this.subidaErronea('Error al subir la foto, se canceló el alta.');
       });
       this.spinner.dismiss();
+      console.log(JSON.stringify(this.qrGenerado));
   }
 
   private guardardatosDeProducto(datos) {
@@ -196,4 +201,16 @@ export class AbmMesaPage implements OnInit {
     });
     toast.present();
   }
+
+/*   public generarQRmesa(nroMesa)
+  {
+    this.scanner.encode(this.scanner.Encode.TEXT_TYPE, nroMesa).then((encodedData) => {
+      //console.log(encodedData);
+      console.log(JSON.stringify(encodedData));
+      this.qrGenerado = encodedData;
+      alert("QR de la mesa cargada: " + encodedData);
+  }, (err) => {
+      console.log("Error occured : " + err);
+  });   
+  } */
 }
