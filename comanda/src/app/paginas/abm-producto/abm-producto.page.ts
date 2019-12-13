@@ -58,7 +58,7 @@ export class AbmProductoPage implements OnInit {
     this.camera.getPicture(options).then((imageData) => {
       this.fotos.unshift('data:image/jpeg;base64,' + imageData);
     }, (err) => {
-      this.subidaErronea(err);
+      this.subidaErronea("Se cerró la cámara");
     });
     this.spinner.dismiss();
   }

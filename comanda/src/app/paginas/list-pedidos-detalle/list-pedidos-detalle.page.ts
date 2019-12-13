@@ -282,12 +282,14 @@ export class ListPedidosDetallePage implements OnInit {
       message: '¿Desea confirmar como finalizado este pedido?',
       buttons: [
         {
+          cssClass:'button-Cancel',
           text: 'No',
           handler: () => {
             return true;
           }
         },
         {
+          cssClass:'button-Ok',
           text: 'Sí',
           handler: () => {
             this.cambiarEstado(d, estado);

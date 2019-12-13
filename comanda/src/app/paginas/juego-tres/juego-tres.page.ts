@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { PedidoKey } from 'src/app/clases/pedido';
+import { PedidoKey, VerificacionJuego } from 'src/app/clases/pedido';
 import { map } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
 import { ErrorHandlerService } from 'src/app/servicios/error-handler.service';
@@ -35,6 +35,9 @@ export class JuegoTresPage implements OnInit {
   
   private pedido : PedidoKey;
   private pedidos : PedidoKey[];
+  private verificacionesJuegos : VerificacionJuego[];
+  private verificacionJuego : VerificacionJuego;
+
   constructor(
     private router: Router,
     private firestore: AngularFirestore,
@@ -51,7 +54,8 @@ export class JuegoTresPage implements OnInit {
     this.inicio = false;
     this.fin = false;
     this.intentos = 4;
-
+    this.ganados = new Array();
+    this.intentoActual = new Array();
     firebase.auth().onAuthStateChanged(user => {
       this.currentUser = user;
       this.uidUsuario = user.uid;
@@ -72,6 +76,13 @@ export class JuegoTresPage implements OnInit {
       });
       console.log(this.pedido);
     });
+    this.traerVerificacionJuego().subscribe((d:VerificacionJuego[])=>{
+      this.verificacionesJuegos = d;
+      this.verificacionJuego = this.verificacionesJuegos.find((m:VerificacionJuego)=>{
+        return (m.id_pedido == this.pedido.key);
+      });
+      console.log(this.verificacionJuego);
+    });
     setTimeout(() => {
 
       this.ocultarIconos();
@@ -85,6 +96,16 @@ export class JuegoTresPage implements OnInit {
       .pipe(map((f) => {
         return f.map((a) => {
           const data = a.payload.doc.data() as PedidoKey;
+          data.key = a.payload.doc.id;
+          return data;
+        });
+      }));
+  }
+  private traerVerificacionJuego(){
+    return this.firestore.collection('verificacion-juegos').snapshotChanges()
+      .pipe(map((f)=>{
+        return f.map((a)=>{
+          const data = a.payload.doc.data() as VerificacionJuego;
           data.key = a.payload.doc.id;
           return data;
         });
@@ -268,14 +289,31 @@ export class JuegoTresPage implements OnInit {
       this.limpiarArrays();
     }, 1000)
 
-    if (this.ganados.length > 5 && this.intentos > 2) {
+    if (this.ganados.length > 5 && this.intentos > 1) {
       //alert('Ganaste');
-      this.errorHand.mostrarErrorSolo("Felicitaciones", "Has ganado una bebida gratis! Se te descontará al final de tu cuenta");
-      this.pedido.juegoBebida = true;
-      this.actualizarDoc("pedidos",this.pedido.key,this.pedido);
+      if(this.verificacionJuego.jugoBebida==false)
+      {
+        this.errorHand.mostrarErrorSolo("¡Felicitaciones!", "¡Has ganado una bebida gratis! Se te descontará al final de tu cuenta");
+        this.pedido.juegoBebida = true;
+        this.actualizarDoc("pedidos",this.pedido.key,this.pedido);
+      }
+      else{
+        this.errorHand.mostrarErrorSolo("¡Felicitaciones!", "¡Has ganado!");
+      }
+      
+      this.verificacionJuego.jugoBebida = true;
+      this.actualizarDoc("verificacion-juegos", this.verificacionJuego.key,this.verificacionJuego);
       setTimeout( () => {
-        this.router.navigateByUrl('inicio');
-      }, 2000)
+        this.router.navigateByUrl('qr-mesa');
+      }, 2000);
+    }
+    if(this.ganados.length<5 && this.intentos == 1){
+      this.errorHand.mostrarErrorSolo("¡Perdiste!", "La próxima vez será!");
+      this.verificacionJuego.jugoBebida = true;
+      this.actualizarDoc("verificacion-juegos", this.verificacionJuego.key,this.verificacionJuego);
+      setTimeout( () => {
+        this.router.navigateByUrl('qr-mesa');
+      }, 2000);
     }
   }
 

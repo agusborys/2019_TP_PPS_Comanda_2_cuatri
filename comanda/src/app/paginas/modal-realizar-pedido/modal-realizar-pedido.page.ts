@@ -58,6 +58,7 @@ export class ModalRealizarPedidoPage implements OnInit {
         this.actualizarMesa();
         // console.log('Ya tengo los detalles');
         await this.hacerPedidoDetalle(this.productosPedidos, doc.id);
+        await this.hacerVerificacionJuego(doc.id);
         this.verPedido(doc.id);
       });
     this.presentToast('Pedido generado.');
@@ -89,9 +90,18 @@ export class ModalRealizarPedidoPage implements OnInit {
       await this.firestore.collection('pedidoDetalle').add(pedido_detalle);
     }
   }
+  private async hacerVerificacionJuego(idPedido) {
+      const verificacionJuego: any = {
+        id_pedido: idPedido,
+        jugoDescuento: false,
+        jugoBebida: false,
+        jugoComida: false,
+      }
+      await this.firestore.collection('verificacion-juegos').add(verificacionJuego);
+  }
 
   public verPedido(pedido: string) {
-    this.router.navigate(['inicio']);
+    //this.router.navigate(['inicio']);
 
     // alert('La página de pedido no está implementada');
     this.modalCtrl.create({

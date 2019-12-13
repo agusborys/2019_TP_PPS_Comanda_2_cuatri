@@ -296,6 +296,7 @@ ion-card {
 .ion-card-50 {
   border-radius: 50px !important;
   width: 90%;
+  --background:whitesmoke;
 }
 ion-alert .alert-head{
   color: black!important;
@@ -314,7 +315,7 @@ ion-alert.alert-message{
 ion-alert.seleccionarAlert{
   --background:#edf7ee !important;
   text-align: left;
-  font-weight: bold;
+  //font-weight: bold;
   color: black;
   --width: 120%;
   font-size: 20px;
@@ -324,6 +325,10 @@ ion-alert.seleccionarAlert{
   //     color: white!important;
   //     background-color: #b71c1c;
   //   }
+  .alert-message{
+    font-size:20px;
+    color:black;
+  }
   .alert-button-group{
     color: black!important;
     background-color: #43a047;
@@ -342,11 +347,14 @@ ion-alert.seleccionarAlert{
     padding: 15px;
     color: black;
     margin-left: auto;
+    font-size:16px;
+    
   }
   .button-Cancel{
     background-color: #edf7ee;
     padding: 15px;
     color: black;
+    font-size:16px;
     //margin-right: auto;
   }
 }
@@ -402,6 +410,9 @@ ion-alert.avisoAlert{
   --highlight-height:0px;
   --border-width:0px;
   --padding-bottom:1px;
+  ion-input{
+    font-size: 18px;
+  }
 }
 ion-input{
   --padding-bottom:1px;

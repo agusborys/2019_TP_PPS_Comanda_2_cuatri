@@ -30,12 +30,28 @@
       </ion-item>
       <ion-item class="item2">
         <ion-label class="label-verde">Estado</ion-label>
-        <ion-input *ngIf="this.pedidoActual.estado=='creado'" value="Esperando a ser aceptado"></ion-input>
-        <ion-input *ngIf="this.pedidoActual.estado=='aceptado'" value="Aceptado por el mozo"></ion-input>
-        <ion-input *ngIf="this.pedidoActual.estado=='listoEntrega'" value="Listo para ser entregado"></ion-input>
-        <ion-input *ngIf="this.pedidoActual.estado=='entregado'" value="Entregado"></ion-input>
-        <ion-input *ngIf="this.pedidoActual.estado=='cuenta'" value="Cuenta pedida"></ion-input>
-        <ion-input *ngIf="this.pedidoActual.estado=='finalizado'" value="Finalizado"></ion-input>
+        <div *ngIf="this.pedidoActual.estado=='creado'">
+          <ion-input  value="Esperando a ser aceptado"></ion-input>
+        </div>
+        <div *ngIf="this.pedidoActual.estado=='aceptado'">
+          <ion-input  value="Aceptado por el mozo"></ion-input>
+        </div>
+        <div *ngIf="this.pedidoActual.estado=='listoEntrega'">
+          <ion-input  value="Listo para ser entregado"></ion-input>
+        </div>
+        <div *ngIf="this.pedidoActual.estado=='entregadoMozo'">
+          <ion-input  value="Entregado por el mozo"></ion-input>
+        </div>
+        <div *ngIf="this.pedidoActual.estado=='entregado'">
+          <ion-input  value="Entregado"></ion-input>
+        </div>
+        <div *ngIf="this.pedidoActual.estado=='cuenta'">
+          <ion-input  value="Cuenta pedida"></ion-input>
+        </div>
+        <div *ngIf="this.pedidoActual.estado=='finalizado'">
+          <ion-input  value="Finalizado"></ion-input>
+        </div>
+        
       </ion-item>
 
       <table class="table1">
@@ -81,7 +97,7 @@
           </td>
         </tr>
       </table>
-      <div style="font-size:22px;color:black;" *ngIf="arrayDecuentos.lenght > 0">
+      <div style="font-size:22px;color:black;" *ngIf="arrayDecuentos.length > 0">
           Descuentos!
       </div>
       <table class="table1">
@@ -114,10 +130,10 @@
         </tr>
       </table>
 
-      <ion-item *ngIf="this.verCuenta == false" class="item2">
+      <ion-item class="item2">
         <ion-label style="font-size: 22px;font-weight: bold;text-align: left;"
          class="label-verde">Total</ion-label>
-        <ion-input [value]="this.pedidoActual.preciototal | currency" 
+        <ion-input [value]="(this.manejarPrecioDescuento()) | currency" 
         style="font-size: 22px;font-weight: bold;text-align: right;" readonly></ion-input>
       </ion-item>
 
@@ -141,9 +157,15 @@
             [disabled]="this.pedidoActual.estado != 'cuenta' ||
             this.cliente == false">Escanear</ion-button>
         </ion-item>
+        <!-- <ion-item class="item2">
+          <ion-label>Total</ion-label>
+          <ion-input style="text-align: right;" [value]="this.pedidoActual.preciototal | currency"
+            readonly></ion-input>
+        </ion-item> -->
         <ion-item class="item2">
-          <ion-label>Total + Propina</ion-label>
-          <ion-input readonly
+          <ion-label class="label-verde" style="font-size: 22px;font-weight: bold;text-align: left;">
+            Total + Propina</ion-label>
+          <ion-input readonly style="font-size: 22px;font-weight: bold;text-align: right;"
             [value]="(this.manejarPrecioPropina()) | currency"></ion-input>
         </ion-item>
       </div>

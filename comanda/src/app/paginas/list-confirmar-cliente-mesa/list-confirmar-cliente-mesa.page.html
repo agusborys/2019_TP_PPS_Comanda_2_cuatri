@@ -22,16 +22,18 @@
 
           <ion-item class="item2">
             <ion-label class="label-verde">Perfil</ion-label>
-            <ion-input [value]="cliente.perfil" readonly></ion-input>
+            <ion-input *ngIf="cliente.perfil=='clienteAnonimo'" value="Cliente Anónimo" readonly></ion-input>
+            <ion-input *ngIf="cliente.perfil=='cliente'" value="Cliente" readonly></ion-input>
+            <ion-input *ngIf="cliente.perfil=='empleado'" value="Empleado" readonly></ion-input>
           </ion-item>
 
           <div class="width-100 center-horizontal center-vertical" style="background: whitesmoke;">
             <ion-button class="boton-info"
               (click)="this.mostrarCliente(cliente)">
-              <ion-icon name="add"></ion-icon>Info
+              <ion-icon name="add"></ion-icon>Información
             </ion-button>
           </div>
-          <div class="width-100 center-horizontal" style="background: whitesmoke;">
+          <div class="width-100  align-espaciado" style="background: whitesmoke;">
             <ion-button class="boton-confirmar"
               (click)="this.confirmarCliente(cliente.correo)">
               <ion-icon slot="icon-only" name="checkmark"></ion-icon>Asignar

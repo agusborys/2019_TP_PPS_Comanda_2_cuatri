@@ -66,7 +66,7 @@ export class EncuestaClientePage implements OnInit {
     this.camera.getPicture(options).then((imageData) => {
       this.fotos.unshift('data:image/jpeg;base64,' + imageData);
     }, (err) => {
-      this.subidaErronea(err);
+      this.subidaErronea("Ocurrió un error interno o se ha cerrado la cámara");
     });
     this.spinner.dismiss();
   }
@@ -77,7 +77,7 @@ export class EncuestaClientePage implements OnInit {
       color: 'danger',
       showCloseButton: false,
       position: 'bottom',
-      closeButtonText: 'Okay',
+      closeButtonText: 'Aceptar',
       duration: 2000
     });
     toast.present();
@@ -85,10 +85,10 @@ export class EncuestaClientePage implements OnInit {
 
   private async subidaExitosa(mensaje) {
     const alert = await this.alertCtrl.create({
-      header: 'Alert',
-      subHeader: 'Éxito',
+      header: 'Exito',
+      subHeader: 'Datos cargados correctamente',
       message: mensaje,
-      buttons: ['OK']
+      buttons: ['Aceptar']
     });
 
     await alert.present();
@@ -119,10 +119,10 @@ export class EncuestaClientePage implements OnInit {
 
   private async subidaErronea(mensaje: string) {
     const alert = await this.alertCtrl.create({
-      header: 'Alert',
-      subHeader: 'Error',
+      header: 'Error',
+      subHeader: 'Ocurrió un error',
       message: mensaje,
-      buttons: ['OK']
+      buttons: ['Aceptar']
     });
 
     await alert.present();

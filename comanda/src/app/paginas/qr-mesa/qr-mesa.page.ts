@@ -329,7 +329,7 @@ export class QrMesaPage implements OnInit {
       cssClass:'seleccionarAlert',
       buttons: [
         {
-          cssClass:'button-Ok',
+          cssClass:'button-Cancel',
           text: 'No',
           handler: () => {
             this.mesaAMostrar = null;
@@ -337,7 +337,7 @@ export class QrMesaPage implements OnInit {
           }
         },
         {
-          cssClass:'button-Cancel',
+          cssClass:'button-Ok',
           text: 'Sí',
           handler: () => {
             this.ocuparMesa();

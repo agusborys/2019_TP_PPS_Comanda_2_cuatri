@@ -8,7 +8,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import { map } from 'rxjs/operators';
-import { PedidoKey } from 'src/app/clases/pedido';
+import { PedidoKey, VerificacionJuego } from 'src/app/clases/pedido';
 import { ErrorHandlerService } from 'src/app/servicios/error-handler.service';
 // import { MesasService } from 'src/app/services/mesas/mesas.service';
 // import { EventService } from '../services/event/event.service';
@@ -25,6 +25,8 @@ export class JuegoPostrePage implements OnInit {
   public currentUser: firebase.User;
   uidUsuario: any;
 
+  private verificacionesJuegos : VerificacionJuego[];
+  private verificacionJuego : VerificacionJuego;
   private pedido : PedidoKey;
   private pedidos : PedidoKey[];
   private startDelay = 1000;
@@ -125,6 +127,13 @@ export class JuegoPostrePage implements OnInit {
       });
       console.log(this.pedido);
     });
+    this.traerVerificacionJuego().subscribe((d:VerificacionJuego[])=>{
+      this.verificacionesJuegos = d;
+      this.verificacionJuego = this.verificacionesJuegos.find((m:VerificacionJuego)=>{
+        return (m.id_pedido == this.pedido.key);
+      });
+      console.log(this.verificacionJuego);
+    });
   }
   public traerPedidos() {
     return this.firestore.collection('pedidos').snapshotChanges()
@@ -136,9 +145,20 @@ export class JuegoPostrePage implements OnInit {
         });
       }));
   }
+  private traerVerificacionJuego(){
+    return this.firestore.collection('verificacion-juegos').snapshotChanges()
+      .pipe(map((f)=>{
+        return f.map((a)=>{
+          const data = a.payload.doc.data() as VerificacionJuego;
+          data.key = a.payload.doc.id;
+          return data;
+        });
+      }));
+  }
   private actualizarDoc(db: string, key: string, data: any) {
     return this.firestore.collection(db).doc(key).update(data);
   }
+
   // Comienzo del Juego - Julián
   onStart() {
     if (this.canStart) {
@@ -245,11 +265,22 @@ export class JuegoPostrePage implements OnInit {
         setTimeout(() => {
           // GANASTE EL JUEGO - Julián
           //alert('Felicitaciones Ganaste! Tenes un postre gratis!!!');
-          this.errorHand.mostrarErrorSolo("Felicitaciones", "Has ganado un postre gratis! Se te descontará al final de tu cuenta");
+          
           this.msg = 'Excelente. Ganaste!';
           this.isStart = true;
-          this.pedido.juegoComida = true;
-          this.actualizarDoc("pedidos",this.pedido.key,this.pedido);
+          
+          if(this.verificacionJuego.jugoComida == false){
+            this.errorHand.mostrarErrorSolo("Felicitaciones", "Has ganado un postre gratis! Se te descontará al final de tu cuenta");
+            this.pedido.juegoComida = true;
+            this.actualizarDoc("pedidos",this.pedido.key,this.pedido);
+            this.verificacionJuego.jugoComida = true;
+            this.actualizarDoc("verificacion-juegos", this.verificacionJuego.key,this.verificacionJuego);
+          }
+          else{
+            this.errorHand.mostrarErrorSolo("Felicitaciones", "Has ganado!");
+          }
+          this.verificacionJuego.jugoComida = true;
+          this.actualizarDoc("verificacion-juegos", this.verificacionJuego.key,this.verificacionJuego);
           //////////////////////////////////////////////////////////////////////// hacer el alta
           // this.mesas.forEach(element => {////////////////////SI EL CLIENTE ESTA SENTADO EN ALGUNA MESA
           //   if (element.cliente == this.uidUsuario)
@@ -281,8 +312,10 @@ export class JuegoPostrePage implements OnInit {
       if (!this.isStrict) {
         // Normal mode: Replay at current level
         setTimeout(() => {
-          this.errorHand.mostrarErrorSolo("Perdiste!","La próxima vez será!");
+          //this.errorHand.mostrarErrorSolo("Perdiste1!","La próxima vez será!");
           this.msg = 'Error! Perdiste.';
+          //this.verificacionJuego.jugoDescuento = true;
+          //this.actualizarDoc("verificacion-juegos", this.verificacionJuego.key,this.verificacionJuego);
         }, 1500);
 
         setTimeout(() => {
@@ -294,6 +327,8 @@ export class JuegoPostrePage implements OnInit {
         setTimeout(() => {
           this.errorHand.mostrarErrorSolo("Perdiste!","La próxima vez será!");
           this.msg = 'Error! Perdiste.';
+          //this.verificacionJuego.jugoDescuento = true;
+          //this.actualizarDoc("verificacion-juegos", this.verificacionJuego.key,this.verificacionJuego);
         }, 1000);
 
         setTimeout(() => {
@@ -302,7 +337,9 @@ export class JuegoPostrePage implements OnInit {
 
           // PERDISTE
           // ACA SE SALE DEL JUEGO - Julián
-          this.errorHand.mostrarErrorSolo("Perdiste!","La próxima vez será!");
+          //this.errorHand.mostrarErrorSolo("Perdiste!3","La próxima vez será!");
+          this.verificacionJuego.jugoComida = true;
+          this.actualizarDoc("verificacion-juegos", this.verificacionJuego.key,this.verificacionJuego);
           this.router.navigateByUrl('qr-mesa');
         }, 3000);
 

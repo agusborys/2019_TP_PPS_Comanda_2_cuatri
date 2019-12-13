@@ -66,15 +66,20 @@
                         <ion-icon name="checkmark-circle-outline"></ion-icon>Registrar</ion-button>
                 </div>
     </div>
-
-    <div [hidden]="ocultarSeccion2" class="width-100 center-horizontal">
-        <ion-button class="botones-registro" (click)="this.SacarFoto()" style="width: 100%; height: 60px;">
-            Sacar foto</ion-button>
+    <div [hidden]="ocultarSeccion2" class="width-100 height-100 margin-top-9">
+        <ion-button expand="block" class="botones-grandes" (click)="this.SacarFoto()" >
+            Sacar foto
+        </ion-button>
+        <ion-button expand="block" class="botones-grandes" (click)="SinFoto()" >
+            Sin foto
+        </ion-button>
+    </div>
+    <!-- <div [hidden]="ocultarSeccion2" class="width-100 center-horizontal">
+        
     </div>
     <div [hidden]="ocultarSeccion2" class="width-100 center-horizontal">
-        <ion-button class="botones-registro" (click)="SinFoto()" style="width: 100%; height: 60px;">
-            Sin foto</ion-button>
-    </div>
+        
+    </div> -->
 
     <div [hidden]="ocultarSeccion1" class="width-100 center-horizontal">
         <ion-button style="width: 120px;" class="botones-registro" (click)="Volver()">

@@ -48,24 +48,20 @@
           <ion-item class="ion-no-padding item2">
             <ion-label class="label-verde" class="ion-text-center" style="font-weight: bold">Juegos para descuentos</ion-label>
           </ion-item>
-          <div *ngIf="this.pedido.juegoComida == false">
-            <ion-button class="boton-realizar" routerLink="/juego-postre" size="large">
-            <ion-icon name="logo-game-controller-b"></ion-icon>
-            Postre gratis
+          
+          <ion-button class="boton-realizar" routerLink="/juego-postre" size="large">
+          <ion-icon name="logo-game-controller-b"></ion-icon>
+          Postre gratis
           </ion-button>
-          </div>
-          <div *ngIf="this.pedido.juegoDescuento == false">
-            <ion-button class="boton-realizar" routerLink="/juego-descuento" size="large">
-              <ion-icon name="logo-game-controller-b"></ion-icon>
-              10% de descuento
-            </ion-button>
-          </div>
-          <div *ngIf="this.pedido.juegoBebida == false">
-            <ion-button class="boton-realizar" routerLink="/juego-tres" size="large">
-              <ion-icon name="logo-game-controller-b"></ion-icon>
-              Bebida gratis
-            </ion-button>
-          </div>
+          <ion-button class="boton-realizar" routerLink="/juego-descuento" size="large">
+            <ion-icon name="logo-game-controller-b"></ion-icon>
+            10% de descuento
+          </ion-button> 
+          <ion-button class="boton-realizar" routerLink="/juego-tres" size="large">
+            <ion-icon name="logo-game-controller-b"></ion-icon>
+            Bebida gratis
+          </ion-button>
+          
         </div>
         </div>
       </ion-card-content>

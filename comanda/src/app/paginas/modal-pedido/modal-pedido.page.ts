@@ -45,9 +45,12 @@ export class ModalPedidoPage implements OnInit {
     this.cliente = this.authService.tipoUser === 'cliente' || this.authService.tipoUser === 'anonimo' ? true : false;
     this.traerPedido();
     this.spinner.dismiss();
+    
     //this.traerPedidoDetalle();
-    
-    
+  }
+  ionViewDidEnter(){
+    this.cliente = this.authService.tipoUser === 'cliente' || this.authService.tipoUser === 'anonimo' ? true : false;
+    this.traerPedido();
   }
   
 
@@ -105,7 +108,7 @@ export class ModalPedidoPage implements OnInit {
             this.bebidaGratis.estado = e.estado;
             this.bebidaGratis.id_pedido = e.id_pedido;
             this.arrayDecuentos.push(this.bebidaGratis);
-            this.pedidoActual.preciototal = this.pedidoActual.preciototal - this.bebidaGratis.precio;
+            //this.pedidoActual.preciototal = this.pedidoActual.preciototal - this.bebidaGratis.precio;
             break;
           }
         }
@@ -122,7 +125,7 @@ export class ModalPedidoPage implements OnInit {
             this.postreGratis.estado = e.estado;
             this.postreGratis.id_pedido = e.id_pedido;
             this.arrayDecuentos.push(this.postreGratis);
-            this.pedidoActual.preciototal = this.pedidoActual.preciototal - this.postreGratis.precio;
+            //this.pedidoActual.preciototal = this.pedidoActual.preciototal - this.postreGratis.precio;
             break;
           }
         }  
@@ -135,7 +138,7 @@ export class ModalPedidoPage implements OnInit {
         this.descuento_10.estado = "listoEntrega";
         this.descuento_10.precio = this.pedidoActual.preciototal * 0.1;
         this.arrayDecuentos.push(this.descuento_10);
-        this.pedidoActual.preciototal = this.pedidoActual.preciototal - this.descuento_10.precio;
+        //this.pedidoActual.preciototal = this.pedidoActual.preciototal - this.descuento_10.precio;
       }
     }
     
@@ -157,9 +160,21 @@ export class ModalPedidoPage implements OnInit {
   }
 
   public manejarPrecioPropina(total?: number, propina?: number) {
-    const precioTotal: number = total === undefined ? this.pedidoActual.preciototal : total;
+    const precioTotal: number = total === undefined ? this.manejarPrecioDescuento() : total;
     const agregadoPropina: number = ((propina === undefined ? this.pedidoActual.propina : propina) / 100) * precioTotal;
     return precioTotal + agregadoPropina;
+  }
+  public manejarPrecioDescuento(total?:number)
+  {
+    let precioTotal: number = total === undefined ? this.pedidoActual.preciototal : total;
+    if(this.arrayDecuentos.length>0)
+    {
+      for(let des of this.arrayDecuentos)
+      {
+        precioTotal = precioTotal - des.precio;
+      }
+    }
+    return precioTotal;
   }
 
   public cambiarPropina() {
@@ -194,9 +209,10 @@ export class ModalPedidoPage implements OnInit {
 
   private async mostrarAlert(header, message) {
     await this.alertCtrl.create({
+      cssClass:'seleccionarAlert',
       header,
       message,
-      buttons: ['OK']
+      buttons: ['Aceptar']
     }).then(alert => {
       alert.present();
     });
@@ -207,16 +223,20 @@ export class ModalPedidoPage implements OnInit {
       header: `Propina seleccionada: ${propina}%`,
       subHeader: '¿Confirmar propina?',
       message: `Su precio total pasará de ser $${anterior} a ser $${total}`,
+      cssClass:'seleccionarAlert',
       buttons: [
         {
+          cssClass:'button-Cancel',
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => { }
+        },
+        {
+          cssClass:'button-Ok',
           text: 'Confirmar',
           handler: () => {
             this.actualizarPropina(propina);
           }
-        }, {
-          text: 'Cancelar',
-          role: 'cancel',
-          handler: () => { }
         }
       ]
     }).then(alert => {

@@ -40,3 +40,10 @@ export interface PedidoKey {
     juegoComida: boolean;
     propina: number;
 }
+export interface VerificacionJuego{
+    key:string;
+    id_pedido:string;
+    jugoBebida:boolean;
+    jugoDescuento:boolean;
+    jugoComida:boolean;
+}

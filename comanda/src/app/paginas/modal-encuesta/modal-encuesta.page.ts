@@ -46,7 +46,7 @@ export class ModalEncuestaPage implements OnInit {
       puntualidadCtrl: new FormControl(this.tipo === 'empleado' ? 'puntual' : false, Validators.required),
       cantComensalesCtrl: new FormControl(this.tipo === 'cliente' ? 1 : false, Validators.required),
       valoracionCtrl: new FormControl(5, Validators.required),
-      comentarioCtrl: new FormControl('', Validators.required),
+      comentarioCtrl: new FormControl('', ),
       recomendacionCtrl: new FormControl(this.tipo === 'empleado' ? '' : false, Validators.required),
       frequenciaCtrl: new FormControl(this.tipo === 'cliente' ? '' : false, Validators.required),
     });
@@ -72,17 +72,17 @@ export class ModalEncuestaPage implements OnInit {
       color: 'danger',
       showCloseButton: false,
       position: 'bottom',
-      closeButtonText: 'Okay',
+      closeButtonText: 'Aceptar',
       duration: 2000
     });
     toast.present();
   }
 
   public enviarEncuesta() {
-    if (this.formEncuesta.value.comentarioCtrl === '') {
-      this.mostrarFaltanDatos('El comentario es requerido.');
-      return true;
-    }
+    // if (this.formEncuesta.value.comentarioCtrl === '') {
+    //   this.mostrarFaltanDatos('El comentario es requerido.');
+    //   return true;
+    // }
     if (this.formEncuesta.value.recomendacionCtrl === '') {
       this.mostrarFaltanDatos('Falta determinar la recomendación.');
       return true;
@@ -149,10 +149,10 @@ export class ModalEncuestaPage implements OnInit {
 
   private async subidaExitosa(mensaje) {
     const alert = await this.alertCtrl.create({
-      header: 'Alert',
-      subHeader: 'Éxito',
+      header: 'Exito',
+      subHeader: 'Los datos se han cargado correctamente',
       message: mensaje,
-      buttons: ['OK']
+      buttons: ['Aceptar']
     });
 
     await alert.present();
@@ -163,10 +163,10 @@ export class ModalEncuestaPage implements OnInit {
 
   private async subidaErronea(mensaje: string) {
     const alert = await this.alertCtrl.create({
-      header: 'Alert',
-      subHeader: 'Error',
+      header: 'Error',
+      subHeader: 'Ocurrió un error',
       message: mensaje,
-      buttons: ['OK']
+      buttons: ['Aceptar']
     });
 
     await alert.present();
