@@ -35,7 +35,7 @@ export class ConfirmarCierreMesaPage implements OnInit {
         });
 
         return auxR.filter(p => {
-          return p.estado === 'cuenta';
+          return p.estado === 'pagado';
         });
       }));
   }
