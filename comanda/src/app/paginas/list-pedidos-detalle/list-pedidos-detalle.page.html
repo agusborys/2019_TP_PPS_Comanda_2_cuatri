@@ -4,53 +4,79 @@
       <ion-back-button color="dark" defaultHref="inicio"></ion-back-button>
     </ion-buttons>
     <ion-title class="titulo-header">
-        <ion-icon name="bookmarks"></ion-icon>Pedidos pendientes <!-- Bartenders, etc -->
+        Pedidos pendientes <!-- Bartenders, etc -->
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div *ngIf="this.pedidoDetalle.length>0">
-    <div *ngFor="let d of this.pedidoDetalle">
-      <ion-card [ngClass]="{ 'cardType_1': (d.estado == 'aceptado') ,
-        'cardType_2': (d.estado == 'preparacion'), 'cardType_3': (d.estado ==
-        'listoEntrega')}">
-        <ion-item class="item2">
-          <ion-label class="label-verde" position="floating">Cantidad</ion-label>
-          <br>
-          <ion-input  readonly [value]="d.cantidad"></ion-input>
-          <br>
-          <ion-label class="label-verde" position="floating">Producto</ion-label>
-          <br>
-          <ion-input  readonly [value]="d.producto"></ion-input>
-          <br>
-          <ion-label class="label-verde" position="floating">Estado</ion-label>
-          <br>
-          <ion-input  readonly [value]="d.estado"></ion-input>
-          <br>
-          <div class="width-100 align-between">
-            <!-- <ion-button color="primary"
-            (click)="this.cambiarEstado(d, 'aceptado')">
-            <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
-          </ion-button> -->
-            <ion-button class="button_preparar"
-              [disabled]="d.estado != 'aceptado'"
-              (click)="this.cambiarEstado(d, 'preparacion')">
-              <ion-icon name="stopwatch"></ion-icon>
-              Preparar
-              <!-- <ion-icon slot="start" name="play">Preparar</ion-icon> -->
-            </ion-button>
-            <ion-button class="button_listo"
-              [disabled]="d.estado != 'preparacion'"
-              (click)="this.presentAlertConfirmarEntrega(d, 'listoEntrega')">
-              <ion-icon name="checkmark-circle-outline"></ion-icon>
-              Entregar
-              <!-- <ion-icon slot="start" name="checkmark">Entregar</ion-icon> -->
-            </ion-button>
-          </div>
-        </ion-item>
-      </ion-card>
+    
+    
+    <div *ngFor="let p of this.pedidos">
+      <div *ngIf="p.estado == 'aceptado'">
+      <ion-item class="item-titulo" > 
+        <ion-label class="label-negro">Mesa de pedido</ion-label>
+        <ion-input  readonly [value]="p.mesa"></ion-input>
+      </ion-item>
+      <ion-item class="item-titulo">
+        <ion-label class="label-negro">Hora del pedido</ion-label>
+        <ion-input  readonly [value]="p.fecha | date: 'HH:mm  dd/MM/yy'"></ion-input>
+      </ion-item>
+        
+      <div *ngFor="let d of this.pedidoDetalle">
+        <div *ngIf="p.key==d.id_pedido">
+          <ion-card [ngClass]="{ 'cardType_1': (d.estado == 'aceptado') ,
+            'cardType_2': (d.estado == 'preparacion'), 'cardType_3': (d.estado ==
+            'listoEntrega')}">
+            <ion-item class="item2">
+              <ion-label class="label-verde">Producto</ion-label>
+              <ion-input  readonly [value]="d.producto | titlecase"></ion-input>
+            </ion-item>
+            <ion-item class="item2">
+              <ion-label class="label-verde">Cantidad</ion-label> 
+              <ion-input  readonly [value]="d.cantidad"></ion-input>
+            </ion-item>
+            <div *ngFor="let prod of this.productos">
+              <div *ngIf="prod.nombre==d.producto">
+                <ion-item class="item2" > 
+                  <ion-label class="label-verde">Tiempo de preparación</ion-label>
+                  <ion-input  readonly [value]="prod.tiempo * d.cantidad + ' minutos'"></ion-input>
+                </ion-item>
+              </div>
+            </div>
+            <ion-item class="item2">
+              <ion-label class="label-verde">Estado</ion-label>  
+              <ion-input *ngIf="d.estado=='aceptado'" readonly value="En cola para preparación"></ion-input>
+              <ion-input *ngIf="d.estado=='preparacion'" readonly value="En preparación"></ion-input>
+              <ion-input *ngIf="d.estado=='listoEntrega'" readonly value="Listo para entregar"></ion-input>
+            </ion-item>   
+              <br>
+              <div class="width-100 align-espaciado">
+                <!-- <ion-button color="primary"
+                (click)="this.cambiarEstado(d, 'aceptado')">
+                <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+              </ion-button> -->
+                <ion-button class="button_preparar"
+                  [disabled]="d.estado != 'aceptado'"
+                  (click)="this.cambiarEstado(d, 'preparacion')">
+                  <ion-icon name="stopwatch"></ion-icon>
+                  Preparar
+                  <!-- <ion-icon slot="start" name="play">Preparar</ion-icon> -->
+                </ion-button>
+                <ion-button class="button_listo"
+                  [disabled]="d.estado != 'preparacion'"
+                  (click)="this.presentAlertConfirmarEntrega(d, 'listoEntrega')">
+                  <ion-icon name="checkmark-circle-outline"></ion-icon>
+                  Entregar
+                  <!-- <ion-icon slot="start" name="checkmark">Entregar</ion-icon> -->
+                </ion-button>
+              </div>
+          </ion-card>
+        </div>
+      </div>
     </div>
+  </div>
   </div>
   <div *ngIf="this.pedidoDetalle.length==0">
     <ion-card style="background-color:whitesmoke; border-radius: 20px;">

@@ -4,7 +4,7 @@
       <ion-back-button color="dark" defaultHref="inicio"></ion-back-button>
     </ion-buttons>
     <ion-title class="titulo-header">
-        <ion-icon name="clipboard"></ion-icon>Encuesta <!-- Empleado -->
+        Encuesta <!-- Empleado -->
     </ion-title>
     <ion-buttons slot="end">
       <ion-button color="dark" size="small" (click)="this.enviarEncuesta()" style="text-transform: unset;">
@@ -56,8 +56,8 @@
           <ion-item-divider class="tabla1">
             <h6 class="tabla1-cont">Limpieza del lugar</h6>
           </ion-item-divider>
-          <ion-item class="itemc">
-            <ion-select class="selecter" formControlName="limpiezaCtrl" value="limpio">
+          <ion-item  class="itemc">
+            <ion-select interface="popover" class="selecter" formControlName="limpiezaCtrl" value="limpio">
               <ion-select-option value="impecable">Impecable</ion-select-option>
               <ion-select-option value="limpio" selected>Limpio</ion-select-option>
               <ion-select-option value="sucio">Sucio</ion-select-option>

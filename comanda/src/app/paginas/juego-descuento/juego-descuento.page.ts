@@ -6,7 +6,7 @@ import 'firebase/auth';
 import 'firebase/firestore';
 // import { MesasService } from 'src/app/services/mesas/mesas.service';
 import { Router } from '@angular/router';
-import { PedidoKey } from 'src/app/clases/pedido';
+import { PedidoKey, VerificacionJuego } from 'src/app/clases/pedido';
 import { ErrorHandlerService } from 'src/app/servicios/error-handler.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
@@ -38,9 +38,11 @@ export class JuegoDescuentoPage implements OnInit {
 
     // Creamos un array para guardar las letras que se van seleccionando.
     controlLetras = new Array;
-    
+
     private pedido : PedidoKey;
     private pedidos : PedidoKey[];
+    private verificacionesJuegos : VerificacionJuego[];
+    private verificacionJuego : VerificacionJuego;
     constructor(
       public navCtrl: NavController,
       private router: Router,
@@ -53,7 +55,6 @@ export class JuegoDescuentoPage implements OnInit {
         this.currentUser = user;
         this.uidUsuario = user.uid
       });
-
       // this.mesasService.TraerMesas().subscribe(data => {
       //
       //   this.mesas = data.map(e => {
@@ -198,6 +199,8 @@ export class JuegoDescuentoPage implements OnInit {
         //this.mensaje = 'Perdiste!, Inténtalo de nuevo. Has conseguido un total de ' + this.puntos + ' puntos. La palabra secreta es ' + this.nombreSecreto;
         this.mensaje = 'Perdiste!. La próxima será..'
         this.errorHand.mostrarErrorSolo("Perdiste!","La próxima vez será!");
+        this.verificacionJuego.jugoDescuento = true;
+        this.actualizarDoc("verificacion-juegos", this.verificacionJuego.key,this.verificacionJuego);
       }
 
       // Ganador
@@ -210,9 +213,18 @@ export class JuegoDescuentoPage implements OnInit {
         // });
         this.mensaje = 'Enhorabuena!, Has acertado la palabra secreta. Has conseguido un 10% de descuento en tu cuenta.';
         this.ganador = 1;
-        this.errorHand.mostrarErrorSolo("Felicitaciones!","Has acertado la palabra secreta. Has conseguido un 10% de descuento en tu cuenta.");
-        this.pedido.juegoDescuento = true;
-        this.actualizarDoc("pedidos",this.pedido.key,this.pedido);
+
+        if(this.verificacionJuego.jugoDescuento == false)
+        {
+          this.errorHand.mostrarErrorSolo("Felicitaciones!","Has acertado la palabra secreta. Has conseguido un 10% de descuento en tu cuenta.");
+          this.pedido.juegoDescuento = true;
+          this.actualizarDoc("pedidos",this.pedido.key,this.pedido);
+        }
+        else{
+          this.errorHand.mostrarErrorSolo("Felicitaciones!","Has acertado la palabra secreta.");
+        }
+        this.verificacionJuego.jugoDescuento = true;
+        this.actualizarDoc("verificacion-juegos", this.verificacionJuego.key,this.verificacionJuego);
 //        console.log("codigo mesa:" + this.codigo);
         // console.log("codigo" + this.codigoMesa);
 
@@ -225,7 +237,7 @@ export class JuegoDescuentoPage implements OnInit {
 
       setTimeout(() => {
 
-        this.router.navigateByUrl('inicio');
+        this.router.navigateByUrl('qr-mesa');
 
       }, 2500);
     }
@@ -244,15 +256,22 @@ export class JuegoDescuentoPage implements OnInit {
   ngOnInit() {
     this.traerPedidos().subscribe((d: PedidoKey[]) => {
       this.pedidos = d;
-      console.log(this.currentUser.email, this.pedidos);
+      // console.log(this.currentUser.email, this.pedidos);
       this.pedido = this.pedidos.find((m:PedidoKey) => {
         if(m.cliente === this.currentUser.email && (m.estado=="aceptado" || m.estado=="entregado"))
         {
           return true;
         }
-        return false; 
+        return false;
       });
-      console.log(this.pedido);
+      // console.log(this.pedido);
+    });
+    this.traerVerificacionJuego().subscribe((d:VerificacionJuego[])=>{
+      this.verificacionesJuegos = d;
+      this.verificacionJuego = this.verificacionesJuegos.find((m:VerificacionJuego)=>{
+        return (m.id_pedido == this.pedido.key);
+      });
+      // console.log(this.verificacionJuego);
     });
   }
   public traerPedidos() {
@@ -267,6 +286,16 @@ export class JuegoDescuentoPage implements OnInit {
   }
   private actualizarDoc(db: string, key: string, data: any) {
     return this.firestore.collection(db).doc(key).update(data);
+  }
+  private traerVerificacionJuego(){
+    return this.firestore.collection('verificacion-juegos').snapshotChanges()
+      .pipe(map((f)=>{
+        return f.map((a)=>{
+          const data = a.payload.doc.data() as VerificacionJuego;
+          data.key = a.payload.doc.id;
+          return data;
+        });
+      }));
   }
   volver() {
     // this.limpiarArrays();

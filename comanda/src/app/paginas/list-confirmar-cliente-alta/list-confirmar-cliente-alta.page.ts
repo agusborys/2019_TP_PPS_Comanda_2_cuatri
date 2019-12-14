@@ -79,7 +79,7 @@ export class ListConfirmarClienteAltaPage implements OnInit {
       color,
       showCloseButton: false,
       position: 'top',
-      closeButtonText: 'Done',
+      closeButtonText: 'Aceptar',
       duration: 3000
     });
     toast.present();

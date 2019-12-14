@@ -60,7 +60,7 @@ export class ConfirmarEntregaMozoPage implements OnInit {
       color,
       showCloseButton: false,
       position: 'bottom',
-      closeButtonText: 'Done',
+      closeButtonText: 'Aceptar',
       duration: 2000
     }).then(toast => {
       toast.present();

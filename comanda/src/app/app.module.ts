@@ -14,6 +14,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
+import { IonicStorageModule } from '@ionic/storage';
 
 // Modulos de Firebase
 // import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
@@ -36,6 +37,8 @@ import { ModalPedidoPageModule } from './paginas/modal-pedido/modal-pedido.modul
 import { ModalClientePageModule } from './paginas/modal-cliente/modal-cliente.module';
 import { EncuestaClientePageModule } from './paginas/encuesta-cliente/encuesta-cliente.module';
 import { ConfiguracionPageModule } from './paginas/configuracion/configuracion.module';
+import { ModalRealizarPedidoPageModule } from './paginas/modal-realizar-pedido/modal-realizar-pedido.module';
+
 // Servicios
 import { AuthService } from './servicios/auth.service';
 import { FirebaseService } from './servicios/firebase.service';
@@ -53,6 +56,7 @@ import { FCM } from '@ionic-native/fcm/ngx';
   entryComponents: [],
   imports: [BrowserModule,
     IonicModule.forRoot(),
+    IonicStorageModule.forRoot(),
     AppRoutingModule,
     FormsModule,
     // Paginas
@@ -68,7 +72,7 @@ import { FCM } from '@ionic-native/fcm/ngx';
     ModalPedidoPageModule,
     ModalClientePageModule,
     ConfiguracionPageModule,
-
+    ModalRealizarPedidoPageModule,
     // AngularFire
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
@@ -81,11 +85,11 @@ import { FCM } from '@ionic-native/fcm/ngx';
     StatusBar,
     SplashScreen,
     /* { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, */
-    
+
     //http descomentar si no funciona
 /*     HttpModule,
     HttpClientModule, */
-    
+
     // Servicios
     AuthService,
     FirebaseService,

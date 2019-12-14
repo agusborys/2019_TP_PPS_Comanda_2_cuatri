@@ -1,6 +1,6 @@
 export class CajaSonido
 {
-    constructor(){}
+    constructor() {}
 
     ReproducirSelecionar()
     {
@@ -9,7 +9,7 @@ export class CajaSonido
       audio.load();
       audio.play();
     }
-  
+
     ReproducirVolver()
     {
       let audio = new Audio();
@@ -17,7 +17,7 @@ export class CajaSonido
       audio.load();
       audio.play();
     }
-  
+
     ReproducirBorrar()
     {
       let audio = new Audio();
@@ -25,7 +25,7 @@ export class CajaSonido
       audio.load();
       audio.play();
     }
-  
+
     ReproducirGuardar()
     {
       let audio = new Audio();

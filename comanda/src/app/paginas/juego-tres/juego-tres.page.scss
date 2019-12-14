@@ -10,13 +10,13 @@
 .contenedor {
   background: #c8e6c9;
   width: 45vw;
-  height: 45vw;
+  height: 35vw;
   border: 1px solid #1b5e20;
   float: left;
   position: relative;
 }
 
-ion-icon {
+.icon {
   font-size: 40px;
   position: absolute;
   margin: auto;
@@ -24,4 +24,24 @@ ion-icon {
   right: 0;
   bottom: 0;
   left: 0;
+}
+.item2
+{
+    --background: transparent;
+    //font-weight: bold;
+    color: rgb(0, 0, 0);
+    width: 100%;
+    text-align: left;
+    --border-width: 0px ;
+    //--border-color: #43a047;
+    margin-left: auto;
+    margin-right: auto;
+    ion-input{
+        text-align: left;
+        font-size: 24px;
+    }
+}
+.label-verde{
+    color:black;
+    font-size: 24px;
 }

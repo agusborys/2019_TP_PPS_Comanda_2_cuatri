@@ -4,7 +4,7 @@
       <ion-back-button color="dark" defaultHref="inicio"></ion-back-button>
     </ion-buttons>
     <ion-title class="titulo-header">
-        <ion-icon name="create"></ion-icon>Alta de Producto
+      Alta de Producto
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -27,38 +27,33 @@
 
       <ion-item class="inputs">
         <ion-label position="floating">Nombre</ion-label>
-        <br>
         <ion-input  formControlName="nombreCtrl" type="text"></ion-input>
       </ion-item>
 
       <ion-item class="inputs">
         <ion-label position="floating">Descripción</ion-label>
-        <br>
         <ion-input  formControlName="descCtrl" type="text"></ion-input>
       </ion-item>
 
       <ion-item class="inputs">
-        <ion-label position="floating">Tiempo</ion-label>
-        <br>
+        <ion-label position="floating">Tiempo (minutos)</ion-label>
         <ion-input  formControlName="tiempoCtrl" type="number"></ion-input>
       </ion-item>
 
       <ion-item class="inputs">
         <ion-label position="floating">Precio</ion-label>
-        <br>
         <ion-input  formControlName="precioCtrl" type="number"></ion-input>
       </ion-item>
 
-      <ion-item class="inputs">
+      <!-- <ion-item class="inputs">
           <ion-label position="floating">Perfil de Visualización</ion-label>
           <br>
           <ion-select  class="selecter" formControlName="quienPuedeverCtrl">
-          <!-- <ion-select-option value="mozo">Mozo</ion-select-option> -->
             <ion-select-option value="bartender">Bartender</ion-select-option>
             <ion-select-option value="candybar">Candybar</ion-select-option>
             <ion-select-option value="cocinero">Cocinero</ion-select-option>
         </ion-select>
-      </ion-item >
+      </ion-item > -->
 
       <div class="align-text-center">
         <ion-button class="botones-registro" [disabled]="this.fotos.length >= 3"

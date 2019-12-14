@@ -57,10 +57,10 @@ export class ListPedidosDetallePage implements OnInit {
       "restricted_package_name": ""
     };
 
-    console.log("Data: ", data);
+    // console.log("Data: ", data);
 
     return this.http.post(this.apiFCM, data, options).pipe(map(res => res.json())).subscribe(result => {
-      console.log(result);
+      // console.log(result);
     });
   }
 
@@ -74,7 +74,7 @@ export class ListPedidosDetallePage implements OnInit {
   //#endregion
 
   async ngOnInit() {
-    
+
     this.pedidos = new Array<PedidoKey>();
     this.pedidoDetalle = new Array<PedidoDetalleKey>();
     this.productos = new Array<ProductoKey>();
@@ -84,10 +84,22 @@ export class ListPedidosDetallePage implements OnInit {
     this.inicializarPedidos();
     this.spinner.dismiss();
   }
-
+  async ionViewDidEnter(){
+    this.pedidos = new Array<PedidoKey>();
+    this.pedidoDetalle = new Array<PedidoDetalleKey>();
+    this.productos = new Array<ProductoKey>();
+    // this.spinner = await this.spinnerHand.GetAllPageSpinner();
+    // this.spinner.present();
+    await this.authServ.buscarUsuario();
+    this.inicializarPedidos();
+    this.spinner.dismiss();
+    // console.log("Pedido detalle:",this.pedidoDetalle);
+    // console.log("Pedidos", this.pedidos);
+    // console.log("productos",this.productos);
+  }
   public async inicializarPedidos() {
     try {
-      await this.traerPedidos().subscribe((p: PedidoKey[]) => {
+       await this.traerPedidos().subscribe((p: PedidoKey[]) => {
         this.pedidos = p.filter((pe: PedidoKey) => {
           // console.log(pe.estado);
           const auxReturn = (pe.estado !== 'creado' &&
@@ -97,9 +109,9 @@ export class ListPedidosDetallePage implements OnInit {
             pe.estado !== 'finalizado');
 
           return auxReturn;
-          
-        });
 
+        });
+        this.pedidos = this.pedidos.sort(this.ordenarPedidoFecha);
         // console.log('Pedidos', this.pedidos);
       });
 
@@ -116,17 +128,43 @@ export class ListPedidosDetallePage implements OnInit {
         pd = pd.filter((d: PedidoDetalleKey) => {
           return this.verificarVisibilidad(d);
         });
-        this.pedidoDetalle = pd.sort(this.ordenarPorPedido);
+        //this.pedidoDetalle = pd;
+        this.pedidoDetalle = pd.sort((a,b)=>{
+          let pedidoA = this.pedidos.find(pa=>{
+            return pa.key==a.id_pedido;
+          });
+          let pedidoB = this.pedidos.find(pb=>{
+            return pb.key==b.id_pedido;
+          });
+          if(pedidoA.fecha > pedidoB.fecha){
+            return 1;
+          }
+          if(pedidoA.fecha < pedidoB.fecha){
+            return -1;
+          }
+          return 0;
+
+        });
         // console.log('Detalles', this.pedidoDetalle);
       });
+
     } catch (err) {
-      console.log('err', err);
+      // console.log('err', err);
       this.pedidos = new Array<PedidoKey>();
       this.pedidoDetalle = new Array<PedidoDetalleKey>();
       this.productos = new Array<ProductoKey>();
     }
   }
-
+  private ordenarPedidoFecha(a:PedidoKey, b:PedidoKey)
+  {
+    if(a.fecha < b.fecha){
+        return 1;
+      }
+      if(a.fecha > b.fecha){
+        return -1;
+      }
+      return 0;
+  }
   private ordenarPorPedido(a: PedidoDetalleKey, b: PedidoDetalleKey) {
     // console.log(a.id_pedido.localeCompare(b.id_pedido));
     return (a.id_pedido.localeCompare(b.id_pedido));
@@ -224,11 +262,11 @@ export class ListPedidosDetallePage implements OnInit {
         }
 
         // console.log(data);
-/* Ponerlo despues de data) abajo        
+/* Ponerlo despues de data) abajo
  .then((res) => {
           console.log("se envia el push");
             this.envioPost(pedido);//aca envio el push
-        
+
         }) */
         await this.actualizarDoc('pedidos', pedido.key, data).catch(err => {
           console.log('Error en actualizar Pedido', err);
@@ -239,21 +277,24 @@ export class ListPedidosDetallePage implements OnInit {
 
   public async presentAlertConfirmarEntrega(d: PedidoDetalleKey, estado: string) {
     this.alertCtrl.create({
+      cssClass:'seleccionarAlert',
       header: 'Confirmar Detalle',
       message: '¿Desea confirmar como finalizado este pedido?',
       buttons: [
         {
+          cssClass:'button-Cancel',
+          text: 'No',
+          handler: () => {
+            return true;
+          }
+        },
+        {
+          cssClass:'button-Ok',
           text: 'Sí',
           handler: () => {
             this.cambiarEstado(d, estado);
           }
         },
-        {
-          text: 'No',
-          handler: () => {
-            return true;
-          }
-        }
       ]
     }).then(alert => {
       alert.present();

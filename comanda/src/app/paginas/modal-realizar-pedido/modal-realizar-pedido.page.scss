@@ -1,0 +1,72 @@
+.item2
+{
+    --background: transparent;
+    //font-weight: bold;
+    color: rgb(0, 0, 0);
+    width: 100%;
+    text-align: center;
+    // --border-width: 0 0 2px 0 ;
+    --border-color: #43a047;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tabla
+{
+    margin-top: 5px;
+    //border: 1px solid #43a047;
+    width: 100%;
+    margin-bottom: 5px;
+    text-align: center;
+    color:black;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+td{
+    border-bottom: 1px solid #43a047;
+    margin-top: 5px;
+}
+th{
+    border-bottom: 1px solid #43a047;
+}
+.label-verde{
+    color:#43a047;
+    font-size: 26px;
+    text-align: center;
+    font-weight: bold;
+    //justify-content: center;
+    //display: flex;
+}
+.conteinerTotal{
+    width: 100%;
+    display: flex;
+    //justify-content: end;
+}
+.totalPedido{
+    //display: flex;
+    //justify-content: end;
+    font-size: 26px;
+    font-weight: bold;
+    color:black;
+    text-align: right;
+    
+}
+.button2
+{
+    height: 60px;
+    width: 100%;
+    --background: #61bd65;
+    padding: 0;
+    border: none;
+    --border-radius: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    display:block;
+    text-transform: unset;
+}

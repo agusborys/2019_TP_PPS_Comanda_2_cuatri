@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../servicios/auth.service';
-import { Cliente } from '../../clases/cliente';
+import { Cliente, ClienteAConfirmar } from '../../clases/cliente';
 import { Anonimo } from '../../clases/anonimo';
 import { Herramientas } from '../../clases/herramientas';
 import { CajaSonido } from '../../clases/cajaSonido';
@@ -17,6 +17,10 @@ import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/s
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Empleado } from 'src/app/clases/empleado';
+import { AngularFirestore } from '@angular/fire/firestore';
+
+import { SonidosService } from '../../service/sonidos.service';
 @Component({
   selector: 'app-registro-cliente',
   templateUrl: './registro-cliente.page.html',
@@ -30,6 +34,7 @@ export class RegistroClientePage implements OnInit {
   private anonimo: Anonimo;
   private spinner:any=null;
 
+  private confirmarClave : string;
   private clave: string;
   private herramientas: Herramientas = new Herramientas();
   private cajaSonido: CajaSonido = new CajaSonido();
@@ -38,6 +43,10 @@ export class RegistroClientePage implements OnInit {
   private ocultarSeccion2 = true;
   private ocultarSpinner = true;
   private esCliente = true;
+  private arrayClientes : Cliente[];
+  private arrayClientesAConfirmar : ClienteAConfirmar[];
+  private arrayEmpleados : Empleado[];
+  private arrayAnonimos : Anonimo[];
 
   constructor(
     public http: Http,
@@ -49,6 +58,8 @@ export class RegistroClientePage implements OnInit {
     private errorHandler:ErrorHandlerService,
     private spinnerHand:SpinnerHandlerService,
     private storage: AngularFireStorage,
+    private firestore: AngularFirestore,
+    private sonidos: SonidosService,
   ) {
     this.usuario = new Cliente();
     this.anonimo = new Anonimo();
@@ -62,17 +73,118 @@ export class RegistroClientePage implements OnInit {
     this.usuario = new Cliente();
     this.anonimo = new Anonimo();
     this.clave = '';
+    this.traerClientes().subscribe((d:Cliente[])=>{
+      this.arrayClientes = d;
+    });
+    this.traerClientesAConfirmar().subscribe((d:ClienteAConfirmar[])=>{
+      this.arrayClientesAConfirmar = d;
+    });
+    this.traerEmpleados().subscribe((d:Empleado[])=>{
+      this.arrayEmpleados = d;
+    });
+    this.traerAnonimos().subscribe((d:Anonimo[])=>{
+      this.arrayAnonimos = d;
+    });
   }
-
+  /*
+    Traigo las colecciones de clientes y empleados desde firebase ya ingresados para verificar su existencia.
+   */
+  public traerClientes() {
+    return this.firestore.collection('clientes').snapshotChanges()
+      .pipe(map((f) => {
+        return f.map((a) => {
+          const data = a.payload.doc.data() as Cliente;
+          // data.key = a.payload.doc.id;
+          return data;
+        });
+      }));
+  }
+  public traerClientesAConfirmar() {
+    return this.firestore.collection('clientes-confirmar').snapshotChanges()
+      .pipe(map((f) => {
+        return f.map((a) => {
+          const data = a.payload.doc.data() as ClienteAConfirmar;
+          // data.key = a.payload.doc.id;
+          return data;
+        });
+      }));
+  }
+  public traerEmpleados(){
+    return this.firestore.collection('empleados').snapshotChanges()
+      .pipe(map((f) => {
+        return f.map((a) => {
+          const data = a.payload.doc.data() as Empleado;
+          // data.key = a.payload.doc.id;
+          return data;
+        });
+      }));
+  }
+  public traerAnonimos(){
+    return this.firestore.collection('anonimos').snapshotChanges()
+      .pipe(map((f) => {
+        return f.map((a) => {
+          const data = a.payload.doc.data() as Anonimo;
+          // data.key = a.payload.doc.id;
+          return data;
+        });
+      }));
+  }
+  /*
+    Compruebo la existencia de del usuario a registrar en las colecciones de clientes, clientesAConfirmar, empleados y anónimos.
+   */
+  public buscarEnClientes(correo:string):boolean{
+    let existe = false;
+    for(let cliente of this.arrayClientes){
+      if(cliente.correo == correo)
+      {
+        existe = true;
+        break;
+      }
+    }
+    return existe
+  }
+  public buscarEnClientesAConfirmar(correo:string):boolean{
+    let existe = false;
+    for(let cliente of this.arrayClientesAConfirmar){
+      if(cliente.correo == correo)
+      {
+        existe = true;
+        break;
+      }
+    }
+    return existe
+  }
+  public buscarEnEmpleados(correo:string):boolean{
+    let existe = false;
+    for(let empleado of this.arrayEmpleados){
+      if(empleado.correo == correo)
+      {
+        existe = true;
+        break;
+      }
+    }
+    return existe
+  }
+  public buscarEnAnonimos(correo:string):boolean{
+    let existe = false;
+    for(let anonimo of this.arrayAnonimos){
+      if(anonimo.correo == correo)
+      {
+        existe = true;
+        break;
+      }
+    }
+    return existe
+  }
   //#region metodos de FCM
   envioPost() {
 
     //let usuarioLogueado = this.auth.user;
 
-    let tituloNotif = "Se registro un nuevo cliente";
+    let tituloNotif = "Nuevo cliente";
 
 
-    let bodyNotif = "El cliente " + this.usuario.correo + " esta esperando confirmacion." ; 
+    let bodyNotif = "El cliente " + this.usuario.correo + " esta esperando confirmacion." ;
 
     let header = this.initHeaders();
     let options = new RequestOptions({ headers: header, method: 'post'});
@@ -92,16 +204,14 @@ export class RegistroClientePage implements OnInit {
         "restricted_package_name": ""
     };
 
-    console.log("Data: ", data);
-   
+    // console.log("Data: ", data);
+
     return this.http.post(this.apiFCM, data, options).pipe(map(res => res.json())).subscribe(result => {
       console.log(result);
     });
-
-               
   }
 
-  
+
  private initHeaders(): Headers {
   let apiKey = 'key=AAAAN11vLtI:APA91bEwhXPo2yboIARzbRHmaQ72PwOfCvmkZsizri-KjBkpxb0cwKR9_y2oj2UkRG2IUm06u16HzJYYwatkqNSeeBjWOFhsq7iA4isVRY8E2_Y3NOvA0w5sBZw--8cMH2d1NDjdSllQ' ;
   var headers = new Headers();
@@ -114,10 +224,11 @@ export class RegistroClientePage implements OnInit {
 
   public presentAlert(header: string, subHeader: string, message: string) {
     this.alertCtrl.create({
+      cssClass:'avisoAlert',
       header,
       subHeader,
       message,
-      buttons: ['OK']
+      buttons: ['Aceptar']
     }).then(a => { a.present(); });
   }
 
@@ -130,35 +241,55 @@ export class RegistroClientePage implements OnInit {
     if (this.usuario.correo === '') {
       validado = false;
       //this.presentAlert('Error!', '', 'Debe escribir un correo electrónico.');
-      this.errorHandler.mostrarErrorSolo("Error!", "Completar campo de correo electrónico");
+      this.errorHandler.mostrarErrorSolo("¡Error!", "Completar campo de correo electrónico");
     } else if (this.clave === '') {
       validado = false;
       //this.presentAlert('¡Error!', '', 'Debe escribir una clave.');
-      this.errorHandler.mostrarErrorSolo("Error!", "Completar campo de contraseña");
+      this.errorHandler.mostrarErrorSolo("¡Error!", "Completar campo de contraseña");
     } else if (this.clave.length < 6) {
       validado = false;
       //this.presentAlert('¡Error!', '', 'Debe escribir una clave.');
-      this.errorHandler.mostrarErrorSolo("Error!", "La contraseña debe tener 6 caracteres como mínimo");
+      this.errorHandler.mostrarErrorSolo("¡Error!", "La contraseña debe tener 6 caracteres como mínimo");
     }
-    //  else if (!this.herramientas.ValidarMail(this.usuario.correo)) {
-    //   validado = false;
-    //   //this.presentAlert('¡Error!', 'Error en el registro.', 'No es un correo electronico valido.');
-    //   this.errorHandler.mostrarErrorSolo("Error!", "Correo electrónico inválido");
-    // } 
+     else if (!this.herramientas.ValidarMail(this.usuario.correo)) {
+      validado = false;
+      //this.presentAlert('¡Error!', 'Error en el registro.', 'No es un correo electronico valido.');
+      this.errorHandler.mostrarErrorSolo("¡Error!", "Correo electrónico inválido");
+    }
+    else if(this.buscarEnClientes(this.usuario.correo)){
+      validado = false;
+      this.errorHandler.mostrarErrorSolo("¡Error!","Usted ya está registrado como Cliente");
+    }
+    else if(this.buscarEnClientesAConfirmar(this.usuario.correo)){
+      validado = false;
+      this.errorHandler.mostrarErrorSolo("¡Error!","Usted ya se ha registrado. Debe esperar la confirmación del dueño o supervisor");
+    }
+    else if(this.buscarEnEmpleados(this.usuario.correo)){
+      validado = false;
+      this.errorHandler.mostrarErrorSolo("¡Error!","Usted ya está registrado como Empleado");
+    }
+    else if(this.buscarEnAnonimos(this.usuario.correo)){
+      validado = false;
+      this.errorHandler.mostrarErrorSolo("¡Error!","Usted ya está registrado como cliente Anónimo");
+    }
+    else if (this.confirmarClave != this.clave){
+      validado = false;
+      this.errorHandler.mostrarErrorSolo("¡Error!","Las contraseñas deben coincidir");
+    }
     else if (!this.herramientas.ValidarNombre(this.usuario.nombre)) {
       validado = false;
       //this.presentAlert('¡Error!', 'Error en el registro.', 'No es un nombre valido.');
-      this.errorHandler.mostrarErrorSolo("Error!", "Nombre inválido");
+      this.errorHandler.mostrarErrorSolo("¡Error!", "Nombre inválido");
     }
     if (this.esCliente === true) {
       if (!this.herramientas.ValidarNombre(this.usuario.apellido)) {
         validado = false;
         //this.presentAlert('¡Error!', 'Error en el registro.', 'No es un apellido valido.');
-        this.errorHandler.mostrarErrorSolo("Error!", "Apellido inválido");
+        this.errorHandler.mostrarErrorSolo("¡Error!", "Apellido inválido");
       } else if (!this.herramientas.ValidarDNI(this.usuario.DNI)) {
         validado = false;
         //this.presentAlert('¡Error!', 'Error en el registro.', 'No es un DNI valido.');
-        this.errorHandler.mostrarErrorSolo("Error!", "DNI inválido");
+        this.errorHandler.mostrarErrorSolo("¡Error!", "DNI inválido");
       }
     }
     if (validado) {
@@ -171,9 +302,14 @@ export class RegistroClientePage implements OnInit {
     *permite sacar una foto y subirla en firebase, asi permite guardar su direcccion
   */
  public async SacarFoto() {
-  this.cajaSonido.ReproducirSelecionar();
+   if (this.sonidos.getActivo()) {
+     this.cajaSonido.ReproducirSelecionar();
+   }
+  // this.cajaSonido.ReproducirSelecionar();
+
   let imageName = this.usuario.correo + (this.herramientas.GenRanNum(1111111, 9999999).toString());
   const imageRef: AngularFireStorageReference = this.storage.ref(`fotos/${imageName}.jpg`);
+
   try {
     let options: CameraOptions = {
       quality: 50,
@@ -181,7 +317,9 @@ export class RegistroClientePage implements OnInit {
       targetWidth: 600,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true,
+
     };
     let result = await this.camera.getPicture(options);
     this.spinner = await this.spinnerHand.GetAllPageSpinner();
@@ -204,7 +342,7 @@ export class RegistroClientePage implements OnInit {
   } catch (error) {
     console.log(error);
     //this.spinner.dismiss();
-    this.presentAlert('¡Error!', 'Error en el registro', "Error:" + error.message);
+    this.presentAlert('¡Error!', 'Error en el registro', "Error al realizar el alta de Cliente");
   }
   this.spinner.dismiss();
   //este spinner es necesario
@@ -227,7 +365,7 @@ export class RegistroClientePage implements OnInit {
     *basado en las elecciones del usuario se guarda un cliente o un anonimos
   */
   Registrar() {
-    
+
     if (this.esCliente == true) {
       this.RegistrarCliente();
     } else {
@@ -252,11 +390,11 @@ export class RegistroClientePage implements OnInit {
       this.ocultarSeccion2 = true;
       this.spinner.dismiss();
       //this.presentAlert('Exito!', null, '¡Usted ha sido registrado!');
-      this.errorHandler.mostrarErrorSolo("Felicidades!", "Sus datos han sido cargados, ahora debe esperar la confirmación del dueño");
+      this.errorHandler.mostrarErrorSolo("¡Felicidades!", "Sus datos han sido cargados, ahora debe esperar la confirmación del dueño");
     }).catch(err => {
       //this.presentAlert('¡Error!', 'Error en el registro.', 'Error en base de datos.');
       this.spinner.dismiss();
-      this.errorHandler.mostrarErrorSolo("Error!", "Error al registrar");
+      this.errorHandler.mostrarErrorSolo("¡Error!", "Error al registrar");
       console.log(err);
     });
   }
@@ -274,11 +412,11 @@ export class RegistroClientePage implements OnInit {
       this.ocultarSeccion2 = true;
       //this.presentAlert('Exito!', null, '¡Usted ha sido registrado!');
       this.spinner.dismiss();
-      this.errorHandler.mostrarErrorSolo("Felicidades!", "Ha sido registrado");
+      this.errorHandler.mostrarErrorSolo("¡Felicidades!", "Ha sido registrado");
     }).catch(err => {
       //this.presentAlert('¡Error!', 'Error en el registro.', 'Error en base de datos.');
       this.spinner.dismiss();
-      this.errorHandler.mostrarErrorSolo("Error!", "Error al registrar");
+      this.errorHandler.mostrarErrorSolo("¡Error!", "Error al registrar");
       console.log(err);
     });
   }
@@ -333,10 +471,10 @@ export class RegistroClientePage implements OnInit {
         this.manejarDNI(scan);
         //this.errorHandler.mostrarError("Scan", scan);
       }
-      
+
     }, (err) => {
       //this.presentAlert('¡Error!', 'Error al escanear el DNI.', err);
-      this.errorHandler.mostrarErrorSolo("Error!", "Error en el escaneo del DNI");
+      this.errorHandler.mostrarErrorSolo("¡Error!", "Error en el escaneo del DNI");
     });
   }
 

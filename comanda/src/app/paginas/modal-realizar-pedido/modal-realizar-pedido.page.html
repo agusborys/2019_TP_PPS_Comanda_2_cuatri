@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar color="verdeleon">
+      <ion-buttons slot="end">
+        <ion-button color="dark" size="small" (click)="cerrarModal()">
+            <ion-icon name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    <ion-title class="titulo-header">Confirmar pedido</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-card style="background-color:whitesmoke; border-radius: 20px;">
+        <ion-card-content >
+          <div *ngIf="this.mostrarCocina==true">
+            <ion-label class="label-verde .center-horizontal">Cocina</ion-label>
+            <table class="tabla">
+              <tr>
+                <th>Cantidad</th>
+                <th>Producto</th>
+                <th>Precio</th>
+              </tr>
+              <tr *ngFor="let p of this.productosPedidos">
+                  <td *ngIf="p.quienPuedever=='cocinero'">{{p.cantidad}}</td>
+                  <td *ngIf="p.quienPuedever=='cocinero'">{{p.nombre}}</td>
+                  <td *ngIf="p.quienPuedever=='cocinero'">{{p.cantidad*p.precio | currency}}</td>
+              </tr>
+            </table>
+            <br>
+          </div>
+          
+          <div *ngIf="this.mostrarBebida==true">
+            <ion-label class="label-verde .center-horizontal" >Bebidas</ion-label>
+            <table class="tabla">
+                <tr>
+                    <th>Cantidad</th>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                  </tr>
+              <tr *ngFor="let p of this.productosPedidos">
+                  <td *ngIf="p.quienPuedever=='bartender'">{{p.cantidad}}</td>
+                  <td *ngIf="p.quienPuedever=='bartender'">{{p.nombre}}</td>
+                  <td *ngIf="p.quienPuedever=='bartender'">{{p.cantidad*p.precio | currency}}</td>
+              </tr>
+            </table> 
+            <br>
+          </div>
+          
+          <div *ngIf="this.mostrarPostre==true">
+            <ion-label class="label-verde .center-horizontal" >Postre</ion-label>
+            <table class="tabla">
+                <tr>
+                    <th>Cantidad</th>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                  </tr>
+              <tr *ngFor="let p of this.productosPedidos">
+                  <td *ngIf="p.quienPuedever=='candybar'">{{p.cantidad}}</td>
+                  <td *ngIf="p.quienPuedever=='candybar'">{{p.nombre}}</td>
+                  <td *ngIf="p.quienPuedever=='candybar'">{{p.cantidad*p.precio | currency}}</td>
+              </tr>
+            </table>
+            <br>
+          </div>
+          <!-- <div class="containerTotal"> -->
+            <ion-item class="item2">
+              <ion-label class="label-verde" style="text-align: left;">TOTAL</ion-label>
+              <ion-input class="totalPedido" [value]="pedido.preciototal | currency"> </ion-input>
+            </ion-item>
+          <!-- </div> -->
+          
+        </ion-card-content>
+      </ion-card>
+</ion-content>
+
+<ion-footer >
+    <ion-toolbar style="--background:#edf7ee; --height: 60px;">
+    <ion-button class="button2"  (click)="ConfirmarPedido()"
+      [disabled]="this.mesaDelPedido == null ||
+      this.mesaDelPedido.pedidoActual != '' || this.productosPedidos.lenght==0">
+      ¡Realizar Pedido!
+    </ion-button>
+  </ion-toolbar>
+  </ion-footer>

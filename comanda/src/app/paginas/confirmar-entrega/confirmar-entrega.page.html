@@ -4,7 +4,7 @@
       <ion-back-button color="dark" defaultHref="inicio"></ion-back-button>
     </ion-buttons>
     <ion-title class="titulo-header">
-      <ion-icon name="checkbox-outline"></ion-icon>Confirmar Entrega
+      Confirmar Entrega
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -12,31 +12,31 @@
 <ion-content>
   <!-- Pedido local -->
   <!-- <ion-card class="card-background" *ngIf="this.pedidoEnLocal != null"> -->
-  <ion-card style="background-color:whitesmoke; border-radius: 20px;" *ngIf="this.pedidoEnLocal != null">
+  <ion-card class="center-vertical" style="background-color:whitesmoke; border-radius: 20px;" *ngIf="this.pedidoEnLocal != null">
     <ion-card-content>
-      <ion-item class="item2">
+      <ion-item class="item2 font-large">
         <ion-label class="label-verde">Cliente</ion-label>
         <ion-input [value]="this.pedidoEnLocal.cliente" readonly></ion-input>
       </ion-item>
-      <ion-item class="item2">
+      <ion-item class="item2 font-large">
         <ion-label class="label-verde">Fecha</ion-label>
-        <ion-input [value]="this.pedidoEnLocal.fecha | date:'medium'" readonly></ion-input>
+        <ion-input [value]="this.pedidoEnLocal.fecha | date:'dd/MM/yyyy, HH:mm'" readonly></ion-input>
       </ion-item>
-      <ion-item class="item2">
+      <ion-item class="item2 font-large">
         <ion-label class="label-verde">Estado</ion-label>
-        <ion-input [value]="this.pedidoEnLocal.estado | titlecase" readonly></ion-input>
+        <ion-input *ngIf="this.pedidoEnLocal.estado=='entregadoMozo'" value="Entregado por el mozo" readonly></ion-input>
       </ion-item>
 
-      <ion-item class="transparent-item ion-no-padding"
+      <ion-item class="transparent-item ion-no-padding "
         *ngFor="let producto of pedidoDetalles">
         ({{producto.cantidad}}) {{producto.producto}} -
         {{(producto.cantidad * producto.precio) | currency}}
-        <div slot="end">{{producto.estado | titlecase}}</div>
+        <div *ngIf="producto.estado=='listoEntrega'" slot="end">Listo para entregar</div>
       </ion-item>
 
       <ion-item class="item2">
-        <ion-label class="label-verde">Total</ion-label>&nbsp;
-        <ion-input [value]="this.pedidoEnLocal.preciototal" readonly>$</ion-input>
+        <ion-label class="label-verde font-big">Total</ion-label>&nbsp;
+        <ion-input class="font-big" [value]="this.pedidoEnLocal.preciototal" readonly>$</ion-input>
       </ion-item>
     </ion-card-content>
   </ion-card>
@@ -75,7 +75,7 @@
 
 <ion-footer>
   <ion-toolbar style="--background:#edf7ee">
-      <ion-button style="width:100%" class="botones-registro"  (click)="confirmarEntrega()"
+      <ion-button style="width:100%;font-size:x-large;" class="botones-registro"  (click)="confirmarEntrega()"
       [disabled]="this.pedidoDelivery == null && this.pedidoEnLocal == null">
       Confirmar entrega
     </ion-button>

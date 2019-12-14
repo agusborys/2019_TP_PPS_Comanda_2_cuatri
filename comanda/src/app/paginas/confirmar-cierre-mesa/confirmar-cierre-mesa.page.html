@@ -3,8 +3,8 @@
     <ion-buttons slot="start">
       <ion-back-button color="dark" defaultHref="inicio"></ion-back-button>
     </ion-buttons>
-    <ion-title class="titulo-header">
-      <ion-icon name="close-circle-outline"></ion-icon>Cierre de Mesas
+    <ion-title class="titulo-header">Cierre de Mesas
+      <!-- <ion-icon name="close-circle-outline"></ion-icon> -->
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -14,17 +14,26 @@
   <ion-card *ngIf="this.pedidos.length> 0" style="background-color:whitesmoke; border-radius: 20px;">
     <ion-card-content>
       <div *ngFor="let pedido of this.pedidos">
-        <div class="width-100 align-text-center big-letter" style="color: rgb(0, 0, 0);font-size: 16px;font-weight: bold;">
-          Mesa {{pedido.mesa}}
-        </div>
-        <div class="width-100 align-text-center big-letter" style="color: rgb(0, 0, 0);font-size: 16px;font-weight: bold;">
-          Correo {{pedido.cliente}}
-        </div>
-
+        <div class="width-100 align-text-center big-letter" >
+          <label class="bolded" style="color: black;">
+            Mesa {{pedido.mesa}}
+          </label><br>
+          <div>
+            <label class="label-entrega">
+                Cliente : {{pedido.cliente}}
+              </label><br>
+              <label class="label-entrega">
+                Fecha : {{pedido.fecha | date:'dd/MM/yyyy'}}
+              </label><br>
+              <label class="label-entrega">
+                  Hora : {{pedido.fecha | date:'HH:mm'}}
+              </label>
+          </div>
+      </div>
         <div class="width-100 center-horizontal center-vertical">
           <ion-button class="botones-registro"
             (click)="this.verPedido(pedido.key)">
-            Ver
+            Ver pedido
           </ion-button>
         </div>
 

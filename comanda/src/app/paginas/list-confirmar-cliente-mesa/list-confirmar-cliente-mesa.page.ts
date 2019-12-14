@@ -89,7 +89,7 @@ export class ListConfirmarClienteMesaPage implements OnInit {
       .then(() => {
         this.presentToast('Cliente confirmado.', 'verdeleon');
       }).catch((err) => {
-        console.log('error en firebase', err);
+        // console.log('error en firebase', err);
         this.presentToast('Error al cambiar la base de datos.', 'danger');
       });
   }
@@ -105,7 +105,7 @@ export class ListConfirmarClienteMesaPage implements OnInit {
       .then(() => {
         this.presentToast('Cliente rechazado.', 'verdeleon');
       }).catch((err) => {
-        console.log('error en firebase', err);
+        // console.log('error en firebase', err);
         this.presentToast('Error al cambiar la base de datos.', 'danger');
       });
   }
@@ -170,7 +170,7 @@ export class ListConfirmarClienteMesaPage implements OnInit {
       color,
       showCloseButton: false,
       position: 'bottom',
-      closeButtonText: 'Done',
+      closeButtonText: 'Aceptar',
       duration: 2000
     }).then(toast => {
       toast.present();

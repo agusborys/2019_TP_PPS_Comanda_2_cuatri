@@ -86,21 +86,28 @@ export class QrMesaPage implements OnInit {
       this.listaEspera = d;
     });
     
-    // this.traerEncuestas().subscribe((d:any)=>{
-    //   for(let element of d)
-    //   {
-    //     if(element.pedido == this.mesaAMostrar.pedidoActual)
-    //     {
-    //       console.log(element.pedido);
-    //       this.mostrarBtnEncuesta = false;
-    //       break;
-    //     }
-    //     else{
-    //       this.mostrarBtnEncuesta = true;
-    //     }
-    //   }
-    // });
-    // console.log(this.mostrarBtnEncuesta);
+    this.traerEncuestas().subscribe((d:any)=>{
+      for(let element of d)
+      {
+        if(element.pedido == this.mesaAMostrar.pedidoActual)
+        {
+          console.log(element.pedido);
+          this.mostrarBtnEncuesta = false;
+          break;
+        }
+        else{
+          this.mostrarBtnEncuesta = true;
+        }
+      }
+    });
+    console.log(this.mostrarBtnEncuesta);
+  }
+  ionViewDidLoad()
+  {
+    if(!this.estaEnMesa())
+    {
+      this.router.navigateByUrl('inicio');
+    }
   }
   public buscarPedido(){
     return this.firestore.collection('pedidos').doc(this.mesaAMostrar.pedidoActual).get();
@@ -162,12 +169,12 @@ export class QrMesaPage implements OnInit {
         } catch (err) {
           console.log('Error en el try', err);
           //this.presentAlert('¡Error!', 'Error al leer el código.', 'Error desconocido.');
-          this.errorHandler.mostrarErrorSolo("Error!", "Error al leer el código de mesa.");
+          this.errorHandler.mostrarErrorSolo("¡Error!", "Error al leer el código de mesa.");
         }
       }).catch(err => {
         console.log('Error al escanear el qr', err);
         //this.presentAlert('¡Error!', 'Error al leer el código.', 'Error desconocido.');
-        this.errorHandler.mostrarErrorSolo("Error!", "Error al leer el código de mesa.");
+        this.errorHandler.mostrarErrorSolo("¡Error!", "Error al leer el código de mesa.");
         // this.manejarQr(6);
       });
   }
@@ -290,23 +297,24 @@ export class QrMesaPage implements OnInit {
 
   public async presentAlertClienteConReserva() {
     this.alertCtrl.create({
+      cssClass:'seleccionarAlert',
       header: 'Estado de mesa',
       subHeader: `Mesa: ${this.mesaAMostrar.nromesa}`,
       message: '¡Bienvenido! Su reserva fue confirmada. ¿Desea ocuparla la mesa?',
       buttons: [
-        {
-          text: 'Sí',
-          handler: () => {
-            this.ocuparMesaReservada();
-          }
-        },
         {
           text: 'No',
           handler: () => {
             this.mesaAMostrar = null;
             return true;
           }
-        }
+        },
+        {
+          text: 'Sí',
+          handler: () => {
+            this.ocuparMesaReservada();
+          }
+        },
       ]
     }).then(alert => {
       alert.present();
@@ -318,20 +326,24 @@ export class QrMesaPage implements OnInit {
       header: 'Estado de mesa',
       subHeader: 'Mesa: ' + this.mesaAMostrar.nromesa,
       message: 'La mesa se encuentra libre. ¿Desea ocuparla?',
+      cssClass:'seleccionarAlert',
       buttons: [
         {
-          text: 'Sí',
-          handler: () => {
-            this.ocuparMesa();
-          }
-        },
-        {
+          cssClass:'button-Cancel',
           text: 'No',
           handler: () => {
             this.mesaAMostrar = null;
             return true;
           }
-        }
+        },
+        {
+          cssClass:'button-Ok',
+          text: 'Sí',
+          handler: () => {
+            this.ocuparMesa();
+          }
+        },
+        
       ]
     }).then(alert => {
       alert.present();

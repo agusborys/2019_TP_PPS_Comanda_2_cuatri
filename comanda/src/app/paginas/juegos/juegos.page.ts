@@ -36,11 +36,11 @@ export class JuegosPage implements OnInit {
   constructor() { }
 
   ngOnInit() {
-  
-    
+
+
   }
 
-  
+
 
   openModal(id: string) {
     //this.modalService.open(id);
@@ -66,7 +66,7 @@ export class JuegosPage implements OnInit {
     //this.updateJugador('-LpOTyoLSldlZeqKsIIK', { ganadas: 0 })
     document.getElementById("empate").style.display = "none";
     //var fileName = "";
-    
+
     if (x == 1) {
       this.elecJug = "piedra1.png";
     } else if (x == 2) {
@@ -74,9 +74,9 @@ export class JuegosPage implements OnInit {
     } else {
       this.elecJug = "tijera1.png";
     }
-     
+
     var y = Math.floor(Math.random() * (4 - 1) + 1);
-    console.log(y);
+    // console.log(y);
     if (y == 1) {
       this.elecCPU = "piedra1.png";
     } else if (y == 2) {
@@ -95,7 +95,7 @@ export class JuegosPage implements OnInit {
     }
 
     if (this.marcaJ == 5) {
-      
+
       this.modalText = "GANASTE!!";
       this.openModal('custom-modal-1');
       //this.ganadas ++;//#PUNTAJE
@@ -104,10 +104,10 @@ export class JuegosPage implements OnInit {
       //var lista = this.getJugadoresList();
       //console.log(lala);
       //this.getJugadores();
-      //this.existe("admin1@gmail.com"); 
+      //this.existe("admin1@gmail.com");
 
 
-      
+
 
     } else if(this.marcaCPU == 5) {
 
@@ -119,13 +119,13 @@ export class JuegosPage implements OnInit {
       //var lista = this.getJugadoresList();
       //console.log(lala);
       //this.getJugadores();  SE INTENTA HACE ANTES
-      //this.existe("admin1@gmail.com"); 
+      //this.existe("admin1@gmail.com");
     }
 
   }//fin Elegir
-  
- 
- 
+
+
+
   onSubmit() {
     this.submitted = true;
     //this.save();

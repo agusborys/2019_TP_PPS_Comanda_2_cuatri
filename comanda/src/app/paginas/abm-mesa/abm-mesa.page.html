@@ -4,7 +4,8 @@
       <ion-back-button color="dark" defaultHref="inicio"></ion-back-button>
     </ion-buttons>
     <ion-title class="titulo-header">
-        <ion-icon name="create"></ion-icon>Alta de Mesa
+        <!-- <ion-icon name="create"></ion-icon> -->
+        Alta de nueva mesa
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -26,35 +27,29 @@
     </div>
 
     <ion-item class="inputs">
-        <ion-label position="floating">Nro. Mesa</ion-label>
-        <br>
+        <ion-label position="floating">Número de Mesa</ion-label>
         <ion-input formControlName="nromesaCtrl" type="number"></ion-input>
     </ion-item>
 
     <ion-item class="inputs">
       <ion-label position="floating">Cantidad de lugares</ion-label>
-      <br>
       <ion-input formControlName="cantcomenCtrl" type="number"></ion-input>
     </ion-item>
 
     <ion-item class="inputs">
         <ion-label position="floating">Tipo</ion-label>
-        <br>
-        <ion-select class="selecter" formControlName="tmesaCtrl">
+        <ion-select class="selecter" formControlName="tmesaCtrl" interface="popover">
           <ion-select-option value="vip">VIP</ion-select-option>
           <ion-select-option value="discapacitados">Discapacitados</ion-select-option>
           <ion-select-option value="normal">Normal</ion-select-option>
         </ion-select>
     </ion-item >
 
-    
-
-    <div class="align-text-center">
-      <ion-button class="botones-registro" [disabled]="this.foto"
-        (click)="this.tomarFoto()">
+    <div class="align-text-center margin-top-20">
+      <ion-button class="botones" [disabled]="this.foto" (click)="this.tomarFoto()">
         <ion-icon name="camera"></ion-icon>Subir foto
       </ion-button>
-      <ion-button class="botones-registro" type="submit">
+      <ion-button class="botones" type="submit">
           <ion-icon name="add-circle"></ion-icon>Agregar
       </ion-button>
     </div>

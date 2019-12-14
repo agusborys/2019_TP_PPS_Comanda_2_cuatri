@@ -8,7 +8,7 @@ import { ClienteKey, ClienteAConfirmarKey } from 'src/app/clases/cliente';
 import { AlertController } from '@ionic/angular';
 import { ErrorHandlerService } from 'src/app/servicios/error-handler.service';
 import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
-
+import { SonidosService } from '../../service/sonidos.service';
 import { FCM } from '@ionic-native/fcm/ngx';
 
 @Component({
@@ -28,9 +28,10 @@ export class LoginPage implements OnInit {
     public router: Router,
     private firestore: AngularFirestore,
     private alertCtrl: AlertController,
-    private errorHandler:ErrorHandlerService,
-    private spinnerHand:SpinnerHandlerService) {
-  }
+    private errorHandler: ErrorHandlerService,
+    private spinnerHand: SpinnerHandlerService,
+    private sonidos: SonidosService,
+  ) { }
 
   ngOnInit() {
     this.correo = '';
@@ -42,7 +43,7 @@ export class LoginPage implements OnInit {
       header,
       subHeader,
       message,
-      buttons: ['OK']
+      buttons: ['Aceptar']
     }).then(a => { a.present(); });
   }
 
@@ -71,13 +72,17 @@ export class LoginPage implements OnInit {
       const user = await this.traerUsuarioAConfirmar(this.correo);
       if (user != false) {
         //this.presentAlert('¡Error!', 'Error en el inicio de sesión.', 'Usted no ha sido confrmado.');
-        this.errorHandler.mostrarErrorSolo("Error!", "Usuario no confirmado");
+        this.errorHandler.mostrarErrorSolo("¡Error!", "Usuario no confirmado");
         this.correo = '';
         this.clave = '';
       } else {
         this.authService.Login(this.correo, this.clave).then(async (res) => {
           this.router.navigate(['/inicio']);
-          this.cajaSonido.ReproducirGuardar();
+          if (this.sonidos.getActivo()) {
+            this.cajaSonido.ReproducirGuardar();
+          }
+          // this.cajaSonido.ReproducirGuardar();
+
           this.correo = '';
           this.clave = '';
           this.spinner.dismiss();
@@ -89,7 +94,7 @@ export class LoginPage implements OnInit {
           });
       }
     }
-    
+
   }
   /*
     Valido campos vacíos del form
@@ -100,7 +105,7 @@ export class LoginPage implements OnInit {
       auxReturn = true;
     } else {
       // Mostrar Toast con mensaje
-      this.errorHandler.mostrarErrorSolo("Error!","Debe completar todos los campos");
+      this.errorHandler.mostrarErrorSolo("¡Error!","Debe completar todos los campos");
     }
     return auxReturn;
   }
@@ -189,17 +194,17 @@ export class LoginPage implements OnInit {
       ],
       buttons:[
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel',
-          cssClass:'alertButton',
+          cssClass:'button-Cancel',
           handler: () => {
-            console.log('Confirm Cancel');
+            // console.log('Confirm Cancel');
           }
         }, {
-          text: 'Ok',
-          cssClass:'alertButton',
+          text: 'Confirmar',
+          cssClass:'button-Ok',
           handler: (data) => {
-            console.log('Confirm Ok');
+            // console.log('Confirm Ok');
             this.testRadioResult = data;
             this.usuarioSeleccionado = data;
             this.ingresoAuto(this.usuarioSeleccionado);

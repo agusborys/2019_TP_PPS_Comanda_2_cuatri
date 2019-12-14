@@ -4,7 +4,7 @@
       <ion-back-button color="dark" defaultHref="inicio"></ion-back-button>
     </ion-buttons>
     <ion-title class="titulo-header">
-      <ion-icon name="checkbox-outline"></ion-icon>Confirmar pedido
+      Confirmar pedido
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -17,23 +17,34 @@
         <div class="width-100 align-text-center big-letter"  style="background: whitesmoke;">
           <label class="bolded">
             Mesa {{pedido.mesa}}
-         </label>
+         </label><br>
+         <div>
+          <label class="label-entrega">
+              Cliente : {{pedido.cliente}}
+            </label><br>
+            <label class="label-entrega">
+              Fecha : {{pedido.fecha | date:'dd/MM/yyyy'}}
+            </label><br>
+            <label class="label-entrega">
+                Hora : {{pedido.fecha | date:'HH:mm'}}
+            </label>
+         </div>
       </div>
       <div class="width-100 center-horizontal center-vertical" style="background: whitesmoke;">
           <ion-button class="botones-registro"
             (click)="this.verPedido(pedido.key)">
-            Ver
+            Ver pedido completo
           </ion-button>
         </div>
 
         <div class="width-100 center-horizontal" style="background: whitesmoke;">
           <ion-button class="botones-registro"
             (click)="aceptarPedido(pedido.key)">
-            <ion-icon slot="icon-only" name="checkmark" style="font-weight: bold;"></ion-icon>
+            <ion-icon slot="icon-only" name="checkmark" style="font-weight: bold;"></ion-icon>Confirmar
           </ion-button>
           <ion-button class="botonesRojo"
             (click)="rechazarPedido(pedido.key, pedido.mesa)">
-            <ion-icon slot="icon-only" name="close"></ion-icon>
+            <ion-icon slot="icon-only" name="close"></ion-icon>Denegar
           </ion-button>
         </div>
       </div>

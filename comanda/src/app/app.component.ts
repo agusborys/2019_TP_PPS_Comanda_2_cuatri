@@ -21,7 +21,7 @@ import { present } from '@ionic/core/dist/types/utils/overlays';
 export class AppComponent implements OnInit {
   splash = true;
   public appPages;
-  
+
   constructor(
     public platform: Platform,
     public statusBar: StatusBar,
@@ -48,26 +48,38 @@ export class AppComponent implements OnInit {
     });
 
     this.fcm.onNotification().subscribe(data => {
-      console.log(data);
+      // console.log(data);
       if (data.wasTapped) {
-        console.log('Received in background');
+        // console.log('Received in background');
         //this.router.navigateByUrl('/list-confirmar-cliente-mesa');
         this.router.navigate(['/login']);
       } else {
-        console.log('Received in foreground');
+        // console.log('Received in foreground');
+        //let objetoAuxUno = JSON.stringify(data.title);
         let objetoAuxDos = JSON.stringify(data.body);
-        this.presentToast(objetoAuxDos);
+        this.presentToast( objetoAuxDos);
       }
     });
   }
   async presentToast(mensaje: string) {
     const toast = await this.toastController.create({
+      //header: cabeza,
       message: mensaje,
-      duration: 5000,
+      //duration: 5000,
       position: 'top',
-      color: 'warning',
+      color: 'violetaleon',
       translucent: false,
       cssClass: 'toast-noti',
+      buttons: [
+        {
+          text: 'Cerrar',
+          role: 'cancel',
+          handler: () => {
+            // console.log('Cancel clicked');
+            toast.dismiss();
+          }
+        }
+      ]
     });
     toast.present();
   }

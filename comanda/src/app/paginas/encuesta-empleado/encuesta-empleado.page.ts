@@ -35,7 +35,7 @@ export class EncuestaEmpleadoPage implements OnInit {
       companerismoCtrl: new FormControl(false),
       horariosFlexiblesCtrl: new FormControl(false),
       satisfaccionCtrl: new FormControl('', Validators.required),
-      comentarioCtrl: new FormControl('', Validators.required),
+      comentarioCtrl: new FormControl('', /* Validators.required */),
     });
 
     this.fotos = new Array<string>();
@@ -51,21 +51,23 @@ export class EncuestaEmpleadoPage implements OnInit {
     this.formEncuesta.patchValue({ satisfaccionCtrl: auxBool });
   }
 
-  public tomarFoto() {
+  public async tomarFoto() {
     const options: CameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       correctOrientation: true,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+      sourceType: this.camera.PictureSourceType.CAMERA
     };
-
+    this.spinner = await this.spinnerHand.GetAllPageSpinner();
+    this.spinner.present();
     this.camera.getPicture(options).then((imageData) => {
       this.fotos.unshift('data:image/jpeg;base64,' + imageData);
     }, (err) => {
-      this.subidaErronea(err);
+      this.subidaErronea("Ocurrió un error interno o se ha cerrado la cámara");
     });
+    this.spinner.dismiss();
   }
 
   public async mostrarFaltanDatos(mensaje: string) {
@@ -74,7 +76,7 @@ export class EncuestaEmpleadoPage implements OnInit {
       color: 'danger',
       showCloseButton: false,
       position: 'bottom',
-      closeButtonText: 'Okay',
+      closeButtonText: 'Aceptar',
       duration: 2000
     });
     toast.present();
@@ -82,10 +84,11 @@ export class EncuestaEmpleadoPage implements OnInit {
 
   private async subidaExitosa(mensaje) {
     const alert = await this.alertCtrl.create({
-      header: 'Alert',
-      subHeader: 'Éxito',
+      header: 'Exito',
+      subHeader: 'Se han cargado los datos',
       message: mensaje,
-      buttons: ['OK']
+      buttons: ['Aceptar'],
+      cssClass:'avisoAlert'
     });
 
     await alert.present();
@@ -110,20 +113,21 @@ export class EncuestaEmpleadoPage implements OnInit {
 
   private async subidaErronea(mensaje: string) {
     const alert = await this.alertCtrl.create({
-      header: 'Alert',
-      subHeader: 'Error',
+      header: 'Error',
+      subHeader: 'Ocurrió un error',
       message: mensaje,
-      buttons: ['OK']
+      buttons: ['Aceptar'],
+      cssClass:'avisoAlert'
     });
 
     await alert.present();
   }
 
   public enviarEncuesta() {
-    if (this.formEncuesta.value.comentarioCtrl === '') {
-      this.mostrarFaltanDatos('El comentario es requerido.');
-      return true;
-    }
+    // if (this.formEncuesta.value.comentarioCtrl === '') {
+    //   this.mostrarFaltanDatos('El comentario es requerido.');
+    //   return true;
+    // }
     if (this.formEncuesta.value.horarioEncuestaCtrl === '') {
       this.mostrarFaltanDatos('Falta determinar el horario de la encuesta.');
       return true;
@@ -132,10 +136,10 @@ export class EncuestaEmpleadoPage implements OnInit {
       this.mostrarFaltanDatos('Falta determinar la satisfacción.');
       return true;
     }
-    if (this.fotos.length === 0) {
-      this.mostrarFaltanDatos('La foto es obligatoria.');
-      return true;
-    }
+    // if (this.fotos.length === 0) {
+    //   this.mostrarFaltanDatos('La foto es obligatoria.');
+    //   return true;
+    // }
 
     this.comenzarSubida();
   }
@@ -209,7 +213,7 @@ export class EncuestaEmpleadoPage implements OnInit {
       .then((a) => {
         this.subidaExitosa('El alta se realizó de manera exitosa.');
       }).catch(err => {
-        console.log('Error al guardarDatosDeEncuesta', err);
+        // console.log('Error al guardarDatosDeEncuesta', err);
         this.subidaErronea('Error al subir a base de datos.');
       });
   }

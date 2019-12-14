@@ -8,6 +8,7 @@ import { AngularFirestore, QuerySnapshot, DocumentSnapshot, DocumentReference } 
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
+import { ModalRealizarPedidoPage } from '../modal-realizar-pedido/modal-realizar-pedido.page';
 
 
 @Component({
@@ -32,7 +33,7 @@ export class GenerarPedidoPage implements OnInit {
     private firestore: AngularFirestore,
     private router: Router,
     private authServ: AuthService,
-    private spinnerHand:SpinnerHandlerService
+    private spinnerHand:SpinnerHandlerService,
   ) { }
 
   // Trae los productos
@@ -201,7 +202,7 @@ export class GenerarPedidoPage implements OnInit {
       color: 'success',
       showCloseButton: false,
       position: 'bottom',
-      closeButtonText: 'Done',
+      closeButtonText: 'Aceptar',
       duration: 2000
     });
     toast.present();
@@ -211,7 +212,7 @@ export class GenerarPedidoPage implements OnInit {
     const alert = await this.alertCtrl.create({
       subHeader: 'Cliente sin mesa',
       message: 'Usted no está asignado a ninguna mesa.',
-      buttons: ['OK']
+      buttons: ['Aceptar']
     });
     await alert.present();
   }
@@ -267,4 +268,42 @@ export class GenerarPedidoPage implements OnInit {
       alert.present();
     });
   }
+  public async abrirModaConfirmacion(){
+    const productosPedidos = this.productos.filter(prod => {
+      return prod.cantidad > 0;
+    });
+    const mesaDelPedido = this.mesaDelPedido;
+    // console.log(productosPedidos);
+    if (productosPedidos.length > 0) {
+      if (this.mesaDelPedido === null) {
+        this.presentAlertSinMesa();
+      } else {
+        const pedido: any = {
+          cantDet: productosPedidos.length,
+          cantEnt: 0,
+          cliente: this.authServ.user.correo,
+          estado: 'creado',
+          fecha: (new Date()).getTime(),
+          juegoBebida: false,
+          juegoComida: false,
+          juegoDescuento: false,
+          mesa: this.mesaDelPedido.nromesa,
+          preciototal: this.calcularPrecioTotal(productosPedidos),
+          propina: 0,
+        };
+        await this.modalCtrl.create({
+          component: ModalRealizarPedidoPage,
+          componentProps:{
+            productosPedidos,
+            pedido,   
+            mesaDelPedido,
+            
+          }
+        }).then(modal=>{
+          modal.present();
+        });
+      }
+    }
+  }
+
 }

@@ -4,7 +4,7 @@
       <ion-button color="dark" size="small" (click)="cerrar()"><ion-icon name="close"></ion-icon></ion-button>
     </ion-buttons>
     <ion-title class="titulo-header">
-        <ion-icon name="funnel"></ion-icon>Detalles Pedido
+        Detalles Pedido
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -22,46 +22,87 @@
       </ion-item>
       <ion-item class="item2">
         <ion-label class="label-verde">Fecha</ion-label>
-        <ion-input [value]="this.pedidoActual.fecha | date:'medium'" readonly></ion-input>
+        <ion-input [value]="this.pedidoActual.fecha | date:'dd/MM/yyyy'" readonly></ion-input>
+      </ion-item>
+      <ion-item class="item2">
+        <ion-label class="label-verde">Hora</ion-label>
+        <ion-input [value]="this.pedidoActual.fecha | date:'HH:mm'" readonly></ion-input>
       </ion-item>
       <ion-item class="item2">
         <ion-label class="label-verde">Estado</ion-label>
-        <ion-input [value]="this.pedidoActual.estado | titlecase" readonly></ion-input>
+        <div *ngIf="this.pedidoActual.estado=='creado'">
+          <ion-input  value="Esperando a ser aceptado"></ion-input>
+        </div>
+        <div *ngIf="this.pedidoActual.estado=='aceptado'">
+          <ion-input  value="Aceptado por el mozo"></ion-input>
+        </div>
+        <div *ngIf="this.pedidoActual.estado=='listoEntrega'">
+          <ion-input  value="Listo para ser entregado"></ion-input>
+        </div>
+        <div *ngIf="this.pedidoActual.estado=='entregadoMozo'">
+          <ion-input  value="Entregado por el mozo"></ion-input>
+        </div>
+        <div *ngIf="this.pedidoActual.estado=='entregado'">
+          <ion-input  value="Entregado"></ion-input>
+        </div>
+        <div *ngIf="this.pedidoActual.estado=='cuenta'">
+          <ion-input  value="Cuenta pedida"></ion-input>
+        </div>
+        <div *ngIf="this.pedidoActual.estado=='finalizado'">
+          <ion-input  value="Finalizado"></ion-input>
+        </div>
+        
       </ion-item>
 
       <table class="table1">
+        <tr>
+          <th>Producto</th>
+          <th>Precio</th>
+          <th>Estado</th>
+        </tr>
         <tr *ngFor="let producto of pedidoDetalle">
           <td>({{ producto.cantidad }}) {{ producto.producto }}</td>
-          <td class="ion-padding">
+          <td >
             <div *ngIf="this.verCuenta == false">
-              <label >
+              <!-- <label > -->
                 {{(producto.cantidad * producto.precio) | currency}}
-              </label>
+              <!-- </label> -->
             </div>
             <div *ngIf="this.verCuenta == true">
-              <label >
+              <!-- <label > -->
                 {{producto.precio | currency}}
-              </label>
+              <!-- </label> -->
             </div>
           </td>
           <td>
-            <div *ngIf="this.verCuenta == false">
-              <label >
-                {{producto.estado | titlecase}}
+            <div *ngIf="this.verCuenta == false ">
+              <label *ngIf="producto.estado=='creado'">
+                Esperando a <br>ser aceptado
+              </label>
+              <label *ngIf="producto.estado=='aceptado'">
+                  Aceptado <br>por el mozo
+              </label>
+              <label *ngIf="producto.estado=='preparacion'">
+                  En preparación
+              </label>
+              <label *ngIf="producto.estado=='listoEntrega'">
+                  Listo para<br> entregar
               </label>
             </div>
             <div *ngIf="this.verCuenta == true">
-              <label >
+              <!-- <label > -->
                 {{(producto.cantidad * producto.precio) | currency}}
-              </label>
+              <!-- </label> -->
             </div>
           </td>
         </tr>
       </table>
-      Descuentos!
+      <div style="font-size:22px;color:black;" *ngIf="arrayDecuentos.length > 0">
+          ¡Descuentos!
+      </div>
       <table class="table1">
         <tr *ngFor="let producto of arrayDecuentos">
-          <td>({{ producto.cantidad }}) {{ producto.producto }}</td>
+          <td>({{ producto.cantidad }}) {{ producto.producto | titlecase}}</td>
           <td class="ion-padding">
             <div *ngIf="this.verCuenta == false">
               <label >
@@ -89,9 +130,11 @@
         </tr>
       </table>
 
-      <ion-item *ngIf="this.verCuenta == false" class="item2">
-        <ion-label class="label-verde">Total</ion-label>
-        <ion-input [value]="this.pedidoActual.preciototal | currency" readonly></ion-input>
+      <ion-item class="item2">
+        <ion-label style="font-size: 22px;font-weight: bold;text-align: left;"
+         class="label-verde">Total</ion-label>
+        <ion-input [value]="(this.manejarPrecioDescuento()) | currency" 
+        style="font-size: 22px;font-weight: bold;text-align: right;" readonly></ion-input>
       </ion-item>
 
       <div *ngIf="this.verCuenta == false">
@@ -114,9 +157,15 @@
             [disabled]="this.pedidoActual.estado != 'cuenta' ||
             this.cliente == false">Escanear</ion-button>
         </ion-item>
+        <!-- <ion-item class="item2">
+          <ion-label>Total</ion-label>
+          <ion-input style="text-align: right;" [value]="this.pedidoActual.preciototal | currency"
+            readonly></ion-input>
+        </ion-item> -->
         <ion-item class="item2">
-          <ion-label>Total + Propina</ion-label>
-          <ion-input readonly
+          <ion-label class="label-verde" style="font-size: 22px;font-weight: bold;text-align: left;">
+            Total + Propina</ion-label>
+          <ion-input readonly style="font-size: 22px;font-weight: bold;text-align: right;"
             [value]="(this.manejarPrecioPropina()) | currency"></ion-input>
         </ion-item>
       </div>

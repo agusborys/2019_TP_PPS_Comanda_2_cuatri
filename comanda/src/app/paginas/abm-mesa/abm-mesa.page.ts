@@ -6,6 +6,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/storage';
 import { MesaKey } from 'src/app/clases/mesa';
 import { map } from 'rxjs/operators';
+import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
 
 @Component({
   selector: 'app-abm-mesa',
@@ -16,7 +17,7 @@ export class AbmMesaPage implements OnInit {
   private formMesas: FormGroup;
   private foto: string | boolean = false;
   private mesas: MesaKey[];
-
+  private spinner: any = null;
   constructor(
     private camera: Camera,
     private alertCtrl: AlertController,
@@ -24,6 +25,7 @@ export class AbmMesaPage implements OnInit {
     private toastController: ToastController,
     private storage: AngularFireStorage,
     private firestore: AngularFirestore,
+    private spinnerHand : SpinnerHandlerService,
   ) { }
 
   public traerMesas() {
@@ -38,6 +40,7 @@ export class AbmMesaPage implements OnInit {
   }
 
   public ngOnInit() {
+
     this.traerMesas().subscribe((d: MesaKey[]) => {
       // console.log('Tengo las mesas', d);
       this.mesas = d;
@@ -52,26 +55,29 @@ export class AbmMesaPage implements OnInit {
 
   }
 
-  public tomarFoto() {
+  public async tomarFoto() {
     const options: CameraOptions = {
-      quality: 100,
+      quality: 50,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       correctOrientation: true,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
-    };
+      sourceType: this.camera.PictureSourceType.CAMERA
 
+    };
+    this.spinner = await this.spinnerHand.GetAllPageSpinner();
+    this.spinner.present();
     this.camera.getPicture(options).then((imageData) => {
       this.foto = 'data:image/jpeg;base64,' + imageData;
     }, (err) => {
-      this.subidaErronea(err);
+      this.subidaErronea("Ocurrió un error interno o se ha cerrado la cámara");
     });
+    this.spinner.dismiss();
   }
 
   private compararExistencia(): boolean {
     let auxReturn = false;
-    const comp = parseInt(this.formMesas.value.tmesaCtrl, 10);
+    const comp = parseInt(this.formMesas.value.nromesaCtrl, 10);
 
     for (const m of this.mesas) {
       if (m.nromesa === comp) {
@@ -84,11 +90,11 @@ export class AbmMesaPage implements OnInit {
   }
   public agregarMesas() {
     if (this.formMesas.value.nromesaCtrl === '') {
-      this.mostrarFaltanDatos('El nro. de mesa es obligatorio');
+      this.mostrarFaltanDatos('El número de mesa es obligatorio');
       return true;
     }
     if (this.formMesas.value.cantcomenCtrl === '') {
-      this.mostrarFaltanDatos('El nro. de personas es obligatorio');
+      this.mostrarFaltanDatos('El número de personas es obligatorio');
       return true;
     }
     if (this.formMesas.value.tmesaCtrl === '') {
@@ -130,15 +136,20 @@ export class AbmMesaPage implements OnInit {
       pedidoActual: '',
     };
     const auxFoto = this.obtenerFotoOriginal();
-
+    this.spinner = await this.spinnerHand.GetAllPageSpinner();
+    this.spinner.present();
     await imageRef.putString(auxFoto, 'base64', { contentType: 'image/jpeg' })
       .then(async (snapshot) => {
         datos.foto = await snapshot.ref.getDownloadURL();
         this.guardardatosDeProducto(datos);
+        this.spinner.dismiss();
       })
       .catch(() => {
+        this.spinner.dismiss();
         this.subidaErronea('Error al subir la foto, se canceló el alta.');
+
       });
+      //this.spinner.dismiss();
   }
 
   private guardardatosDeProducto(datos) {
@@ -146,17 +157,17 @@ export class AbmMesaPage implements OnInit {
       .then((a) => {
         this.subidaExitosa('El alta se realizó de manera exitosa.');
       }).catch(err => {
-        console.log('Error al guardarDatosDeProducto', err);
+        // console.log('Error al guardar datos de producto', err);
         this.subidaErronea('Error al subir a base de datos.');
       });
   }
 
   private async subidaExitosa(mensaje) {
     const alert = await this.alertCtrl.create({
-      header: 'Alert',
-      subHeader: 'Éxito',
+      header: 'Éxito',
       message: mensaje,
-      buttons: ['OK']
+      buttons: ['Aceptar'],
+      cssClass:'avisoAlert'
     });
 
     await alert.present();
@@ -166,10 +177,10 @@ export class AbmMesaPage implements OnInit {
 
   private async subidaErronea(mensaje: string) {
     const alert = await this.alertCtrl.create({
-      header: 'Alert',
-      subHeader: 'Error',
+      header: 'Error',
       message: mensaje,
-      buttons: ['OK']
+      buttons: ['Aceptar'],
+      cssClass:'avisoAlert'
     });
 
     await alert.present();
@@ -186,8 +197,8 @@ export class AbmMesaPage implements OnInit {
       color: 'danger',
       showCloseButton: false,
       position: 'bottom',
-      closeButtonText: 'Okay',
-      duration: 2000
+      closeButtonText: 'Aceptar',
+      duration: 3000
     });
     toast.present();
   }

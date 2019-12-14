@@ -32,6 +32,12 @@ ion-content {
   --background-size: cover !important;
   // --background: url('/assets/img/regback.png') 0 0/100% 100% no-repeat !important;
   --background:#edf7ee;
+
+}
+
+ion-title {
+  text-align: center;
+  color:black;
 }
 
 .spinner-landscape {
@@ -56,6 +62,27 @@ ion-content {
   --background: transparent !important;
 }
 
+.margin-top {
+  &-5{
+    margin-top: 5px;
+  }
+  &-7{
+    margin-top: 7px;
+  }
+  &-9{
+    margin-top: 9px;
+  }
+  &-11{
+    margin-top: 11px;
+  }
+  &-15{
+    margin-top: 15px;
+  }
+  &-20{
+    margin-top: 20px;
+  }
+
+}
 // Ajusta el alto de un elemento
 .height {
   &-10 {
@@ -129,12 +156,19 @@ ion-content {
   display: flex;
   justify-content: space-evenly;
 }
-
+.align-espaciado {
+  display: flex;
+  justify-content: space-evenly;
+}
 // Centra los objetos dentro de este elemento de forma horizontal
 .center-horizontal {
   display: flex;
   justify-content: center;
 }
+// .center-vertical {
+//   vertical-align: middle;
+//   border: 1px solid red;
+// }
 
 // Centra los objetos dentro de este elemento de forma vertical
 .center-vertical {
@@ -159,14 +193,15 @@ ion-content {
 
 // Crea el marco para las fotos de perfil en el alta de mesas y producto (puede reusarse)
 .profile-picture {
-  height: 7rem;
-  max-height: 7rem !important;
-  min-height: 7rem;
-  width: 7rem;
-  max-width: 7rem !important;
-  min-width: 7rem;
+  height: 9rem;
+  max-height: 9rem !important;
+  min-height: 9rem;
+  width: 9rem;
+  max-width: 9rem !important;
+  min-width: 9rem;
   object-fit: cover;
   border-radius: 100% !important;
+  margin-bottom: 5px;
 }
 
 // Ajusta el texto dentro de un elemento
@@ -181,7 +216,7 @@ ion-content {
 // Para el botón de los qr
 // Maneja el css de la imagen
 .qr-img {
-  max-width: 100%;
+  width: 100%;
   height: auto;
   object-fit: cover;
 }
@@ -197,7 +232,7 @@ ion-content {
 .border {
   background-color: whitesmoke;
   padding: 1rem 1.5rem;
-  font-size: 25px;
+  // font-size: 25px;
   text-align: center;
   border-color: #339933;
   cursor: pointer;
@@ -256,6 +291,17 @@ ion-content {
   font-size: 25px;
 }
 //alert_Usuarios
+
+ion-card {
+  background-color: whitesmoke;
+
+}
+
+.ion-card-50 {
+  border-radius: 50px !important;
+  width: 90%;
+  --background:whitesmoke;
+}
 ion-alert .alert-head{
   color: black!important;
   background-color: #43a047;
@@ -268,30 +314,55 @@ ion-alert.alert-message{
   color:black;
   text-align: center;
   margin-top: 5px;
+  font-size: 20px;
 }
 ion-alert.seleccionarAlert{
   --background:#edf7ee !important;
   text-align: left;
-  font-weight: bold;
+  //font-weight: bold;
   color: black;
+  --width: 120%;
+  font-size: 20px;
+  //--height:90%;
   //   .alert-head
   //   {
   //     color: white!important;
   //     background-color: #b71c1c;
   //   }
+  .alert-message{
+    font-size:20px;
+    color:black;
+  }
   .alert-button-group{
     color: black!important;
     background-color: #43a047;
-    justify-content: center;
-    padding: 6px 6px 6px 18px;
-    
+    //justify-content: center;
+    //padding: 6px 6px 6px 18px;
+
   }
   .alert-button{
     background-color: #edf7ee;
+    //padding: 15px;
+    color: black;
+    margin-right: 3px;
+  }
+  .button-Ok{
+    background-color: #edf7ee;
     padding: 15px;
     color: black;
+    margin-left: auto;
+    font-size:16px;
+
+  }
+  .button-Cancel{
+    background-color: #edf7ee;
+    padding: 15px;
+    color: black;
+    font-size:16px;
+    //margin-right: auto;
   }
 }
+
 //Alert Avisos
 ion-alert.avisoAlert{
   // --background:#edf7ee !important;
@@ -299,15 +370,17 @@ ion-alert.avisoAlert{
   // color: black !important;
   .alert-button-group{
     color: black!important;
-    background-color: #edf7ee;
+    background-color: #43a047;
     justify-content: center;
     padding: 6px 6px 6px 18px;
-    
+
   }
   .alert-button{
     background-color: #edf7ee;
     padding: 15px;
     color: black;
+    margin: auto;
+
   }
   .alert-message{
     color: black !important;
@@ -320,7 +393,7 @@ ion-alert.avisoAlert{
   }
 }
 .titulo-header{
-  color: black;
+  color: #133813;
   text-align: center;
 }
 
@@ -329,29 +402,37 @@ ion-alert.avisoAlert{
   -moz-border-radius: 80px 80px 80px 80px;
   -webkit-border-radius: 80px 80px 80px 80px;
   border: 3px solid #1e4820;//607985
-  --background: transparent !important;  
+  --background: transparent !important;
   display: block;
   margin-left: auto;
   margin-right: auto;
   justify-content: center;
-  width: 250px;
-  height: 60px;
+  width: 85%;
+  height: 70px;
   margin-bottom: 15px;
   color: black;
-  --highlight-height:0;
+  --highlight-height:0px;
+  --border-width:0px;
+  --padding-bottom:1px;
+  ion-input{
+    font-size: 18px;
+  }
+}
+ion-input{
+  --padding-bottom:1px;
 }
 .ingresar{
   color: black;
   --border-radius: 80px;
   width: 150px;
   height: 50px;
-  //--border-style: 3px solid #546e7a;   
+  //--border-style: 3px solid #546e7a;
   --background: transparent !important;
-  --background-activated:#339933; 
+  --background-activated:#339933;
   --border-color:#339933;
   --background-hover:#339933;
   --background-focused: #339933;
-  display: block; 
+  display: block;
   margin-left: auto;
   margin-right: auto;
   justify-content: center;
@@ -360,11 +441,11 @@ ion-alert.avisoAlert{
 .seleccionar-usuario{
   color: black;
   --border-radius: 80px;
-  width: 230px;
-  height: 40px;
-  //--border-style: 3px solid #546e7a;   
+  width: 250px;
+  height: 60px;
+  //--border-style: 3px solid #546e7a;
   --background: transparent !important;
-  --background-activated:#339933; 
+  --background-activated:#339933;
   --border-color:#339933;
   --background-hover:#339933;
   --background-focused: #339933;
@@ -379,16 +460,38 @@ ion-alert.avisoAlert{
   color: black;
   --border-radius: 80px;
   width: 200px;
-  height: 35px;
+  height: 50px;
   --border-color: #339933;
   --border-width: 1px;
-  --border-style:  solid ;   
+  --border-style:  solid ;
   --background: #dbf0dc !important;
-  --background-activated:#339933; 
+  --background-activated:#339933;
   --border-color:#339933;
   --background-hover:#339933;
   --background-focused: #339933;
-  display: block; 
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  margin-bottom: 5px;
+  text-transform: unset;
+  font-size: medium;
+}
+
+.botonesRojo{
+  color: black;
+  --border-radius: 80px;
+  width: 200px;
+  height: 50px;
+  --border-color: #a04743;
+  --border-width: 1px;
+  --border-style:  solid ;
+  --background: #f5d5d4 !important;
+  --background-activated:#a04743;
+  --border-color:#a04743;
+  --background-hover:#a04743;
+  --background-focused: #a04743;
+  display: block;
   margin-left: auto;
   margin-right: auto;
   justify-content: center;
@@ -397,32 +500,25 @@ ion-alert.avisoAlert{
   font-size: medium;
 }
 
-.botonesRojo{
-  color: black;
-  --border-radius: 80px;
-  width: 200px;
-  height: 35px;
-  --border-color: #a04743;
-  --border-width: 1px;
-  --border-style:  solid ;   
-  --background: #f5d5d4 !important;
-  --background-activated:#a04743; 
-  --border-color:#a04743;
-  --background-hover:#a04743;
-  --background-focused: #a04743;
-  display: block; 
-  margin-left: auto;
-  margin-right: auto;
-  justify-content: center;
-  margin-bottom: 5px;
-  text-transform: unset;;
-  font-size: medium;
-}
+.toast-noti{
+  --height: 110px;
+  //--min-height: 90px;
+  //--max-height: 110px;
+  color: white !important;
+  --color: white !important;
+  --border-color: #ffffff;
+  --border-style: solid;
+  --border-width: 5px;
+  --border-radius: 40px 40px 40px 40px;
+  --box-shadow:  10px 10px 40px 0px rgba(69,40,69,0.81);
+  --button-color: white;
+  }
+
 ion-toast{
   color: black;
   --color:black!important;
   --button-color:black;
-  --height: 40px;
+  --height: 80px;
   font-size: 20px;
   --background: #339933;
 }
@@ -431,10 +527,11 @@ ion-toast{
   font-size: 18px;
 }
 
-.toast-noti{
-  --height: 90px;
-  --background: #4743a0,
-  }
+.label-entrega{
+  font-size:20px;
+  color: black;
+  border-bottom:1px solid #61bd65;
+}
 //Para el spinner
 .spinner {
   position: relative;
@@ -485,4 +582,52 @@ ion-toast{
   100% {
     transform: rotate(1800deg);
   }
+}
+
+.botones{
+  color: #133813;
+  --border-radius: 80px;
+  width: 300px;
+  height: 60px;
+  --border-color: #339933;
+  --border-width: 1px;
+  --border-style:  solid ;
+  --background: #dbf0dc !important;
+  --background-activated:#339933;
+  --border-color:#339933;
+  // --background-hover:#339933;
+  // --background-focused: #339933;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  margin-bottom: 5px;
+  text-transform: unset;
+  font-size: large;
+}
+
+.botones-grandes{
+  color: #133813;
+  --border-radius: 80px;
+  width: 100%;
+  height: 50%;
+  --border-color: #339933;
+  --border-width: 1px;
+  --border-style:  solid ;
+  --background: #dbf0dc !important;
+  --background-activated:#339933;
+  --border-color:#339933;
+  // --background-hover:#339933;
+  // --background-focused: #339933;
+  // display: block;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  margin-bottom: 5px;
+  text-transform: unset;
+  font-size: x-large;
+}
+
+ion-input {
+  --font-size: 1em;
 }
