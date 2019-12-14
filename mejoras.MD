@@ -1,9 +1,9 @@
 
-- [ ] Tamaño letras
-- [ ] Espacios en blanco
-- [ ] Acentos
-- [ ] Palabras en inglés
-- [ ] Mejorar botones
+- [x] Tamaño letras -santi-borys
+- [x] Espacios en blanco - santi-borys
+- [x] Acentos leon-santi-borys
+- [x] Palabras en inglés - borys-leon
+- [x] Mejorar botones - santi
 - [x] Mejorar inputs - borys
 - [x] Alta de mesa no valida - Borys
 - [x] Foto de usuario, Leon (08/12)
@@ -14,5 +14,5 @@
 - [x] Validar que si existe mail no haga un. - Borys
 - [ ] Que el alta de mesas genere su propio codigo QR
 - [x] Cambiar forma de mostrar la preparación de platos (Agregar detalles de mesa, tiempo, etc.) - borys
-- [ ] Corregir descuentos en juegos (solo al 1er intento se descuenta, después ya no)
-- [ ] Que el mozo no pueda cerrar la mesa si no le subieron la propina
+- [x] Corregir descuentos en juegos (solo al 1er intento se descuenta, después ya no) - borys
+- [x] Que el mozo no pueda cerrar la mesa si no le subieron la propina - borys
