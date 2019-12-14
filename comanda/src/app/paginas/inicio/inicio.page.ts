@@ -64,27 +64,27 @@ export class InicioPage implements OnInit  {
     let tipo = this.authService.tipoUser;
     switch (tipo) {
       case 'dueño':
-        console.log(tipo+" subscrito a reservas");
+        // console.log(tipo+" subscrito a reservas");
         this.fcm.subscribeToTopic('notificacionReservas');
         break;
       case 'supervisor':
-        console.log(tipo+" subscrito a reservas");
+        // console.log(tipo+" subscrito a reservas");
         this.fcm.subscribeToTopic('notificacionReservas');
         break;
       case 'mozo':
-        console.log(tipo+" subscrito a Mesas");
+        // console.log(tipo+" subscrito a Mesas");
         this.fcm.subscribeToTopic('notificacionMesa');
         break;
       case 'cocinero':
-        console.log(tipo+" subscrito a Pedidos");
+        // console.log(tipo+" subscrito a Pedidos");
         this.fcm.subscribeToTopic('notificacionesPedidos');
         break;
       case 'candybar':
-        console.log(tipo+" subscrito a Pedidos");
+        // console.log(tipo+" subscrito a Pedidos");
         this.fcm.subscribeToTopic('notificacionesPedidos');
         break;
       case 'bartender':
-        console.log(tipo+" subscrito a Pedidos");
+        // console.log(tipo+" subscrito a Pedidos");
         this.fcm.subscribeToTopic('notificacionesPedidos');
         break;
       default:

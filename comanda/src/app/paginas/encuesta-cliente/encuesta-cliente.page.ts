@@ -214,7 +214,7 @@ export class EncuestaClientePage implements OnInit {
       .then((a) => {
         this.subidaExitosa('El alta se realizó de manera exitosa.');
       }).catch(err => {
-        console.log('Error al guardarDatosDeEncuesta', err);
+        // console.log('Error al guardarDatosDeEncuesta', err);
         this.subidaErronea('Error al subir a base de datos.');
       });
   }

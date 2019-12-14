@@ -113,26 +113,26 @@ export class JuegoPostrePage implements OnInit {
     this.audio = [a0, a1, a2, a3];
   }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.traerPedidos().subscribe((d: PedidoKey[]) => {
       this.pedidos = d;
-      console.log(this.currentUser.email, this.pedidos);
+      // console.log(this.currentUser.email, this.pedidos);
       this.pedido = this.pedidos.find((m) => {
         if(m.cliente === this.currentUser.email && (m.estado=="aceptado" || m.estado=="entregado"))
         {
           return true;
         }
         return false;
-          
+
       });
-      console.log(this.pedido);
+      // console.log(this.pedido);
     });
     this.traerVerificacionJuego().subscribe((d:VerificacionJuego[])=>{
       this.verificacionesJuegos = d;
       this.verificacionJuego = this.verificacionesJuegos.find((m:VerificacionJuego)=>{
         return (m.id_pedido == this.pedido.key);
       });
-      console.log(this.verificacionJuego);
+      // console.log(this.verificacionJuego);
     });
   }
   public traerPedidos() {
@@ -265,10 +265,10 @@ export class JuegoPostrePage implements OnInit {
         setTimeout(() => {
           // GANASTE EL JUEGO - Julián
           //alert('Felicitaciones Ganaste! Tenes un postre gratis!!!');
-          
+
           this.msg = 'Excelente. Ganaste!';
           this.isStart = true;
-          
+
           if(this.verificacionJuego.jugoComida == false){
             this.errorHand.mostrarErrorSolo("Felicitaciones", "Has ganado un postre gratis! Se te descontará al final de tu cuenta");
             this.pedido.juegoComida = true;

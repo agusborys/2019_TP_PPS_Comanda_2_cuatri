@@ -66,7 +66,7 @@ export class JuegoTresPage implements OnInit {
   ngOnInit() {
     this.traerPedidos().subscribe((d: PedidoKey[]) => {
       this.pedidos = d;
-      console.log(this.currentUser.email, this.pedidos);
+      // console.log(this.currentUser.email, this.pedidos);
       this.pedido = this.pedidos.find((m) => {
         if(m.cliente === this.currentUser.email && (m.estado=='aceptado' || m.estado=='entregado'))
         {
@@ -74,14 +74,14 @@ export class JuegoTresPage implements OnInit {
         }
           return false;
       });
-      console.log(this.pedido);
+      // console.log(this.pedido);
     });
     this.traerVerificacionJuego().subscribe((d:VerificacionJuego[])=>{
       this.verificacionesJuegos = d;
       this.verificacionJuego = this.verificacionesJuegos.find((m:VerificacionJuego)=>{
         return (m.id_pedido == this.pedido.key);
       });
-      console.log(this.verificacionJuego);
+      // console.log(this.verificacionJuego);
     });
     setTimeout(() => {
 
@@ -213,7 +213,7 @@ export class JuegoTresPage implements OnInit {
           break;
        }
        default: {
-          console.log('Invalid choice');
+          // console.log('Invalid choice');
           break;
        }
     }
@@ -255,7 +255,7 @@ export class JuegoTresPage implements OnInit {
           break;
        }
        default: {
-          console.log('Invalid choice');
+          // console.log('Invalid choice');
           break;
        }
     }

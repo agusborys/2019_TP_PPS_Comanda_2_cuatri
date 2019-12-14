@@ -150,7 +150,7 @@ export class ConfirmarEntregaPage implements OnInit {
         this.mostrarAlert('¡Código erroneo!', 'Debe escanear un codigo QR valido');
       }
     }, (err) => {
-      console.log('Error: ', err);
+      // console.log('Error: ', err);
       this.mostrarAlert('¡Error!', 'Error desconocido.');
       // this.manejarPropina(5);
     });
@@ -191,7 +191,7 @@ export class ConfirmarEntregaPage implements OnInit {
           handler: () => {
             this.actualizarPropina(propina);
           }
-        }, 
+        },
       ]
     }).then(alert => {
       alert.present();

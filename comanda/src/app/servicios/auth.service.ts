@@ -130,7 +130,7 @@ export class AuthService {
     // Obtengo el cliente activo en la base de clientes registrados
     const auxCliente: void | ClienteKey = await this.traerClienteRegistrado()
       .catch(err => {
-        console.log(err);
+        // console.log(err);
       });
     // Si el cliente está registrado, entonces prosigo con la operación
     if (auxCliente !== null) {
@@ -143,7 +143,7 @@ export class AuthService {
       const auxClienteAnon: void | AnonimoKey = await this.traerClienteAnonimo()
         .catch(err => {
 
-          console.log(err);
+          // console.log(err);
         });
 
       if (auxClienteAnon !== null) {
@@ -155,7 +155,7 @@ export class AuthService {
         const auxEmpleado: void | EmpleadoKey = await this.traerEmpleado()
           .catch(err => {
 
-            console.log(err);
+            // console.log(err);
           });
 
         if (auxEmpleado !== null) {
@@ -164,7 +164,7 @@ export class AuthService {
 
           // console.log('Hay empleado', auxEmpleado);
         } else {
-          console.log('Error, no hay usuario idenfiticable');
+          // console.log('Error, no hay usuario idenfiticable');
 
           this.Logout();
         }
@@ -173,7 +173,7 @@ export class AuthService {
 
     // console.log(this.user);
     //this.spinner.dismiss();
-    console.log(this.tipoUser);
+    // console.log(this.tipoUser);
   }
   //#endregion
 
@@ -200,7 +200,7 @@ export class AuthService {
           });
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
       });
   }
 
@@ -224,11 +224,11 @@ export class AuthService {
             secondaryApp.auth().signOut();
           })
           .catch(err => {
-            console.log(err);
+            // console.log(err);
           });
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
       });
   }
 
@@ -271,7 +271,7 @@ export class AuthService {
           });
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
       });
   }
 

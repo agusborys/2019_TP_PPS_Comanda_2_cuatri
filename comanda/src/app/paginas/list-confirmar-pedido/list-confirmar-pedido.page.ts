@@ -22,7 +22,7 @@ export class ListConfirmarPedidoPage implements OnInit {
     private firestore: AngularFirestore,
     private toastCtrl: ToastController,
     private modalCtrl: ModalController,
-    public http: Http, 
+    public http: Http,
     private spinnerHand : SpinnerHandlerService) {
   }
 
@@ -60,10 +60,10 @@ export class ListConfirmarPedidoPage implements OnInit {
       "restricted_package_name": ""
     };
 
-    console.log("Data: ", data);
+    // console.log("Data: ", data);
 
     return this.http.post(this.apiFCM, data, options).pipe(map(res => res.json())).subscribe(result => {
-      console.log(result);
+      // console.log(result);
     });
 
 
@@ -117,7 +117,7 @@ export class ListConfirmarPedidoPage implements OnInit {
     for (const d of detalles) {
       // console.log(d);
       await this.actualizarDoc('pedidoDetalle', d.key, data).catch(err => {
-        console.log('Error en detalles', err);
+        // console.log('Error en detalles', err);
       });
     }
   }
@@ -125,18 +125,18 @@ export class ListConfirmarPedidoPage implements OnInit {
   public async aceptarPedido(pedido: string) {
     const data = { estado: 'aceptado' };
     await this.actualizarDoc('pedidos', pedido, data).catch(err => {
-      console.log('Error en pedido', err);
+      // console.log('Error en pedido', err);
     });
     await this.actualizarDetalles(pedido);
 
     this.envioPostPreparacion()
     this.presentToast('Pedido Aceptado', 'success');
-    
+
   }
 
   private removerDoc(db, key) {
     return this.firestore.collection(db).doc(key).delete().catch(err => {
-      console.log(err);
+      // console.log(err);
     });
   }
 
@@ -176,7 +176,7 @@ export class ListConfirmarPedidoPage implements OnInit {
 
     for (const d of detalles) {
       await this.removerDoc('pedidoDetalle', d.key).catch(err => {
-        console.log(err);
+        // console.log(err);
       });
     }
   }
@@ -186,12 +186,12 @@ export class ListConfirmarPedidoPage implements OnInit {
     if (mesaAux !== false) {
       const data = { pedidoActual: '' };
       await this.actualizarDoc('mesas', mesaAux.key, data).catch(err => {
-        console.log(err);
+        // console.log(err);
       });
     }
     await this.borrarDetalles(pedido);
     await this.removerDoc('pedidos', pedido).catch(err => {
-      console.log(err);
+      // console.log(err);
     });
     this.presentToast('Pedido Rechazado', 'danger');
   }

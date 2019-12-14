@@ -38,7 +38,7 @@ export class JuegoDescuentoPage implements OnInit {
 
     // Creamos un array para guardar las letras que se van seleccionando.
     controlLetras = new Array;
-    
+
     private pedido : PedidoKey;
     private pedidos : PedidoKey[];
     private verificacionesJuegos : VerificacionJuego[];
@@ -213,7 +213,7 @@ export class JuegoDescuentoPage implements OnInit {
         // });
         this.mensaje = 'Enhorabuena!, Has acertado la palabra secreta. Has conseguido un 10% de descuento en tu cuenta.';
         this.ganador = 1;
-        
+
         if(this.verificacionJuego.jugoDescuento == false)
         {
           this.errorHand.mostrarErrorSolo("Felicitaciones!","Has acertado la palabra secreta. Has conseguido un 10% de descuento en tu cuenta.");
@@ -256,22 +256,22 @@ export class JuegoDescuentoPage implements OnInit {
   ngOnInit() {
     this.traerPedidos().subscribe((d: PedidoKey[]) => {
       this.pedidos = d;
-      console.log(this.currentUser.email, this.pedidos);
+      // console.log(this.currentUser.email, this.pedidos);
       this.pedido = this.pedidos.find((m:PedidoKey) => {
         if(m.cliente === this.currentUser.email && (m.estado=="aceptado" || m.estado=="entregado"))
         {
           return true;
         }
-        return false; 
+        return false;
       });
-      console.log(this.pedido);
+      // console.log(this.pedido);
     });
     this.traerVerificacionJuego().subscribe((d:VerificacionJuego[])=>{
       this.verificacionesJuegos = d;
       this.verificacionJuego = this.verificacionesJuegos.find((m:VerificacionJuego)=>{
         return (m.id_pedido == this.pedido.key);
       });
-      console.log(this.verificacionJuego);
+      // console.log(this.verificacionJuego);
     });
   }
   public traerPedidos() {

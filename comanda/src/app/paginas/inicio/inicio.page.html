@@ -19,8 +19,8 @@
 </ion-header>
 
 <ion-content class="ion-padding" >
-  <div class="width-100 center-horizontal flex-wrap" *ngIf="this.foto != ''">
-    <img class="profile-picture margin-top-7" [src]="this.foto">
+  <div class="width-100 center-horizontal flex-wrap margin-top-15" *ngIf="this.foto != ''">
+    <img class="profile-picture " [src]="this.foto">
   </div>
 <!--   <div *ngIf="this.authService.tipoUser == ''"
   <ion-button class="botones" routerLink="/juego-postre" size="large">
@@ -78,7 +78,7 @@
   </div>
 
   <!-- Para cocinero, bartender, candybar -->
-  <div class="width-100 center-horizontal flex-wrap"
+  <div class="width-100 height-70 margin-top-20 center-horizontal flex-wrap center-vertical"
     *ngIf="this.authService.tipoUser == 'cocinero' ||
     this.authService.tipoUser == 'candybar' ||
     this.authService.tipoUser == 'bartender'">
@@ -113,9 +113,9 @@
   </div>
 
   <!-- Para el mozo -->
-  <div class="width-100 center-horizontal flex-wrap"
+  <div class="margin-top-20 width-100 center-horizontal flex-wrap"
     *ngIf="this.authService.tipoUser == 'mozo'">
-    <div *ngIf="this.foto == ''">
+    <div class=""*ngIf="this.foto == ''">
       <img class="profile-img" src="assets/icon/mozo.png">
     </div>
     <!-- <div *ngIf="this.foto != ''">
@@ -152,7 +152,7 @@
   </div>
 
   <!-- Para el cliente -->
-  <div class="width-100 center-horizontal flex-wrap"
+  <div class="width-100 height-70 center-horizontal flex-wrap"
     *ngIf="this.authService.tipoUser == 'cliente' ||
     this.authService.tipoUser == 'anonimo'">
     <div *ngIf="this.authService.tipoUser == 'cliente'">

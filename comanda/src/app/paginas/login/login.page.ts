@@ -198,13 +198,13 @@ export class LoginPage implements OnInit {
           role: 'cancel',
           cssClass:'button-Cancel',
           handler: () => {
-            console.log('Confirm Cancel');
+            // console.log('Confirm Cancel');
           }
         }, {
           text: 'Confirmar',
           cssClass:'button-Ok',
           handler: (data) => {
-            console.log('Confirm Ok');
+            // console.log('Confirm Ok');
             this.testRadioResult = data;
             this.usuarioSeleccionado = data;
             this.ingresoAuto(this.usuarioSeleccionado);

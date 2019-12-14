@@ -94,7 +94,7 @@ export class AbmProductoPage implements OnInit {
   // Se fija que el firebase no exista un producto con el mismo nombre.
    private async revisarProducto(user, nombre) {
 
-    // Trae los productos por perfil      
+    // Trae los productos por perfil
     this.existe = false;// por defecto voy a asignarle false
       await this.firestore.collection('productos').ref.where('quienPuedever', '==', user).get()
       .then((d: QuerySnapshot<any>) => {
@@ -108,7 +108,7 @@ export class AbmProductoPage implements OnInit {
         });
       });
       //console.log("Aux retorno es: " + this.existe);
-      
+
   }
 
   private async comenzarSubida() {
@@ -129,7 +129,7 @@ export class AbmProductoPage implements OnInit {
     this.spinner.present();
     // Revisamos que el nombre del producto no exista, espero que la funcion se ejecute para seguir
     await this.revisarProducto(this.authService.tipoUser, this.formMesas.value.nombreCtrl);
-    
+
     // Existe el titulo, se sale
     if (this.existe === true) {
       this.mostrarFaltanDatos('Ya existe un producto con ese nombre');
@@ -138,7 +138,7 @@ export class AbmProductoPage implements OnInit {
       return false;
     }
     else {
-      // No existe el producto, se carga. 
+      // No existe el producto, se carga.
       for (let foto of this.fotos) {
         const filename: string = datos.nombre + '_' + contador;
         const imageRef: AngularFireStorageReference = this.storage.ref(`productos/${filename}.jpg`);
@@ -165,7 +165,7 @@ export class AbmProductoPage implements OnInit {
       .then((a) => {
         this.subidaExitosa('El alta se realizó de manera exitosa.');
       }).catch(err => {
-        console.log('Error al guardarDatosDeProducto', err);
+        // console.log('Error al guardarDatosDeProducto', err);
         this.subidaErronea('Error al subir a base de datos.');
       });
   }

@@ -68,7 +68,7 @@ export class ConfirmarCierreMesaPage implements OnInit {
       const data = { pedidoActual: '', cliente: '', estado: 'libre' };
       await this.actualizarDoc('mesas', mesaAux.key, data)
         .catch(err => {
-          console.log(err);
+          // console.log(err);
         });
     }
   }
@@ -76,7 +76,7 @@ export class ConfirmarCierreMesaPage implements OnInit {
   public async finalizarPedido(pedido: PedidoKey) {
     const data = { estado: 'finalizado' };
     await this.actualizarDoc('pedidos', pedido.key, data).catch(err => {
-      console.log(err);
+      // console.log(err);
     });
     this.presentToast('Pedido Finalizado', 'success');
   }

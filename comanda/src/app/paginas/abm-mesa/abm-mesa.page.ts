@@ -40,12 +40,12 @@ export class AbmMesaPage implements OnInit {
   }
 
   public ngOnInit() {
-    
+
     this.traerMesas().subscribe((d: MesaKey[]) => {
       // console.log('Tengo las mesas', d);
       this.mesas = d;
     });
-    
+
     this.formMesas = new FormGroup({
       nromesaCtrl: new FormControl('', Validators.required),
       cantcomenCtrl: new FormControl('', Validators.required),
@@ -147,7 +147,7 @@ export class AbmMesaPage implements OnInit {
       .catch(() => {
         this.spinner.dismiss();
         this.subidaErronea('Error al subir la foto, se canceló el alta.');
-        
+
       });
       //this.spinner.dismiss();
   }
@@ -157,7 +157,7 @@ export class AbmMesaPage implements OnInit {
       .then((a) => {
         this.subidaExitosa('El alta se realizó de manera exitosa.');
       }).catch(err => {
-        console.log('Error al guardar datos de producto', err);
+        // console.log('Error al guardar datos de producto', err);
         this.subidaErronea('Error al subir a base de datos.');
       });
   }

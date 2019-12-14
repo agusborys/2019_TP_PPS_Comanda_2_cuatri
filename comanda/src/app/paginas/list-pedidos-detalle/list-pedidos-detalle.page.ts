@@ -57,10 +57,10 @@ export class ListPedidosDetallePage implements OnInit {
       "restricted_package_name": ""
     };
 
-    console.log("Data: ", data);
+    // console.log("Data: ", data);
 
     return this.http.post(this.apiFCM, data, options).pipe(map(res => res.json())).subscribe(result => {
-      console.log(result);
+      // console.log(result);
     });
   }
 
@@ -74,7 +74,7 @@ export class ListPedidosDetallePage implements OnInit {
   //#endregion
 
   async ngOnInit() {
-    
+
     this.pedidos = new Array<PedidoKey>();
     this.pedidoDetalle = new Array<PedidoDetalleKey>();
     this.productos = new Array<ProductoKey>();
@@ -93,9 +93,9 @@ export class ListPedidosDetallePage implements OnInit {
     await this.authServ.buscarUsuario();
     this.inicializarPedidos();
     this.spinner.dismiss();
-    console.log("Pedido detalle:",this.pedidoDetalle);
-    console.log("Pedidos", this.pedidos);
-    console.log("productos",this.productos);
+    // console.log("Pedido detalle:",this.pedidoDetalle);
+    // console.log("Pedidos", this.pedidos);
+    // console.log("productos",this.productos);
   }
   public async inicializarPedidos() {
     try {
@@ -109,7 +109,7 @@ export class ListPedidosDetallePage implements OnInit {
             pe.estado !== 'finalizado');
 
           return auxReturn;
-          
+
         });
         this.pedidos = this.pedidos.sort(this.ordenarPedidoFecha);
         // console.log('Pedidos', this.pedidos);
@@ -141,15 +141,15 @@ export class ListPedidosDetallePage implements OnInit {
           }
           if(pedidoA.fecha < pedidoB.fecha){
             return -1;
-          }   
+          }
           return 0;
 
         });
         // console.log('Detalles', this.pedidoDetalle);
       });
-      
+
     } catch (err) {
-      console.log('err', err);
+      // console.log('err', err);
       this.pedidos = new Array<PedidoKey>();
       this.pedidoDetalle = new Array<PedidoDetalleKey>();
       this.productos = new Array<ProductoKey>();
@@ -162,7 +162,7 @@ export class ListPedidosDetallePage implements OnInit {
       }
       if(a.fecha > b.fecha){
         return -1;
-      }   
+      }
       return 0;
   }
   private ordenarPorPedido(a: PedidoDetalleKey, b: PedidoDetalleKey) {
@@ -262,11 +262,11 @@ export class ListPedidosDetallePage implements OnInit {
         }
 
         // console.log(data);
-/* Ponerlo despues de data) abajo        
+/* Ponerlo despues de data) abajo
  .then((res) => {
           console.log("se envia el push");
             this.envioPost(pedido);//aca envio el push
-        
+
         }) */
         await this.actualizarDoc('pedidos', pedido.key, data).catch(err => {
           console.log('Error en actualizar Pedido', err);
