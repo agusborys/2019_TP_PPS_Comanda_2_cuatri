@@ -78,6 +78,11 @@ Acordamos comunicarnos mediante un grupo de WhatsApp, creamos una nueva cuenta e
 
 <h2 align="center"> Correciones y mejoras (Semana 07/12)</h2>
 
+**Agustin borys:** Validaciones de mail, correcciones de alerts, validaciones de alta mesa, agregado de spinners, corrección en sitema de juegos
+
+**Leon Ifran:** Correcciones en push notification, alta de productos, fotos de usuario en inicio
+
+**Santiago de la Fuente:**  Correcciones de estilos, tamaño de fuente, validaciones en alta productos
 
 
 <br>
