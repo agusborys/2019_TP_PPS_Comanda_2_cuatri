@@ -30,6 +30,7 @@ export class ModalPedidoPage implements OnInit {
   private tieneBebidaGratis : boolean = false;
   private tienePostreGratis : boolean = false;
   private tieneDescuento : boolean = false;
+  private flagPago : boolean = false;
   constructor(
     private firestore: AngularFirestore,
     private modalController: ModalController,
@@ -59,7 +60,7 @@ export class ModalPedidoPage implements OnInit {
       if (d.exists) {
         this.pedidoActual = d.data() as PedidoKey;
         this.pedidoActual.key = d.id;
-        if (this.pedidoActual.estado === 'cuenta') {
+        if (this.pedidoActual.estado === 'cuenta' || this.pedidoActual.estado=='pagado') {
           this.verCuenta = true;
         } else {
           this.verCuenta = false;
@@ -159,6 +160,13 @@ export class ModalPedidoPage implements OnInit {
     // console.log('Ver la cuenta');
   }
 
+  public async pagar(){
+    if(this.pedidoActual.estado !== 'finalizado' && this.pedidoActual.estado !== 'pagado')
+    {
+      await this.actualizarDoc('pedidos', this.pedidoActual.key, { estado: 'pagado' });
+      this.traerPedido();
+    }
+  }
   public manejarPrecioPropina(total?: number, propina?: number) {
     const precioTotal: number = total === undefined ? this.manejarPrecioDescuento() : total;
     const agregadoPropina: number = ((propina === undefined ? this.pedidoActual.propina : propina) / 100) * precioTotal;
@@ -176,7 +184,7 @@ export class ModalPedidoPage implements OnInit {
     }
     return precioTotal;
   }
-
+  
   public cambiarPropina() {
     console.log('Cambio la propina con un qr');
 

@@ -48,6 +48,9 @@
         <div *ngIf="this.pedidoActual.estado=='cuenta'">
           <ion-input  value="Cuenta pedida"></ion-input>
         </div>
+        <div *ngIf="this.pedidoActual.estado=='pagado'">
+          <ion-input  value="Pedido pagado"></ion-input>
+        </div>
         <div *ngIf="this.pedidoActual.estado=='finalizado'">
           <ion-input  value="Finalizado"></ion-input>
         </div>
@@ -168,6 +171,12 @@
           <ion-input readonly style="font-size: 22px;font-weight: bold;text-align: right;"
             [value]="(this.manejarPrecioPropina()) | currency"></ion-input>
         </ion-item>
+        <div *ngIf="this.pedidoActual.estado == 'cuenta' && this.cliente==true">
+          <ion-button [disabled]="this.pedidoActual.estado=='pagado'" 
+          class="button2" (click)="this.pagar()" expand="block">
+          <ion-icon name="checkmark-circle-outline"></ion-icon>Pagar
+        </ion-button>
+        </div>
       </div>
     </ion-card-content>
   </ion-card>
