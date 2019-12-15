@@ -4,9 +4,9 @@
   width: 100%;
   height: auto;
   padding: 4%;
-  // background: red;
   position: relative;
 }
+
 .contenedor {
   background: #c8e6c9;
   width: 45vw;
@@ -25,6 +25,7 @@
   bottom: 0;
   left: 0;
 }
+
 .item2
 {
     --background: transparent;
@@ -40,8 +41,4 @@
         text-align: left;
         font-size: 24px;
     }
-}
-.label-verde{
-    color:black;
-    font-size: 24px;
 }

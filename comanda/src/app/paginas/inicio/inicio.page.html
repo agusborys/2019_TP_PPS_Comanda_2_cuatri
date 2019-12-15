@@ -2,7 +2,6 @@
   <ion-toolbar color="verdeleon" >
     <ion-buttons slot="end">
       <ion-button color="dark" size="small" (click)="cerrarSesion()">
-          <!-- <img class="icon-img" src="assets/icon/logout.png"> -->
           <ion-icon name="log-out" ></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -22,32 +21,16 @@
   <div class="width-100 center-horizontal flex-wrap margin-top-15" *ngIf="this.foto != ''">
     <img class="profile-picture " [src]="this.foto">
   </div>
-<!--   <div *ngIf="this.authService.tipoUser == ''"
-  <ion-button class="botones" routerLink="/juego-postre" size="large">
-    <ion-icon name="qr-scanner"></ion-icon>Juego
-  </ion-button> -->
 
-<!--   <div *ngIf="this.authService.tipoUser == ''"
-    class="width-100 center-horizontal center-vertical flex-v spinner-text">
-    Espere...
-    <ion-spinner color="dark"></ion-spinner>
-  </div>  -->
-
-<!--  Imagen general solo accede si el usuario tiene foto, esta linea de codigo esta en cada if
-  <div *ngIf="this.foto != ''" class="width-100 center-horizontal flex-wrap">
-    <img class="profile-picture" [src]="this.foto" />
-  </div>  -->
   <!-- Para el dueño / supervisor -->
   <div *ngIf="this.authService.tipoUser == 'supervisor' ||
     this.authService.tipoUser == 'dueño'"
     class="width-100 center-horizontal flex-wrap">
-    <!-- <img class="profile-img" src="assets/icon/dueño.png"> -->
+
     <div *ngIf="this.foto == ''">
       <img class="profile-img" src="assets/icon/dueño.png">
     </div>
-    <!-- <div *ngIf="this.foto != ''">
-      <img class="profile-picture margin-top-7" [src]="this.foto">
-    </div> -->
+
     <ion-button class="botones" routerLink="/registro-empleado" size="large">
       <ion-icon name="add-circle"></ion-icon>Registrar Empleado
     </ion-button>
@@ -84,22 +67,18 @@
     this.authService.tipoUser == 'bartender'">
     <div *ngIf="this.authService.tipoUser == 'cocinero' ||
     this.authService.tipoUser == 'candybar'">
-    <!-- <img class="profile-img" src="assets/icon/cocinero.png"> -->
+
       <div *ngIf="this.foto == ''">
         <img class="profile-img" src="assets/icon/cocinero.png">
       </div>
-      <!-- <div *ngIf="this.foto != ''">
-        <img class="profile-picture" [src]="this.foto">
-      </div> -->
+
     </div>
     <div *ngIf="this.authService.tipoUser == 'bartender'">
-    <!-- <img class="profile-img" src="assets/icon/barman.png"> -->
+
     <div *ngIf="this.foto == ''">
       <img class="profile-img" src="assets/icon/barman.png">
     </div>
-    <!-- <div *ngIf="this.foto != ''">
-      <img class="profile-picture" [src]="this.foto">
-    </div> -->
+
     </div>
     <ion-button class="botones" routerLink="/list-pedidos-detalle" size="large">
       <ion-icon name="bookmarks"></ion-icon>Pedidos Pendientes
@@ -118,9 +97,7 @@
     <div class=""*ngIf="this.foto == ''">
       <img class="profile-img" src="assets/icon/mozo.png">
     </div>
-    <!-- <div *ngIf="this.foto != ''">
-      <img class="profile-picture" [src]="this.foto">
-    </div> -->
+
     <ion-button class="botones" routerLink="/list-confirmar-cliente-mesa" size="large">
       <ion-icon name="list-box"></ion-icon>Lista de Espera
     </ion-button>
@@ -136,18 +113,10 @@
     <ion-button class="botones" routerLink="/confirmar-cierre-mesa" size="large">
       <ion-icon name="close-circle-outline"></ion-icon>Cierre de Mesas
     </ion-button>
-    <!-- <ion-button class="botones" routerLink="/abm-producto" size="large">
-      <ion-icon name="create"></ion-icon>Registrar Producto
-    </ion-button>
-    <ion-button class="botones" routerLink="/abm-mesa" size="large">
-      <ion-icon name="create"></ion-icon>Registrar Mesas
-    </ion-button> -->
+
     <ion-button class="botones" routerLink="/encuesta-empleado" size="large">
       <ion-icon name="clipboard"></ion-icon>Encuesta
     </ion-button>
-    <!-- <ion-button routerLink="/qr-ingreso-local" size="large">
-      Ingreso al Local
-    </ion-button> -->
 
   </div>
 
@@ -156,22 +125,16 @@
     *ngIf="this.authService.tipoUser == 'cliente' ||
     this.authService.tipoUser == 'anonimo'">
     <div *ngIf="this.authService.tipoUser == 'cliente'">
-    <!-- <img class="profile-img" src="assets/icon/usuario.png"> -->
+
     <div *ngIf="this.foto == ''">
       <img class="profile-img" src="assets/icon/usuario.png">
     </div>
-    <!-- <div *ngIf="this.foto != ''">
-      <img class="profile-picture" [src]="this.foto">
-    </div> -->
+
     </div>
     <div *ngIf="this.authService.tipoUser == 'anonimo'">
-    <!-- <img class="profile-img" src="assets/icon/incognito.png"> -->
     <div *ngIf="this.foto == ''">
       <img class="profile-img" src="assets/icon/incognito.png">
     </div>
-    <!-- <div *ngIf="this.foto != ''">
-      <img class="profile-picture" [src]="this.foto">
-    </div> -->
     </div>
     <ion-button class="botones" routerLink="/qr-ingreso-local" size="large">
       <ion-icon name="qr-scanner"></ion-icon>Ingreso al Local
@@ -185,18 +148,7 @@
     <ion-button class="botones" routerLink="/confirmar-entrega" size="large">
       <ion-icon name="checkbox-outline"></ion-icon>Confirmar Entrega
     </ion-button>
-    <!-- <ion-button class="botones" routerLink="/juego-postre" size="large">
-      <ion-icon name="infinite"></ion-icon>
-      Juego Simon
-    </ion-button>
-    <ion-button class="botones" routerLink="/juego-descuento" size="large">
-      <ion-icon name="subway"></ion-icon>
-      Juego Ahorcado
-    </ion-button>
-    <ion-button class="botones" routerLink="/juego-tres" size="large">
-      <ion-icon name="subway"></ion-icon>
-      Juego Tres
-    </ion-button> -->
+
   </div>
   <!-- Toggles in a List -->
 

@@ -14,7 +14,7 @@
 .tabla
 {
     margin-top: 5px;
-    //border: 1px solid #43a047;
+
     width: 100%;
     margin-bottom: 5px;
     text-align: center;
@@ -34,22 +34,14 @@ th{
     font-size: 26px;
     text-align: center;
     font-weight: bold;
-    //justify-content: center;
-    //display: flex;
 }
-.conteinerTotal{
-    width: 100%;
-    display: flex;
-    //justify-content: end;
-}
+
 .totalPedido{
-    //display: flex;
-    //justify-content: end;
     font-size: 26px;
     font-weight: bold;
     color:black;
     text-align: right;
-    
+
 }
 .button2
 {

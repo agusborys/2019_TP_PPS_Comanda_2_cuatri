@@ -21,21 +21,21 @@
     height: 40px;
     --border-color: #339933;
     --border-width: 1px;
-    --border-style:  solid ;   
+    --border-style:  solid ;
     --background: #dbf0dc !important;
-    --background-activated:#339933; 
+    --background-activated:#339933;
     --border-color:#339933;
     --background-hover:#339933;
     --background-focused: #339933;
-    display: block; 
+    display: block;
     margin-left: auto;
-    
     justify-content: center;
     margin-bottom: 5px;
     text-transform: unset;
     margin-top: 15px;
     font-size: 15px;
   }
+
   .boton-denegar{
     color: black;
     --border-radius: 80px;
@@ -43,14 +43,14 @@
     height: 40px;
     --border-color: #990000;
     --border-width: 1px;
-    --border-style:  solid ;   
+    --border-style:  solid ;
     --background: #ffe6e6 !important;
-    --background-activated:#990000; 
+    --background-activated:#990000;
     --border-color:#990000;
     --background-hover:#990000;
     --background-focused: #990000;
-    display: block; 
-    
+    display: block;
+
     margin-right: auto;
     justify-content: center;
     margin-bottom: 5px;
@@ -58,6 +58,7 @@
     text-transform: unset;
     font-size: 15px;
   }
+
 .texto-card{
     text-align: center;
     color: black;

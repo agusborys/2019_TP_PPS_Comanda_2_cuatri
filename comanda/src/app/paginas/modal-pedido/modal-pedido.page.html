@@ -54,7 +54,7 @@
         <div *ngIf="this.pedidoActual.estado=='finalizado'">
           <ion-input  value="Finalizado"></ion-input>
         </div>
-        
+
       </ion-item>
 
       <table class="table1">
@@ -118,25 +118,13 @@
               </label>
             </div>
           </td>
-          <!-- <td>
-            <div *ngIf="this.verCuenta == false">
-              <label >
-                {{producto.estado | titlecase}}
-              </label>
-            </div>
-            <div *ngIf="this.verCuenta == true">
-              <label >
-                {{(producto.cantidad * producto.precio) | currency}}
-              </label>
-            </div>
-          </td> -->
         </tr>
       </table>
 
       <ion-item class="item2">
         <ion-label style="font-size: 22px;font-weight: bold;text-align: left;"
          class="label-verde">Total</ion-label>
-        <ion-input [value]="(this.manejarPrecioDescuento()) | currency" 
+        <ion-input [value]="(this.manejarPrecioDescuento()) | currency"
         style="font-size: 22px;font-weight: bold;text-align: right;" readonly></ion-input>
       </ion-item>
 
@@ -160,11 +148,7 @@
             [disabled]="this.pedidoActual.estado != 'cuenta' ||
             this.cliente == false">Escanear</ion-button>
         </ion-item>
-        <!-- <ion-item class="item2">
-          <ion-label>Total</ion-label>
-          <ion-input style="text-align: right;" [value]="this.pedidoActual.preciototal | currency"
-            readonly></ion-input>
-        </ion-item> -->
+
         <ion-item class="item2">
           <ion-label class="label-verde" style="font-size: 22px;font-weight: bold;text-align: left;">
             Total + Propina</ion-label>
@@ -172,7 +156,7 @@
             [value]="(this.manejarPrecioPropina()) | currency"></ion-input>
         </ion-item>
         <div *ngIf="this.pedidoActual.estado == 'cuenta' && this.cliente==true">
-          <ion-button [disabled]="this.pedidoActual.estado=='pagado'" 
+          <ion-button [disabled]="this.pedidoActual.estado=='pagado'"
           class="button2" (click)="this.pagar()" expand="block">
           <ion-icon name="checkmark-circle-outline"></ion-icon>Pagar
         </ion-button>
