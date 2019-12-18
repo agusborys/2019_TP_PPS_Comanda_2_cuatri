@@ -232,11 +232,9 @@ ion-title {
 .border {
   background-color: whitesmoke;
   padding: 1rem 1.5rem;
-  // font-size: 25px;
   text-align: center;
   border-color: #339933;
   cursor: pointer;
-  //outline: #339933;
   border-width: 2px;
   border-style: solid;
   border-radius: 50px;
@@ -319,16 +317,9 @@ ion-alert.alert-message{
 ion-alert.seleccionarAlert{
   --background:#edf7ee !important;
   text-align: left;
-  //font-weight: bold;
   color: black;
   --width: 120%;
   font-size: 20px;
-  //--height:90%;
-  //   .alert-head
-  //   {
-  //     color: white!important;
-  //     background-color: #b71c1c;
-  //   }
   .alert-message{
     font-size:20px;
     color:black;
@@ -336,13 +327,10 @@ ion-alert.seleccionarAlert{
   .alert-button-group{
     color: black!important;
     background-color: #43a047;
-    //justify-content: center;
-    //padding: 6px 6px 6px 18px;
 
   }
   .alert-button{
     background-color: #edf7ee;
-    //padding: 15px;
     color: black;
     margin-right: 3px;
   }
@@ -359,15 +347,12 @@ ion-alert.seleccionarAlert{
     padding: 15px;
     color: black;
     font-size:16px;
-    //margin-right: auto;
   }
 }
 
 //Alert Avisos
 ion-alert.avisoAlert{
-  // --background:#edf7ee !important;
-  // text-align: center;
-  // color: black !important;
+
   .alert-button-group{
     color: black!important;
     background-color: #43a047;
@@ -426,12 +411,11 @@ ion-input{
   --border-radius: 80px;
   width: 150px;
   height: 50px;
-  //--border-style: 3px solid #546e7a;
   --background: transparent !important;
-  --background-activated:#339933;
+
   --border-color:#339933;
   --background-hover:#339933;
-  --background-focused: #339933;
+
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -443,12 +427,11 @@ ion-input{
   --border-radius: 80px;
   width: 250px;
   height: 60px;
-  //--border-style: 3px solid #546e7a;
   --background: transparent !important;
-  --background-activated:#339933;
+
   --border-color:#339933;
   --background-hover:#339933;
-  --background-focused: #339933;
+
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -465,10 +448,10 @@ ion-input{
   --border-width: 1px;
   --border-style:  solid ;
   --background: #dbf0dc !important;
-  --background-activated:#339933;
+
   --border-color:#339933;
   --background-hover:#339933;
-  --background-focused: #339933;
+
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -490,7 +473,7 @@ ion-input{
   --background-activated:#a04743;
   --border-color:#a04743;
   --background-hover:#a04743;
-  --background-focused: #a04743;
+
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -502,8 +485,6 @@ ion-input{
 
 .toast-noti{
   --height: 110px;
-  //--min-height: 90px;
-  //--max-height: 110px;
   color: white !important;
   --color: white !important;
   --border-color: #ffffff;
@@ -522,6 +503,7 @@ ion-toast{
   font-size: 20px;
   --background: #339933;
 }
+
 .label-verde{
   color:#43a047;
   font-size: 18px;
@@ -540,8 +522,6 @@ ion-toast{
   justify-content: center;
   width: 64px;
   height: 64px;
-  // margin: 100px auto;
-  //-webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
   animation: lds-hourglass 1.2s infinite;//sk-rotateplane 1.2s infinite ease-in-out;
 }
 .cajaSpinner{
@@ -555,7 +535,7 @@ ion-toast{
   justify-content: center;
   width: 64px;
   height: 64px;
-  //color: #2e7d32;
+
 }
 
 .lds-hourglass:after {
@@ -593,10 +573,7 @@ ion-toast{
   --border-width: 1px;
   --border-style:  solid ;
   --background: #dbf0dc !important;
-  --background-activated:#339933;
   --border-color:#339933;
-  // --background-hover:#339933;
-  // --background-focused: #339933;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -615,11 +592,7 @@ ion-toast{
   --border-width: 1px;
   --border-style:  solid ;
   --background: #dbf0dc !important;
-  --background-activated:#339933;
   --border-color:#339933;
-  // --background-hover:#339933;
-  // --background-focused: #339933;
-  // display: block;
   margin-left: auto;
   margin-right: auto;
   justify-content: center;
