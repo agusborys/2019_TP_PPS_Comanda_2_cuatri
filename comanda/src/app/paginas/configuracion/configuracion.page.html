@@ -11,8 +11,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding" style="--background:#edf7ee">
-  <ion-card class="ion-card-50">
+<ion-content class="ion-padding" >
+  <ion-card class="ion-card-style">
     <ion-card-content >
       <div class="width-100  center-horizontal extra-bottom">
         <div *ngIf="this.user.foto != ''">
@@ -33,7 +33,7 @@
           </div>
           <div *ngIf="this.authService.tipoUser == 'anonimo'" >
             <img class="profile-picture" src="assets/icon/incognito.png" />
-          </div>  
+          </div>
         </div>
       </div>
 

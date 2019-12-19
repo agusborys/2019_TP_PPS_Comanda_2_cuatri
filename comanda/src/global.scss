@@ -26,13 +26,9 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 ion-content {
-  // --background: url('./assets/fondos/fondo.png');
-  // --background: linear-gradient(#3f3f3f 60%, #4ce000) !important;
   --background-repeat: no-repeat !important;
   --background-size: cover !important;
-  // --background: url('/assets/img/regback.png') 0 0/100% 100% no-repeat !important;
   --background:#edf7ee;
-
 }
 
 ion-title {
@@ -148,10 +144,7 @@ ion-title {
 }
 
 // Centra lo objetos acomodandolos equitativamente
-// .align-between {
-//   display: flex;
-//   justify-content: space-evenly;
-// }
+
 .align-espaciado {
   display: flex;
   justify-content: space-evenly;
@@ -161,21 +154,13 @@ ion-title {
   display: flex;
   justify-content: center;
 }
-// .center-vertical {
-//   vertical-align: middle;
-//   border: 1px solid red;
-// }
+
 
 // Centra los objetos dentro de este elemento de forma vertical
 .center-vertical {
   display: flex;
   align-items: center;
 }
-
-// Agrega un margen superior extra arriba de elemento
-// .extra-top {
-//   margin-top: 0.5rem;
-// }
 
 // Agrega un margen inferior extra arriba de elemento
 .extra-bottom {
@@ -220,9 +205,9 @@ ion-title {
 }
 
 // Le da un border y un estilo al botón
-// SOLO SE USA EN
+// SOLO SE USA EN los dos botones de QR
 .border {
-  background-color: whitesmoke;
+  background-color: var(--ion-color-whitesmoke);
   padding: 1rem 1.5rem;
   text-align: center;
   border-color: #339933;
@@ -268,7 +253,7 @@ ion-title {
 }
 
 .card-background {
-  --background: whitesmoke;
+  --background: var(--ion-color-whitesmoke);
 }
 
 .flex-wrap {
@@ -277,52 +262,30 @@ ion-title {
 
 .texto-card{
   text-align: center;
-  color: #000000;
+  // color: #000000;
+  color: var(--ion-color-dark);
   font-size: 25px;
-}
-//alert_Usuarios
-
-// ion-card {
-//   background-color: whitesmoke;
-//
-// }
-
-.ion-card-50 {
-  border-radius: 50px !important;
-  width: 90%;
-  --background:whitesmoke;
 }
 
 .ion-card-style {
-  background-color:whitesmoke;
-  // text-align: center;
+  background-color:var(--ion-color-whitesmoke);
   border-radius: 20px;
 }
 
-ion-alert .alert-head{
-  color: #000000!important;
-  background-color: #43a047;
-  text-align: center;
-}
-ion-alert.alert-radio-inner{
-  background-color: #43a047;
-}
-ion-alert.alert-message{
-  color:#000000;
-  text-align: center;
-  margin-top: 5px;
-  font-size: 20px;
-}
+
+
 ion-alert.seleccionarAlert{
   --background:#edf7ee !important;
   text-align: left;
-  color: #000000;
+  // color: #000000;
+  color: var(--ion-color-dark);
   --width: 120%;
   font-size: 20px;
-  .alert-message{
-    font-size:20px;
-    color:#000000;
-  }
+
+  // .alert-message{
+  //   font-size:20px;
+  //   color:#000000;
+  // }
   .alert-button-group{
     color: #000000!important;
     background-color: #43a047;//Verde
@@ -330,21 +293,24 @@ ion-alert.seleccionarAlert{
   }
   .alert-button{
     background-color: #edf7ee;//Blanco
-    color: #000000;
+    // color: #000000;
+    color: var(--ion-color-dark);
     margin-right: 3px;
   }
   .button-Ok{
-    background-color: #edf7ee;
-    padding: 15px;
-    color: #000000;
+    // background-color: #edf7ee;
+    // padding: 15px;
+    // color: #000000;
+    color: var(--ion-color-dark);
     margin-left: auto;
     font-size:16px;
 
   }
   .button-Cancel{
-    background-color: #edf7ee;
-    padding: 15px;
-    color: #000000;
+    // background-color: #edf7ee;
+    // padding: 15px;
+    // color: #000000;
+    color: var(--ion-color-dark);
     font-size:16px;
   }
 }
@@ -362,7 +328,8 @@ ion-alert.avisoAlert{
   .alert-button{
     background-color: #edf7ee;
     padding: 15px;
-    color: #000000;
+    // color: #000000;
+    color: var(--ion-color-dark);
     margin: auto;
 
   }
@@ -376,17 +343,20 @@ ion-alert.avisoAlert{
     background-color: #edf7ee;
   }
 }
+// #133813 -> Color de letras y border, cambio por uno mas claro
 .titulo-header{
   // Verde
-  color: #133813;
+  // color: #339933;
+  color: var(--ion-color-dark);
   text-align: center;
 }
 
+// NO TOCAR POR ESTILOS DINAMICOS
 .inputs{
   border-radius: 80px 80px 80px 80px;
   -moz-border-radius: 80px 80px 80px 80px;
   -webkit-border-radius: 80px 80px 80px 80px;
-  border: 3px solid #133813;//607985
+  border: 3px solid #339933;
   --background: transparent !important;
   display: block;
   margin-left: auto;
@@ -395,43 +365,26 @@ ion-alert.avisoAlert{
   width: 85%;
   height: 70px;
   margin-bottom: 15px;
-  color: #000000;
+  // color: #000000;
+  color: var(--ion-color-dark);
   --highlight-height:0px;
   --border-width:0px;
   --padding-bottom:1px;
-  ion-input{
-    font-size: 18px;
-  }
+  // ion-input{
+  //   font-size: 18px;
+  // }
 }
-ion-input{
-  --padding-bottom:1px;
-}
-.ingresar{
-  color: #000000;
-  --border-radius: 80px;
-  width: 150px;
-  height: 50px;
-  --background: transparent !important;
+// NO TOCAR POR ESTILOS DINAMICOS
 
-  --border-color:#339933;
-  --background-hover:#339933;
-
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  justify-content: center;
-  margin-bottom: 15px;
-}
 .seleccionar-usuario{
-  color: #000000;
+  // color: #000000;
+  color: var(--ion-color-dark);
   --border-radius: 80px;
   width: 250px;
   height: 60px;
   --background: transparent !important;
-
   --border-color:#339933;
-  --background-hover:#339933;
-
+  // --background-hover:#339933;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -440,7 +393,8 @@ ion-input{
 }
 
 .botones-registro{
-  color: #000000;
+  // color: #000000;
+  color: var(--ion-color-dark);
   --border-radius: 80px;
   width: 200px;
   height: 50px;
@@ -463,7 +417,8 @@ ion-input{
 }
 
 .botonesRojo{
-  color: #000000;
+  // color: #000000;
+  color: var(--ion-color-dark);
   --border-radius: 80px;
   width: 200px;
   height: 50px;
@@ -497,8 +452,10 @@ ion-input{
   }
 
 ion-toast{
-  color: #000000;
-  --color:#000000!important;
+  // color: #000000;
+  // --color:#000000!important;
+  color: var(--ion-color-dark);
+  --color: var(--ion-color-dark);
   --button-color:#000000;
   --height: 80px;
   font-size: 20px;
@@ -512,7 +469,8 @@ ion-toast{
 
 .label-entrega{
   font-size:20px;
-  color: #000000;
+  // color: #000000;
+  color: var(--ion-color-dark);
   border-bottom:1px solid #61bd65;
 }
 //Para el spinner
@@ -527,8 +485,9 @@ ion-toast{
 }
 
 .cajaSpinner{
-  --background:whitesmoke;
-  color:#000000;
+  --background:var(--ion-color-whitesmoke);
+  // color:#000000;
+  color: var(--ion-color-dark);
 }
 
 .lds-hourglass {
@@ -567,7 +526,8 @@ ion-toast{
 }
 
 .botones{
-  color: #133813;
+  // color: #339933;
+  color: var(--ion-color-dark);
   --border-radius: 80px;
   width: 300px;
   height: 60px;
@@ -586,7 +546,8 @@ ion-toast{
 }
 
 .botones-grandes{
-  color: #133813;
+  // color: #339933;
+  color: var(--ion-color-dark);
   --border-radius: 80px;
   width: 100%;
   height: 50%;
@@ -605,4 +566,187 @@ ion-toast{
 
 ion-input {
   --font-size: 1em;
+  --padding-bottom:1px;
 }
+
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+
+.argentina {
+
+  .botones{
+    width: var(--ion-btn-width) !important;
+    background: var(--ion-color-medium) !important;
+    border-radius: var(--ion-brdr-radius);
+    border-color: var(--ion-color-dark-contrast);
+    border-width: 1px;
+    border-style:  solid;
+    // --height: 60px;
+    --height: var(--ion-btn-heigth);
+    --border-radius: var(--ion-brdr-radius);
+    --background: var(--ion-color-medium) !important;
+    --box-shadow: white;
+    --color-activated: var(--ion-color-medium) !important;
+    --ripple-color: transparent;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    margin-bottom: 5px;
+    text-transform: unset;
+    font-size: large;
+  }
+}
+
+.profesional {
+    .botones{
+    width: var(--ion-btn-width) !important;
+    background: var(--ion-color-medium) !important;
+    --background: var(--ion-color-medium) !important;
+    --box-shadow: white;
+    --color-activated: var(--ion-color-medium) !important;
+    --ripple-color: transparent;
+    border-radius: var(--ion-brdr-radius);
+    --border-radius: var(--ion-brdr-radius);
+    --height: var(--ion-btn-heigth);
+    border-color: var(--ion-color-dark-contrast);
+    border-width: 1px;
+    border-style:  solid;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    margin-bottom: 5px;
+    text-transform: unset;
+    font-size: large;
+  }
+
+}
+
+.naif {
+  .botones{
+    width: var(--ion-btn-width) !important;
+    --height: var(--ion-btn-heigth);
+    background: var(--ion-color-medium) !important;
+    --background: var(--ion-color-medium) !important;
+    --box-shadow: white;
+    --color-activated: var(--ion-color-medium) !important;
+    --ripple-color: transparent;
+    border-radius: var(--ion-brdr-radius);
+    --border-radius: var(--ion-brdr-radius);
+    border-width: 1px;
+    border-color: var(--ion-color-dark-contrast);
+    border-style:  solid;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    margin-bottom: 5px;
+    text-transform: unset;
+    font-size: large;
+  }
+
+}
+
+.custom {
+
+  .botones{
+    width: var(--ion-btn-width) !important;
+    background: var(--ion-color-medium) !important;
+    border-radius: var(--ion-brdr-radius);
+    border-color: var(--ion-color-dark-contrast);
+    border-width: 1px;
+    border-style:  solid;
+    --height: var(--ion-btn-heigth);
+    --border-radius: var(--ion-brdr-radius);
+    --background: var(--ion-color-medium) !important;
+    --box-shadow: white;
+    --color-activated: var(--ion-color-medium) !important;
+    --ripple-color: transparent;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    margin-bottom: 5px;
+    text-transform: unset;
+    font-size: large;
+  }
+}
+
+.img-argentina {
+  // background: url("../assets/argentina.jpg") no-repeat center/cover fixed !important;
+  background: var(--ion-img-toolbar) no-repeat center/cover fixed !important;
+}
+
+.img-profesional {
+  // background: url("../assets/argentina.jpg") no-repeat center/cover fixed !important;
+  background: var(--ion-img-toolbar) no-repeat center/cover fixed !important;
+}
+
+.img-none {
+  background-image: none;
+}
+
+ion-toolbar {
+  // --background: var(--ion-img-toolbar) no-repeat center/cover fixed !important;
+  color: var(--ion-color-medium);
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+
+
+// .align-between {
+//   display: flex;
+//   justify-content: space-evenly;
+// }
+//
+// .center-vertical {
+//   vertical-align: middle;
+//   border: 1px solid red;
+// }
+//
+// ion-card {
+//   background-color: var(--ion-color-whitesmoke);
+//
+// }
+// .ion-card-50 {
+//   border-radius: 50px !important;
+//   width: 90%;
+//   --background:var(--ion-color-whitesmoke);
+// }
+
+// ion-alert .alert-head{
+//   color: #000000!important;
+//   background-color: #43a047;
+//   text-align: center;
+// }
+
+// ion-alert.alert-radio-inner{
+//   background-color: #43a047;
+// }
+
+// ion-alert.alert-message{
+//   color:#000000;
+//   text-align: center;
+//   margin-top: 5px;
+//   font-size: 20px;
+// }
+
+// .ingresar{
+//   color: #000000;
+//   --border-radius: 80px;
+//   width: 150px;
+//   height: 50px;
+//   --background: transparent !important;
+//   --border-color:#339933;
+//   --background-hover:#339933;
+//   display: block;
+//   margin-left: auto;
+//   margin-right: auto;
+//   justify-content: center;
+//   margin-bottom: 15px;
+// }

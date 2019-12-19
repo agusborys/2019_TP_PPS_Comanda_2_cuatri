@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-    <ion-card  style="background-color:whitesmoke;border-radius: 20px;" *ngIf="this.pedidoActual != undefined">
+    <ion-card  class="ion-card-style" *ngIf="this.pedidoActual != undefined">
     <ion-card-content>
       <ion-item class="item2">
         <ion-label class="label-verde">Cliente</ion-label>
@@ -164,7 +164,7 @@
       </div>
     </ion-card-content>
   </ion-card>
-  <ion-card *ngIf="this.pedidoActual == undefined" style="background-color:whitesmoke;border-radius: 20px;">
+  <ion-card *ngIf="this.pedidoActual == undefined" class="ion-card-style">
     <ion-card-content>
       Usted aún no ha realizado ningún pedido.
     </ion-card-content>

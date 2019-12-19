@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-card style="background-color:whitesmoke;border-radius: 20px;" *ngIf="this.cliente != undefined">
+  <ion-card class="ion-card-style" *ngIf="this.cliente != undefined">
     <ion-card-content>
       <div class="width-100 center-vertical center-horizontal extra-bottom">
         <!-- Hacer placeholder para foto -->
@@ -43,7 +43,7 @@
       </ion-item>
     </ion-card-content>
   </ion-card>
-  <ion-card *ngIf="this.cliente == undefined" style="background-color:whitesmoke;border-radius: 50px;">
+  <ion-card *ngIf="this.cliente == undefined" class="ion-card-style">
     <ion-card-content>
       No hay cliente.
     </ion-card-content>

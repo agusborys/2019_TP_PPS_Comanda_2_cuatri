@@ -9,11 +9,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding" style="--background:#edf7ee">
+<ion-content class="ion-padding" >
   <div *ngIf="this.clientes.length> 0" >
     <div *ngFor="let cliente of clientes">
-      <!-- <ion-card  class="ion-card-50"> -->
-      <ion-card  class="ion-card-50">
+
+      <ion-card  class="ion-card-style">
         <ion-card-content>
           <div class="width-100 center-vertical center-horizontal extra-bottom">
             <!-- Hacer placeholder para foto -->
@@ -64,7 +64,7 @@
       </ion-card>
     </div>
   </div>
-  <ion-card *ngIf="this.clientes.length == 0" class="ion-card-50">
+  <ion-card *ngIf="this.clientes.length == 0" class="ion-card-style">
     <ion-card-content class="texto-card">
       No hay clientes en la lista.
       <ion-icon style="font-size: 50px;" name="alert"></ion-icon><br>

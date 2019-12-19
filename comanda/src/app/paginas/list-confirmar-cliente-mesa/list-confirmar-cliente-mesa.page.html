@@ -42,12 +42,12 @@
               (click)="this.rechazarCliente(cliente.correo)">
               <ion-icon slot="icon-only" name="close"></ion-icon>Rechazar
             </ion-button>
-          </div> 
+          </div>
         </div>
       </ion-card-content>
     </ion-card>
   </div>
-  <ion-card *ngIf="this.clientes.length == 0" style="background-color:whitesmoke; border-radius: 20px">
+  <ion-card *ngIf="this.clientes.length == 0" class="ion-card-style" >
     <ion-card-content class="texto-card">
       No hay clientes en la lista.<br>
       <ion-icon style="font-size: 50px;" name="alert"></ion-icon>
@@ -55,7 +55,7 @@
   </ion-card>
 </ion-content>
 <ion-content *ngIf="!this.esMozo">
-  <div *ngIf="this.clientes.length> 0">  
+  <div *ngIf="this.clientes.length> 0">
         <div *ngFor="let cliente of clientes">
         <ion-card class="ion-card-style">
           <ion-card-content>
@@ -69,7 +69,7 @@
           </ion-item>
             </ion-card-content>
         </ion-card>
-        </div>  
+        </div>
   </div>
   <ion-card *ngIf="this.clientes.length == 0" class="ion-card-style">
     <ion-card-content class="texto-card">
