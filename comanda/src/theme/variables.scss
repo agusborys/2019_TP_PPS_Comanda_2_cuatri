@@ -15,9 +15,50 @@
   src: url("../assets/fonts/Roboto/Roboto-MediumItalic.ttf");
 }
 
+@font-face {
+  font-family: 'Modak';
+  src: url('../assets/fonts/Modak-Regular.ttf');
+  font-style: normal;
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../assets/fonts/Montserrat-Regular.ttf');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('../assets/fonts/Lato-Regular.ttf');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Oswald';
+  src: url('../assets/fonts/Oswald-Regular.ttf');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Manjari';
+  src: url('../assets/fonts/Manjari-Regular.ttf');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Playfair';
+  src: url('../assets/fonts/PlayfairDisplay-Regular.ttf');
+  font-weight: 400;
+  font-style: normal;
+}
 /** Ionic CSS Variables **/
 :root {
-  --ion-font-family: "Roboto";
+  --ion-font-family: "Manjari";
   /** primary **/
   --ion-color-primary: #43a047;
   --ion-color-primary-rgb: 56, 128, 255;

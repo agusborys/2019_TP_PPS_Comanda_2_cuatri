@@ -12,7 +12,7 @@
 <ion-content>
   <!-- Pedido local -->
   <!-- <ion-card class="card-background" *ngIf="this.pedidoEnLocal != null"> -->
-  <ion-card class="center-vertical" style="background-color:whitesmoke; border-radius: 20px;" *ngIf="this.pedidoEnLocal != null">
+  <ion-card class="center-vertical" class="ion-card-style" *ngIf="this.pedidoEnLocal != null">
     <ion-card-content>
       <ion-item class="item2 font-large">
         <ion-label class="label-verde">Cliente</ion-label>
@@ -64,7 +64,7 @@
   </ion-card>
 
   <!-- En caso de no existir pedidos -->
-  <ion-card style="background-color:whitesmoke; border-radius: 20px;"
+  <ion-card class="ion-card-style"
     *ngIf="this.pedidoDelivery == null && this.pedidoEnLocal == null">
     <ion-card-content class="texto-card">
       Aún no existen pedidos a entregar.<br>

@@ -14,7 +14,7 @@
 
 <ion-content class="background-image ion-padding">
   <!-- <ion-card *ngIf="this.user !== undefined" class="card-background"> -->
-  <ion-card *ngIf="this.user !== undefined" style="background-color:whitesmoke; border-radius: 20px;">
+  <ion-card *ngIf="this.user !== undefined" class="ion-card-style">
     <ion-card-header>
       <ion-card-title>Información del {{this.tipo | titlecase}}</ion-card-title>
     </ion-card-header>
@@ -49,7 +49,7 @@
   <!-- Range para el nivel de puntualidad del empleado -->
   <form [(formGroup)]="this.formEncuesta">
     <!-- <ion-card *ngIf="this.user !== undefined" class="card-background"> -->
-    <ion-card *ngIf="this.user !== undefined" style="background-color:whitesmoke; border-radius: 20px;">
+    <ion-card *ngIf="this.user !== undefined" class="ion-card-style">
       <ion-card-content>
         <ion-item-group *ngIf="this.tipo === 'empleado'">
           <ion-item-divider class="tabla1">

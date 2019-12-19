@@ -16,11 +16,11 @@
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
-  
+
   <ion-content class="background-image ion-padding">
-  
-    <ion-card class="card-background" style="background-color:whitesmoke;border-radius: 25px;">
-  
+
+    <ion-card class="ion-card-style">
+
       <ion-card-content>
         <form [(formGroup)]="this.formEncuesta">
           <!-- Preview de las fotos -->
@@ -38,7 +38,7 @@
               <ion-icon name="camera"></ion-icon>Tomar fotos
             </ion-button>
           </div>
-  
+
           <!-- Range para el nivel de conformidad entre 1 y 10 -->
           <ion-item-group>
             <ion-item-divider class="tabla1">
@@ -53,7 +53,7 @@
               </ion-range>
             </ion-item>
           </ion-item-group>
-  
+
           <!-- Checkbox para elegir lo más destacado -->
           <ion-item-group>
             <ion-item-divider class="tabla1">
@@ -80,7 +80,7 @@
               <ion-checkbox formControlName="personalCtrl" checked="false"></ion-checkbox>
             </ion-item>
           </ion-item-group>
-  
+
           <!-- Radio para elegir si recomendaria el lugar a alguien -->
           <ion-item-group>
             <ion-item-divider class="tabla1">
@@ -98,7 +98,7 @@
               </ion-item>
             </ion-radio-group>
           </ion-item-group>
-  
+
           <!-- Combo para determinar la limpieza del lugar -->
           <ion-item-group>
             <ion-item-divider class="tabla1">
@@ -113,7 +113,7 @@
               </ion-select>
             </ion-item>
           </ion-item-group>
-  
+
           <!-- Textarea adicional para comentarios adicionales -->
           <ion-item-group>
             <ion-item-divider class="tabla1">
