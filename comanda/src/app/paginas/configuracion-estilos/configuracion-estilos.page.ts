@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from '../../service/theme.service';
 import { Storage } from '@ionic/storage';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { File } from '@ionic-native/file/ngx';
+import { WebView } from '@ionic-native/ionic-webview/ngx';
 
 const themes = {
   naif: {
@@ -92,7 +95,12 @@ export class ConfiguracionEstilosPage implements OnInit {
   public botones = {
     icono: 'arrow-round-forward',
   }
+
+  public fotos: any;
   constructor(
+    private camera: Camera,
+    private file: File,
+    private webview: WebView,
     private theme: ThemeService,
     private storage: Storage
   ) {
@@ -137,10 +145,11 @@ export class ConfiguracionEstilosPage implements OnInit {
       this.custom.btnheight = this.alto + 'px';
       this.custom.size = this.tamanio + 'em';
       this.custom.brdrRadius = this.radius + 'px';
+      this.custom.img = (this.fotos[0]) ? this.fotos[0].src : '';
       this.theme.setTheme(this.custom);
 
       this.misClases.push('custom');
-      this.misClases.push('img-none');
+      this.misClases.push('img-fondo');
 
     } else {
       this.theme.setTheme(themes[name]);
@@ -149,13 +158,13 @@ export class ConfiguracionEstilosPage implements OnInit {
     if (name == 'profesional') {
       this.activarChecked('profesional');
       this.misClases.push('profesional');
-      this.misClases.push('img-profesional');
+      this.misClases.push('img-fondo');
     }
 
     if (name == 'argentina') {
       this.activarChecked('argentina');
       this.misClases.push('argentina');
-      this.misClases.push('img-argentina');
+      this.misClases.push('img-fondo');
     }
 
     if ( name == 'naif') {
@@ -178,6 +187,27 @@ export class ConfiguracionEstilosPage implements OnInit {
         this.estilos[index] = false;
       }
     }
+  }
+
+  async getPicture () {
+    this.fotos = new Array();
+    const options: CameraOptions = {
+       quality: 50,
+       destinationType: this.camera.DestinationType.FILE_URI,
+       encodingType: this.camera.EncodingType.JPEG,
+       correctOrientation: true,
+     }
+    const tempImage = await this.camera.getPicture(options);
+    const tempFilename = tempImage.substr(tempImage.lastIndexOf('/') + 1);
+    const tempBaseFilesystemPath = tempImage.substr(0, tempImage.lastIndexOf('/') + 1);
+    const newBaseFilesystemPath = this.file.dataDirectory;
+    await this.file.copyFile(tempBaseFilesystemPath, tempFilename,
+                             newBaseFilesystemPath, tempFilename);
+
+    const storedPhoto = newBaseFilesystemPath + tempFilename;
+    const displayImage = this.webview.convertFileSrc(storedPhoto);
+    this.fotos.push({src: displayImage});
+    // console.log(displayImage);
   }
 
 }

@@ -15,6 +15,16 @@
         <ion-spinner name="dots" color="light" ></ion-spinner>
     </div>
     <div class="" *ngIf="!loading">
+      <div class="width-100 center-horizontal flex-wrap">
+          <ion-button class="botones"  size="large" (click)="getPicture()" >Foto</ion-button>
+      </div>
+      <ion-list *ngIf="fotos">
+        <ion-item *ngFor="let foto of fotos">
+          <ion-thumbnail slot="start">
+            <ion-img [src]="foto.src"></ion-img>
+          </ion-thumbnail>
+        </ion-item>
+      </ion-list>
       <ion-list padding>
         <ion-radio-group>
 

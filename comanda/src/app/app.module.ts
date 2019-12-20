@@ -49,6 +49,8 @@ import { HttpModule } from '@angular/http';
 // FCM, lo usan push notifications
 import { FCM } from '@ionic-native/fcm/ngx';
 
+import { File } from '@ionic-native/file/ngx';
+import { WebView } from '@ionic-native/ionic-webview/ngx';
 
 @NgModule({
   declarations: [AppComponent
@@ -95,6 +97,8 @@ import { FCM } from '@ionic-native/fcm/ngx';
     FirebaseService,
     // Modulos Extra
     Camera,
+    File,
+    WebView,
     BarcodeScanner,
     EmailComposer,
     FCM,

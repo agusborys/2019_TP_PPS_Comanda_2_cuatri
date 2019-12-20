@@ -678,13 +678,17 @@ ion-input {
   }
 }
 
-.img-argentina {
-  // background: url("../assets/argentina.jpg") no-repeat center/cover fixed !important;
-  --background: var(--ion-img-toolbar) no-repeat center/cover fixed !important;
-}
+// .img-argentina {
+//   // background: url("../assets/argentina.jpg") no-repeat center/cover fixed !important;
+//   --background: var(--ion-img-toolbar) no-repeat center/cover fixed !important;
+// }
+//
+// .img-profesional {
+//   // background: url("../assets/argentina.jpg") no-repeat center/cover fixed !important;
+//   --background: var(--ion-img-toolbar) no-repeat center/cover fixed !important;
+// }
 
-.img-profesional {
-  // background: url("../assets/argentina.jpg") no-repeat center/cover fixed !important;
+.img-fondo {
   --background: var(--ion-img-toolbar) no-repeat center/cover fixed !important;
 }
 

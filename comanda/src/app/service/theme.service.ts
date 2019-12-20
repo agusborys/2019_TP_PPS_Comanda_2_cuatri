@@ -60,7 +60,7 @@ export class ThemeService {
       this.misClases.push('profesional');
       this.misClases.push('img-profesional');
       this.storage.set('mis-clases', this.misClases);
-      this.storage.set('profesional', name);
+      this.storage.set('tema', name);
     }
   }
 
