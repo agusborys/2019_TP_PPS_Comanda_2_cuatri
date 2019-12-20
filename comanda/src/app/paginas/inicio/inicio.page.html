@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="verdeleon" >
     <ion-buttons slot="end">
-      <ion-button color="dark" size="small" (click)="cerrarSesion()">
+      <ion-button size="small" (click)="cerrarSesion()">
           <ion-icon name="log-out" ></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -17,7 +17,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding" >
+<ion-content padding [ngClass]="misClases">
   <div class="width-100 center-horizontal flex-wrap margin-top-15" *ngIf="this.foto != ''">
     <img class="profile-picture " [src]="this.foto">
   </div>
@@ -51,6 +51,9 @@
     </ion-button>
     <ion-button class="botones" routerLink="/encuesta-sup" size="large">
       <ion-icon name="clipboard"></ion-icon>Encuesta
+    </ion-button>
+    <ion-button class="botones" routerLink="/configuracion-estilos" size="large">
+      <ion-icon name="clipboard"></ion-icon>Estilos
     </ion-button>
     <ion-list class="width-100 center-horizontal flex-wrap" style="background-color:#edf7ee;">
       <ion-item style="--background:#edf7ee;">

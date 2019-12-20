@@ -10,6 +10,25 @@ import { ErrorHandlerService } from 'src/app/servicios/error-handler.service';
 import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
 import { SonidosService } from '../../service/sonidos.service';
 import { FCM } from '@ionic-native/fcm/ngx';
+import { ThemeService } from '../../service/theme.service';
+import { Storage } from '@ionic/storage';
+
+const themes = {
+  profesional: {
+    primary: '#8CBA80',
+    secondary: '#FCFF6C',
+    tertiary: '#FE5F55',
+    medium: '#BCC2C7',
+    dark: '#202b28',
+    light: '#ACB3B9',
+    font: 'Manjari',
+    btnwidth: '90%',
+    btnheight: '20px',
+    size: '1.2em',
+    brdrRadius: '10px',
+    img: 'https://66.media.tumblr.com/4ef968306e2f4a0f74cdfa81d70af249/tumblr_nmlqhvQCpB1t0k6q7o1_640.jpg'
+  }
+};
 
 @Component({
   selector: 'app-login',
@@ -23,6 +42,8 @@ export class LoginPage implements OnInit {
   testRadioResult;
   usuarioSeleccionado: string;
   private spinner:any=null;
+  public misClases: any;
+
   constructor(
     private authService: AuthService,
     public router: Router,
@@ -31,11 +52,27 @@ export class LoginPage implements OnInit {
     private errorHandler: ErrorHandlerService,
     private spinnerHand: SpinnerHandlerService,
     private sonidos: SonidosService,
-  ) { }
+    private theme: ThemeService,
+    private storage: Storage
+  ) {
+
+  }
 
   ngOnInit() {
     this.correo = '';
     this.clave = '';
+    this.theme.verificarEstilo();
+  }
+
+
+  ionViewDidEnter() {
+    this.misClases = new Array();
+    this.storage.get('mis-clases').then(misClases => {
+      misClases.forEach( clase => {
+        this.misClases.push(clase);
+      });
+    });
+
   }
 
   public presentAlert(header: string, subHeader: string, message: string) {

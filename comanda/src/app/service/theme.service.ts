@@ -7,10 +7,13 @@ import { Storage } from '@ionic/storage';
   providedIn: 'root'
 })
 export class ThemeService {
+  public misClases: any;
+  private hayClases = false;
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private storage: Storage
   ) {
+    this.misClases = new Array();
     storage.get('theme').then(cssText => {
       this.setGlobalCSS(cssText);
     });
@@ -19,7 +22,12 @@ export class ThemeService {
   // Override all global variables with a new theme
   setTheme(theme) {
     const cssText = CSSTextGenerator(theme);
-    this.setGlobalCSS(cssText);
+
+    if(theme === '') {
+      this.setGlobalCSS('');
+    } else {
+      this.setGlobalCSS(cssText);
+    }
     this.storage.set('theme', cssText);
   }
 
@@ -34,6 +42,26 @@ export class ThemeService {
 
   get storedTheme() {
     return this.storage.get('theme');
+  }
+
+  verificarEstilo() {
+    this.storage.get('mis-clases').then(misClases => {
+      this.hayClases = true;
+      misClases.forEach( clase => {
+        console.log(clase);
+        this.misClases.push(clase);
+      });
+    });
+
+    if (this.misClases.length < 1) {
+
+      const tema = 'profesional';
+      this.setTheme(miTema[tema]);
+      this.misClases.push('profesional');
+      this.misClases.push('img-profesional');
+      this.storage.set('mis-clases', this.misClases);
+      this.storage.set('profesional', name);
+    }
   }
 
 }
@@ -54,6 +82,23 @@ const defaults = {
   size: '1em',
   brdrRadius: '20px',
   img: ''
+};
+
+const miTema = {
+  profesional: {
+    primary: '#8CBA80',
+    secondary: '#FCFF6C',
+    tertiary: '#FE5F55',
+    medium: '#BCC2C7',
+    dark: '#202b28',
+    light: '#ACB3B9',
+    font: 'Manjari',
+    btnwidth: '90%',
+    btnheight: '20px',
+    size: '1.2em',
+    brdrRadius: '10px',
+    img: 'https://66.media.tumblr.com/4ef968306e2f4a0f74cdfa81d70af249/tumblr_nmlqhvQCpB1t0k6q7o1_640.jpg'
+  }
 };
 
 function CSSTextGenerator(colors) {
@@ -159,7 +204,7 @@ function CSSTextGenerator(colors) {
     --ion-btn-heigth:  ${btnheight};
     --ion-btn-brdr-width:1px;
     --ion-brdr-radius: ${brdrRadius};
-
+    --ion-border-color: ${dark};
     --ion-img-toolbar: url('${img}');
     `;
 }

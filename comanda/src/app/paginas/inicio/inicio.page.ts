@@ -6,6 +6,7 @@ import { ModalController, ToastController } from '@ionic/angular';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
 import { SonidosService } from '../../service/sonidos.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-inicio',
@@ -17,6 +18,8 @@ export class InicioPage implements OnInit  {
   private spinner: any = null;
   public foto: string;
   public estaActivo: any;
+  public misClases: any;
+
   constructor(
     private authService: AuthService,
     public router: Router,
@@ -25,6 +28,7 @@ export class InicioPage implements OnInit  {
     private fcm: FCM,
     private spinnerHand:SpinnerHandlerService,
     private sonidos: SonidosService,
+    private storage: Storage,
   ) {
       this.foto = "";
 
@@ -39,11 +43,19 @@ export class InicioPage implements OnInit  {
   }
 
    async ionViewDidEnter() {//esta como asyncronico, no se va a subscribir hasta que no se llame buscarUsuario
+    this.misClases = new Array();
     this.spinner = await this.spinnerHand.GetAllPageSpinner();
     this.spinner.present();
     await this.authService.buscarUsuario();
     this.subscribirse();
     this.foto = this.authService.user.foto;
+
+    this.storage.get('mis-clases').then(misClases => {
+      misClases.forEach( clase => {
+        this.misClases.push(clase);
+      });
+    });
+
     this.spinner.dismiss();
   }
 

@@ -5,9 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { timer } from 'rxjs/internal/observable/timer';
 
-//import { timer } from 'rxjs/observable/timer';
-
-//FCM y Router se agregan para el funcionamiento de push notifications, lo mis con events
 import { FCM } from '@ionic-native/fcm/ngx';
 import { Router } from '@angular/router';
 import { Events } from '@ionic/angular';
@@ -29,8 +26,9 @@ export class AppComponent implements OnInit {
     private fcm: FCM,
     public events: Events,
     private router: Router,
-    public toastController: ToastController
-  ) { }
+    public toastController: ToastController,
+  ) {
+  }
 
   ngOnInit() {
     this.initializeApp();
@@ -60,6 +58,7 @@ export class AppComponent implements OnInit {
         this.presentToast( objetoAuxDos);
       }
     });
+
   }
   async presentToast(mensaje: string) {
     const toast = await this.toastController.create({

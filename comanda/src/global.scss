@@ -26,9 +26,15 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 ion-content {
+  // margin: 0 auto;
+  // width: 100%;
   --background-repeat: no-repeat !important;
   --background-size: cover !important;
-  --background:#edf7ee;
+  // --background:#edf7ee;
+}
+
+body {
+  font-size: var(--ion-font-size) !important;
 }
 
 ion-title {
@@ -51,7 +57,7 @@ ion-title {
 
 // Hacer que los ion-item de los formularios tengan fondo transparente
 .transparent-item {
-  --background: transparent !important;
+  // --background: transparent !important;
 }
 
 .margin-top {
@@ -210,7 +216,7 @@ ion-title {
   background-color: var(--ion-color-whitesmoke);
   padding: 1rem 1.5rem;
   text-align: center;
-  border-color: #339933;
+  border-color: var(--ion-border-color);
   cursor: pointer;
   border-width: 2px;
   border-style: solid;
@@ -221,7 +227,7 @@ ion-title {
 }
 
 .border:active {
-  box-shadow: 0 0.25px #339933;
+  box-shadow: 0 0.25px var(--ion-border-color);
   transform: translateY(4px);
 }
 
@@ -346,7 +352,7 @@ ion-alert.avisoAlert{
 // #133813 -> Color de letras y border, cambio por uno mas claro
 .titulo-header{
   // Verde
-  // color: #339933;
+  // color: var(--ion-border-color);
   color: var(--ion-color-dark);
   text-align: center;
 }
@@ -356,8 +362,8 @@ ion-alert.avisoAlert{
   border-radius: 80px 80px 80px 80px;
   -moz-border-radius: 80px 80px 80px 80px;
   -webkit-border-radius: 80px 80px 80px 80px;
-  border: 3px solid #339933;
-  --background: transparent !important;
+  border: 3px solid var(--ion-border-color);
+  // --background: transparent !important;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -366,7 +372,7 @@ ion-alert.avisoAlert{
   height: 70px;
   margin-bottom: 15px;
   // color: #000000;
-  color: var(--ion-color-dark);
+  color: var(--ion-color-light);
   --highlight-height:0px;
   --border-width:0px;
   --padding-bottom:1px;
@@ -378,12 +384,12 @@ ion-alert.avisoAlert{
 
 .seleccionar-usuario{
   // color: #000000;
-  color: var(--ion-color-dark);
+  color: var(--ion-color-light);
   --border-radius: 80px;
   width: 250px;
   height: 60px;
-  --background: transparent !important;
-  --border-color:#339933;
+  // --background: transparent !important;
+  --border-color:var(--ion-border-color);
   // --background-hover:#339933;
   display: block;
   margin-left: auto;
@@ -398,15 +404,11 @@ ion-alert.avisoAlert{
   --border-radius: 80px;
   width: 200px;
   height: 50px;
-  --border-color: #339933;
   --border-width: 1px;
   --border-style:  solid ;
-  // --background: #dbf0dc !important;
+  --border-color:var(--ion-border-color);
   --background: #edf7ee !important;
-
-  --border-color:#339933;
-  --background-hover:#339933;
-
+  // --background: #dbf0dc !important;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -459,7 +461,7 @@ ion-toast{
   --button-color:#000000;
   --height: 80px;
   font-size: 20px;
-  --background: #339933;
+  --background: var(--ion-border-color);
 }
 
 .label-verde{
@@ -473,6 +475,7 @@ ion-toast{
   color: var(--ion-color-dark);
   border-bottom:1px solid #61bd65;
 }
+
 //Para el spinner
 .spinner {
   position: relative;
@@ -496,7 +499,6 @@ ion-toast{
   justify-content: center;
   width: 64px;
   height: 64px;
-
 }
 
 .lds-hourglass:after {
@@ -531,7 +533,7 @@ ion-toast{
   --border-radius: 80px;
   width: 300px;
   height: 60px;
-  --border-color: #339933;
+  --border-color: var(--ion-border-color);
   --border-width: 1px;
   --border-style:  solid ;
   // --background: #dbf0dc !important;
@@ -551,7 +553,7 @@ ion-toast{
   --border-radius: 80px;
   width: 100%;
   height: 50%;
-  --border-color: #339933;
+  --border-color: var(--ion-border-color);
   --border-width: 1px;
   --border-style:  solid ;
   // --background: #dbf0dc !important;
@@ -573,8 +575,8 @@ ion-input {
 // ----------------------------------------------------------------------------
 
 .argentina {
-
   .botones{
+    color: var(--ion-color-light);
     width: var(--ion-btn-width) !important;
     background: var(--ion-color-medium) !important;
     border-radius: var(--ion-brdr-radius);
@@ -599,7 +601,8 @@ ion-input {
 }
 
 .profesional {
-    .botones{
+  .botones {
+    color: var(--ion-color-dark);
     width: var(--ion-btn-width) !important;
     background: var(--ion-color-medium) !important;
     --background: var(--ion-color-medium) !important;
@@ -620,11 +623,11 @@ ion-input {
     text-transform: unset;
     font-size: large;
   }
-
 }
 
 .naif {
   .botones{
+    color: var(--ion-color-dark);
     width: var(--ion-btn-width) !important;
     --height: var(--ion-btn-heigth);
     background: var(--ion-color-medium) !important;
@@ -675,24 +678,37 @@ ion-input {
 
 .img-argentina {
   // background: url("../assets/argentina.jpg") no-repeat center/cover fixed !important;
-  background: var(--ion-img-toolbar) no-repeat center/cover fixed !important;
+  --background: var(--ion-img-toolbar) no-repeat center/cover fixed !important;
 }
 
 .img-profesional {
   // background: url("../assets/argentina.jpg") no-repeat center/cover fixed !important;
-  background: var(--ion-img-toolbar) no-repeat center/cover fixed !important;
+  --background: var(--ion-img-toolbar) no-repeat center/cover fixed !important;
 }
 
 .img-none {
-  background-image: none;
+  --background-image: none;
 }
 
 ion-toolbar {
   // --background: var(--ion-img-toolbar) no-repeat center/cover fixed !important;
-  color: var(--ion-color-medium);
+  color: var(--ion-text-color);
   margin-left: auto;
   margin-right: auto;
   width: 100%;
+}
+
+.input-colores{
+  width: 65%;
+  color: black !important;
+  --background: var(--ion-color-medium) !important;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3px;
+  --highlight-height:0px;
+  --border-width:0px;
+  --padding-bottom:1px;
 }
 
 // ----------------------------------------------------------------------------

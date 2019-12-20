@@ -5,7 +5,7 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content >
+<ion-content padding [ngClass]="misClases">
   <div style="margin-top: 5px">
     <img style="width: 200px;height:200px;" class="imagen" src="../../../assets/glamit/glamit2.png">
   </div>
@@ -15,18 +15,18 @@
   <ion-item class="inputs">
     <ion-label position="floating">Correo</ion-label>
     <ion-input  type="text" name="correo"  [(ngModel)]="correo" required></ion-input>
-</ion-item>
+  </ion-item>
   <ion-item class="inputs">
       <ion-label position="floating">Contraseña</ion-label>
       <ion-input type="password" name="password"  [(ngModel)]="clave" required></ion-input>
-</ion-item>
+    </ion-item>
   <ion-button fill="outline" class="botones" expand="block" (click)="onSumitLogin()">
       <ion-icon name="md-exit"></ion-icon>  [Ingresar]
   </ion-button>
   <div class="registro">
     <!-- No estas registrado?<br>
     <a class="registro-link" routerLink="/registro-cliente">Registrate</a> -->
-    <ion-button fill="outline" class="botones" expand="block" routerLink="/registro-cliente">
+    <ion-button class="botones" routerLink="/registro-cliente">
           <ion-icon name="finger-print"></ion-icon> [Registrarme]
     </ion-button>
   </div>

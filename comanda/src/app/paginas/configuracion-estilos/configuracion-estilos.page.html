@@ -1,0 +1,107 @@
+<ion-header>
+  <ion-toolbar >
+    <ion-title class="titulo-header">
+        Estilos
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="inicio"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding [ngClass]="misClases">
+
+    <div class="height-100 width-100" *ngIf="loading">
+        <ion-spinner name="dots" color="light" ></ion-spinner>
+    </div>
+    <div class="" *ngIf="!loading">
+      <ion-list padding>
+        <ion-radio-group>
+
+          <!-- <ion-item>
+            <ion-label>Default</ion-label>
+            <ion-radio slot="start" [checked]="estilos.default" value="nada" (click)="changeTheme('')"></ion-radio>
+          </ion-item> -->
+
+          <ion-item>
+            <ion-label>Naif</ion-label>
+            <ion-radio slot="start" [checked]="estilos.naif" value="naif" (click)="changeTheme('naif')" ></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Profesional</ion-label>
+            <ion-radio slot="start" [checked]="estilos.profesional" value="profesional" (click)="changeTheme('profesional')"></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Argentina</ion-label>
+            <ion-radio slot="start" [checked]="estilos.argentina" value="argentina" (click)="changeTheme('argentina')"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+        <!-- <ion-item>
+          <ion-label>Custom</ion-label>
+          <ion-radio slot="start" [checked]="estilos.custom" value="nada" (click)="changeTheme('custom')"></ion-radio>
+        </ion-item> -->
+      </ion-list>
+
+      <ion-list padding>
+        <h4>Colores</h4>
+        <ion-item >
+            <label for="dark">Fondo:</label>
+            <input class="input-colores" [(ngModel)]="custom.dark" type="color" name="dark" />
+        </ion-item>
+        <ion-item >
+            <label for="light">Letras:</label>
+            <input class="input-colores" [(ngModel)]="custom.light" type="color" name="light" />
+        </ion-item>
+        <h4>Botones</h4>
+        <ion-item >
+            <label for="ancho">Ancho:</label>
+            <input class="input-colores" [(ngModel)]="ancho" type="range" min="60" max="100" step="5" name="ancho" />
+            <span> {{ancho}}% </span>
+        </ion-item>
+        <ion-item >
+            <label for="alto">Alto:</label>
+            <input class="input-colores" [(ngModel)]="alto" type="range" min="10" max="50" step="5" name="alto" />
+            <span> {{alto}}% </span>
+        </ion-item>
+        <ion-item >
+            <label for="alto">Radio:</label>
+            <input class="input-colores" [(ngModel)]="radius" type="range" min="0" max="50" step="10" name="radius" />
+            <span> {{radius}}% </span>
+        </ion-item>
+        <ion-item >
+            <label for="medium">Fondo:</label>
+            <input class="input-colores" [(ngModel)]="custom.medium" type="color" name="medium" />
+        </ion-item>
+        <h4>Letras</h4>
+
+        <ion-item >
+          <label for="letras">Fuentes:</label>
+          <select class="input-colores" name="letras" [(ngModel)]="custom.font">
+            <option [value]="item" *ngFor="let item of letras">{{item}}</option>
+          </select>
+        </ion-item>
+        <ion-item >
+            <label for="size">Tamaño:</label>
+            <input  class="input-colores" [(ngModel)]="tamanio" type="range" min="1" max="2" step="0.1" name="ancho" />
+            <span> {{tamanio}}em </span>
+            <!-- <input [(ngModel)]="custom.size" type="numeric" name="size" /> -->
+        </ion-item>
+
+        <h4>Iconos</h4>
+        <ion-item>
+          <ion-label>Iconos</ion-label>
+
+            <ion-icon color="dark" [name]="botones.icono"></ion-icon>
+
+        </ion-item>
+
+      </ion-list>
+      <!-- Toggles in a List -->
+
+      <div class="width-100 center-horizontal flex-wrap">
+          <ion-button class="botones"  size="large" (click)="changeTheme('custom')" >Activar Custom</ion-button>
+      </div>
+    </div>
+</ion-content>
