@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-list-confirmar-cliente-alta',
@@ -14,13 +15,15 @@ import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service
 })
 export class ListConfirmarClienteAltaPage implements OnInit {
   private clientes = new Array<ClienteAConfirmarKey>();
-  private spinner : any = null;
+  private spinner: any = null;
+  public misClases: any;
   constructor(
     private firestore: AngularFirestore,
     private toastCtrl: ToastController,
     private sendEmail: EmailComposer,
     private authServ: AuthService,
-    private spinnerHand : SpinnerHandlerService,
+    private spinnerHand: SpinnerHandlerService,
+    private storage: Storage,
   ) { }
 
   public async ngOnInit() {
@@ -32,6 +35,15 @@ export class ListConfirmarClienteAltaPage implements OnInit {
     });
     this.spinner.dismiss();
   }
+
+  ionViewDidEnter() {
+   this.misClases = new Array();
+   this.storage.get('mis-clases').then(misClases => {
+     misClases.forEach( clase => {
+       this.misClases.push(clase);
+     });
+   });
+ }
 
   public traerClientes() {
     return this.firestore.collection('clientes-confirmar').snapshotChanges()
@@ -87,7 +99,7 @@ export class ListConfirmarClienteAltaPage implements OnInit {
 
   private obtenerMensaje(acepta) {
     let auxReturn = `Hola cliente! <br>
-    Le queríamos informar que su solicitud de registro ha sido 
+    Le queríamos informar que su solicitud de registro ha sido
     ${(acepta === true ? 'aceptada' : 'denegada')}.<br>`;
     if (acepta) {
       auxReturn += `Felicidades! Ya tiene acceso a nuestra app y puede  disfrutar de todos beneficios y comidas.<br>`;

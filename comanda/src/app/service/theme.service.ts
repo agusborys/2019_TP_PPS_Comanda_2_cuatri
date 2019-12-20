@@ -48,7 +48,7 @@ export class ThemeService {
     this.storage.get('mis-clases').then(misClases => {
       this.hayClases = true;
       misClases.forEach( clase => {
-        console.log(clase);
+
         this.misClases.push(clase);
       });
     });

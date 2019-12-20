@@ -7,6 +7,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-encuesta-cliente',
@@ -18,18 +19,21 @@ export class EncuestaClientePage implements OnInit {
   @Input('pedido') public pedido: string;
   private formEncuesta: FormGroup;
   private fotos: Array<string>;
-  private spinner : any = null;
+  private spinner: any = null;
+  public misClases: any;
 
   constructor(
     private toastController: ToastController,
     private auth: AngularFireAuth,
     private camera: Camera,
     private alertCtrl: AlertController,
-    private storage: AngularFireStorage,
+    private afStorage: AngularFireStorage,
     private firestore: AngularFirestore,
     /* private router: Router, */
     private modalCtrl: ModalController,
-    private spinnerHand : SpinnerHandlerService) { }
+    private spinnerHand: SpinnerHandlerService,
+    private storage: Storage,
+  ) { }
 
   ngOnInit() {
     this.formEncuesta = new FormGroup({
@@ -45,6 +49,15 @@ export class EncuestaClientePage implements OnInit {
     });
 
     this.fotos = new Array<string>();
+  }
+
+  ionViewDidEnter() {
+    this.misClases = new Array();
+    this.storage.get('mis-clases').then(misClases => {
+      misClases.forEach( clase => {
+        this.misClases.push(clase);
+      });
+    });
   }
 
   public mapRadioToFormValue(e: any) {
@@ -189,7 +202,7 @@ export class EncuestaClientePage implements OnInit {
 
     for (let foto of this.fotos) {
       const filename: string = datos.usuario + '_' + datos.fecha + '_' + contador;
-      const imageRef: AngularFireStorageReference = this.storage.ref(`encuestas-cliente/${filename}.jpg`);
+      const imageRef: AngularFireStorageReference = this.afStorage.ref(`encuestas-cliente/${filename}.jpg`);
       foto = this.obtenerFotoOriginal(foto);
       await imageRef.putString(foto, 'base64', { contentType: 'image/jpeg' })
         .then(async (snapshot) => {

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="verdeleon">
       <ion-buttons slot="start">
-        <ion-back-button color="dark" defaultHref="inicio"></ion-back-button>
+        <ion-back-button defaultHref="inicio"></ion-back-button>
       </ion-buttons>
       <ion-title class="titulo-header">
         <!-- <ion-icon name="add-circle"></ion-icon> -->
@@ -11,7 +11,7 @@
 </ion-header>
 
 
-<ion-content class="background-image" no-scroll padding>
+<ion-content class="background-image" no-scroll padding [ngClass]="misClases">
 
     <div [hidden]="ocultarSpinner" class="divSpinner">
             <table class="tableSpinner">
@@ -82,7 +82,7 @@
         <ion-button  class="botones" (click)="ValidarRegistro()">
             <ion-icon name="checkmark-circle-outline"></ion-icon>Registrar
         </ion-button>
-        
+
     </div>
     <div [hidden]="ocultarSeccion2" class="width-100 height-100 margin-top-9">
         <ion-button expand="block" class="botones-grandes" (click)="SacarFoto()" >

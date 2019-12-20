@@ -284,7 +284,7 @@ ion-alert.seleccionarAlert{
   --background:#edf7ee !important;
   text-align: left;
   // color: #000000;
-  color: var(--ion-color-dark);
+  color: var(--ion-color-secondary) !important;
   --width: 120%;
   font-size: 20px;
 
@@ -299,15 +299,15 @@ ion-alert.seleccionarAlert{
   }
   .alert-button{
     background-color: #edf7ee;//Blanco
-    // color: #000000;
-    color: var(--ion-color-dark);
+    color: #000000;
+    // color: var(--ion-color-dark);
     margin-right: 3px;
   }
   .button-Ok{
     // background-color: #edf7ee;
     // padding: 15px;
     // color: #000000;
-    color: var(--ion-color-dark);
+    color: var(--ion-color-primary);
     margin-left: auto;
     font-size:16px;
 
@@ -316,7 +316,7 @@ ion-alert.seleccionarAlert{
     // background-color: #edf7ee;
     // padding: 15px;
     // color: #000000;
-    color: var(--ion-color-dark);
+    color: var(--ion-color-primary);
     font-size:16px;
   }
 }
@@ -353,7 +353,7 @@ ion-alert.avisoAlert{
 .titulo-header{
   // Verde
   // color: var(--ion-border-color);
-  color: var(--ion-color-dark);
+  color: var(--ion-color-light);
   text-align: center;
 }
 
@@ -384,12 +384,13 @@ ion-alert.avisoAlert{
 
 .seleccionar-usuario{
   // color: #000000;
-  color: var(--ion-color-light);
+  color: var(--ion-color-primary);
   --border-radius: 80px;
   width: 250px;
   height: 60px;
   // --background: transparent !important;
   --border-color:var(--ion-border-color);
+  --background: var(--ion-color-secondary) !important;
   // --background-hover:#339933;
   display: block;
   margin-left: auto;
@@ -576,7 +577,7 @@ ion-input {
 
 .argentina {
   .botones{
-    color: var(--ion-color-light);
+    color: var(--ion-color-light) !important;
     width: var(--ion-btn-width) !important;
     background: var(--ion-color-medium) !important;
     border-radius: var(--ion-brdr-radius);
@@ -626,6 +627,7 @@ ion-input {
 }
 
 .naif {
+
   .botones{
     color: var(--ion-color-dark);
     width: var(--ion-btn-width) !important;
@@ -688,6 +690,8 @@ ion-input {
 
 .img-none {
   --background-image: none;
+  --background: var(--ion-color-light) !important;
+  background: var(--ion-color-light) !important;
 }
 
 ion-toolbar {

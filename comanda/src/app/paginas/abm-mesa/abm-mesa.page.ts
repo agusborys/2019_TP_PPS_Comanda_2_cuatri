@@ -7,6 +7,7 @@ import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/s
 import { MesaKey } from 'src/app/clases/mesa';
 import { map } from 'rxjs/operators';
 import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-abm-mesa',
@@ -18,14 +19,17 @@ export class AbmMesaPage implements OnInit {
   private foto: string | boolean = false;
   private mesas: MesaKey[];
   private spinner: any = null;
+  public misClases: any;
+
   constructor(
     private camera: Camera,
     private alertCtrl: AlertController,
     /*  private scanner: BarcodeScanner, */
     private toastController: ToastController,
-    private storage: AngularFireStorage,
+    private afStorage: AngularFireStorage,
     private firestore: AngularFirestore,
-    private spinnerHand : SpinnerHandlerService,
+    private spinnerHand: SpinnerHandlerService,
+    private storage: Storage,
   ) { }
 
   public traerMesas() {
@@ -54,6 +58,15 @@ export class AbmMesaPage implements OnInit {
 
 
   }
+
+  ionViewDidEnter() {
+   this.misClases = new Array();
+   this.storage.get('mis-clases').then(misClases => {
+     misClases.forEach( clase => {
+       this.misClases.push(clase);
+     });
+   });
+ }
 
   public async tomarFoto() {
     const options: CameraOptions = {
@@ -123,7 +136,7 @@ export class AbmMesaPage implements OnInit {
 
   private async comenzarSubida() {
     const filename: string = this.formMesas.value.tmesaCtrl + this.formMesas.value.nromesaCtrl + '_0';
-    const imageRef: AngularFireStorageReference = this.storage.ref(`mesas/${filename}.jpg`);
+    const imageRef: AngularFireStorageReference = this.afStorage.ref(`mesas/${filename}.jpg`);
 
     const datos: any = {
       nromesa: this.formMesas.value.nromesaCtrl,

@@ -17,6 +17,7 @@ import { Cliente, ClienteAConfirmar } from 'src/app/clases/cliente';
 import { Anonimo } from 'src/app/clases/anonimo';
 import { map } from 'rxjs/operators';
 import { SonidosService } from '../../service/sonidos.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-registro-empleado',
@@ -39,14 +40,18 @@ export class RegistroEmpleadoPage implements OnInit {
   private arrayClientesAConfirmar : ClienteAConfirmar[];
   private arrayEmpleados : Empleado[];
   private arrayAnonimos : Anonimo[];
-  constructor(private auth: AuthService,
+  public misClases: any;
+
+  constructor(
+    private auth: AuthService,
     private router: Router,
     private camera: Camera,
     public barcodeScanner: BarcodeScanner,
     private alertCtrl: AlertController,
-    private spinnerHand : SpinnerHandlerService,
+    private spinnerHand: SpinnerHandlerService,
     private firestore: AngularFirestore,
     private sonidos: SonidosService,
+    private storage: Storage,
   ) {
     this.usuario = new Empleado();
     this.clave = "";
@@ -70,6 +75,15 @@ export class RegistroEmpleadoPage implements OnInit {
       this.arrayAnonimos = d;
     });
   }
+
+  ionViewDidEnter() {
+   this.misClases = new Array();
+   this.storage.get('mis-clases').then(misClases => {
+     misClases.forEach( clase => {
+       this.misClases.push(clase);
+     });
+   });
+ }
 
   /*
     Traigo las colecciones de clientes y empleados desde firebase ya ingresados para verificar su existencia.

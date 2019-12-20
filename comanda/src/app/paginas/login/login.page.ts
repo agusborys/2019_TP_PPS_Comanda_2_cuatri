@@ -185,7 +185,7 @@ export class LoginPage implements OnInit {
   {
     const alert = await this.alertCtrl.create({
       cssClass: 'seleccionarAlert',
-      header: 'Seleccionar usuario',
+      header: '',
       inputs: [
         {
           type: 'radio',
