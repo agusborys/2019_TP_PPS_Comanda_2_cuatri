@@ -1,0 +1,20 @@
+.iconFriends{
+ // background: url(../images/icons/friends_16x16.png) no-repeat;
+ width: 16px;
+ height: 16px;
+ border: none;
+ float: left /* or right, depending on the desired outcome */
+ }
+
+ .fields{
+   width: 20% !important;
+   float: left;
+   position: relative;
+
+  }
+.contenedor {
+  width: 100% !important;
+  position: relative;
+  clear: both;
+  margin-bottom: 15px;
+}

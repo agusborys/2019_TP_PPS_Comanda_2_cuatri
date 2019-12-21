@@ -43,7 +43,8 @@ export class LoginPage implements OnInit {
   usuarioSeleccionado: string;
   private spinner:any=null;
   public misClases: any;
-
+  public ingresar: any;
+  public registrarse: any;
   constructor(
     private authService: AuthService,
     public router: Router,
@@ -61,6 +62,8 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     this.correo = '';
     this.clave = '';
+    this.ingresar = 'md-exit';
+    this.registrarse = 'finger-print';
   }
 
 
@@ -72,6 +75,17 @@ export class LoginPage implements OnInit {
       });
     });
 
+    this.storage.get('ingreso').then(iconoIngreso => {
+      if (iconoIngreso !== '') {
+        this.ingresar = iconoIngreso;
+      }
+    });
+
+    this.storage.get('registro').then(iconoRegistro => {
+      if (iconoRegistro !== '') {
+        this.registrarse = iconoRegistro;
+      }
+    });
   }
 
   public presentAlert(header: string, subHeader: string, message: string) {

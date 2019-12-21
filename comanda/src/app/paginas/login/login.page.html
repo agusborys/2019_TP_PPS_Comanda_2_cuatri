@@ -21,13 +21,15 @@
       <ion-input type="password" name="password"  [(ngModel)]="clave" required></ion-input>
     </ion-item>
   <ion-button fill="outline" class="botones" expand="block" (click)="onSumitLogin()">
-      <ion-icon name="md-exit"></ion-icon>  [Ingresar]
+      <ion-icon [name]="ingresar"></ion-icon>  [Ingresar]
+      <!-- <ion-icon name="md-exit"></ion-icon>  [Ingresar] -->
   </ion-button>
   <div class="registro">
     <!-- No estas registrado?<br>
     <a class="registro-link" routerLink="/registro-cliente">Registrate</a> -->
     <ion-button class="botones" routerLink="/registro-cliente">
-          <ion-icon name="finger-print"></ion-icon> [Registrarme]
+          <ion-icon [name]="registrarse"></ion-icon> [Registrarme]
+          <!-- <ion-icon name="finger-print"></ion-icon> [Registrarme] -->
     </ion-button>
   </div>
   <ion-button fill="outline" class="seleccionar-usuario" expand="block" (click)="abrirAlert()">

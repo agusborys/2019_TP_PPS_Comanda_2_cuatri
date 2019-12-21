@@ -75,7 +75,7 @@ export class ConfiguracionEstilosPage implements OnInit {
       medium: '#BFC2FF',
       dark: '#B1B5FF',
       font: 'Modak',
-      btnwidth: '40',
+      btnwidth: '90',
       btnheight: '20',
       size: '1em',
       brdrRadius: '50px',
@@ -91,12 +91,15 @@ export class ConfiguracionEstilosPage implements OnInit {
   }
 
   estilosArr: string[] = ['argentina', 'naif', 'profesional', 'custom'];
+  public ingresar: string[] = ['walk', 'md-exit', 'send'];
+  public registrar: string[] = ['finger-print', 'power', 'person-add'];
 
   public botones = {
     icono: 'arrow-round-forward',
   }
 
   public fotos: any;
+  private objCustom: any;
   constructor(
     private camera: Camera,
     private file: File,
@@ -109,19 +112,30 @@ export class ConfiguracionEstilosPage implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.misClases = new Array();
+    this.fotos = new Array();
     this.ancho = 40;
     this.radius = 10;
     this.alto = 50;
     this.tamanio = 1;
+    // this.objCustom = {};
   }
 
   ionViewDidEnter() {
     this.misClases = new Array();
+    this.fotos = new Array();
     this.storage.get('mis-clases').then(misClases => {
       misClases.forEach( clase => {
         this.misClases.push(clase);
       });
     });
+
+    this.storage.get('obj-custom').then(objCustom => {
+      if(objCustom !== undefined) {
+        this.copiarObjectoCustom(objCustom);
+      }
+      this.objCustom = objCustom;
+    });
+
     this.storage.get('tema').then(temaSeleccionado => {
       this.activarChecked(temaSeleccionado);
     });
@@ -152,14 +166,15 @@ export class ConfiguracionEstilosPage implements OnInit {
 
     if (name === 'custom') {
       this.activarChecked('custom');
+      this.guardarCustom();
 
       this.custom.btnwidth = this.ancho + '%';
       this.custom.btnheight = this.alto + 'px';
       this.custom.size = this.tamanio + 'em';
       this.custom.brdrRadius = this.radius + 'px';
       this.custom.img = (this.fotos[0]) ? this.fotos[0].src : '';
-      this.theme.setTheme(this.custom);
 
+      this.theme.setTheme(this.custom);
       this.misClases.push('custom');
       this.misClases.push('img-fondo');
 
@@ -184,7 +199,7 @@ export class ConfiguracionEstilosPage implements OnInit {
       this.misClases.push('naif');
       this.misClases.push('img-none');
     }
-    this.storage.set('mis-clases', this.misClases)
+    this.storage.set('mis-clases', this.misClases);
   }
 
   getExpand() {
@@ -201,7 +216,7 @@ export class ConfiguracionEstilosPage implements OnInit {
     }
   }
 
-  async getPicture () {
+  async getPicture() {
     this.fotos = new Array();
     const options: CameraOptions = {
        quality: 50,
@@ -222,4 +237,35 @@ export class ConfiguracionEstilosPage implements OnInit {
     // console.log(displayImage);
   }
 
+  guardarCustom() {
+    this.objCustom = {};
+    this.objCustom.alto = this.alto;
+    this.objCustom.ancho = this.ancho;
+    this.objCustom.radius = this.radius;
+    this.objCustom.letra = this.custom.font;
+    this.objCustom.tamanio = this.tamanio;
+    this.objCustom.dark = this.custom.dark;
+    this.objCustom.medium = this.custom.medium;
+    this.objCustom.light = this.custom.light;
+    this.objCustom.img = (this.fotos[0]) ? this.fotos[0].src : '';
+    this.storage.set('obj-custom', this.objCustom);
+  }
+
+  copiarObjectoCustom(objCustom) {
+    this.alto = objCustom.alto;
+    this.ancho = objCustom.ancho;
+    this.radius = objCustom.radius;
+    this.tamanio = objCustom.tamanio;
+    this.custom.font = objCustom.letra;
+    this.custom.dark = objCustom.dark;
+    this.custom.medium = objCustom.medium;
+    this.custom.light = objCustom.light;
+    if ('' !== objCustom.img) {
+      this.fotos.push({src: objCustom.img});
+    }
+  }
+
+  cargarIcono(funcion, icono) {
+    this.storage.set(funcion, icono);
+  }
 }

@@ -15,16 +15,6 @@
         <ion-spinner name="dots" color="light" ></ion-spinner>
     </div>
     <div class="" *ngIf="!loading">
-      <div class="width-100 center-horizontal flex-wrap">
-          <ion-button class="botones"  size="large" (click)="getPicture()" >Foto</ion-button>
-      </div>
-      <ion-list *ngIf="fotos">
-        <ion-item *ngFor="let foto of fotos">
-          <ion-thumbnail slot="start">
-            <ion-img [src]="foto.src"></ion-img>
-          </ion-thumbnail>
-        </ion-item>
-      </ion-list>
       <ion-list padding>
         <ion-radio-group>
 
@@ -98,14 +88,34 @@
             <span> {{tamanio}}em </span>
             <!-- <input [(ngModel)]="custom.size" type="numeric" name="size" /> -->
         </ion-item>
+        <div class="width-100 center-horizontal flex-wrap">
+            <ion-button class="botones"  size="large" (click)="getPicture()" >Foto</ion-button>
+        </div>
+        <ion-list *ngIf="fotos">
+          <ion-item *ngFor="let foto of fotos">
+            <ion-thumbnail slot="start">
+              <ion-img [src]="foto.src"></ion-img>
+            </ion-thumbnail>
+          </ion-item>
+        </ion-list>
 
         <h4>Iconos</h4>
-        <ion-item>
-          <ion-label>Iconos</ion-label>
 
-            <ion-icon color="dark" [name]="botones.icono"></ion-icon>
+        <div class="contenedor">
+          <h5>Ingresar</h5>
+          <ion-item class="fields" *ngFor="let icono of ingresar">
+                <ion-icon (click)="cargarIcono('ingreso', icono);" [name]="icono" style="background-color: var(--ion-color-light);"></ion-icon>
+          </ion-item>
+        </div>
+        <!-- <ion-list *ngIf="ingresar"> -->
+        <div class="contenedor">
+          <h5>Registrarse</h5>
+          <ion-item class="fields" *ngFor="let icono of registrar">
+            <ion-icon (click)="cargarIcono('registro', icono);" [name]="icono" style="background-color: var(--ion-color-light);"></ion-icon>
+          </ion-item>
+        </div>
 
-        </ion-item>
+        <!-- </ion-list> -->
 
       </ion-list>
       <!-- Toggles in a List -->

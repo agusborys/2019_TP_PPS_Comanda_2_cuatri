@@ -53,23 +53,17 @@
             </ion-item>
               <br>
               <div class="width-100 align-espaciado">
-                <!-- <ion-button color="primary"
-                (click)="this.cambiarEstado(d, 'aceptado')">
-                <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
-              </ion-button> -->
                 <ion-button class="button_preparar"
                   [disabled]="d.estado != 'aceptado'"
                   (click)="this.cambiarEstado(d, 'preparacion')">
                   <ion-icon name="stopwatch"></ion-icon>
                   Preparar
-                  <!-- <ion-icon slot="start" name="play">Preparar</ion-icon> -->
                 </ion-button>
                 <ion-button class="button_listo"
                   [disabled]="d.estado != 'preparacion'"
                   (click)="this.presentAlertConfirmarEntrega(d, 'listoEntrega')">
                   <ion-icon name="checkmark-circle-outline"></ion-icon>
                   Entregar
-                  <!-- <ion-icon slot="start" name="checkmark">Entregar</ion-icon> -->
                 </ion-button>
               </div>
           </ion-card>
