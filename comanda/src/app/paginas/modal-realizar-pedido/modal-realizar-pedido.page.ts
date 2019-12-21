@@ -6,6 +6,7 @@ import { ModalPedidoPage } from '../modal-pedido/modal-pedido.page';
 import { Router } from '@angular/router';
 import { MesaKey } from 'src/app/clases/mesa';
 import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-modal-realizar-pedido',
@@ -14,21 +15,22 @@ import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service
 })
 export class ModalRealizarPedidoPage implements OnInit {
 
-  private productosPedidos : ProductoKey[];
-  private pedido : any;
-  private mesaDelPedido : MesaKey;
-  private mostrarCocina : boolean = false;
-  private mostrarBebida : boolean = false;
-  private mostrarPostre : boolean = false;
-  private spinner : any = null;
+  private productosPedidos: ProductoKey[];
+  private pedido: any;
+  private mesaDelPedido: MesaKey;
+  private mostrarCocina: boolean = false;
+  private mostrarBebida: boolean = false;
+  private mostrarPostre: boolean = false;
+  private spinner: any = null;
+  public misClases: any;
 
   constructor(
     private modalCtrl: ModalController,
     private firestore: AngularFirestore,
     public toastController: ToastController,
-    public router : Router,
-    private spinnerHand:SpinnerHandlerService,
-
+    public router: Router,
+    private spinnerHand: SpinnerHandlerService,
+    private storage: Storage,
   ) { }
 
   ngOnInit() {
@@ -44,7 +46,15 @@ export class ModalRealizarPedidoPage implements OnInit {
         this.mostrarPostre = true;
       }
     }
+  }
 
+  ionViewDidEnter() {
+     this.misClases = new Array();
+     this.storage.get('mis-clases').then(misClases => {
+       misClases.forEach( clase => {
+         this.misClases.push(clase);
+       });
+     });
   }
 
   public async ConfirmarPedido()

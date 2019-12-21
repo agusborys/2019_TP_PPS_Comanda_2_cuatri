@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding [ngClass]="misClases">
   <!-- Pedidos -->
   <ion-card class="ion-card-style" *ngIf="this.pedidos.length> 0">
     <ion-card-content>

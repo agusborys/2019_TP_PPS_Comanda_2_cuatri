@@ -3,6 +3,23 @@ import { DOCUMENT } from '@angular/common';
 import * as Color from 'color';
 import { Storage } from '@ionic/storage';
 
+const miTema = {
+  profesional: {
+    primary: '#8CBA80',
+    secondary: '#FCFF6C',
+    tertiary: '#FE5F55',
+    medium: '#BCC2C7',
+    dark: '#202b28',
+    light: '#ACB3B9',
+    font: 'Manjari',
+    btnwidth: '90%',
+    btnheight: '20px',
+    size: '1.2em',
+    brdrRadius: '10px',
+    img: 'https://66.media.tumblr.com/4ef968306e2f4a0f74cdfa81d70af249/tumblr_nmlqhvQCpB1t0k6q7o1_640.jpg'
+  }
+};
+
 @Injectable({
   providedIn: 'root'
 })
@@ -45,22 +62,24 @@ export class ThemeService {
   }
 
   verificarEstilo() {
+    this.hayClases = false;
     this.storage.get('mis-clases').then(misClases => {
-      this.hayClases = true;
-      misClases.forEach( clase => {
+      if (misClases !== undefined) {
+        misClases.forEach( clase => {
 
-        this.misClases.push(clase);
-      });
+          this.hayClases = true;
+          this.misClases.push(clase);
+        });
+      }
     });
 
-    if (this.misClases.length < 1) {
-
+    if (!this.hayClases && this.misClases.length < 1) {
       const tema = 'profesional';
-      this.setTheme(miTema[tema]);
+      this.setTheme(miTema.profesional);
       this.misClases.push('profesional');
-      this.misClases.push('img-profesional');
+      this.misClases.push('img-fondo');
       this.storage.set('mis-clases', this.misClases);
-      this.storage.set('tema', name);
+      this.storage.set('tema', 'profesional');
     }
   }
 
@@ -84,22 +103,7 @@ const defaults = {
   img: ''
 };
 
-const miTema = {
-  profesional: {
-    primary: '#8CBA80',
-    secondary: '#FCFF6C',
-    tertiary: '#FE5F55',
-    medium: '#BCC2C7',
-    dark: '#202b28',
-    light: '#ACB3B9',
-    font: 'Manjari',
-    btnwidth: '90%',
-    btnheight: '20px',
-    size: '1.2em',
-    brdrRadius: '10px',
-    img: 'https://66.media.tumblr.com/4ef968306e2f4a0f74cdfa81d70af249/tumblr_nmlqhvQCpB1t0k6q7o1_640.jpg'
-  }
-};
+
 
 function CSSTextGenerator(colors) {
   colors = { ...defaults, ...colors };

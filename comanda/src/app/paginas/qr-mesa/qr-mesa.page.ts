@@ -16,6 +16,7 @@ import { AuthService } from 'src/app/servicios/auth.service';
 import { ErrorHandlerService } from 'src/app/servicios/error-handler.service';
 import { Pedido, PedidoKey } from 'src/app/clases/pedido';
 import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-qr-mesa',
@@ -32,8 +33,10 @@ export class QrMesaPage implements OnInit {
   private reservaAMostrar: ReservaKey;
   private listaEspera: ListaEsperaClientesKey[];
   private mostrarBtnEncuesta : boolean = true;
-  private pedido : PedidoKey = null;
-  private spinner : any = null;
+  private pedido: PedidoKey = null;
+  private spinner: any = null;
+  public misClases: any;
+
   constructor(
     private firestore: AngularFirestore,
     private scanner: BarcodeScanner,
@@ -41,8 +44,9 @@ export class QrMesaPage implements OnInit {
     public router: Router,
     private alertCtrl: AlertController,
     private authServ: AuthService,
-    private errorHandler:ErrorHandlerService,
-    private spinnerHand : SpinnerHandlerService
+    private errorHandler: ErrorHandlerService,
+    private spinnerHand: SpinnerHandlerService,
+    private storage: Storage,
   ) {
    }
 
@@ -64,13 +68,13 @@ export class QrMesaPage implements OnInit {
           });
           if(this.mesaAMostrar.pedidoActual != "")
           {
-            this.buscarPedido().subscribe((d)=>{  
+            this.buscarPedido().subscribe((d)=>{
             this.pedido = d.data() as PedidoKey;
             this.pedido.key = d.id;
             console.log(this.pedido);
             });
           }
-          
+
         } else {
           console.log('No está en mesa');
         }
@@ -85,7 +89,7 @@ export class QrMesaPage implements OnInit {
       // console.log('Tengo la lista de espera', d);
       this.listaEspera = d;
     });
-    
+
     this.traerEncuestas().subscribe((d:any)=>{
       for(let element of d)
       {
@@ -102,6 +106,16 @@ export class QrMesaPage implements OnInit {
     });
     console.log(this.mostrarBtnEncuesta);
   }
+
+  ionViewDidEnter() {
+     this.misClases = new Array();
+     this.storage.get('mis-clases').then(misClases => {
+       misClases.forEach( clase => {
+         this.misClases.push(clase);
+       });
+     });
+  }
+
   ionViewDidLoad()
   {
     if(!this.estaEnMesa())
@@ -109,6 +123,7 @@ export class QrMesaPage implements OnInit {
       this.router.navigateByUrl('inicio');
     }
   }
+
   public buscarPedido(){
     return this.firestore.collection('pedidos').doc(this.mesaAMostrar.pedidoActual).get();
   }
@@ -221,7 +236,7 @@ export class QrMesaPage implements OnInit {
                 if ((puestoLista as ListaEsperaClientesKey).estado === 'esperandoMesa') {
                   this.presentAlertCliente();
                 } else if ((puestoLista as ListaEsperaClientesKey).estado === 'confirmacionMozo') {
-                  this.errorHandler.mostrarErrorSolo('Error!', `Usted sigue en lista de espera.<br>` + 
+                  this.errorHandler.mostrarErrorSolo('Error!', `Usted sigue en lista de espera.<br>` +
                   `Debe esperar a que el mozo lo confirme`);
                   this.mesaAMostrar = null;
                   return;
@@ -343,7 +358,7 @@ export class QrMesaPage implements OnInit {
             this.ocuparMesa();
           }
         },
-        
+
       ]
     }).then(alert => {
       alert.present();

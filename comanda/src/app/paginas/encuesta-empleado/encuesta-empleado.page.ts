@@ -6,6 +6,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-encuesta-empleado',
@@ -16,14 +17,18 @@ export class EncuestaEmpleadoPage implements OnInit {
   private formEncuesta: FormGroup;
   private fotos: Array<string>;
   private spinner : any = null;
+  public misClases: any;
+
   constructor(
     private toastController: ToastController,
     private auth: AngularFireAuth,
     private camera: Camera,
     private alertCtrl: AlertController,
-    private storage: AngularFireStorage,
+    private afStorage: AngularFireStorage,
     private firestore: AngularFirestore,
-    private spinnerHand : SpinnerHandlerService) { }
+    private spinnerHand: SpinnerHandlerService,
+    private storage: Storage,
+  ) { }
 
   ngOnInit() {
     this.formEncuesta = new FormGroup({
@@ -39,6 +44,15 @@ export class EncuestaEmpleadoPage implements OnInit {
     });
 
     this.fotos = new Array<string>();
+  }
+
+  ionViewDidEnter() {
+     this.misClases = new Array();
+     this.storage.get('mis-clases').then(misClases => {
+       misClases.forEach( clase => {
+         this.misClases.push(clase);
+       });
+     });
   }
 
   public mapHorarioRadioToFormValue(e: any) {
@@ -188,7 +202,7 @@ export class EncuestaEmpleadoPage implements OnInit {
 
     for (let foto of this.fotos) {
       const filename: string = datos.usuario + '_' + datos.fecha + '_' + contador;
-      const imageRef: AngularFireStorageReference = this.storage.ref(`encuestas-empleado/${filename}.jpg`);
+      const imageRef: AngularFireStorageReference = this.afStorage.ref(`encuestas-empleado/${filename}.jpg`);
       foto = this.obtenerFotoOriginal(foto);
       await imageRef.putString(foto, 'base64', { contentType: 'image/jpeg' })
         .then(async (snapshot) => {

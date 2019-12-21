@@ -9,6 +9,7 @@ import { ClienteKey } from 'src/app/clases/cliente';
 import { AnonimoKey } from 'src/app/clases/anonimo';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-modal-pedido',
@@ -22,22 +23,25 @@ export class ModalPedidoPage implements OnInit {
   private pedidoDetalle: PedidoDetalleKey[] = new Array<PedidoDetalleKey>();
   private cliente = false;
   private verCuenta = false;
-  private spinner:any=null;
-  private bebidaGratis : PedidoDetalle = new PedidoDetalle();
-  private postreGratis : PedidoDetalle = new PedidoDetalle();
-  private descuento_10 : PedidoDetalle = new PedidoDetalle();
-  private arrayDecuentos : PedidoDetalle[] = new Array<PedidoDetalle>();
-  private tieneBebidaGratis : boolean = false;
-  private tienePostreGratis : boolean = false;
-  private tieneDescuento : boolean = false;
-  private flagPago : boolean = false;
+  private spinner: any = null;
+  private bebidaGratis: PedidoDetalle = new PedidoDetalle();
+  private postreGratis: PedidoDetalle = new PedidoDetalle();
+  private descuento_10: PedidoDetalle = new PedidoDetalle();
+  private arrayDecuentos: PedidoDetalle[] = new Array<PedidoDetalle>();
+  private tieneBebidaGratis: boolean = false;
+  private tienePostreGratis: boolean = false;
+  private tieneDescuento: boolean = false;
+  private flagPago: boolean = false;
+  public misClases: any;
   constructor(
     private firestore: AngularFirestore,
     private modalController: ModalController,
     private authService: AuthService,
     private scanner: BarcodeScanner,
     private alertCtrl: AlertController,
-    private spinnerHand:SpinnerHandlerService) {
+    private spinnerHand: SpinnerHandlerService,
+    private storage: Storage,
+  ) {
      }
 
     async ngOnInit() {
@@ -46,14 +50,20 @@ export class ModalPedidoPage implements OnInit {
     this.cliente = this.authService.tipoUser === 'cliente' || this.authService.tipoUser === 'anonimo' ? true : false;
     this.traerPedido();
     this.spinner.dismiss();
-    
+
     //this.traerPedidoDetalle();
   }
-  ionViewDidEnter(){
+
+  ionViewDidEnter() {
+    this.misClases = new Array();
     this.cliente = this.authService.tipoUser === 'cliente' || this.authService.tipoUser === 'anonimo' ? true : false;
     this.traerPedido();
+    this.storage.get('mis-clases').then(misClases => {
+      misClases.forEach( clase => {
+        this.misClases.push(clase);
+      });
+    });
   }
-  
 
   public traerPedido() {
     this.firestore.collection('pedidos').doc(this.pedido).get().toPromise().then((d: DocumentSnapshot<any>) => {
@@ -129,7 +139,7 @@ export class ModalPedidoPage implements OnInit {
             //this.pedidoActual.preciototal = this.pedidoActual.preciototal - this.postreGratis.precio;
             break;
           }
-        }  
+        }
       }
       if(this.tieneDescuento == true)
       {
@@ -142,7 +152,7 @@ export class ModalPedidoPage implements OnInit {
         //this.pedidoActual.preciototal = this.pedidoActual.preciototal - this.descuento_10.precio;
       }
     }
-    
+
     console.log(this.arrayDecuentos);
   }
 
@@ -184,7 +194,7 @@ export class ModalPedidoPage implements OnInit {
     }
     return precioTotal;
   }
-  
+
   public cambiarPropina() {
     console.log('Cambio la propina con un qr');
 

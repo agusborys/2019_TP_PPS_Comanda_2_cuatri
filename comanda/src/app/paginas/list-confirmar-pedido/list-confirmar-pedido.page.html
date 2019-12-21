@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding [ngClass]="misClases">
   <ion-card *ngIf="this.pedidos.length> 0" class="ion-card-style align-text-center">
     <ion-card-content>
       <div class="ion-no-padding transparent-item flex-v" *ngFor="let pedido of

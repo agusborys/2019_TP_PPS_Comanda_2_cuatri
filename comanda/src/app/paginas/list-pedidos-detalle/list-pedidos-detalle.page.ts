@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { AlertController } from '@ionic/angular';
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
 import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-list-pedidos-detalle',
@@ -21,18 +22,21 @@ export class ListPedidosDetallePage implements OnInit {
   private pedidos: PedidoKey[];
   private productos: ProductoKey[];
   private pedidoDetalle: PedidoDetalleKey[];
-  private spinner : any = null;
+  private spinner: any = null;
+  public misClases: any;
 
   constructor(
     private authServ: AuthService,
     private firestore: AngularFirestore,
     private alertCtrl: AlertController,
     public http: Http,
-    private spinnerHand : SpinnerHandlerService) { }
+    private spinnerHand: SpinnerHandlerService,
+    private storage: Storage,
+  ) { }
 
   //#region metodos de FCM
   envioPost(pedidoPush) {
-    //let usuarioLogueado = this.authServ.user;
+    // let usuarioLogueado = this.authServ.user;
     let tituloNotif = "Pedido listo";
 
 
@@ -84,19 +88,24 @@ export class ListPedidosDetallePage implements OnInit {
     this.inicializarPedidos();
     this.spinner.dismiss();
   }
-  async ionViewDidEnter(){
+
+  async ionViewDidEnter() {
     this.pedidos = new Array<PedidoKey>();
     this.pedidoDetalle = new Array<PedidoDetalleKey>();
     this.productos = new Array<ProductoKey>();
-    // this.spinner = await this.spinnerHand.GetAllPageSpinner();
-    // this.spinner.present();
+    this.misClases = new Array();
+
     await this.authServ.buscarUsuario();
     this.inicializarPedidos();
+    this.storage.get('mis-clases').then(misClases => {
+      misClases.forEach( clase => {
+        this.misClases.push(clase);
+      });
+    });
+
     this.spinner.dismiss();
-    // console.log("Pedido detalle:",this.pedidoDetalle);
-    // console.log("Pedidos", this.pedidos);
-    // console.log("productos",this.productos);
   }
+
   public async inicializarPedidos() {
     try {
        await this.traerPedidos().subscribe((p: PedidoKey[]) => {

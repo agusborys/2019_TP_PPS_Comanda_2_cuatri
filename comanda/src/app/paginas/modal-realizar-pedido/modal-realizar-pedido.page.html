@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding [ngClass]="misClases">
 
     <ion-card class="ion-card-style">
         <ion-card-content >
@@ -29,7 +29,7 @@
             </table>
             <br>
           </div>
-          
+
           <div *ngIf="this.mostrarBebida==true">
             <ion-label class="label-verde .center-horizontal" >Bebidas</ion-label>
             <table class="tabla">
@@ -43,10 +43,10 @@
                   <td *ngIf="p.quienPuedever=='bartender'">{{p.nombre}}</td>
                   <td *ngIf="p.quienPuedever=='bartender'">{{p.cantidad*p.precio | currency}}</td>
               </tr>
-            </table> 
+            </table>
             <br>
           </div>
-          
+
           <div *ngIf="this.mostrarPostre==true">
             <ion-label class="label-verde .center-horizontal" >Postre</ion-label>
             <table class="tabla">
@@ -69,7 +69,7 @@
               <ion-input class="totalPedido" [value]="pedido.preciototal | currency"> </ion-input>
             </ion-item>
           <!-- </div> -->
-          
+
         </ion-card-content>
       </ion-card>
 </ion-content>

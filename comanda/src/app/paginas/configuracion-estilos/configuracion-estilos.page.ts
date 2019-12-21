@@ -131,6 +131,18 @@ export class ConfiguracionEstilosPage implements OnInit {
   }
 
   changeTheme(name) {
+
+    /**
+     * [
+     *  HACER QUE GUARDE EN STORAGE UN OBJETO CUSTOM
+     *  LEVANTAR EL OBJETO CUANDO SE ENTRA A LA PÁGINA
+     * ]
+     * @param  'tema' [description]
+     * @param  name   [description]
+     * @return        [description]
+     */
+
+    //
     this.misClases = [];
     this.storage.set('tema', name);
 

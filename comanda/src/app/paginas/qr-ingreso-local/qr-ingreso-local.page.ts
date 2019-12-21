@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/servicios/auth.service';
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-qr-ingreso-local',
@@ -19,7 +20,7 @@ import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service
   styleUrls: ['./qr-ingreso-local.page.scss'],
 })
 export class QrIngresoLocalPage implements OnInit {
-  
+
   apiFCM = 'https://fcm.googleapis.com/fcm/send';
   private opt: BarcodeScannerOptions = {
     resultDisplayDuration: 0,
@@ -27,7 +28,9 @@ export class QrIngresoLocalPage implements OnInit {
 
   private mesas = new Array<MesaKey>();
   private listaEspera = new Array<ListaEsperaClientesKey>();
-  private spinner : any = null;
+  private spinner: any = null;
+  public misClases: any;
+
   constructor(
     private scanner: BarcodeScanner,
     private alertCtrl: AlertController,
@@ -37,8 +40,18 @@ export class QrIngresoLocalPage implements OnInit {
     private toastCtrl: ToastController,
     public http: Http,
     public httpClient: HttpClient,
-    public spinnerHand : SpinnerHandlerService,
+    public spinnerHand: SpinnerHandlerService,
+    private storage: Storage,
   ) { }
+
+  ionViewDidEnter() {
+     this.misClases = new Array();
+     this.storage.get('mis-clases').then(misClases => {
+       misClases.forEach( clase => {
+         this.misClases.push(clase);
+       });
+     });
+  }
 
   //#region metodos de FCM
   envioPost() {
@@ -51,7 +64,7 @@ export class QrIngresoLocalPage implements OnInit {
     let tituloNotif = "Cliente en espera";
 
 
-    let bodyNotif = "El cliente " + usuarioLogueado.nombre + " se agregó a la lista de espera."; 
+    let bodyNotif = "El cliente " + usuarioLogueado.nombre + " se agregó a la lista de espera.";
 
     let header = this.initHeaders();
     let options = new RequestOptions({ headers: header, method: 'post'});
@@ -72,15 +85,15 @@ export class QrIngresoLocalPage implements OnInit {
     };
 
     console.log("Data: ", data);
-   
+
     return this.http.post(this.apiFCM, data, options).pipe(map(res => res.json())).subscribe(result => {
       console.log(result);
     });
 
-               
+
   }
 
-  
+
  private initHeaders(): Headers {
   let apiKey = 'key=AAAAN11vLtI:APA91bEwhXPo2yboIARzbRHmaQ72PwOfCvmkZsizri-KjBkpxb0cwKR9_y2oj2UkRG2IUm06u16HzJYYwatkqNSeeBjWOFhsq7iA4isVRY8E2_Y3NOvA0w5sBZw--8cMH2d1NDjdSllQ' ;
   var headers = new Headers();
@@ -103,17 +116,17 @@ export class QrIngresoLocalPage implements OnInit {
       this.mesas = d;
 
       if (this.esCliente() && this.estaEnMesa()) {
-        this.presentToast('Ya tiene una mesa asignada', 'verdeleon');
+        this.presentToast('Ya tiene una mesa asignada', 'ion-toast');
         this.router.navigate(['inicio']);
       }
     });
     this.traerListaEspera().subscribe((d: ListaEsperaClientesKey[]) => {
       // console.log('Tengo la lista de espera', d);
       this.listaEspera = d;
-      
+
       // console.log('Ya tengo las listas');
       if (this.esCliente() && this.estaEnLista()) {
-        this.presentToast('Ha sido agregado a la lista de espera', 'verdeleon');
+        this.presentToast('Ha sido agregado a la lista de espera', 'ion-toast');
         this.router.navigate(['inicio']);
       }
     });
@@ -153,7 +166,7 @@ export class QrIngresoLocalPage implements OnInit {
   public async presentToast(message: string, color: string) {
     this.toastCtrl.create({
       message,
-      
+      cssClass: 'ion-toast',
       showCloseButton: false,
       position: 'bottom',
       closeButtonText: 'Aceptar',
@@ -201,7 +214,7 @@ export class QrIngresoLocalPage implements OnInit {
       subHeader,
       message,
       buttons: ['Aceptar'],
-      cssClass:'avisoAlert'
+      cssClass: 'avisoAlert'
     }).then(a => { a.present(); });
   }
 
@@ -242,7 +255,7 @@ export class QrIngresoLocalPage implements OnInit {
           estado: 'confirmacionMozo',
           fecha: d.getTime(),
         };
-        
+
 
         this.enviarDatos(datos).then(docRef => {
           this.router.navigate(['/list-confirmar-cliente-mesa']); // Aún sin implementar

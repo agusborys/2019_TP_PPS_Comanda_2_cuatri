@@ -5,6 +5,7 @@ import { PedidoKey } from 'src/app/clases/pedido';
 import { map } from 'rxjs/operators';
 import { MesaKey } from 'src/app/clases/mesa';
 import { ModalPedidoPage } from '../modal-pedido/modal-pedido.page';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-confirmar-cierre-mesa',
@@ -13,16 +14,27 @@ import { ModalPedidoPage } from '../modal-pedido/modal-pedido.page';
 })
 export class ConfirmarCierreMesaPage implements OnInit {
   private pedidos: PedidoKey[] = new Array<PedidoKey>();
-
+  public misClases: any;
   constructor(
     private firestore: AngularFirestore,
     private toastCtrl: ToastController,
-    private modalCtrl: ModalController) { }
+    private modalCtrl: ModalController,
+    private storage: Storage,
+  ) { }
 
   ngOnInit() {
     this.traerPedidos().subscribe((p: PedidoKey[]) => {
       this.pedidos = p;
     });
+  }
+
+  ionViewDidEnter() {
+     this.misClases = new Array();
+     this.storage.get('mis-clases').then(misClases => {
+       misClases.forEach( clase => {
+         this.misClases.push(clase);
+       });
+     });
   }
 
   private traerPedidos() {

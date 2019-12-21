@@ -10,7 +10,7 @@
 </ion-header>
 
 <!-- ABM Producto -->
-<ion-content class="background-image ion-padding">
+<ion-content class="background-image" padding [ngClass]="misClases">
 
   <!-- <ion-card class="card-background" style="background-color:rgba(255, 255, 255, 0.8);"> -->
     <form [(formGroup)]="this.formMesas" (submit)="this.agregarMesas()"

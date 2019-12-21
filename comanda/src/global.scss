@@ -357,6 +357,13 @@ ion-alert.avisoAlert{
   text-align: center;
 }
 
+.ion-toast{
+  background-color: #edf7ee !important;//Blanco
+  color: #000000 !important;
+  // color: var(--ion-color-dark);
+  margin-right: 3px;
+}
+
 // NO TOCAR POR ESTILOS DINAMICOS
 .inputs{
   border-radius: 80px 80px 80px 80px;

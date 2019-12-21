@@ -5,6 +5,7 @@ import { ModalEncuestaPage } from '../modal-encuesta/modal-encuesta.page';
 import { map } from 'rxjs/operators';
 import { EmpleadoKey } from 'src/app/clases/empleado';
 import { ClienteKey } from 'src/app/clases/cliente';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-encuesta-sup',
@@ -14,10 +15,13 @@ import { ClienteKey } from 'src/app/clases/cliente';
 export class EncuestaSupPage implements OnInit {
   private empleados: any[];
   private clientes: any[];
+  public misClases: any;
 
   constructor(
     private firestore: AngularFirestore,
-    public modalController: ModalController) { }
+    public modalController: ModalController,
+    private storage: Storage,
+  ) { }
 
   ngOnInit() {
     this.filtrarEmpleados('empleados').subscribe((data: Array<EmpleadoKey>) => {
@@ -26,6 +30,15 @@ export class EncuestaSupPage implements OnInit {
     this.filtrarClientes('clientes').subscribe((data: Array<ClienteKey>) => {
       this.clientes = data;
     });
+  }
+
+  ionViewDidEnter() {
+     this.misClases = new Array();
+     this.storage.get('mis-clases').then(misClases => {
+       misClases.forEach( clase => {
+         this.misClases.push(clase);
+       });
+     });
   }
 
   public filtrarEmpleados(db: string) {

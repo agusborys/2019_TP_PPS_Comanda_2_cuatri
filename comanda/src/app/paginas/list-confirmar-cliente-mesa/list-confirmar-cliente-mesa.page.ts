@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 import { ModalClientePage } from '../modal-cliente/modal-cliente.page';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-list-confirmar-cliente-mesa',
@@ -18,13 +19,16 @@ import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service
 export class ListConfirmarClienteMesaPage implements OnInit {
   private esMozo = false; // : boolean
   private clientes = new Array<ListaEsperaClientesKey>();
-  private spinner:any=null;
+  private spinner: any = null;
+  public misClases: any;
+
   constructor(
     private firestore: AngularFirestore,
     private toastCtrl: ToastController,
     private modalCtrl: ModalController,
     private authServ: AuthService,
-    private spinnerHand : SpinnerHandlerService
+    private spinnerHand: SpinnerHandlerService,
+    private storage: Storage,
   ) { }
 
   async ngOnInit() {
@@ -42,6 +46,15 @@ export class ListConfirmarClienteMesaPage implements OnInit {
       this.clientes = this.clientes.sort(this.sortFecha);
     });
     this.spinner.dismiss();
+  }
+
+  ionViewDidEnter() {
+     this.misClases = new Array();
+     this.storage.get('mis-clases').then(misClases => {
+       misClases.forEach( clase => {
+         this.misClases.push(clase);
+       });
+     });
   }
 
   private sortFecha(a: any, b: any) {

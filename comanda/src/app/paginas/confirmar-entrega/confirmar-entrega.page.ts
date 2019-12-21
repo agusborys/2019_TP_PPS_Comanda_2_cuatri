@@ -13,6 +13,7 @@ import { MesaKey } from 'src/app/clases/mesa';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { Router } from '@angular/router';
 import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-confirmar-entrega',
@@ -23,7 +24,9 @@ export class ConfirmarEntregaPage implements OnInit {
   private pedidoEnLocal: PedidoKey = null;
   private pedidoDetalles: PedidoDetalleKey[] = null;
   private pedidoDelivery: PedidoDeliveryKey = null; // Cambiar a Pedido Delivery cuando se haga la clase
-  private spinner : any = null;
+  private spinner: any = null;
+  public misClases: any;
+
   constructor(
     private authServ: AuthService,
     private firestore: AngularFirestore,
@@ -31,13 +34,24 @@ export class ConfirmarEntregaPage implements OnInit {
     private scanner: BarcodeScanner,
     private alertCtrl: AlertController,
     private router: Router,
-    private spinnerHand : SpinnerHandlerService) { }
+    private spinnerHand: SpinnerHandlerService,
+    private storage: Storage,
+  ) { }
 
   public async ngOnInit() {
     this.spinner = await this.spinnerHand.GetAllPageSpinner();
     this.spinner.present();
     this.inicializarPedidos();
     this.spinner.dismiss();
+  }
+
+  ionViewDidEnter() {
+     this.misClases = new Array();
+     this.storage.get('mis-clases').then(misClases => {
+       misClases.forEach( clase => {
+         this.misClases.push(clase);
+       });
+     });
   }
 
   public inicializarPedidos() {
@@ -177,16 +191,16 @@ export class ConfirmarEntregaPage implements OnInit {
       header: `Propina seleccionada: ${propina}%`,
       subHeader: '¿Confirmar propina?',
       message: `Su precio total pasará de ser $${anterior} a ser $${total}`,
-      cssClass:'seleccionarAlert',
+      cssClass: 'seleccionarAlert',
       buttons: [
         {
-          cssClass:'button-Cancel',
+          cssClass: 'button-Cancel',
           text: 'Cancelar',
           role: 'cancel',
           handler: () => { }
         },
         {
-          cssClass:'button-Ok',
+          cssClass: 'button-Ok',
           text: 'Confirmar',
           handler: () => {
             this.actualizarPropina(propina);

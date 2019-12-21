@@ -8,6 +8,7 @@ import { PedidoDetalleKey } from 'src/app/clases/pedidoDetalle';
 import { ModalPedidoPage } from '../modal-pedido/modal-pedido.page';
 import { Http, Headers, Response, RequestOptions  } from '@angular/http';
 import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-list-confirmar-pedido',
@@ -17,13 +18,17 @@ import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service
 export class ListConfirmarPedidoPage implements OnInit {
   private pedidos: PedidoKey[];
   apiFCM = 'https://fcm.googleapis.com/fcm/send';
-  private spinner:any = null;
+  private spinner: any = null;
+  public misClases: any;
+
   constructor(
     private firestore: AngularFirestore,
     private toastCtrl: ToastController,
     private modalCtrl: ModalController,
     public http: Http,
-    private spinnerHand : SpinnerHandlerService) {
+    private spinnerHand: SpinnerHandlerService,
+    private storage: Storage,
+  ) {
   }
 
   async ngOnInit() {
@@ -34,6 +39,15 @@ export class ListConfirmarPedidoPage implements OnInit {
       this.pedidos = d.sort(this.compararFecha);
       this.spinner.dismiss();
     });
+  }
+
+  ionViewDidEnter() {
+     this.misClases = new Array();
+     this.storage.get('mis-clases').then(misClases => {
+       misClases.forEach( clase => {
+         this.misClases.push(clase);
+       });
+     });
   }
 
   //#region metodos de FCM

@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
 import { ModalRealizarPedidoPage } from '../modal-realizar-pedido/modal-realizar-pedido.page';
-
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-generar-pedido',
@@ -26,6 +26,8 @@ export class GenerarPedidoPage implements OnInit {
   private productosCandybar: ProductoKey[];
   private totalPedido = 0;
   private spinner = null;
+  public misClases: any;
+
   constructor(
     public modalCtrl: ModalController,
     public toastController: ToastController,
@@ -33,12 +35,29 @@ export class GenerarPedidoPage implements OnInit {
     private firestore: AngularFirestore,
     private router: Router,
     private authServ: AuthService,
-    private spinnerHand:SpinnerHandlerService,
+    private spinnerHand: SpinnerHandlerService,
+    private storage: Storage,
   ) { }
+
+  async ngOnInit() {
+    // this.traerProductos();
+    this.inicializarProductos();
+    // console.log('Entro al buscar mesas');
+    await this.traerMesa(this.authServ.user.correo);
+  }
+
+  ionViewDidEnter() {
+     this.misClases = new Array();
+     this.storage.get('mis-clases').then(misClases => {
+       misClases.forEach( clase => {
+         this.misClases.push(clase);
+       });
+     });
+  }
 
   // Trae los productos
   public async traerProductos() {
-    
+
     return this.firestore.collection('productos').get().toPromise().then((d: QuerySnapshot<any>) => {
       if (!d.empty) {
         const prodReturn = new Array<ProductoKey>();
@@ -74,14 +93,6 @@ export class GenerarPedidoPage implements OnInit {
       this.spinner.dismiss();
       // console.log(this.productosCocina);
     });
-  }
-
-
-  async ngOnInit() {
-    // this.traerProductos();
-    this.inicializarProductos();
-    // console.log('Entro al buscar mesas');
-    await this.traerMesa(this.authServ.user.correo);
   }
 
   restarProducto(key: string) {
@@ -295,9 +306,9 @@ export class GenerarPedidoPage implements OnInit {
           component: ModalRealizarPedidoPage,
           componentProps:{
             productosPedidos,
-            pedido,   
+            pedido,
             mesaDelPedido,
-            
+
           }
         }).then(modal=>{
           modal.present();

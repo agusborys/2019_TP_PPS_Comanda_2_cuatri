@@ -7,6 +7,7 @@ import { AngularFirestore, QuerySnapshot } from '@angular/fire/firestore';
 import { AuthService } from '../../servicios/auth.service';
 import { SpinnerHandlerService } from 'src/app/servicios/spinner-handler.service';
 import { Producto } from 'src/app/clases/producto';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-abm-producto',
@@ -17,16 +18,18 @@ export class AbmProductoPage implements OnInit {
   private formMesas: FormGroup;
   private fotos: Array<string>;
   private spinner : any = null;
+  public misClases: any;
 
   constructor(
     private camera: Camera,
     private alertCtrl: AlertController,
     /*  private scanner: BarcodeScanner, */
     private toastController: ToastController,
-    private storage: AngularFireStorage,
+    private afStorage: AngularFireStorage,
     private firestore: AngularFirestore,
     private authService: AuthService,
-    private spinnerHand : SpinnerHandlerService,
+    private spinnerHand: SpinnerHandlerService,
+    private storage: Storage,
   ) { }
 
     existe: boolean;//aca se va a guardar el booleano que indica si un producto ya existe en la base
@@ -42,6 +45,15 @@ export class AbmProductoPage implements OnInit {
     this.fotos = new Array<string>();
     // console.log(this.authService.tipoUser);
 
+  }
+
+  ionViewDidEnter() {
+     this.misClases = new Array();
+     this.storage.get('mis-clases').then(misClases => {
+       misClases.forEach( clase => {
+         this.misClases.push(clase);
+       });
+     });
   }
 
   public async tomarFoto() {
@@ -141,7 +153,7 @@ export class AbmProductoPage implements OnInit {
       // No existe el producto, se carga.
       for (let foto of this.fotos) {
         const filename: string = datos.nombre + '_' + contador;
-        const imageRef: AngularFireStorageReference = this.storage.ref(`productos/${filename}.jpg`);
+        const imageRef: AngularFireStorageReference = this.afStorage.ref(`productos/${filename}.jpg`);
         foto = this.obtenerFotoOriginal(foto);
         await imageRef.putString(foto, 'base64', { contentType: 'image/jpeg' })
           .then(async (snapshot) => {

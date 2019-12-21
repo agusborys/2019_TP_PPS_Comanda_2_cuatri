@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { ToastController, ModalController } from '@ionic/angular';
 import { PedidoKey } from 'src/app/clases/pedido';
 import { ModalPedidoPage } from '../modal-pedido/modal-pedido.page';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-confirmar-entrega-mozo',
@@ -12,14 +13,26 @@ import { ModalPedidoPage } from '../modal-pedido/modal-pedido.page';
 })
 export class ConfirmarEntregaMozoPage implements OnInit {
   private pedidos: PedidoKey[] = new Array<PedidoKey>();
+  public misClases: any;
 
   constructor(
     private firestore: AngularFirestore,
     private toastCtrl: ToastController,
-    private modalCtrl: ModalController) { }
+    private modalCtrl: ModalController,
+    private storage: Storage,
+  ) { }
 
   public async ngOnInit() {
     this.inicializarPedidos();
+  }
+
+  ionViewDidEnter() {
+     this.misClases = new Array();
+     this.storage.get('mis-clases').then(misClases => {
+       misClases.forEach( clase => {
+         this.misClases.push(clase);
+       });
+     });
   }
 
   public inicializarPedidos() {

@@ -55,13 +55,12 @@ export class LoginPage implements OnInit {
     private theme: ThemeService,
     private storage: Storage
   ) {
-
+    this.theme.verificarEstilo();
   }
 
   ngOnInit() {
     this.correo = '';
     this.clave = '';
-    this.theme.verificarEstilo();
   }
 
 

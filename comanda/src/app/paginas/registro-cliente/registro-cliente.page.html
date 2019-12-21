@@ -10,7 +10,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding [ngClass]="misClases">
     <div [hidden]="ocultarSeccion0" class="width-100 height-100 margin-top-9" >
         <ion-button expand="block" class="botones-grandes" (click)="ElegirCliente('cliente')">
             <img class="icon-img" src="../../../assets/icon/usuario.png">Quiero ser cliente!

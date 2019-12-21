@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="this.esMozo">
+<ion-content *ngIf="this.esMozo" padding [ngClass]="misClases">
   <div *ngIf="this.clientes.length> 0">
     <ion-card  class="ion-card-style">
       <ion-card-content>
@@ -54,7 +54,7 @@
     </ion-card-content>
   </ion-card>
 </ion-content>
-<ion-content *ngIf="!this.esMozo">
+<ion-content *ngIf="!this.esMozo"  padding [ngClass]="misClases">
   <div *ngIf="this.clientes.length> 0">
         <div *ngFor="let cliente of clientes">
         <ion-card class="ion-card-style">

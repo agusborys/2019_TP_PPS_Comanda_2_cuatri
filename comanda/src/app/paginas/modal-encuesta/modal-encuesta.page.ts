@@ -5,7 +5,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { ModalController, ToastController, AlertController } from '@ionic/angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/auth';
-
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-modal-encuesta',
@@ -17,13 +17,16 @@ export class ModalEncuestaPage implements OnInit {
   private tipo: string;
   private user: ClienteKey | EmpleadoKey;
   public formEncuesta: FormGroup;
+  public misClases: any;
 
   constructor(
     private firestore: AngularFirestore,
     private modalCtrl: ModalController,
     private toastController: ToastController,
     private alertCtrl: AlertController,
-    private auth: AngularFireAuth) { }
+    private auth: AngularFireAuth,
+    private storage: Storage,
+  ) { }
 
   ngOnInit() {
     let auxDB: AngularFirestoreCollection<unknown> = null;
@@ -50,6 +53,15 @@ export class ModalEncuestaPage implements OnInit {
       recomendacionCtrl: new FormControl(this.tipo === 'empleado' ? '' : false, Validators.required),
       frequenciaCtrl: new FormControl(this.tipo === 'cliente' ? '' : false, Validators.required),
     });
+  }
+
+  ionViewDidEnter() {
+     this.misClases = new Array();
+     this.storage.get('mis-clases').then(misClases => {
+       misClases.forEach( clase => {
+         this.misClases.push(clase);
+       });
+     });
   }
 
   public traertodos(db: string) {
